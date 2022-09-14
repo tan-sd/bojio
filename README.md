@@ -1,3 +1,3 @@
 # OpenJio
 
-Singapore Management University - Web Application Development II Project
+Singapore Management University - Web Application Development II Projectg
