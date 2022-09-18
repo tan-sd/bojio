@@ -116,8 +116,20 @@ window.onload = function() {
 }
 
 const eventName = document.getElementById('eventName');
-fetch(`https://www.eventbriteapi.com/v3/events/390452342467/?token=BXCX5BYSZT4CNPNSUFE2`)
+fetch(`https://www.eventbriteapi.com/v3/events/366597933287/?token=BXCX5BYSZT4CNPNSUFE2`)
 .then((response) => response.json())
 .then ((data) => {
   eventName.innerText = data.name.text;
+})
+
+const objectCount = document.getElementById('objectCount');
+fetch(`/raw_response_eventbrite.json`)
+.then((response) => response.json())
+.then((data) => {
+  // objectCount.innerText = data.pagination.object_count
+  var count = data.pagination.object_count;
+  console.log(count)
+  for (i=0; i < count-1; i++) {
+    objectCount.innerText += data.events[i].name + '\n'
+  }
 })
