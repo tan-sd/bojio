@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create a Jio</title>
+    <!-- Bootstrap CSS -->
+    <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css' 
+        rel='stylesheet' integrity='sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx' 
+        crossorigin='anonymous'>
+    
+</head>
+<body>
+    <link rel="stylesheet" href="style.css">
+    
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-sm navbar-light">
+            <a class="navbar-brand orange" href="#">OpenJio</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                      <a class="nav-link" aria-current="page" href="#">home</a>
+                      <a class="nav-link" href="#">create a jio</a>
+                      <a class="nav-link" href="#">about</a>
+                      <a class="nav-link" href="#">register</a>
+                      <a class="nav-link" href="#">login</a>
+                    </div>
+                  </div>
+                </div>
+              </nav>
+
+        <h1 class="text-center " id ='header'>Create a Jio</h1>
+
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-5">
+                <form>
+                    <div class="form-row">
+                      <div class="form-group col-md-6 pb-1">
+                        <label for="email" class ='pb-2'>Email</label>
+                        <input type="email" class="form-control" id="email" placeholder="Email">
+                      </div>
+                      <div class="form-group col-md-6 pb-1">
+                        <label for="password" class ='pb-2'>Password</label>
+                        <input type="password" class="form-control" id="password" placeholder="Password">
+                      </div>
+                    </div>
+                    <div class='mb-3 col-6'>
+                        <label for='exampleFormControlTextarea1' class='form-label'>Description</label>
+                        <textarea class='form-control' id='exampleFormControlTextarea1' rows='3'></textarea>
+                    </div>
+                    
+                    Type of Event:
+                    <div class="form-check">   
+                        <!-- cannot make one horizontal line -->
+                        
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" >
+                        <label class="form-check-label" for="exampleRadios1">
+                          Public
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                        <label class="form-check-label" for="exampleRadios2">
+                          Private
+                        </label>
+                      </div>
+                      <br><br><br>
+                    <div class="form-group">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="gridCheck">
+                        <label class="form-check-label" for="gridCheck">
+                          Keep me updated with the latest events
+                        </label>
+                      </div>
+                    </div>
+                    
+                    <button type="submit" class="btn orange border border-3">Create Jio!</button>
+                  </form>
+
+            </div>
+          
+            <!-- right column here -->
+            <!-- MY WORDS CANNOT ALIGN CENTER -->
+            <div class="col-5 align-items-center" style="border-left:1px solid black; vertical-align:middle;">
+                <h1><span class="typeout orange mx-auto"></span></h1>
+            </div>
+        </div>
+    </div>
+    
+
+    <!-- Bootstrap Javascript -->
+    <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js' 
+        integrity='sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa' 
+        crossorigin='anonymous'>
+    
+
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    
+    <script>
+         //to make the words come in one by one
+        var typed = new Typed('.typeout', {
+            strings:['dont say bojio','lessgo makan later', 'lim kopi ai mai'],
+            typeSpeed: 150,
+            backSpeed: 150,
+            loop: true
+        })
+
+    </script>
+
+</body>
+</html>
