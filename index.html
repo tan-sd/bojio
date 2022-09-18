@@ -14,12 +14,12 @@
 
     <!-- navbar -->
     <div class="container-fluid">
-    <nav class="navbar navbar-expand-sm navbar-light">
-    <a class="navbar-brand orange" href="#">OpenJio</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <nav class="navbar navbar-expand-sm navbar-light">
+        <a class="navbar-brand orange" href="#">OpenJio</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
               <a class="nav-link" aria-current="page" href="#">home</a>
               <a class="nav-link" href="#">create a jio</a>
@@ -28,25 +28,78 @@
               <a class="nav-link" href="#">login</a>
             </div>
           </div>
-        </div>
       </nav>
+    </div>
 
-    <!-- "where anyone is invited anywhere part" -->
+
+    <!-- "where anyone is invited anywhere part start" -->
     <div>
         <!-- maybe can make shrink when screen size decrease? -->
         <div class="text-center" id="banner-header">
             where anyone is invited anywhere.
         </div>
-        <div class="text-center" id="banner-text">
+        <div class="text-center" id="banner-header-text">
             Derived from the Singaporean phrase, OpenJio is a platform where individuals can make new friends by hosting or attending events of similar interest. 
         </div>
-        <div class="text-center">
-            <button type="button" class="btn" id="banner-btn">Jio people to an event</button>
+        
+        <!-- how does it work section start -->
+        <div class="text-center" id="banner-instruction">
+          how does it work?
         </div>
-    </div>
+
+          <div class="container orange">
+
+            <div class="row ">
+              <!-- card 1 -->
+              <div class="card col card-css">
+                <div class="card-body">
+                    <h5 class="card-title">Step 1</h5>
+                    <p class="card-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit similique, possimus</p>
+                </div>
+              </div>
+              <!-- arrow (might remove this if i think its ugly)-->
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right col-1 arrow" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+              </svg>
+          
+              <!-- card 2 -->
+              <div class="card col card-css" style="width: 18rem;">
+                <div class="card-body">
+                  <h5 class="card-title">Step 2</h5>
+                  <p class="card-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit similique, possimus </p>
+                </div>
+              </div>
+              <!-- arrow -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right col-1 arrow" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+              </svg>
+          
+              <!-- card 3 -->
+              <div class="card col card-css" style="width: 18rem;">
+                <div class="card-body">
+                  <h5 class="card-title">Step 3</h5>
+                  <p class="card-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit similique, possimus</p>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- how does it work section end -->
+
+          <div class="text-center">
+              <button type="button" class="btn" id="banner-btn"><span>Jio people to an event</span></button>
+          </div>
+
+        
+  </div>
+    <!-- "where anyone is invited anywhere part end" -->
+
 
     <!-- <div id="map"></div>
-
+      
     <div id="eventName"></div>
 
     <div id="objectCount"></div> -->

@@ -21,21 +21,48 @@ nav .navbar-nav a{
     padding-top: 50px;
 }
 
+/* HOMEPAGE STUFF START */
 /* where anyone is invited anywhere*/
 #banner-header{
     color:rgb(255, 127, 45);
     font-size:300%;
     font-weight:bold;
+    padding-top: 10%;
 }
 
 /* Derived from the Singaporean... text*/
-#banner-text{
+#banner-header-text{
     color:rgb(255, 127, 45);
     font-weight: 500;
     font-size: 150%;
     padding-left: 100px;
     padding-right: 100px;
+    padding-top: 50px;
+}
 
+/* how does it work?*/
+#banner-instruction{
+    color:rgb(255, 127, 45);
+    font-weight: 700;
+    font-size: 200%;
+    padding-left: 100px;
+    padding-right: 100px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+/* cards */
+.card-css{
+    border-color:rgb(255, 127, 45);
+}
+
+.card-css:hover{
+    background-color: rgb(255, 127, 45);
+    color: white;
+}
+
+.arrow{
+    transform: translateY(500%);
 }
 
 /* banner button */
@@ -52,6 +79,7 @@ nav .navbar-nav a{
     border: solid 2px rgb(255, 127, 45);
 }
 
+/* banner button hover effects */
 #banner-btn:hover{
     margin-top: 30px;
     padding-left: 30px;
@@ -64,3 +92,16 @@ nav .navbar-nav a{
     background-color:white;
     border: solid 2px rgb(255, 127, 45);
 }
+
+#banner-btn:hover span{
+    display: none;
+}
+
+#banner-btn:hover:before {
+    content: "LET'S GO!";
+  }
+
+
+
+/* HOMEPAGE STUFF END */
+
