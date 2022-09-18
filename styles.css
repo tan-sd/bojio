@@ -15,13 +15,52 @@ nav .navbar-nav a{
     color:rgb(255, 127, 45);
 }
 
-/* where anyone is invited anywhere */
+/* navbar shift left */
+.navbar-nav {
+    margin-left: auto;
+    padding-top: 50px;
+}
+
+/* where anyone is invited anywhere*/
 #banner-header{
     color:rgb(255, 127, 45);
     font-size:300%;
     font-weight:bold;
 }
 
-.navbar-nav {
-    margin-left: auto;
+/* Derived from the Singaporean... text*/
+#banner-text{
+    color:rgb(255, 127, 45);
+    font-weight: 500;
+    font-size: 150%;
+    padding-left: 100px;
+    padding-right: 100px;
+
+}
+
+/* banner button */
+#banner-btn{
+    margin-top: 30px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color:white;
+    font-weight: 500;
+    font-size: 150%;
+    background-color:rgb(255, 127, 45);
+    border: solid 2px rgb(255, 127, 45);
+}
+
+#banner-btn:hover{
+    margin-top: 30px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color:rgb(255, 127, 45);
+    font-weight: 500;
+    font-size: 150%;
+    background-color:white;
+    border: solid 2px rgb(255, 127, 45);
 }
