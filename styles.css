@@ -22,8 +22,8 @@ nav .navbar-nav a{
 }
 
 /* HOMEPAGE STUFF START */
-/* where anyone is invited anywhere*/
-#banner-header{
+/* big texts*/
+h1{
     color:rgb(255, 127, 45);
     font-size:300%;
     font-weight:bold;
@@ -41,7 +41,7 @@ nav .navbar-nav a{
 }
 
 /* how does it work?*/
-#banner-instruction{
+h2{
     color:rgb(255, 127, 45);
     font-weight: 700;
     font-size: 200%;
@@ -54,6 +54,8 @@ nav .navbar-nav a{
 /* cards */
 .card-css{
     border-color:rgb(255, 127, 45);
+    margin-right: 5%;
+    margin-left: 5%;
 }
 
 .card-css:hover{
