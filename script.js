@@ -84,9 +84,6 @@ window.onload = function() {
   //Initialize the Direction Service
   var service = new google.maps.DirectionsService();
 
-
-
-
   //Loop and Draw Path Route between the Points on MAP
   for (var i = 0; i < lat_lng.length; i++) {
     if ((i + 1) < lat_lng.length) {
@@ -117,3 +114,10 @@ window.onload = function() {
     }
   }
 }
+
+const eventName = document.getElementById('eventName');
+fetch(`https://www.eventbriteapi.com/v3/events/390452342467/?token=BXCX5BYSZT4CNPNSUFE2`)
+.then((response) => response.json())
+.then ((data) => {
+  eventName.innerText = data.name.text;
+})
