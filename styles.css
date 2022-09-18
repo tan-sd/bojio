@@ -15,7 +15,7 @@ nav .navbar-nav a{
     color:rgb(255, 127, 45);
 }
 
-/* where anyone is invited anywhere */
+/* where anyone is invited anywhere*/
 #banner-header{
     color:rgb(255, 127, 45);
     font-size:300%;
@@ -24,4 +24,15 @@ nav .navbar-nav a{
 
 .navbar-nav {
     margin-left: auto;
+    padding-top: 50px;
+}
+
+/* Derived from the Singaporean... text*/
+#banner-text{
+    color:rgb(255, 127, 45);
+    font-weight: 500;
+    font-size: 150%;
+    padding-left: 100px;
+    padding-right: 100px;
+
 }
