@@ -4,3 +4,20 @@
     left: 50%;
     transform: translate(-50%);
 }
+
+/* for anything that doesn't turn orange */
+.orange{
+    color:rgb(255, 127, 45);
+}
+
+/* orange navbar items */
+nav .navbar-nav a{
+    color:rgb(255, 127, 45);
+}
+
+/* where anyone is invited anywhere */
+#banner-header{
+    color:rgb(255, 127, 45);
+    font-size:300%;
+    font-weight:bold;
+}
