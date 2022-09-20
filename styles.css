@@ -1,3 +1,24 @@
+@font-face {
+    font-family: josefin-bold;
+    src: url(./fonts/josefin-sans/JosefinSans-Bold.ttf);
+}
+
+@font-face {
+    font-family: josefin-regular;
+    src: url(./fonts/josefin-sans/JosefinSans-Regular.ttf);
+}
+
+@font-face {
+    font-family: neoneon;
+    src: url(./fonts/neoneon/Neoneon.otf);
+}
+
+/* logo */
+.navbar-brand {
+    font-family: neoneon;
+    font-size: 6vmin;
+}
+
 #map {
     height: 400px;
     width: 50%;
@@ -18,30 +39,32 @@ nav .navbar-nav a{
 /* navbar shift left */
 .navbar-nav {
     margin-left: auto;
-    padding-top: 50px;
 }
 
 /* HOMEPAGE STUFF START */
 /* big texts*/
-h1 {
+
+/* where anyone is invited anywhere */
+.banner-header {
+    font-family: josefin-bold;
     color:rgb(255, 127, 45);
-    font-size:300%;
-    font-weight:bold;
-    padding-top: 10%;
+    font-size: 8vmin;
+    line-height: 10vmin;
 }
 
-/* Derived from the Singaporean... text*/
-#banner-header-text{
-    color:rgb(255, 127, 45);
-    font-weight: 500;
-    font-size: 150%;
-    padding-left: 100px;
-    padding-right: 100px;
-    padding-top: 50px;
+/* Derived from the Singaporean... */
+.banner-text {
+    font-family: josefin-regular;
+    color: black;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+    width: 50%;
+    font-size: 2.5vmin;
 }
 
 /* how does it work?*/
-h2{
+/* h2{
     color:rgb(255, 127, 45);
     font-weight: 700;
     font-size: 200%;
@@ -49,7 +72,7 @@ h2{
     padding-right: 100px;
     padding-top: 50px;
     padding-bottom: 50px;
-}
+} */
 
 /* cards */
 .card-css{
