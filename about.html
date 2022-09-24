@@ -8,7 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link rel="stylesheet" href="styles.css">
     <script src="script.js" defer></script>
-    <title>BoJio?</title>
+    <title>About - BoJio?</title>
 </head>
 <body>
 
@@ -47,7 +47,7 @@
           <h2>how does it work?</h2>
         </div>
 
-        <div class="container orange">
+        <div class="container">
 
           <div class="row">
             <!-- card 1 -->
@@ -82,7 +82,9 @@
           <!-- how does it work section end -->
 
           <div class="text-center">
-              <button type="button" class="btn" id="banner-btn"><span>Jio people to an event</span></button>
+            <!-- need to create 'if logged in, redirect to create a jio, else, redirect to login page' -->
+            <!-- also need to create restriction if they try to access create a jio directly, they have to login  -->
+            <button type="button" class="btn" id="banner-btn" onclick="window.location.href='./createajio.html';"><span>Jio people to an event</span></button>
           </div>
     </div>
 

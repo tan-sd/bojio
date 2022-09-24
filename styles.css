@@ -39,7 +39,7 @@ nav .navbar-nav a{
     margin-left: auto;
 }
 
-/* HOMEPAGE STUFF START */
+/* ABOUT START */
 /* big texts*/
 
 /* where anyone is invited anywhere */
@@ -116,17 +116,45 @@ nav .navbar-nav a{
     border: solid 2px rgb(255, 127, 45);
 }
 
-#banner-btn:hover span{
-    display: none;
-}
 
-#banner-btn:hover:before {
-    content: "LET'S GO!";
+/* ABOUT END */
+
+/* HOMEPAGE START */
+.card {
+    height: 200px;
+    width: 300px;
+    border-radius: 5px;
+    border: 2px solid black;
   }
 
+.slider-container {
+width: 100%;
+height: 300px;
+position: absolute;
+left: 50%;
+transform: translate(-50%, -50%);
+overflow: hidden;
+}
+
+.upper-carousel{
+top: 330px;
+}
+
+.lower-carousel{
+top: 660px;
+}
 
 
-/* HOMEPAGE STUFF END */
+.inner-slider {
+width: 150%;
+display: flex;
+gap: 10px;
+pointer-events: none;
+position: relative;
+top: 0%;
+left: 0%;
+}
+/* HOMEPAGE END */
 
 /* REGISTER PAGE START */
 
