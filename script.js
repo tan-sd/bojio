@@ -1,19 +1,19 @@
-// function initMap() {
+function initMap() {
 
-// var uluru = {
-//     lat: 1.2977912298757994,
-//     lng: 103.84941367049149
-// };
+var uluru = {
+    lat: 1.2977912298757994,
+    lng: 103.84941367049149
+};
 
-// var map = new google.maps.Map (
-//     document.getElementById('map'), {
-//         zoom: 15, center: uluru
-//     });
+var map = new google.maps.Map (
+    document.getElementById('map'), {
+        zoom: 15, center: uluru
+    });
 
-// var marker = new google.maps.Marker( {
-//         position: uluru, map: map
-//     });
-// }
+var marker = new google.maps.Marker( {
+        position: uluru, map: map
+    });
+}
 
 var markers = [{
     "timestamp": 'Alibaug',
@@ -78,7 +78,7 @@ window.onload = function() {
   map.setCenter(latlngbounds.getCenter());
   map.fitBounds(latlngbounds);
 
-  //***********ROUTING****************//
+  // ***********ROUTING****************//
 
 
   //Initialize the Direction Service
@@ -205,24 +205,84 @@ addthis = ''
 
 
 
-{/* <div class='card' style='width: 18rem;'>
-<img src='./img/emo.png' class='card-img-top'>
-<div class='card-body'>
-  <h5 class='card-title'>Card title</h5>
-  <p class='card-text'>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-  <a href='http://sunjun.site' class='btn btn-primary'>Go somewhere</a>
-</div>
-</div> */}
+// {/* <div class='card' style='width: 18rem;'>
+// <img src='./img/emo.png' class='card-img-top'>
+// <div class='card-body'>
+//   <h5 class='card-title'>Card title</h5>
+//   <p class='card-text'>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+//   <a href='http://sunjun.site' class='btn btn-primary'>Go somewhere</a>
+// </div>
+// </div> */}
 
-{/* <div class="slider-container upper-carousel">
-      <h1>Upcoming Events</h1>
-      <div class="inner-slider">
-        <div class="card"></div>
-        <div class="card"></div>
-        <div class="card"></div>
-        <div class="card"></div>
-        <div class="card"></div>
-        <div class="card"></div>
-        <div class="card"></div>
-      </div>
-    </div> */}
+// {/* <div class="slider-container upper-carousel">
+//       <h1>Upcoming Events</h1>
+//       <div class="inner-slider">
+//         <div class="card"></div>
+//         <div class="card"></div>
+//         <div class="card"></div>
+//         <div class="card"></div>
+//         <div class="card"></div>
+//         <div class="card"></div>
+//         <div class="card"></div>
+//       </div>
+//     </div> */}
+// })
+
+// registration form validation
+
+function securityCheck(){
+  msg='';
+  var username=document.getElementById('name').value;
+  var password=document.getElementById('password').value;
+  var checkpassword=document.getElementById('checkpassword').value;
+
+  console.log(username)
+  console.log(password)
+  console.log(checkpassword)
+
+  function containsSpecialChars(str) {
+  const specialChars =
+    '[`!@#$%^&*()_+-=[]{};\':"\\|,.<>/?~]/';
+  return specialChars
+    .split('')
+    .some((specialChar) => str.includes(specialChar));
+  }
+  
+  
+
+  if(username.length<8 || containsSpecialChars(username)){
+    msg+='Please enter a valid username \n'
+  }
+  if(password!=checkpassword){
+    msg+='Password and confirm password mismatch\n';
+  }
+  console.log(msg);
+  if(msg!=''){
+    alert(msg);
+  }
+
+}
+
+// adding event
+var count=0;
+var activityTable=`<table><tr><th>No.</th><th>Activity</th><th>location</th><th>Duration</th></tr>`
+function update(){
+  var name=document.getElementById('activityName').value;
+  var location=document.getElementById('location').value;
+  var duration=document.getElementById('activityDuration').value;
+  if(name=='' && location=='' && duration==''){
+    alert('Please do not leave any fields empty');
+  }
+  if (isNaN(duration)){
+    alert('Please enter a valid duration');
+  }
+  else{
+    count+=1;
+    activityTable+=`<tr><td>${count}</td><td>${name}</td><td>${location}</td><td>${duration}</td></tr>`
+  }
+  var placeholder=document.getElementById('result');
+  placeholder.innerHTML=activityTable+`</table>`;
+}
+
+
+

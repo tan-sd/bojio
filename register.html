@@ -57,10 +57,10 @@
                           <input type="text" class="form-control" id="name" placeholder="username">
                         </div>
                         <div class="register-form-field form-group col pt-3" style="width: 200px">
-                          <input type="password" class="form-control" id="location" placeholder="password">
+                          <input type="password" class="form-control" id="password" placeholder="password">
                         </div>
                         <div class="register-form-field form-group col pt-3" style="width: 200px">
-                          <input type="password" class="form-control" id="date" placeholder="confirm password">
+                          <input type="password" class="form-control" id="checkpassword" placeholder="confirm password">
                         </div>
                         
                       </div>
@@ -74,7 +74,7 @@
                       </div>
                     </div>
                     
-                    <button type="submit" style="background-color: rgb(255, 127, 45); color: white" class="btn orange border border-3 mt-4 rounded-5">Sign up</button> <!-- replace this with an arrow shape or img -->
+                    <button type="submit" style="background-color: rgb(255, 127, 45); color: white" class="btn orange border border-3 mt-4 rounded-5" onclick="securityCheck()">Sign up</button> <!-- replace this with an arrow shape or img -->
                   </form>
             </div>
 
@@ -84,7 +84,8 @@
                 </h1>
             </div> -->
           
-            <div class="col-3"></div>
+            <div class="col-3" id="errors">
+            </div>
             
         </div>
       </div>
@@ -103,12 +104,16 @@
  
     <script>
       //to make the words come in one by one
-     var typed = new Typed('.typeout', {
-         strings:['dont say bojio','lessgo makan later', 'lim kopi ai mai'],
-         typeSpeed: 150,
-         backSpeed: 150,
-         loop: true
-     })
+    // var typed = new Typed('.typeout', {
+    //      strings:['dont say bojio','lessgo makan later', 'lim kopi ai mai'],
+    //      typeSpeed: 150,
+    //      backSpeed: 150,
+    //      loop: true
+    // })
+
+
+    
+
 
     </script>
 </body>

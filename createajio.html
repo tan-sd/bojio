@@ -9,6 +9,11 @@
     <link rel="stylesheet" href="styles.css">
     <script src="script.js" defer></script>
     <title>Create a Jio</title>
+    <style>
+      table, tr, th {
+        border: 1px solid;
+      }
+    </style>
 </head>
 <body>
     
@@ -50,15 +55,12 @@
                           <input type="text" class="form-control" id="name" placeholder="event name">
                         </div>
                         <div class="form-group col-md-6 pb-1">
-                          <!-- <label for="location" class ='pb-2'>Location</label> -->
-                          <input type="text" class="form-control" id="location" placeholder="location">
-                        </div>
-                        <div class="form-group col-md-6 pb-1">
                           <!-- <label for="date" class ='pb-2'>Date</label> -->
                           <input type="date" class="form-control" id="date" placeholder="date">
                         </div>
-                        
-                      </div>
+    
+                    </div>
+                    <br>
                     
                     Type of Event:
                     <div class="form-check">   
@@ -75,7 +77,30 @@
                           Private
                         </label>
                       </div>
-                      <br><br><br>
+                      <br>
+                      <div class="form-row">
+                      <h3>Activities</h3>  
+                      <div class="form-group col-md-6 pb-1">
+                        <!-- <label for="location" class ='pb-2'>Location</label> -->
+                        <input type="text" class="form-control" id="activityName" placeholder="Name of activity">
+                      </div>
+                      <div class="form-group col-md-6 pb-1">
+                        <!-- <label for="location" class ='pb-2'>Location</label> -->
+                        <input type="text" class="form-control" id="location" placeholder="Location">
+                      </div>
+                      <div class="form-group col-md-6 pb-1">
+                        <!-- <label for="location" class ='pb-2'>Location</label> -->
+                        <input type="text" class="form-control" id="activityDuration" placeholder="Duration (mins)">
+                      </div>
+                      <button type="submit" class="btn orange border border-3" id="addEvent" onclick="update()">Add event!</button>
+                    </div>
+                    <br>
+                    
+                    <div class="row" id="result">
+                      <h5>You have no activities yet</h5>
+                    </div>
+
+                    <br>
                     <div class="form-group">
                       <div class="form-check">
                         <input class="form-check-input" type="checkbox" id="gridCheck">
@@ -85,8 +110,8 @@
                       </div>
                     </div>
                     
-                    <button type="submit" class="btn orange border border-3">Create Jio!</button>
-                  </form>
+                    <button type="submit" class="btn orange border border-3" id="createJio">Create Jio!</button>
+              </form>
 
             </div>
 
