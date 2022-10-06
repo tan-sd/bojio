@@ -116,7 +116,8 @@ window.onload = function() {
 }
 
 //to get event brite data
-const eventName = document.getElementById('eventName');
+var eventName = document.getElementById('eventName');
+console.log(eventName);
 fetch(`https://www.eventbriteapi.com/v3/events/366597933287/?token=BXCX5BYSZT4CNPNSUFE2`)
 .then((response) => response.json())
 .then ((data) => {
