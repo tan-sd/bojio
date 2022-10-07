@@ -116,15 +116,17 @@ window.onload = function() {
 }
 
 //to get event brite data
-var eventName = document.getElementById('eventName');
-console.log(eventName);
-fetch(`https://www.eventbriteapi.com/v3/events/366597933287/?token=BXCX5BYSZT4CNPNSUFE2`)
-.then((response) => response.json())
-.then ((data) => {
-  eventName.innerText = data.name.text;
-})
+// var eventName = document.getElementById('eventName');
+// console.log(eventName);
+// fetch(`https://www.eventbriteapi.com/v3/events/366597933287/?token=BXCX5BYSZT4CNPNSUFE2`)
+// .then((response) => response.json())
+// .then ((data) => {
+//   eventName.innerText = data.name.text;
+// })
 
 // var objectCount = document.getElementById('objectCount');
+
+//this is for main.html only (upcoming events)
 fetch(`json/raw_response_(3).json`)
 .then((response) => response.json())
 .then((data) => {
@@ -138,6 +140,7 @@ fetch(`json/raw_response_(3).json`)
   console.log(inner_div);
   
   var allevents = data.events
+  console.log(allevents);
 
   for(indiv_event of allevents){
     var card = document.createElement('div')
@@ -159,44 +162,37 @@ fetch(`json/raw_response_(3).json`)
     <a href='${organiser}' target = '_blank' class='btn btn-primary'>Original website</a>
 
     `
-    console.log(name, image, startdate, organiser);
+    // console.log(name, image, startdate, organiser);
     card.innerHTML = addthis
-    console.log(card);
+    // console.log(card); 
     inner_div.appendChild(card)
   }
 
   
-  // var addthis = ''
-  // var tbody = document.getElementsByTagName('tbody')[0]
-  // //loop through object to find key
-  // for( i in objectname){
-  //    var tr = document.createElement('tr')
-  //    var cellone = i
-  //    var celltwo= objectname[i]key
-  //    var cell3 = objectname[i]key
-  //    var cell4 = objectname[i]key
-  //    //var percentage = fit/popln * 100
-  //    //percentage = percentage.toFixed(1)
-  //    tbody.appendChild(tr)
-     
-  //    addthis += ` <tr> 
-  //        <td>${{2:cellone}}</td>
-  //        <td>${celltwo}</td>
-  //        <td>${cell3}</td>
-  //        </tr>`
-  //    tr.innerHTML = addthis 
-  //    tbody.appendChild(tr)
-  //    addthis = ''
-  // console.log(inner_div.innerHTML);
-
-  
-  // console.log(image);
-  // console.log(count)
-  // for (i=0; i < count-1; i++) {
-  //   objectCount.innerText += data.events[i].name + '\n'
-  // }
 })
 
+//function to loop through all files
+// const path = require('path');
+// const fs = require('fs');
+// //joining path of directory 
+// const directoryPath = path.join(__dirname, 'Documents');
+// //passsing directoryPath and callback function
+// fs.readdir(directoryPath, function (err, files) {
+//     //handling error
+//     if (err) {
+//         return console.log('Unable to scan directory: ' + err);
+//     } 
+//     //listing all files using forEach
+//     files.forEach(function (file) {
+//         // Do whatever you want to do with the file
+//         console.log(file); 
+//     });
+// });
+
+function filecheck ()
+{
+
+}
 var div = document.getElementsByClassName('slider-container upper-carousel')[0]
 console.log(div);
 
