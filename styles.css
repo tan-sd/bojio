@@ -179,4 +179,16 @@ nav .navbar-nav a{
     text-align: center;
 }
 
+#errors{
+    
+    color:red;
+}
+
 /* REGISTER PAGE END */
+
+/* CREATE A JIO PAGE START */
+table, tr, th, td {
+    border: 1px solid;
+  }
+
+/* CREATE A JIO PAGE END */
