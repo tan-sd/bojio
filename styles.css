@@ -74,20 +74,29 @@ nav .navbar-nav a{
     justify-content: center;
     align-content: center;
     flex-direction: column;
-    background: url(static/img/frontpage-banner.jpg);
-    background-size: 100%;
+    background: url(static/img/frontpage-banner.png) no-repeat;
     color: white;
+    background-position-y: 20%;
+    background-position-x: center;
+    text-align: center;
 }
 
 #searchBar{
-    width: 100%;
+    width: 80%;
+    height: 50px;
+    margin: auto;
 }
 
 #searchSection{
     background-color: darkorange;
-    margin: 40px;
+    margin: 150px;
     padding: 20px;
     border-radius: 10px;
+    
+}
+
+#findEvent{
+    text-align: center;
 }
 /* top banner end */
 
