@@ -40,8 +40,8 @@ var password = document.getElementById('password');
 // Retrieve form data and insert it into firebase
 function InsertData() {
   push(ref(db, "accounts/"),{
-    Name: username.value,
-    Password: password.value
+    name: username.value,
+    password: password.value
   })
 .then(() => {
   alert('Account created successfully!')
