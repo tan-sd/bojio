@@ -120,11 +120,32 @@ nav .navbar-nav a{
 /* ABOUT END */
 
 /* HOMEPAGE START */
+.listButtonLeft{
+    width:30px;
+    height:30px;
+    border:1px solid #000;
+    border-radius: 5px 0px 0px 5px;
+    display: inline-block;
+}
+
+.listButtonRight{
+    width:30px;
+    height:30px;
+    border:1px solid black;
+    border-radius: 0px 5px 5px 0px;
+    display: inline-block;
+
+}
+
+#hamburgerIcon {
+    position:absolute; 
+    width:25px;
+}
+
 .card {
     height: 500px;
     width: 300px;
     border-radius: 5px;
-    border: 2px solid black;
   }
 
 .slider-container {
