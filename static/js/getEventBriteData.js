@@ -50,7 +50,7 @@ function getCards(main){
     for(indiv_event of allevents){
       count += 1
       var card = document.createElement('div')
-      card.setAttribute('class', 'card col-4')
+      card.setAttribute('class', 'card col-4 ')
       card.setAttribute('style', 'width: 17rem; height:400px')  
       // console.log(indiv_event);
       addthis = ''
