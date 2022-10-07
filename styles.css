@@ -74,8 +74,9 @@ nav .navbar-nav a{
     justify-content: center;
     align-content: center;
     flex-direction: column;
-    background: url(static/img/frontpage-banner.jpg) no-repeat;
+    background: url(static/img/frontpage-banner.jpg);
     background-size: 100%;
+    color: white;
 }
 
 #searchBar{
@@ -86,6 +87,7 @@ nav .navbar-nav a{
     background-color: darkorange;
     margin: 40px;
     padding: 20px;
+    border-radius: 10px;
 }
 /* top banner end */
 
