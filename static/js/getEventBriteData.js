@@ -46,17 +46,12 @@ function getCards(main){
       var card = document.createElement('div')
       card.setAttribute('class', 'card col-4')
       card.setAttribute('style', 'width: 20rem; height:400px')  
-      // console.log(indiv_event);
+
       addthis = ''
       var name = indiv_event.name
       var image = indiv_event.image.url
       var startdate = indiv_event['start_date']
       var organiser = indiv_event['primary_organizer']['website_url']
-      
-      // console.log(typeof(organiser));
-      // console.log(organiser);
-      // console.log(indiv_event['primary_organizer']);
-      // console.log(organiser);
 
       if(typeof(organiser) == String ){
         addthis += `<img src='${image}' class='card-img-top'>
@@ -79,11 +74,7 @@ function getCards(main){
       
       `
       }
-      
-      // console.log(organiser);
-      // console.log(name, image, startdate, organiser);
       card.innerHTML = addthis
-      // console.log(card);
       inner_div.appendChild(card)
     }
 
