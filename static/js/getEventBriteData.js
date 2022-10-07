@@ -95,10 +95,11 @@ function getCards(main){
         card.innerHTML = addthis
   
         inner_div.appendChild(card)
+        console.log(inner_div);
       }
       else{ 
         //not file 3 then we need to make it row and col
-        // var div = document.createElement('div')
+       
         console.log(count);
         if(count % 4 == 0){
           row = document.createElement('div')
