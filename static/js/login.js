@@ -37,7 +37,7 @@ var success = false
 /* CODE ADDED: END  */
 /* END OF FIREBASE */
 
-// Retrieve form data and insert it into firebase
+// Retrieve data from firebase and verify
 function findData() {
     const dbref = ref(db);
 
@@ -51,18 +51,33 @@ function findData() {
 
     for (var i=0; i < keys.length; i++) {
         var k = keys[i];
-        var name = info[k].name;
-        var password = info[k].password;
-        console.log(name);
-        console.log(password);
-        if( name == entered_username.value && password == entered_password.value){
-          success = true
-          console.log(success);
-          //bring user to main.html if details cn be found
-          window.location.href = "main.html";
-          break
-          
+        var nameDB = info[k].name;
+        var passwordDB = info[k].password;
+
+        // if (username == nameDB) {
+        //     if (password == passwordDB) {
+        //         return true;
+        //     } else {
+        //         return false;
+        //     }
+        // } else {
+        //     return false;
+        // }
+        // console.log(nameDB);
+        // console.log(passwordDB);
+        // console.log(typeof nameDB);
+        // console.log(typeof username);
+
+        if (username.value === nameDB) {
+            if (password.value === passwordDB) {
+                // do something - logged in successfully
+            } else {
+                // do something - wrong password
+            }
+        } else {
+            // do somthing - user does not exist
         }
+
     }
 
     }, function (error) {
@@ -71,16 +86,6 @@ function findData() {
 
     console.log(username.value);
     console.log(password.value);
-//   push(ref(db, "accounts/"),{
-//     name: username.value,
-//     password: password.value
-//   })
-// .then(() => {
-//   alert('Account created successfully!')
-// })
-// .catch((error) => {
-//   alert(error);
-// })
 }
 
 // Registration form validation
