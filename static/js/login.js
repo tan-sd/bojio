@@ -26,9 +26,10 @@ import { getDatabase, ref, onValue, set, update, child, push, get } from "https:
 const db = getDatabase();
 
 // create variable of user input
-var entered_username = document.getElementById('username');
-var entered_password = document.getElementById('password');
+var username = document.getElementById('username');
+var password = document.getElementById('password');
 var success = false
+var loginmsg = ''
 // when value of 'title' changes, update to our <h1 id='target'>
 // onValue(title, (snapshot) => {
 //     const data = snapshot.val(); // get the new value
@@ -43,7 +44,7 @@ function findData() {
 
     get(child(dbref, "accounts"))
     .then((snapshot) => {
-      console.log(snapshot);
+    console.log(snapshot);
     console.log(snapshot.val()); //give username n pw of all current users
     var info = snapshot.val();
     var keys = Object.keys(info);
@@ -70,13 +71,23 @@ function findData() {
 
         if (username.value === nameDB) {
             if (password.value === passwordDB) {
-                // do something - logged in successfully
-            } else {
+                success = true
+                loginmsg = 'Successful login'
+                window.location.href = "main.html";
+                break
+
+            } else { //need to change to if exist then do this stuff or not reloop
                 // do something - wrong password
+                // loginmsg += 'The password is incorrect. Please try again.'
+                
             }
         } else {
             // do somthing - user does not exist
+            // loginmsg += 'Username does not exist'
         }
+
+        var msg = document.getElementsByClassName('login-msg')[0]
+        msg.textContent = loginmsg
 
     }
 
