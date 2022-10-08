@@ -26,9 +26,9 @@ import { getDatabase, ref, onValue, set, update, child, push, get } from "https:
 const db = getDatabase();
 
 // create variable of user input
-var username = document.getElementById('username');
-var password = document.getElementById('password');
-
+var entered_username = document.getElementById('username');
+var entered_password = document.getElementById('password');
+var success = false
 // when value of 'title' changes, update to our <h1 id='target'>
 // onValue(title, (snapshot) => {
 //     const data = snapshot.val(); // get the new value
@@ -43,10 +43,11 @@ function findData() {
 
     get(child(dbref, "accounts"))
     .then((snapshot) => {
-    console.log(snapshot.val());
+      console.log(snapshot);
+    console.log(snapshot.val()); //give username n pw of all current users
     var info = snapshot.val();
     var keys = Object.keys(info);
-    console.log(keys);
+    console.log(keys); //give array of encoded ids 
 
     for (var i=0; i < keys.length; i++) {
         var k = keys[i];
@@ -54,6 +55,14 @@ function findData() {
         var password = info[k].password;
         console.log(name);
         console.log(password);
+        if( name == entered_username.value && password == entered_password.value){
+          success = true
+          console.log(success);
+          //bring user to main.html if details cn be found
+          window.location.href = "main.html";
+          break
+          
+        }
     }
 
     }, function (error) {
