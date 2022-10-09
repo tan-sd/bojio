@@ -29,7 +29,7 @@ const db = getDatabase();
 var username = document.getElementById('username');
 var password = document.getElementById('password');
 var success = false
-var loginmsg = ''
+var usernameexist = false
 // when value of 'title' changes, update to our <h1 id='target'>
 // onValue(title, (snapshot) => {
 //     const data = snapshot.val(); // get the new value
@@ -40,6 +40,8 @@ var loginmsg = ''
 
 // Retrieve data from firebase and verify
 function findData() {
+
+    var loginmsg = ''
     const dbref = ref(db);
 
     get(child(dbref, "accounts"))
@@ -52,44 +54,41 @@ function findData() {
 
     for (var i=0; i < keys.length; i++) {
         var k = keys[i];
-        var nameDB = info[k].name;
+        var nameDB = info[k].username; //changed from name to username
         var passwordDB = info[k].password;
 
-        // if (username == nameDB) {
-        //     if (password == passwordDB) {
-        //         return true;
-        //     } else {
-        //         return false;
-        //     }
-        // } else {
-        //     return false;
-        // }
-        // console.log(nameDB);
-        // console.log(passwordDB);
-        // console.log(typeof nameDB);
-        // console.log(typeof username);
-
+        console.log(nameDB)
+        console.log(passwordDB);
         if (username.value === nameDB) {
+          usernameexist = true
             if (password.value === passwordDB) {
                 success = true
                 loginmsg = 'Successful login'
                 window.location.href = "main.html";
                 break
 
-            } else { //need to change to if exist then do this stuff or not reloop
-                // do something - wrong password
-                // loginmsg += 'The password is incorrect. Please try again.'
-                
-            }
-        } else {
-            // do somthing - user does not exist
-            // loginmsg += 'Username does not exist'
-        }
-
-        var msg = document.getElementsByClassName('login-msg')[0]
-        msg.textContent = loginmsg
-
+            } 
+        } 
     }
+
+    //to add error msg if person dont exist or incorrect pw
+    var msg = document.getElementsByClassName('login-msg')[0]
+    if(success){
+      loginmsg += ''
+    }
+    else if(usernameexist){
+      loginmsg += 'The password is incorrect. Please try again.'
+      //empty pw for user
+      password.value = ''
+
+    }else{
+      loginmsg += 'Username does not exist'
+      //empty both username n password
+      username.value = ''
+      password.value = ''
+    }
+    
+    msg.textContent = loginmsg
 
     }, function (error) {
         console.log("Error:" + error.code)
