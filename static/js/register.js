@@ -105,7 +105,6 @@ function securityCheck(){
 
     if(password.value.length == 0) {
       password.classList = "form-control is-invalid";
-      // msg+='Password field is empty <br>'
       passwordInvalidError.innerText = "Please enter your password.";
       errorCount += 1;
     } else if (password.value.length < 8) {
@@ -133,16 +132,6 @@ function securityCheck(){
       InsertData();
     }
   }
-
-    // console.log(msg);
-
-    // if(msg!=''){
-    //   var placeholder = document.getElementById('errors')
-    //   placeholder.innerHTML=`<h5>Error</h5>`+msg;
-    // } else {
-      // InsertData();
-  //   }
-  // }
 
 // Onclick eventlistener for sign up bottom
 var signupBtn = document.getElementById('signupBtn');

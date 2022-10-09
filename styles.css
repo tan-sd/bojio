@@ -315,6 +315,12 @@ nav .navbar-nav a{
     transform: translate(-50%);
 }
 
+#loginBtn {
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+}
+
 #errors{
     
     color:red;

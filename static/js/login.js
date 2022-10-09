@@ -26,10 +26,11 @@ import { getDatabase, ref, onValue, set, update, child, push, get } from "https:
 const db = getDatabase();
 
 // create variable of user input
-var username = document.getElementById('username');
-var password = document.getElementById('password');
-var success = false
-var loginmsg = ''
+var username = document.getElementById('usernameLogin');
+var password = document.getElementById('passwordLogin');
+var usernameInvalidError = document.getElementById('usernameLoginInvalid');
+var passwordInvalidError = document.getElementById('passwordLoginInvalid');
+var foundUser = true;
 // when value of 'title' changes, update to our <h1 id='target'>
 // onValue(title, (snapshot) => {
 //     const data = snapshot.val(); // get the new value
@@ -69,26 +70,44 @@ function findData() {
         // console.log(typeof nameDB);
         // console.log(typeof username);
 
-        if (username.value === nameDB) {
-            if (password.value === passwordDB) {
-                success = true
-                loginmsg = 'Successful login'
-                window.location.href = "main.html";
-                break
-
-            } else { //need to change to if exist then do this stuff or not reloop
-                // do something - wrong password
-                // loginmsg += 'The password is incorrect. Please try again.'
-                
-            }
+        if (username.value.length == 0){
+          username.classList = 'form-control is-invalid';
+          usernameInvalidError.innerHTML = 'Please enter your username.';
         } else {
-            // do somthing - user does not exist
-            // loginmsg += 'Username does not exist'
+          username.classList = 'form-control'
+          usernameInvalidError.innerHTML = '';
+        }
+    
+        if (password.value.length == 0) {
+          password.classList = 'form-control is-invalid';
+          passwordInvalidError.innerHTML = 'Please enter your password.';
+        } else {
+          password.classList = 'form-control';
+          passwordInvalidError.innerHTML = '';
         }
 
-        var msg = document.getElementsByClassName('login-msg')[0]
-        msg.textContent = loginmsg
-
+        if (username.value === nameDB) {
+            if (password.value === passwordDB) {
+                window.location.href = "main.html";
+                break
+            } else {
+              if (password.value.length == 0) {
+                password.classList = 'form-control is-invalid';
+                passwordInvalidError.innerHTML = 'Please enter your password.';
+                break;
+              }
+              else {
+                password.classList = 'form-control is-invalid';
+                passwordInvalidError.innerHTML = 'The password is incorrect. Please try again.';
+                break
+              }
+            }
+        } else {
+          if (username.value.length > 0) {
+            username.classList = 'form-control is-invalid';
+            usernameInvalidError.innerHTML = 'The username does not exist. Please try again.';
+          }
+        }
     }
 
     }, function (error) {
@@ -99,42 +118,6 @@ function findData() {
     console.log(password.value);
 }
 
-// Registration form validation
-function securityCheck(){
-    var msg='';
-    var username=document.getElementById('username').value;
-    var password=document.getElementById('password').value;
-  
-    // console.log(username)
-    // console.log(password)
-  
-    // function containsSpecialChars(str) {
-    // const specialChars =
-    //   '[`!@#$%^&*()_+-=[]{};\':"\\|,.<>/?~]/';
-    // return specialChars
-    //   .split('')
-    //   .some((specialChar) => str.includes(specialChar));
-    // }
-    // console.log(containsSpecialChars(username));
-    
-    if(username.length == 0){
-      msg+='Username field is empty <br>'
-    }
-
-    if(password.length == 0) {
-      msg+='Password field is empty <br>'
-    }
-
-    // console.log(msg);
-
-    if(msg!=''){
-      var placeholder = document.getElementById('errors')
-      placeholder.innerHTML=`<h5>Error</h5>`+msg;
-    } else {
-      findData();
-    }
-  }
-
-// Onclick eventlistener for sign up bottom
+// Onclick eventlistener for log in bottom
 var loginBtn = document.getElementById('loginBtn');
-loginBtn.addEventListener('click', securityCheck);
+loginBtn.addEventListener('click', findData);
