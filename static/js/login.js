@@ -4,6 +4,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.2/firebase
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js";
 // Your web app's Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyDC4kZ-Ec-jP7dnlFEmvD5rW9bOIXRyT3Q",
@@ -29,6 +30,7 @@ const db = getDatabase();
 /* END OF FIREBASE */
 
 // create variable of user input
+var fullname = ''
 var username = document.getElementById('usernameLogin');
 var password = document.getElementById('passwordLogin');
 var usernameInvalidError = document.getElementById('usernameLoginInvalid');
@@ -36,7 +38,7 @@ var passwordInvalidError = document.getElementById('passwordLoginInvalid');
 
 // Retrieve data from firebase and verify
 function findData() {
-
+    console.log('hi');
     const dbref = ref(db);
 
     get(child(dbref, "accounts"))
@@ -47,14 +49,14 @@ function findData() {
     if (username.value.length == 0){
       username.classList = 'form-control is-invalid';
       usernameInvalidError.innerHTML = 'Please enter your username.';
-      return
+      
     }
 
     if (password.value.length == 0) {
       password.classList = 'form-control is-invalid';
       passwordInvalidError.innerHTML = 'Please enter your password.';
       return
-      
+
     } else {
       password.classList = 'form-control';
       passwordInvalidError.innerHTML = '';
@@ -65,29 +67,29 @@ function findData() {
         var k = keys[i];
         var nameDB = info[k].username;
         var passwordDB = info[k].password;
-
-        // if (username == nameDB) {
-        //     if (password == passwordDB) {
-        //         return true;
-        //     } else {
-        //         return false;
-        //     }
-        // } else {
-        //     return false;
-        // }
-        // console.log(nameDB);
-        // console.log(passwordDB);
-        // console.log(typeof nameDB);
-        // console.log(typeof username);
-
         
 
         if (username.value === nameDB) {
           username.classList = 'form-control';
           usernameInvalidError.innerHTML = '';
             if (password.value === passwordDB) {
-                window.location.href = "main.html";
+         
+
+                // const auth = getAuth(app);
+                // console.log(auth);
+
+                // onAuthStateChanged(auth, user => {
+                //   // console.log(user.uid);
+                //   if (user) {
+                //     console.log('Logged in as xxx ')
+                //   } else {
+                //     console.log('No user');
+                //   }
+                // });
+                fullname = info[k].firstname + info[k].lastname
+                gotomain()
                 break;
+
             } else {
               if (password.value.length > 0) {
                 password.classList = 'form-control is-invalid';
@@ -111,5 +113,18 @@ function findData() {
 }
 
 // Onclick eventlistener for log in bottom
+
 var loginBtn = document.getElementById('loginBtn');
-loginBtn.addEventListener('click', findData);
+if(loginBtn){
+  loginBtn.addEventListener('click', findData);
+}
+
+
+function gotomain(){
+  // var p = document.getElementById('personname');
+  // console.log(p);
+  // if(loginBtn){
+    // loginBtn.addEventListener('click', findData);
+  // }
+  window.location.href = "main.html?personname=" + fullname ;
+}
