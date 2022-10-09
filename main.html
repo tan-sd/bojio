@@ -75,10 +75,14 @@
       <script>
        
         var url = document.URL
-        var array = url.split('=')
-        personname = document.getElementById('personname')
-        personname.innerText =  `Hi there, ${array[1]}!`
-        personname.setAttribute('style', ' display:inline')
+        if(url.includes('=')){
+          var array = url.split('=')
+          personname = document.getElementById('personname')
+          personname.innerText =  `Hi there, ${array[1]}!`
+          personname.setAttribute('style', ' display:inline')
+          personname.setAttribute('class', 'm-2')
+        }
+        
    
       </script>
     </h2>
