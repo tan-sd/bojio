@@ -9,6 +9,11 @@
 }
 
 @font-face {
+    font-family: worksans-medium;
+    src: url(./fonts/worksans/WorkSans-Medium.ttf)
+}
+
+@font-face {
     font-family: josefin-bold;
     src: url(./fonts/josefin-sans/JosefinSans-Bold.ttf);
 }
@@ -195,16 +200,27 @@ nav .navbar-nav a{
 /* big texts*/
 
 /* where anyone is invited anywhere */
-.banner-header {
-    font-family: josefin-bold;
-    color:rgb(255, 127, 45);
+.banner-header-1 {
+    font-family: worksans-extrabold;
+    background: linear-gradient(141deg, #00c2ff, #4ff29f);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
     font-size: 8vmin;
-    line-height: 10vmin;
+}
+
+.banner-header-2 {
+    font-family: worksans-extrabold;
+    background: linear-gradient(142deg, #ac72ff, #23d2ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 8vmin;
 }
 
 /* Derived from the Singaporean... */
 .banner-text {
-    font-family: josefin-regular;
+    font-family: worksans-medium;
     color: black;
     position: relative;
     left: 50%;
@@ -316,7 +332,7 @@ nav .navbar-nav a{
 }
 /* HOMEPAGE END */
 
-/* REGISTER PAGE START */
+/* SIGN UP PAGE START */
 
 .register-form {
     display: inline-block;
@@ -329,6 +345,11 @@ nav .navbar-nav a{
     margin-left: auto;
     margin-right: auto;
     /* text-align: center; */
+}
+
+.banner-header-signup {
+    font-family: worksans-extrabold;
+    font-size: 8vmin;
 }
 
 #signupBtn {
@@ -352,7 +373,16 @@ nav .navbar-nav a{
     font-size: 12px;
 }
 
-/* REGISTER PAGE END */
+/* SIGN UP PAGE END */
+
+/* SIGN IN PAGE START */
+.banner-header-login {
+    font-family: worksans-extrabold;
+    font-size: 8vmin;
+}
+
+
+/* SIGN IN PAGE END */
 
 /* CREATE A JIO PAGE START */
 table, tr, th, td {
