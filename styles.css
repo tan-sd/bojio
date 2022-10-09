@@ -1,4 +1,14 @@
 @font-face {
+    font-family: worksans-extrabold;
+    src: url(./fonts/worksans/WorkSans-ExtraBold.ttf);
+}
+
+@font-face {
+    font-family: worksans-semibold;
+    src: url(./fonts/worksans/WorkSans-SemiBold.ttf);
+}
+
+@font-face {
     font-family: josefin-bold;
     src: url(./fonts/josefin-sans/JosefinSans-Bold.ttf);
 }
@@ -15,8 +25,17 @@
 
 /* logo */
 .navbar-brand {
-    font-family: neoneon;
-    font-size: 6vmin;
+    font-family: worksans-extrabold;
+    font-size: 3.5vmin;
+    background: linear-gradient(var(--gradient-orientation,90deg),#ef4136, #fbb040);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.nav-login {
+    background: linear-gradient(var(--gradient-orientation,90deg),#ef4136, #fbb040);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 #map {
@@ -29,9 +48,17 @@
     color:rgb(255, 127, 45);
 }
 
-/* orange navbar items */
+/* navbar items */
 nav .navbar-nav a{
-    color:rgb(255, 127, 45);
+    color: black;
+    font-family: worksans-semibold;
+    font-size: 1.125rem;
+    transition: 0.5s ease-in-out;
+}
+
+nav .navbar-nav a:hover {
+    font-size: 1.160rem;
+    transition: 0.5s ease-in-out;
 }
 
 /* navbar shift left */
