@@ -32,7 +32,7 @@
 .navbar-brand {
     font-family: worksans-extrabold;
     font-size: 3.5vmin;
-    background: linear-gradient(var(--gradient-orientation,90deg),#ef4136, #fbb040);
+    background: linear-gradient(90deg,#ef4136, #fbb040);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
