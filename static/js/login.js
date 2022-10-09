@@ -44,6 +44,23 @@ function findData() {
     var info = snapshot.val();
     var keys = Object.keys(info);
 
+    if (username.value.length == 0){
+      username.classList = 'form-control is-invalid';
+      usernameInvalidError.innerHTML = 'Please enter your username.';
+      return
+    }
+
+    if (password.value.length == 0) {
+      password.classList = 'form-control is-invalid';
+      passwordInvalidError.innerHTML = 'Please enter your password.';
+      return
+      
+    } else {
+      password.classList = 'form-control';
+      passwordInvalidError.innerHTML = '';
+      
+    }
+
     for (var i=0; i < keys.length; i++) {
         var k = keys[i];
         var nameDB = info[k].username;
@@ -63,18 +80,7 @@ function findData() {
         // console.log(typeof nameDB);
         // console.log(typeof username);
 
-        if (username.value.length == 0){
-          username.classList = 'form-control is-invalid';
-          usernameInvalidError.innerHTML = 'Please enter your username.';
-        }
-
-        if (password.value.length == 0) {
-          password.classList = 'form-control is-invalid';
-          passwordInvalidError.innerHTML = 'Please enter your password.';
-        } else {
-          password.classList = 'form-control';
-          passwordInvalidError.innerHTML = '';
-        }
+        
 
         if (username.value === nameDB) {
           username.classList = 'form-control';
