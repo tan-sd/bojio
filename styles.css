@@ -169,23 +169,6 @@ nav .navbar-nav a{
 }
 /* HOMEPAGE END */
 
-/* REGISTER PAGE START */
-
-.register-form {
-    display: inline-block;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-}
-
-.register-form-field {
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-}
-
-/* REGISTER PAGE END */
-
 /* ABOUT START */
 /* big texts*/
 
@@ -317,18 +300,28 @@ nav .navbar-nav a{
     display: inline-block;
     margin-left: auto;
     margin-right: auto;
-    text-align: center;
+    /* text-align: center; */
 }
 
 .register-form-field {
     margin-left: auto;
     margin-right: auto;
-    text-align: center;
+    /* text-align: center; */
+}
+
+#signupBtn {
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
 }
 
 #errors{
     
     color:red;
+}
+
+.invalid-feedback {
+    font-size: 12px;
 }
 
 /* REGISTER PAGE END */

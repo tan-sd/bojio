@@ -47,39 +47,77 @@
         </div>
     </div>
 
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-3"></div>
-            <div class="col-6 text-center">
-                <form class="register-form">
-                    <div class="form-row pt-4">
-                        <div class="register-form-field form-group col" style="width: 200px">
-                          <input type="text" class="form-control" id="username" placeholder="username">
-                        </div>
-                        <div class="register-form-field form-group col pt-3" style="width: 200px">
-                          <input type="password" class="form-control" id="password" placeholder="password">
-                        </div>
-                        <div class="register-form-field form-group col pt-3" style="width: 200px">
-                          <input type="password" class="form-control" id="checkpassword" placeholder="confirm password">
-                        </div>
-                        
-                      </div>
-                      <div class="row mt-2" id="errors">
+          <div class="col-2"></div>
+            <div class="col-8 d-flex justify-content-center align-items-center">
+                <form class="register-form" style="width: 400px;">
 
-                      </div>
-                    
-                    <div class="form-group">
-                      <div class="form-check pt-4">
-                        <input class="form-check-input" type="checkbox" id="gridCheck">
-                        <label class="form-check-label" for="gridCheck">
-                          Keep me updated with the latest events
-                        </label>
+                  <div class="form-row pt-4">
+
+                    <div class="row">
+                    <div class="col">
+                      <div class="register-form-field form-group col" style="width: auto;">
+                        <div class="form-floating">
+                          <input type="text" class="form-control" id="firstName" placeholder="First name">
+                          <label for="firstName" class="text-muted">first name</label>
+                          <div id="firstNameInvalid" class="invalid-feedback">
+                            Enter a first name.
+                          </div>
+                        </div>
                       </div>
                     </div>
+
+                    <div class="col">
+                      <div class="register-form-field form-group col" style="width: auto;">
+                        <div class="form-floating">
+                          <input type="text" class="form-control" id="lastName" placeholder="First name">
+                          <label for="lastName" class="text-muted">last name</label>
+                          <div id="firstNameInvalid" class="invalid-feedback">
+                            Enter a last name.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    </div>
+
+                      <div class="register-form-field form-group col pt-3" style="width: auto">
+                        <div class="form-floating">
+                          <input type="text" class="form-control" id="username" placeholder="Username" required>
+                          <label for="username" class="text-muted">username</label>
+                          <div id="usernameInvalid" class="invalid-feedback">
+                            Username must be at least 8 characters.
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="register-form-field form-group col pt-3" style="width: auto">
+                        <div class="form-floating">
+                          <input type="password" class="form-control" id="password" placeholder="Password" required>
+                          <label for="password" class="text-muted">password</label>
+                          <div id="passwordInvalid" class="invalid-feedback">
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="register-form-field form-group col pt-3" style="width: auto">
+                        <div class="form-floating">
+                          <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm password" required>
+                          <label for="confirmPassword" class="text-muted">confirm password</label>
+                          <div id="confirmPasswordInvalid" class="invalid-feedback">
+                            The passwords you entered does not match
+                          </div>
+                        </div>  
+                      </div>
+                      
+                  </div>
+
+                    <div class="row mt-2" id="errors">
+                    </div>
+                  
+                  <button type="button" style="background-color: rgb(255, 127, 45); color: white" class="btn orange border border-3 mt-4 rounded-5" id="signupBtn">Sign up</button>
                     
-                    <button type="button" style="background-color: rgb(255, 127, 45); color: white" class="btn orange border border-3 mt-4 rounded-5" id="signupBtn">Sign up</button> <!-- replace this with an arrow shape or img -->
-                    
-                  </form>
+                </form>
             </div>
 
             <!-- <div class="col-5 d-flex justify-content-center align-items-center">
@@ -87,9 +125,7 @@
                   <span class="typeout orange"></span>
                 </h1>
             </div> -->
-          
-            
-            
+            <div class="col-2"></div>
         </div>
       </div>
 
