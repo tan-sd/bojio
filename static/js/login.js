@@ -33,7 +33,6 @@ var username = document.getElementById('usernameLogin');
 var password = document.getElementById('passwordLogin');
 var usernameInvalidError = document.getElementById('usernameLoginInvalid');
 var passwordInvalidError = document.getElementById('passwordLoginInvalid');
-var foundUser = true;
 
 // Retrieve data from firebase and verify
 function findData() {
@@ -87,20 +86,18 @@ function findData() {
               if (password.value.length > 0) {
                 password.classList = 'form-control is-invalid';
                 passwordInvalidError.innerHTML = 'The password is incorrect. Please try again.';
+                break;
               }
             }
         } else {
             if (username.value.length > 0) {
               username.classList = 'form-control is-invalid';
               usernameInvalidError.innerHTML = 'The username does not exist. Please try again.';
+              password.classList = 'form-control';
+              passwordInvalidError.innerHTML = '';
             }
         }
     }
-
-    // if (foundUser == false) {
-    //   username.classList = 'form-control is-invalid';
-    //   usernameInvalidError.innerHTML = 'The username does not exist. Please try again.';
-    // }
 
     }, function (error) {
         console.log("Error:" + error.code)
