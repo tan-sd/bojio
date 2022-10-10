@@ -39,22 +39,6 @@ var password = document.getElementById('password');
 /* CODE ADDED: END  */
 /* END OF FIREBASE */
 
-// Retrieve form data and insert it into firebase
-function InsertData() {
-  push(ref(db, "accounts/"),{
-    firstname: firstName.value,
-    lastname: lastName.value,
-    username: username.value,
-    password: password.value
-  })
-.then(() => {
-  alert('Account created successfully!')
-})
-.catch((error) => {
-  alert(error);
-})
-}
-
 // Registration form validation
 function securityCheck(){
     var errorCount = 0;
@@ -101,29 +85,6 @@ function securityCheck(){
       username.classList = "form-control is-valid";
     }
 
-    // retrieve data from database
-    const dbref = ref(db);
-
-    get(child(dbref, "accounts"))
-    .then((snapshot) => {
-    var info = snapshot.val();
-    var keys = Object.keys(info);
-
-      for (var i=0; i < keys.length; i++) {
-        var k = keys[i];
-        var nameDB = info[k].username;
-
-        if (username.value == nameDB) {
-          username.classList = 'form-control is-invalid';
-          usernameInvalidError.innerText = "Username has been taken."
-          errorCount += 1;
-        } 
-      }
-
-    }, function (error) {
-      console.log("Error:" + error.code)
-    });
-
     if(password.value.length == 0) {
       password.classList = "form-control is-invalid";
       passwordInvalidError.innerText = "Please enter your password.";
@@ -154,7 +115,7 @@ function securityCheck(){
     if (errorCount == 0) {
       //check if username alr exists
 
-      let promise = new Promise(function(resolve,reject){
+      let promise = new Promise(function(resolve, reject) {
         
         const getusers = ref(db, 'accounts/');
         onValue(getusers, (snapshot) => {
@@ -167,14 +128,13 @@ function securityCheck(){
           if(username.value == db_user){
             console.log('user exist');
             username.classList = "form-control is-invalid";
-            username.innerText = 'Username already exists.'
+            usernameInvalidError.innerText = 'Username has been taken.'
             var userexist = true
             break;
           }
         }
       });
       })
-      
       
         //aft get users then want to come here
       async function f(){
@@ -189,8 +149,6 @@ function securityCheck(){
       }
       
     }
-
-    
   }
 
 // Retrieve form data and insert it into firebase

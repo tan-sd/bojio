@@ -191,7 +191,7 @@ nav .navbar-nav a{
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    font-size: 8vmin;
+    font-size: 3.125rem;
 }
 
 .banner-header-2 {
@@ -200,7 +200,7 @@ nav .navbar-nav a{
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    font-size: 8vmin;
+    font-size: 3.125rem;
 }
 
 /* Derived from the Singaporean... */
@@ -211,7 +211,91 @@ nav .navbar-nav a{
     left: 50%;
     transform: translate(-50%);
     width: 50%;
-    font-size: 2.5vmin;
+    font-size: 1.375rem;
+    line-height: 135%;
+}
+
+/* @media (min-width: 1100px) {
+    .banner-header-1 {
+        font-size: 6.875rem;
+        padding-top: 1.75rem;
+        padding-bottom: 1.75rem;
+    }
+
+    .banner-header-2 {
+        font-size: 6.875vmin;
+        padding-top: 1.75rem;
+        padding-bottom: 1.75rem;
+        }
+    
+    .banner-text {
+        font-size: 1rem;
+        line-height: 150%;
+    }
+} */
+
+@media (min-width: 1200px) {
+    .banner-header-1 {
+        font-size: 6.875rem;
+        padding-top: 1.75rem;
+        padding-bottom: 1.75rem;
+    }
+
+    .banner-header-2 {
+        font-size: 6.875rem;
+        padding-top: 1.75rem;
+        padding-bottom: 1.75rem;
+    }
+}
+
+@media (max-width: 1199px) {
+    .banner-header-1 {
+        font-size: 6rem;
+        padding-top: 1.75rem;
+        padding-bottom: 1.75rem;
+    }
+
+    .banner-header-2 {
+        font-size: 6rem;
+        padding-top: 1.75rem;
+        padding-bottom: 1.75rem;
+    }
+}
+
+@media (max-width: 991px) {
+    .banner-header-1 {
+        font-size: 5rem;
+        padding-top: 1.75rem;
+        padding-bottom: 1.75rem;
+    }
+
+    .banner-header-2 {
+        font-size: 5rem;
+        padding-top: 1.75rem;
+        padding-bottom: 1.75rem;
+    }
+}
+
+@media (max-width: 456px) {
+    .banner-header-1 {
+        font-size: 3rem;
+        padding-top: 1.75rem;
+        padding-bottom: 1.75rem;
+    }
+
+    .banner-header-2 {
+        font-size: 3rem;
+        padding-top: 1.75rem;
+        padding-bottom: 1.75rem;
+    }
+}
+
+@media (max-width: 500px) {
+    .banner-text {
+        font-size: 1rem;
+        line-height: 150%;
+        width: 100%;
+    }
 }
 
 /* how does it work?*/
