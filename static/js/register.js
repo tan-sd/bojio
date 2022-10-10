@@ -39,8 +39,6 @@ var password = document.getElementById('password');
 /* CODE ADDED: END  */
 /* END OF FIREBASE */
 
-<<<<<<< Updated upstream
-=======
 
 // Retrieve form data and insert it into firebase
 function InsertData() {
@@ -58,7 +56,6 @@ function InsertData() {
   })
   }
 
->>>>>>> Stashed changes
 // Registration form validation
 function securityCheck(){
     var errorCount = 0;
@@ -134,13 +131,8 @@ function securityCheck(){
     var db_user  = ''
     if (errorCount == 0) {
       //check if username alr exists
-<<<<<<< Updated upstream
-
-      let promise = new Promise(function(resolve, reject) {
-=======
       var userexist = false;
   
->>>>>>> Stashed changes
         
         const getusers = ref(db, 'accounts/');
         onValue(getusers, (snapshot) => {
@@ -170,19 +162,6 @@ function securityCheck(){
       
       });
       
-<<<<<<< Updated upstream
-        //aft get users then want to come here
-      async function f(){
-        let result = await promise;
-        console.log(result);
-        console.log(userexist);
-        if(!userexist){
-          console.log(userexist);
-          console.log(db_user);
-          InsertData();
-        }
-      }
-=======
       
       
       //aft get users then want to come here
@@ -190,7 +169,6 @@ function securityCheck(){
         // console.log(result);
        
         
->>>>>>> Stashed changes
       
     }
   }
