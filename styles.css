@@ -115,9 +115,9 @@ nav .navbar-nav a{
 
 
 .card {
-    height: 500px;
-    width: 300px;
-    border-radius: 5px;
+    /* height: 500px;
+    width: 300px; */
+    /* border-radius: 5px; */
   }
 
 .slider-container {
@@ -274,10 +274,10 @@ nav .navbar-nav a{
 
 /* HOMEPAGE START */
 .card {
-    height: 500px;
+    /* height: 500px;
     width: 300px;
     border-radius: 5px;
-    border: 2px solid black;
+    border: 2px solid black; */
   }
 
 .slider-container {
@@ -335,11 +335,14 @@ nav .navbar-nav a{
 .banner-header-form {
     font-family: worksans-extrabold;
     font-size: 8vmin;
+    background: linear-gradient(246deg,#ef4136, #fbb040);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .banner-text-form {
     font-family: worksans-medium;
-    font-size: 1.8vmin;
+    font-size: 15px;
 }
 
 #signupBtn {
