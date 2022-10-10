@@ -1,3 +1,70 @@
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.11.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.11.0/firebase-auth.js";
+// import {  } from "firebase/firestore";
+
+import { getFirestore, collection, addDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/9.11.0/firebase-firestore.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyDC4kZ-Ec-jP7dnlFEmvD5rW9bOIXRyT3Q",
+    authDomain: "wad2-project-d8ba0.firebaseapp.com",
+    projectId: "wad2-project-d8ba0",
+    storageBucket: "wad2-project-d8ba0.appspot.com",
+    messagingSenderId: "168248515824",
+    appId: "1:168248515824:web:bfcb3221af409131e07635",
+    databaseURL: "https://wad2-project-d8ba0-default-rtdb.asia-southeast1.firebasedatabase.app/"
+};
+
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase();
+const dbref = doc(db, "events/", "DC");
+
+// Set the "capital" field of the city 'DC'
+await updateDoc(dbref, {
+  capital: true
+});
+
+/* START OF FIREBASE */
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyDC4kZ-Ec-jP7dnlFEmvD5rW9bOIXRyT3Q",
+    authDomain: "wad2-project-d8ba0.firebaseapp.com",
+    projectId: "wad2-project-d8ba0",
+    storageBucket: "wad2-project-d8ba0.appspot.com",
+    messagingSenderId: "168248515824",
+    appId: "1:168248515824:web:bfcb3221af409131e07635",
+    databaseURL: "https://wad2-project-d8ba0-default-rtdb.asia-southeast1.firebasedatabase.app/"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+/* START OF FIREBASE */
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyDC4kZ-Ec-jP7dnlFEmvD5rW9bOIXRyT3Q",
+    authDomain: "wad2-project-d8ba0.firebaseapp.com",
+    projectId: "wad2-project-d8ba0",
+    storageBucket: "wad2-project-d8ba0.appspot.com",
+    messagingSenderId: "168248515824",
+    appId: "1:168248515824:web:bfcb3221af409131e07635",
+    databaseURL: "https://wad2-project-d8ba0-default-rtdb.asia-southeast1.firebasedatabase.app/"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
 /* START OF FIREBASE */
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js";
@@ -20,7 +87,7 @@ const app = initializeApp(firebaseConfig);
 
 /* CODE ADDED: START */
 // Import the functions needed to read from realtime database
-import { getDatabase, ref, onValue, set, update, child, push, get } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-database.js";
+import { getDatabase, ref, onValue, set, update, child, push } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-database.js";
 
 // connect to the realtime database
 const db = getDatabase();
@@ -39,8 +106,6 @@ var password = document.getElementById('password');
 /* CODE ADDED: END  */
 /* END OF FIREBASE */
 
-<<<<<<< Updated upstream
-=======
 
 // Retrieve form data and insert it into firebase
 function InsertData() {
@@ -58,7 +123,6 @@ function InsertData() {
   })
   }
 
->>>>>>> Stashed changes
 // Registration form validation
 function securityCheck(){
     var errorCount = 0;
@@ -67,7 +131,6 @@ function securityCheck(){
     var username = document.getElementById('username');
     var password = document.getElementById('password');
     var confirmPassword = document.getElementById('confirmPassword');
-    var usernameInvalidError = document.getElementById('usernameInvalid');
     var passwordInvalidError = document.getElementById('passwordInvalid');
     var passwordValidation = false;
 
@@ -80,10 +143,6 @@ function securityCheck(){
     // }
     // console.log(containsSpecialChars(username));
     
-  // if (firstName.length == 0) {
-  //   firstName.class
-  // }
-
     if(firstName.value.length == 0) {
       firstName.classList = "form-control is-invalid";
     } else {
@@ -98,7 +157,6 @@ function securityCheck(){
 
     if(username.value.length < 8){
       username.classList = "form-control is-invalid";
-      usernameInvalidError.innerText = 'Username must be at least 8 characters.'
       // msg+='Please enter a valid username <br>'
       errorCount += 1;
     } else {
@@ -134,13 +192,8 @@ function securityCheck(){
     var db_user  = ''
     if (errorCount == 0) {
       //check if username alr exists
-<<<<<<< Updated upstream
-
-      let promise = new Promise(function(resolve, reject) {
-=======
       var userexist = false;
   
->>>>>>> Stashed changes
         
         const getusers = ref(db, 'accounts/');
         onValue(getusers, (snapshot) => {
@@ -154,7 +207,7 @@ function securityCheck(){
           if(username.value == db_user){
             console.log('user exist');
             username.classList = "form-control is-invalid";
-            usernameInvalidError.innerText = 'Username has been taken.'
+            username.innerText = 'Username already exists.'
             var userexist = true
             break;
           }
@@ -170,19 +223,6 @@ function securityCheck(){
       
       });
       
-<<<<<<< Updated upstream
-        //aft get users then want to come here
-      async function f(){
-        let result = await promise;
-        console.log(result);
-        console.log(userexist);
-        if(!userexist){
-          console.log(userexist);
-          console.log(db_user);
-          InsertData();
-        }
-      }
-=======
       
       
       //aft get users then want to come here
@@ -190,9 +230,10 @@ function securityCheck(){
         // console.log(result);
        
         
->>>>>>> Stashed changes
       
     }
+
+    
   }
 
 
