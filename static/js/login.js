@@ -23,11 +23,15 @@ const app = initializeApp(firebaseConfig);
 // Import the functions needed to read from realtime database
 import { getDatabase, ref, onValue, set, update, child, push, get } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-database.js";
 
+// import { getDatabase, ref, onValue} from "firebase/database";
 // connect to the realtime database
 const db = getDatabase();
 
 /* CODE ADDED: END  */
 /* END OF FIREBASE */
+
+// const db = getDatabase();
+
 
 // create variable of user input
 var fullname = ''
@@ -38,7 +42,7 @@ var passwordInvalidError = document.getElementById('passwordLoginInvalid');
 
 // Retrieve data from firebase and verify
 function findData() {
-    console.log('hi');
+    // console.log('hi');
     const dbref = ref(db);
 
     get(child(dbref, "accounts"))
@@ -68,13 +72,12 @@ function findData() {
         var nameDB = info[k].username;
         var passwordDB = info[k].password;
         
-
         if (username.value === nameDB) {
           username.classList = 'form-control';
           usernameInvalidError.innerHTML = '';
             if (password.value === passwordDB) {
          
-
+                document.cookie = 'username=hihihi'
                 // const auth = getAuth(app);
                 // console.log(auth);
 
@@ -121,10 +124,5 @@ if(loginBtn){
 
 
 function gotomain(){
-  // var p = document.getElementById('personname');
-  // console.log(p);
-  // if(loginBtn){
-    // loginBtn.addEventListener('click', findData);
-  // }
   window.location.href = "main.html?personname=" + fullname ;
 }

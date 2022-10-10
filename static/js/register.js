@@ -39,21 +39,7 @@ var password = document.getElementById('password');
 /* CODE ADDED: END  */
 /* END OF FIREBASE */
 
-// Retrieve form data and insert it into firebase
-function InsertData() {
-  push(ref(db, "accounts/"),{
-    firstname: firstName.value,
-    lastname: lastName.value,
-    username: username.value,
-    password: password.value
-  })
-.then(() => {
-  alert('Account created successfully!')
-})
-.catch((error) => {
-  alert(error);
-})
-}
+
 
 // Registration form validation
 function securityCheck(){
@@ -65,11 +51,7 @@ function securityCheck(){
     var confirmPassword = document.getElementById('confirmPassword');
     var passwordInvalidError = document.getElementById('passwordInvalid');
     var passwordValidation = false;
-  
-    // console.log(username)
-    // console.log(password)
-    // console.log(checkpassword)
-  
+
     // function containsSpecialChars(str) {
     // const specialChars =
     //   '[`!@#$%^&*()_+-=[]{};\':"\\|,.<>/?~]/';
@@ -79,10 +61,6 @@ function securityCheck(){
     // }
     // console.log(containsSpecialChars(username));
     
-  // if (firstName.length == 0) {
-  //   firstName.class
-  // }
-
     if(firstName.value.length == 0) {
       firstName.classList = "form-control is-invalid";
     } else {
@@ -128,9 +106,64 @@ function securityCheck(){
       confirmPassword.classList = "form-control is-valid";
     }
 
+    var userexist = false;
+    var db_user  = ''
     if (errorCount == 0) {
-      InsertData();
+      //check if username alr exists
+
+      let promise = new Promise(function(resolve,reject){
+        
+        const getusers = ref(db, 'accounts/');
+        onValue(getusers, (snapshot) => {
+        const data = snapshot.val();
+        console.log(data);
+        for(var i in data){
+          db_user = data[i]['username']
+          console.log(username.value);
+          console.log(db_user);
+          if(username.value == db_user){
+            console.log('user exist');
+            username.classList = "form-control is-invalid";
+            username.innerText = 'Username already exists.'
+            var userexist = true
+            break;
+          }
+        }
+      });
+      })
+      
+      
+        //aft get users then want to come here
+      async function f(){
+        let result = await promise;
+        console.log(result);
+        console.log(userexist);
+        if(!userexist){
+          console.log(userexist);
+          console.log(db_user);
+          InsertData();
+        }
+      }
+      
     }
+
+    
+  }
+
+// Retrieve form data and insert it into firebase
+function InsertData() {
+  push(ref(db, "accounts/"),{
+    firstname: firstName.value,
+    lastname: lastName.value,
+    username: username.value,
+    password: password.value
+  })
+  .then(() => {
+    alert('Account created successfully!')
+  })
+  .catch((error) => {
+    alert(error);
+  })
   }
 
 // Onclick eventlistener for sign up bottom

@@ -30,6 +30,10 @@
     <link rel="icon" type="image/x-icon" href="/static/img/favicon/favicon.ico">
 
   </head>
+  
+  <script src ="https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js"></script>
+  <script src ="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js"></script>
+  <script src ="https://www.gstatic.com/firebasejs/9.0.2/firebase-database.js"></script>
 
     <!-- START OF NAVBAR -->
 
@@ -133,8 +137,9 @@
     </div>
     
       <script>
-       
+        // document.cookie = 'userkwenjrn'
         var url = document.URL
+        console.log(document.cookie);
         if(url.includes('=')){
           var array = url.split('=')
           personname = document.getElementById('personname')
