@@ -1,0 +1,121 @@
+/* CSS specific to the homepage */
+#page{
+    position:relative;
+    height: 2000px;
+}
+#logo{
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    font-family: worksans-extrabold;
+    font-size: 3.5vmin;
+    background: linear-gradient(var(--gradient-orientation,90deg),#ef4136, #fbb040);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+#menu{
+    color: white;
+    font-size:larger;
+    font-weight:500;
+    text-align: center;
+    list-style: none;
+    display:flex;
+    position:absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+#menu li{
+    margin: 10px 5px;
+}
+#menu li a {
+    color:white;
+    text-decoration-line: none;
+    padding: 5px 10px 7px 10px;
+    
+}
+#menu li a:hover{
+    background-color: white;
+    color:rgba(22,26,38,255);
+    text-decoration-line: none;
+    border-radius:10px;
+}
+
+#login{
+    position:absolute;
+    top:12px;
+    right:20px;
+    border-radius: 10px;
+}
+#login button{
+    color:rgba(22,26,38,255);
+    background-color: white;
+    font-size: larger;
+    font-weight: 500;
+    text-decoration-line: none;
+    border-radius:10px;
+    padding: 5px 10px 7px 10px;
+    
+}
+#login button:hover{
+    border: 1px solid white;
+    background: rgba(22,26,38,255);
+    color: white;
+}
+#topBackground {
+    background: rgba(22,26,38,255);
+    width: 100%;
+    height: 600px;
+    margin: 0px;
+    position: absolute;
+}
+#bigWord{
+    color: white;
+    width: 70%;
+    margin: 0px;
+    position: absolute;
+    top: 230px;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+#subtitle{
+    font-size:large;
+
+}
+.typewrite{
+    color:#fff; 
+    text-decoration: none;
+}
+#browseButton{
+    border: 1px solid rgb(255, 255, 255);
+    background: rgb(255, 255, 255);
+    color:rgba(22,26,38,255);
+    font-weight:500;
+    margin-top: 20px;
+    border:0px;
+    border-radius: 50px;
+    padding: 5px 20px;
+}
+#browseButton:hover{
+    border: 1px solid white;
+    background: rgba(22,26,38,255);
+    color: white;
+}
+#carouselDiv{
+    border: 2px solid red;
+    width: 100%;
+    height: 400px;
+    position: relative;
+    top: 600px;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+#carouselDiv h1{
+    color: red;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+
