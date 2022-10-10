@@ -9,25 +9,15 @@
 }
 
 @font-face {
-    font-family: josefin-bold;
-    src: url(./fonts/josefin-sans/JosefinSans-Bold.ttf);
-}
-
-@font-face {
-    font-family: josefin-regular;
-    src: url(./fonts/josefin-sans/JosefinSans-Regular.ttf);
-}
-
-@font-face {
-    font-family: neoneon;
-    src: url(./fonts/neoneon/Neoneon.otf);
+    font-family: worksans-medium;
+    src: url(./fonts/worksans/WorkSans-Medium.ttf)
 }
 
 /* logo */
 .navbar-brand {
     font-family: worksans-extrabold;
     font-size: 3.5vmin;
-    background: linear-gradient(var(--gradient-orientation,90deg),#ef4136, #fbb040);
+    background: linear-gradient(90deg,#ef4136, #fbb040);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -53,12 +43,6 @@ nav .navbar-nav a{
     color: black;
     font-family: worksans-semibold;
     font-size: 1.125rem;
-    transition: 0.5s ease-in-out;
-}
-
-nav .navbar-nav a:hover {
-    font-size: 1.160rem;
-    transition: 0.5s ease-in-out;
 }
 
 /* navbar shift left */
@@ -91,6 +75,7 @@ nav .navbar-nav a:hover {
     position:absolute; 
     width:25px;
 }
+
 /* toggle button end */
 
 /* top banner start */
@@ -130,9 +115,9 @@ nav .navbar-nav a:hover {
 
 
 .card {
-    height: 500px;
-    width: 300px;
-    border-radius: 5px;
+    /* height: 500px;
+    width: 300px; */
+    /* border-radius: 5px; */
   }
 
 .slider-container {
@@ -200,16 +185,27 @@ nav .navbar-nav a:hover {
 /* big texts*/
 
 /* where anyone is invited anywhere */
-.banner-header {
-    font-family: josefin-bold;
-    color:rgb(255, 127, 45);
+.banner-header-1 {
+    font-family: worksans-extrabold;
+    background: linear-gradient(141deg, #00c2ff, #4ff29f);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
     font-size: 8vmin;
-    line-height: 10vmin;
+}
+
+.banner-header-2 {
+    font-family: worksans-extrabold;
+    background: linear-gradient(142deg, #ac72ff, #23d2ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 8vmin;
 }
 
 /* Derived from the Singaporean... */
 .banner-text {
-    font-family: josefin-regular;
+    font-family: worksans-medium;
     color: black;
     position: relative;
     left: 50%;
@@ -278,10 +274,10 @@ nav .navbar-nav a:hover {
 
 /* HOMEPAGE START */
 .card {
-    height: 500px;
+    /* height: 500px;
     width: 300px;
     border-radius: 5px;
-    border: 2px solid black;
+    border: 2px solid black; */
   }
 
 .slider-container {
@@ -321,7 +317,7 @@ nav .navbar-nav a:hover {
 }
 /* HOMEPAGE END */
 
-/* REGISTER PAGE START */
+/* START OF FORM PAGES */
 
 .register-form {
     display: inline-block;
@@ -334,6 +330,19 @@ nav .navbar-nav a:hover {
     margin-left: auto;
     margin-right: auto;
     /* text-align: center; */
+}
+
+.banner-header-form {
+    font-family: worksans-extrabold;
+    font-size: 8vmin;
+    background: linear-gradient(246deg,#ef4136, #fbb040);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.banner-text-form {
+    font-family: worksans-medium;
+    font-size: 15px;
 }
 
 #signupBtn {
@@ -357,7 +366,7 @@ nav .navbar-nav a:hover {
     font-size: 12px;
 }
 
-/* REGISTER PAGE END */
+/* FORM PAGES END */
 
 /* CREATE A JIO PAGE START */
 table, tr, th, td {
