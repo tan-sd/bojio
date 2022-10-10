@@ -70,7 +70,11 @@
     </div> -->
 
     <!-- firebase thing -->
-    <h2 id = 'personname' onload="findData()" style="display:none">
+    <div class="container">
+      <div class="row">
+        <div id = 'personname' onload="findData()" style="display:none"></div>
+      </div>
+    </div>
     
       <script>
        
@@ -78,17 +82,16 @@
         if(url.includes('=')){
           var array = url.split('=')
           personname = document.getElementById('personname')
-          personname.innerText =  `Hi there, ${array[1]}!`
-          personname.setAttribute('style', ' display:inline')
-          personname.setAttribute('class', 'm-2')
+          personname.innerText =  `Welcome, ${array[1]}! 👋🏼`
+          personname.setAttribute('style', ' display:inline; font-family: worksans-extrabold; font-size: 4vmin;')
+          personname.setAttribute('class', '')
         }
         
    
       </script>
-    </h2>
     
     <!-- search bar -->
-    <div id="banner" class="">
+    <!-- <div id="banner" class="">
       <div id="searchSection">
         <h1 id="FindEvent">
           Find an event
@@ -101,7 +104,7 @@
 
         </div>
       </div>
-  </div>
+  </div> -->
 
     <!-- <body onload="getCards('frommainpage')"> -->
 
@@ -109,7 +112,7 @@
 
     <!-- remove slider-container in both div class to show the whole cards -->
     
-    <div class="container-fluid">
+    <!-- <div class="container-fluid">
       <div class="row">
       
           <h1>Upcoming Events</h1>
@@ -117,7 +120,7 @@
         
           </div>
         
-      </div>
+      </div> -->
       <!-- popular events end -->
 
       <!-- <div class="carousel" data-flickity='{ "groupCells": true }'>
