@@ -20,7 +20,7 @@ const app = initializeApp(firebaseConfig);
 
 /* CODE ADDED: START */
 // Import the functions needed to read from realtime database
-import { getDatabase, ref, onValue, set, update, child, push } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-database.js";
+import { getDatabase, ref, onValue, set, update, child, push, get } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-database.js";
 
 // connect to the realtime database
 const db = getDatabase();
@@ -49,10 +49,10 @@ function InsertData() {
   })
 .then(() => {
   alert('Account created successfully!')
-})
+  })
 .catch((error) => {
   alert(error);
-})
+  })
 }
 
 // Registration form validation
@@ -63,6 +63,7 @@ function securityCheck(){
     var username = document.getElementById('username');
     var password = document.getElementById('password');
     var confirmPassword = document.getElementById('confirmPassword');
+    var usernameInvalidError = document.getElementById('usernameInvalid');
     var passwordInvalidError = document.getElementById('passwordInvalid');
     var passwordValidation = false;
   
@@ -79,9 +80,9 @@ function securityCheck(){
     // }
     // console.log(containsSpecialChars(username));
     
-  // if (firstName.length == 0) {
-  //   firstName.class
-  // }
+    // if (firstName.length == 0) {
+    //   firstName.class
+    // }
 
     if(firstName.value.length == 0) {
       firstName.classList = "form-control is-invalid";
@@ -97,11 +98,35 @@ function securityCheck(){
 
     if(username.value.length < 8){
       username.classList = "form-control is-invalid";
+      usernameInvalidError.innerText = 'Username must be at least 8 characters.'
       // msg+='Please enter a valid username <br>'
       errorCount += 1;
     } else {
       username.classList = "form-control is-valid";
     }
+
+    // retrieve data from database
+    const dbref = ref(db);
+
+    get(child(dbref, "accounts"))
+    .then((snapshot) => {
+    var info = snapshot.val();
+    var keys = Object.keys(info);
+
+      for (var i=0; i < keys.length; i++) {
+        var k = keys[i];
+        var nameDB = info[k].username;
+
+        if (username.value == nameDB) {
+          username.classList = 'form-control is-invalid';
+          usernameInvalidError.innerText = "Username has been taken."
+          errorCount += 1;
+        } 
+      }
+
+    }, function (error) {
+      console.log("Error:" + error.code)
+    });
 
     if(password.value.length == 0) {
       password.classList = "form-control is-invalid";
