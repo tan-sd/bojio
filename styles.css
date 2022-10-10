@@ -13,21 +13,6 @@
     src: url(./fonts/worksans/WorkSans-Medium.ttf)
 }
 
-@font-face {
-    font-family: josefin-bold;
-    src: url(./fonts/josefin-sans/JosefinSans-Bold.ttf);
-}
-
-@font-face {
-    font-family: josefin-regular;
-    src: url(./fonts/josefin-sans/JosefinSans-Regular.ttf);
-}
-
-@font-face {
-    font-family: neoneon;
-    src: url(./fonts/neoneon/Neoneon.otf);
-}
-
 /* logo */
 .navbar-brand {
     font-family: worksans-extrabold;
@@ -332,7 +317,7 @@ nav .navbar-nav a{
 }
 /* HOMEPAGE END */
 
-/* SIGN UP PAGE START */
+/* START OF FORM PAGES */
 
 .register-form {
     display: inline-block;
@@ -347,9 +332,14 @@ nav .navbar-nav a{
     /* text-align: center; */
 }
 
-.banner-header-signup {
+.banner-header-form {
     font-family: worksans-extrabold;
     font-size: 8vmin;
+}
+
+.banner-text-form {
+    font-family: worksans-medium;
+    font-size: 1.8vmin;
 }
 
 #signupBtn {
@@ -373,16 +363,7 @@ nav .navbar-nav a{
     font-size: 12px;
 }
 
-/* SIGN UP PAGE END */
-
-/* SIGN IN PAGE START */
-.banner-header-login {
-    font-family: worksans-extrabold;
-    font-size: 8vmin;
-}
-
-
-/* SIGN IN PAGE END */
+/* FORM PAGES END */
 
 /* CREATE A JIO PAGE START */
 table, tr, th, td {

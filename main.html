@@ -56,8 +56,36 @@
       </div>
     </nav>
     
-
     <!-- END OF NAVBAR -->
+
+    <!-- <div id='eventContainer' class="container">
+      </div>
+    </div>
+
+    <script>
+      var url = './json/raw_response_(3).json';
+      
+      axios.get(url)
+      .then(response => {
+        // console.log(response.data.events);
+        let str = '';
+        for (let i = 0; i < response.data.events.length; i++) {
+          if (i%4 == 0) {
+            str += `<div class='row'>`;
+          }
+
+          console.log(response.data.events[i]);
+          var eventContainer = document.getElementById('eventContainer');
+          var eventImg = response.data.events[i].image.url
+          // eventRow.innerHTML += `<img src="${eventImg}">`
+          str += `<div class='col-3'>
+                  <img src=${eventImg}>
+                  </div>`;
+        }
+        console.log(str);
+        eventContainer.innerHTML = str;
+      })
+    </script> -->
 
 <!--       
     <div>
@@ -68,6 +96,8 @@
         <img id="" src="" alt="">
       </div>
     </div> -->
+
+
 
     <!-- firebase thing -->
     <div class="container">
@@ -87,7 +117,6 @@
           personname.setAttribute('class', '')
         }
         
-   
       </script>
     
     <!-- search bar -->
@@ -155,6 +184,5 @@
       crossorigin="anonymous"
     ></script>
     
-   
   </body>
 </html>

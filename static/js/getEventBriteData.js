@@ -21,7 +21,6 @@ function populateCards(){
   
 }
 
-
 function getCards(main){
 
   var file3 = false
