@@ -156,7 +156,9 @@ function InsertData() {
     firstname: firstName.value,
     lastname: lastName.value,
     username: username.value,
-    password: password.value
+    password: password.value,
+    eventsjoined: [],
+    createdjio: []
   })
   .then(() => {
     alert('Account created successfully!')

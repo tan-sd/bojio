@@ -30,7 +30,6 @@ const db = getDatabase();
 /* CODE ADDED: END  */
 /* END OF FIREBASE */
 
-// const db = getDatabase();
 
 
 // create variable of user input
@@ -76,19 +75,9 @@ function findData() {
           username.classList = 'form-control';
           usernameInvalidError.innerHTML = '';
             if (password.value === passwordDB) {
-         
-                document.cookie = 'username=hihihi'
-                // const auth = getAuth(app);
-                // console.log(auth);
-
-                // onAuthStateChanged(auth, user => {
-                //   // console.log(user.uid);
-                //   if (user) {
-                //     console.log('Logged in as xxx ')
-                //   } else {
-                //     console.log('No user');
-                //   }
-                // });
+                //k is the unique id to identify users
+                document.cookie = `${k}`
+                // console.log(k);
                 fullname = info[k].firstname + info[k].lastname
                 gotomain()
                 break;
