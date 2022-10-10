@@ -127,50 +127,51 @@ function securityCheck(){
       confirmPassword.classList = "form-control is-valid";
     }
 
+    //check if username alr exists
     // var userexist = false;
     var db_user  = ''
-    if (errorCount == 0) {
-      //check if username alr exists
-      var userexist = false;
-  
         
-        const getusers = ref(db, 'accounts/');
-        onValue(getusers, (snapshot) => {
-        const data = snapshot.val();
-        console.log(data);
-        for(var i in data){
-          var userexist = false;
-          db_user = data[i]['username']
-          console.log(username.value);
-          console.log(db_user);
-          if(username.value == db_user){
-            console.log('user exist');
-            username.classList = "form-control is-invalid";
-            usernameInvalidError.innerText = 'Username has been taken.'
-            var userexist = true
-            break;
-          }
-        }
+    const getusers = ref(db, 'accounts/');
+    onValue(getusers, (snapshot) => {
+    const data = snapshot.val();
+    console.log(data);
+    for(var i in data){
 
-        console.log(userexist);
-        if(!userexist){
-            console.log(userexist);
-            console.log(db_user);
-            console.log('hi');
-            InsertData();
-          }
-      
-      });
-      
-      
-      
-      //aft get users then want to come here
-    
-        // console.log(result);
-       
-        
-      
+      var userexist = false;
+      db_user = data[i]['username']
+      console.log(username.value);
+      console.log(db_user);
+      if(username.value == db_user){
+        console.log('user exist');
+        username.classList = "form-control is-invalid";
+        usernameInvalidError.innerText = 'Username has been taken.'
+        userexist = true
+        // console.log(userexist);
+        break;
+      }
     }
+
+    // console.log(userexist);
+    if(!userexist){
+        // console.log(userexist);
+        // console.log(db_user);
+        // console.log('hi');
+        InsertData();
+      }
+  
+  });
+    // var userexist = false;
+    // var db_user  = ''
+    // if (errorCount == 0) {
+    //   console.log('qq');
+    //   if(!userexist){
+    //     InsertData();
+
+    //   }
+      
+      
+      
+    // }
   }
 
 
