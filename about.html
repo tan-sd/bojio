@@ -50,7 +50,7 @@
       <div class="row">
         <div class="col">
           <div class="banner-text-about text-center">
-            <div><span style="font-weight: bold;">Bojio</span> is a platform where individuals can make new friends by hosting or attending events of similar interest. <br> <br> Never say "bo jio" ever again.</div> 
+            <div><span style="font-weight: bold;">Bojio</span> is a platform where individuals can make new friends by hosting or attending events of similar interest.</div> 
       </div>
         </div>
     </div>
@@ -121,35 +121,34 @@
       window.addEventListener('resize', onWindowResize, false);
 
       function onWindowResize() {
-        camera.aspect = (window.innerWidth/2) / (window.innerHeight/2);
+        camera.aspect = (window.innerWidth / window.innerHeight);
         camera.updateProjectionMatrix();
-
-        renderer.setSize((window.innerWidth / 2), (window.innerHeight / 2));
+        renderer.setSize(window.innerWidth, window.innerHeight);
       }
 
       function init() {
         scene = new THREE.Scene();
         camera = new THREE.PerspectiveCamera(
           60,
-          (window.innerWidth / 2) / (window.innerHeight / 2),
+          window.innerWidth / window.innerHeight,
           0.01,
           1000
         );
         
         renderer = new THREE.WebGLRenderer({antialias: true, alpha: true});
-        renderer.setSize((window.innerWidth / 2), (window.innerHeight / 2));
+        renderer.setSize(window.innerWidth, window.innerHeight);
         var model3D = document.getElementById('emoji-model');
         model3D.appendChild(renderer.domElement);
 
         var loader = new GLTFLoader();
-        loader.load('./static/3d-model/scene.gltf', function(gltf) {
+        loader.load('./static/3d-model/nanoplanet.gltf', function(gltf) {
           obj = gltf.scene;
           scene.add(gltf.scene);
         });
         
         var light = new THREE.HemisphereLight(0xffffff, 0x000000, 2);
         scene.add(light);
-        camera.position.set(0, 0, 7);
+        camera.position.set(1, -1, 5);
 
         controls = new OrbitControls(camera, renderer.domElement);
         controls.enableZoom = false // to disable zoom
@@ -157,7 +156,7 @@
 
       function animate() {
         requestAnimationFrame(animate);
-        if (obj) obj.rotation.y += 0.001;
+        if (obj) obj.rotation.y -= 0.005;
         renderer.render(scene, camera);
       }
 
