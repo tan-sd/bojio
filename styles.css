@@ -252,6 +252,18 @@ nav .navbar-nav a{
     transition: 0.2s ease-in-out;
 }
 
+/* 3D Model */
+#emoji-model {
+    display: flex;
+    justify-content: center;
+}
+
+@media only screen and (max-device-width: 390px) {
+    #emoji-model {
+        display: none;
+    }
+}
+
 @media only screen and (min-device-width: 390px) { /* screen equal or above 390 px */
     .banner-header-about-1 {
         font-size: 2rem;

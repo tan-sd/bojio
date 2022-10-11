@@ -7,7 +7,6 @@
     <!-- Bootstap - CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link rel="stylesheet" href="styles.css">
-    <!-- <script src="script.js" defer></script> -->
     <title>BOJIO – About</title>
     <link rel="icon" type="image/x-icon" href="/static/img/favicon/favicon.ico">
 </head>
@@ -56,6 +55,12 @@
         </div>
     </div>
     </div>
+
+    <div class="container" id="container3d">
+      <div class="row">
+        <div class="col" id="emoji-model"></div>
+      </div>
+    </div>
         <!-- maybe can make shrink when screen size decrease? -->
         
         <!-- how does it work section start -->
@@ -103,6 +108,66 @@
             <button type="button" class="btn mb-5" id="banner-btn" onclick="window.location.href='./createajio.html';"><span>Get Started</span></button>
           </div>
     </div>
+
+    <!-- THREE.JS -->
+    <script src="./static/js/three.js"></script>
+    <script type='module' src="./static/js/GLTFLoader.js"></script>
+    <script type="module">
+      import {GLTFLoader} from "./static/js/GLTFLoader.js";
+      import {OrbitControls} from "./static/js/OrbitControls.js";
+
+      var obj, renderer, scene, camera, controls;
+
+      window.addEventListener('resize', onWindowResize, false);
+
+      function onWindowResize() {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      }
+
+      function init() {
+        scene = new THREE.Scene();
+        camera = new THREE.PerspectiveCamera(
+          60,
+          window.innerWidth / window.innerHeight,
+          0.01,
+          1000
+        );
+        
+        renderer = new THREE.WebGLRenderer({antialias: true, alpha: true});
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        var model3D = document.getElementById('emoji-model');
+        model3D.appendChild(renderer.domElement);
+
+        var loader = new GLTFLoader();
+        loader.load('./static/3d-model/scene.gltf', function(gltf) {
+          obj = gltf.scene;
+          scene.add(gltf.scene);
+        });
+        
+        var light = new THREE.HemisphereLight(0xffffff, 0x000000, 2);
+        scene.add(light);
+        camera.position.set(0, 0, 7);
+
+        controls = new OrbitControls(camera, renderer.domElement);
+        controls.enableZoom = false // to disable zoom
+      }
+
+      function animate() {
+        requestAnimationFrame(animate);
+        if (obj) obj.rotation.y += 0.001;
+        renderer.render(scene, camera);
+      }
+
+    init();
+    animate();
+
+    
+
+
+    </script>
 
     <!-- Bootstrap - JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
