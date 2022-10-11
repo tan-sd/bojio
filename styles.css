@@ -321,20 +321,6 @@ nav .navbar-nav a{
     .banner-header-about-2 {
         font-size: 5rem;
     }
-
-    .banner-text-about {
-        font-size: 1.375rem;
-        width: 70%;
-    }
-
-    .steps-header {
-        font-size: 2rem;
-    }
-    
-    .steps-paragraph {
-        font-size: 1.375rem;
-        width: 60%;
-    }
 }
 
 @media only screen and (min-width: 1000px) { /* screen equal or above 1000px */
