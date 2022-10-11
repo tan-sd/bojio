@@ -56,28 +56,12 @@ function InsertData() {
   })
   }
 
-//validate email
-function validate_email(email){
-  expression = /^[^@]+@\w+(\.\w+)+\w$/
-  if(expression.test(email) == true){
-    //ok email
-    return true
-
-  } else{
-    //email invalid
-    return false
-  }
-}
-
-//check if field empty
-
 // Registration form validation
 function securityCheck(){
     var errorCount = 0;
     var firstName = document.getElementById('firstName');
     var lastName = document.getElementById('lastName');
     var username = document.getElementById('username');
-    var email = document.getElementById('email')
     var password = document.getElementById('password');
     var confirmPassword = document.getElementById('confirmPassword');
     var usernameInvalidError = document.getElementById('usernameInvalid');
@@ -97,17 +81,14 @@ function securityCheck(){
   //   firstName.class
   // }
 
-    emailstatus = validate_email(email)
     if(firstName.value.length == 0) {
       firstName.classList = "form-control is-invalid";
-      errorCount += 1;
     } else {
       firstName.classList = "form-control is-valid";
     }
     
     if(lastName.value.length == 0) {
       lastName.classList = "form-control is-invalid";
-      errorCount += 1;
     } else {
       lastName.classList = "form-control is-valid";
     }
@@ -147,7 +128,7 @@ function securityCheck(){
     }
 
     //check if username alr exists
-    // var userexist = false;
+    var userexist = false;
     var db_user  = ''
         
     const getusers = ref(db, 'accounts/');
@@ -171,7 +152,7 @@ function securityCheck(){
     }
 
     // console.log(userexist);
-    if(!userexist && emailstatus){
+    if(!userexist && errorCount == 0){
         // console.log(userexist);
         // console.log(db_user);
         // console.log('hi');
