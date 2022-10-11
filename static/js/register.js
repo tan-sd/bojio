@@ -20,7 +20,7 @@ const app = initializeApp(firebaseConfig);
 
 /* CODE ADDED: START */
 // Import the functions needed to read from realtime database
-import { getDatabase, ref, onValue, set, update, child, push, get } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-database.js";
+import { getDatabase, ref, onValue, set, update, child, push } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-database.js";
 
 // connect to the realtime database
 const db = getDatabase();
@@ -56,31 +56,14 @@ function InsertData() {
   })
   }
 
-//validate email
-function validate_email(email){
-  expression = /^[^@]+@\w+(\.\w+)+\w$/
-  if(expression.test(email) == true){
-    //ok email
-    return true
-
-  } else{
-    //email invalid
-    return false
-  }
-}
-
-//check if field empty
-
 // Registration form validation
 function securityCheck(){
     var errorCount = 0;
     var firstName = document.getElementById('firstName');
     var lastName = document.getElementById('lastName');
     var username = document.getElementById('username');
-    var email = document.getElementById('email')
     var password = document.getElementById('password');
     var confirmPassword = document.getElementById('confirmPassword');
-    var usernameInvalidError = document.getElementById('usernameInvalid');
     var passwordInvalidError = document.getElementById('passwordInvalid');
     var passwordValidation = false;
 
@@ -93,28 +76,20 @@ function securityCheck(){
     // }
     // console.log(containsSpecialChars(username));
     
-  // if (firstName.length == 0) {
-  //   firstName.class
-  // }
-
-    emailstatus = validate_email(email)
     if(firstName.value.length == 0) {
       firstName.classList = "form-control is-invalid";
-      errorCount += 1;
     } else {
       firstName.classList = "form-control is-valid";
     }
     
     if(lastName.value.length == 0) {
       lastName.classList = "form-control is-invalid";
-      errorCount += 1;
     } else {
       lastName.classList = "form-control is-valid";
     }
 
     if(username.value.length < 8){
       username.classList = "form-control is-invalid";
-      usernameInvalidError.innerText = 'Username must be at least 8 characters.'
       // msg+='Please enter a valid username <br>'
       errorCount += 1;
     } else {
@@ -146,51 +121,52 @@ function securityCheck(){
       confirmPassword.classList = "form-control is-valid";
     }
 
-    //check if username alr exists
     // var userexist = false;
     var db_user  = ''
-        
-    const getusers = ref(db, 'accounts/');
-    onValue(getusers, (snapshot) => {
-    const data = snapshot.val();
-    console.log(data);
-    for(var i in data){
-
+    if (errorCount == 0) {
+      //check if username alr exists
       var userexist = false;
-      db_user = data[i]['username']
-      console.log(username.value);
-      console.log(db_user);
-      if(username.value == db_user){
-        console.log('user exist');
-        username.classList = "form-control is-invalid";
-        usernameInvalidError.innerText = 'Username has been taken.'
-        userexist = true
-        // console.log(userexist);
-        break;
-      }
+  
+        
+        const getusers = ref(db, 'accounts/');
+        onValue(getusers, (snapshot) => {
+        const data = snapshot.val();
+        console.log(data);
+        for(var i in data){
+          var userexist = false;
+          db_user = data[i]['username']
+          console.log(username.value);
+          console.log(db_user);
+          if(username.value == db_user){
+            console.log('user exist');
+            username.classList = "form-control is-invalid";
+            username.innerText = 'Username already exists.'
+            var userexist = true
+            break;
+          }
+        }
+
+        console.log(userexist);
+        if(!userexist){
+            console.log(userexist);
+            console.log(db_user);
+            console.log('hi');
+            InsertData();
+          }
+      
+      });
+      
+      
+      
+      //aft get users then want to come here
+    
+        // console.log(result);
+       
+        
+      
     }
 
-    // console.log(userexist);
-    if(!userexist && emailstatus){
-        // console.log(userexist);
-        // console.log(db_user);
-        // console.log('hi');
-        InsertData();
-      }
-  
-  });
-    // var userexist = false;
-    // var db_user  = ''
-    // if (errorCount == 0) {
-    //   console.log('qq');
-    //   if(!userexist){
-    //     InsertData();
-
-    //   }
-      
-      
-      
-    // }
+    
   }
 
 
