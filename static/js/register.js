@@ -1,9 +1,11 @@
 /* START OF FIREBASE */
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
+import { getDatabase, set, ref } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js";
+import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-auth.js";
 // Your web app's Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyDC4kZ-Ec-jP7dnlFEmvD5rW9bOIXRyT3Q",
@@ -18,12 +20,14 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
+
+
 /* CODE ADDED: START */
 // Import the functions needed to read from realtime database
-import { getDatabase, ref, onValue, set, update, child, push } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-database.js";
+// import { getDatabase, ref, onValue, set, update, child, push } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-database.js";
 
 // connect to the realtime database
-const db = getDatabase();
+// const db = getDatabase();
 
 // create variable of user input
 var firstName = document.getElementById('firstName');
@@ -38,6 +42,32 @@ var password = document.getElementById('password');
 // });
 /* CODE ADDED: END  */
 /* END OF FIREBASE */
+
+
+
+    const db = getDatabase(app);
+    const auth = getAuth();
+    var signupBtn = document.getElementById('signupBtn')
+    signupBtn?.addEventListener('click', (e) => {
+        var email = document.getElementById("email").value;
+        // var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+        
+        createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            // Signed in 
+            const user = userCredential.user;
+            alert("Successfully signed up!");
+            //Redirect user if you want
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            // ..
+            alert(errorMessage);
+        });
+    })
+
 
 
 // Retrieve form data and insert it into firebase
@@ -171,5 +201,5 @@ function securityCheck(){
 
 
 // Onclick eventlistener for sign up bottom
-var signupBtn = document.getElementById('signupBtn');
-signupBtn.addEventListener('click', securityCheck);
+// var signupBtn = document.getElementById('signupBtn');
+// signupBtn.addEventListener('click', securityCheck);
