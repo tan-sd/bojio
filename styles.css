@@ -13,6 +13,22 @@
     src: url(./fonts/worksans/WorkSans-Medium.ttf)
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
+.reveal{
+    position: relative;
+    transform: translateY(150px);
+    opacity: 0;
+    transition: 1s all ease;
+  }
+  
+.reveal.active{
+    transform: translateY(0);
+    opacity: 1;
+  }
+
 /* logo */
 .navbar-brand {
     font-family: worksans-extrabold;
@@ -192,6 +208,7 @@ nav .navbar-nav a{
     background-clip: text;
     -webkit-text-fill-color: transparent;
     font-size: 3.125rem;
+    animation: fadeup 0.5s ease-out;
 }
 
 .banner-header-about-2 {
@@ -208,12 +225,11 @@ nav .navbar-nav a{
     font-family: worksans-medium;
     color: black;
     position: relative;
-    left: 50%;
-    transform: translate(-50%);
     width: 50%;
     font-size: 1.375rem;
     line-height: 135%;
     margin-top: 3.5vmin;
+    animation: fadeup 0.5s ease-out;
 }
 
 /* how does it work?*/
@@ -256,13 +272,26 @@ nav .navbar-nav a{
 #emoji-model {
     display: flex;
     justify-content: center;
+    animation: fadeup 2s ease-out;
 }
 
-@media only screen and (max-device-width: 390px) {
+@keyframes fadeup {
+    0% {
+        transform: translateY(150px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* @media only screen and (max-device-width: 390px) {
     #emoji-model {
         display: none;
     }
-}
+} */
 
 @media only screen and (min-device-width: 390px) { /* screen equal or above 390 px */
     .banner-header-about-1 {
@@ -353,6 +382,7 @@ nav .navbar-nav a{
     .steps-paragraph {
         font-size: 1.375rem;
         width: 40%;
+    }
 }
 
 /* cards */
