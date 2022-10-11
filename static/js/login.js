@@ -1,7 +1,7 @@
 /* START OF FIREBASE */
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
-
+// import { getDatabase, ref, child, push, update } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js"
 // import {initializeApp} from  './node_modules/firebase/app'
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -33,13 +33,8 @@ const db = getDatabase();
 /* END OF FIREBASE */
 
 // create variable of user input
-var fullname = ''
-var username = document.getElementById('usernameLogin');
-var password = document.getElementById('passwordLogin');
-var usernameInvalidError = document.getElementById('usernameLoginInvalid');
-var passwordInvalidError = document.getElementById('passwordLoginInvalid');
 
-import { getDatabase, set, ref } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js";
+import { getDatabase, ref, child, push, update, set } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged , signOut } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-auth.js";
 
 const database = getDatabase(app);
@@ -69,26 +64,33 @@ var password = document.getElementById('passwordLogin').value
 });
 
   //Check user stat whwether signed in
-    const user = auth.currentUser;
-    onAuthStateChanged(auth, (user) => {
-    if (user) {
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/firebase.User
-        const uid = user.uid;
-        console.log("User is logged in.")
-        console.log(uid);
-        // console.log(user);
-        // ...
-    } else {
-        // User is signed out
-        // ...
-        console.log('user signed out');
-    }
-    });
+    // const user = auth.currentUser;
+    // onAuthStateChanged(auth, (user) => {
+    // if (user) {
+    //     // User is signed in, see docs for a list of available properties
+    //     // https://firebase.google.com/docs/reference/js/firebase.User
+    //     const uid = user.uid;
+    //     console.log("User is logged in.")
+    //     console.log(uid);
+    //     console.log(user.username);
+    //     console.log(user);
+    //     // console.log(user);
+    //     // ...
+    // } else {
+    //     // User is signed out
+    //     // ...
+    //     console.log('user signed out');
+    // }
+    // });
 
 
 // Retrieve data from firebase and verify
 function findData() {
+    var fullname = ''
+    var username = document.getElementById('usernameLogin');
+    var password = document.getElementById('passwordLogin');
+    var usernameInvalidError = document.getElementById('usernameLoginInvalid');
+    var passwordInvalidError = document.getElementById('passwordLoginInvalid');
     // console.log('hi');
     const dbref = ref(db);
 
@@ -159,6 +161,68 @@ function findData() {
 //   loginBtn.addEventListener('click', findData);
 // }
 
-function gotomain(){
-  window.location.href = "main.html?personname=" + fullname ;
-}
+// function gotomain(){
+//   window.location.href = "main.html?personname=" + fullname ;
+// }
+
+const user = auth.currentUser;
+    onAuthStateChanged(auth, (user) => {
+    if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/firebase.User
+        const uid = user.uid;
+        console.log("User is logged in.")
+        console.log(uid);
+        console.log(user.username);
+        console.log(user);
+        // console.log(user);
+        var jiobtn= document.getElementById('createJio')
+        jiobtn?.addEventListener('click',createJio)
+
+        console.log('hi');
+        // jiobtn?.addEventListener('click', (e) => {
+        var eventname = document.getElementById('name')
+        var date = document.getElementById('date').value
+        var type = 'public'
+        var pub = 'public'
+        // var uid = user.uid
+        // var type = document.getElementsByClassName('form-check')[0]
+        // console.log(type);
+        // console.log(type.value);
+        console.log(uid, pub, date, type);
+        function createJio(uid, date, type) {
+          const db = getDatabase();
+
+          // A post entry.
+          const jioData = {
+            // creator: username,
+            uid: uid,
+            date: date,
+            type: type,
+            activities: [1,2,3],
+          };
+          console.log(jioData);
+          // Get a key for a new Post.
+          const newKey = push(child(ref(db), 'events')).key;
+          console.log(newKey);
+          // Write the new post's data simultaneously in the posts list and the user's post list.
+          const updates = {};
+          // updates['/posts/' + newPostKey] = postData;
+          // updates['/user-posts/' + uid + '/' + newPostKey] = jioData;
+          updates[`${pub} events` + newKey] = jioData;
+          updates['/user-jios/' + uid + '/' + newKey] = jioData;
+
+          console.log(updates);
+          return update(ref(db), updates);
+        }
+
+        createJio(uid,date,type)
+        // ...
+    } else {
+        // User is signed out
+        // ...
+        console.log('user signed out');
+    }
+    });
+
+// })
