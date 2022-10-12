@@ -69,7 +69,7 @@
       </div>
     </div>
 
-    <div id='eventContainer' class="container text-center mt-5">
+    <div id='eventContainer' class="container mt-5" style="font-family: worksans-medium">
     </div>
 
     <script>
@@ -85,6 +85,7 @@
 
         for (let i = 0; i < response.data.events.length; i++) {
           var eventImg = response.data.events[i].image.url;
+          var eventTitle = response.data.events[i].name
           console.log(eventImg);
 
           counter += 1;
@@ -95,6 +96,9 @@
                       <div class='col-md-4 mb-5'>
                         <div class="card" style="width: auto">
                         <img src="${eventImg}" class="card-img-top">
+                        <div class='card-title pt-4'>
+                            ${eventTitle}
+                            </div>
                         </div>
                       </div>
                     `
@@ -103,6 +107,9 @@
             str += `<div class='col-md-4 mb-5'>
                       <div class='card' style='width: auto'>
                       <img src="${eventImg}" class="card-img-top">
+                      <div class='card-title pt-4'>
+                            ${eventTitle}
+                            </div>
                       </div>
                     </div>
                     `;
