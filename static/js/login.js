@@ -34,7 +34,7 @@ const db = getDatabase();
 
 // create variable of user input
 
-import { getDatabase, ref, child, push, update, set } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js";
+import { getDatabase, ref, child, push, update, set, get } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged , signOut } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-auth.js";
 
 const database = getDatabase(app);
@@ -165,15 +165,46 @@ function findData() {
 //   window.location.href = "main.html?personname=" + fullname ;
 // }
 
+
+function getdata(){
+    console.log(user);
+    console.log(uid);
+    const dbRef = ref(getDatabase());
+    get(child(dbRef, `accounts/${uid}`)).then((snapshot) => {
+      if (snapshot.exists()) {
+        console.log(snapshot.val());
+        let fullname = snapshot.val().firstname + ' ' + snapshot.val().lastname 
+        console.log(fullname);
+          let personname = document.getElementById('personname')
+          
+          personname.innerText =  `Welcome,  ${fullname} ! 👋🏼`
+          personname.setAttribute('style', ' display:inline; font-family: worksans-extrabold; font-size: 4vmin;')
+          personname.setAttribute('class', '')
+      } else {
+        console.log("No data available");
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
+}
+
+var uid = ''
+let x = 2
+
+// {
+//   let x =1
+// }
 const user = auth.currentUser;
     onAuthStateChanged(auth, (user) => {
     if (user) {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/firebase.User
-        const uid = user.uid;
+        uid = user.uid;
+        console.log(x);
         console.log("User is logged in.")
         console.log(uid);
-        console.log(user.username);
+        getdata()
+        // console.log(user.username);
         console.log(user);
         // console.log(user);
         var jiobtn= document.getElementById('createJio')
