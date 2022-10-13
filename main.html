@@ -66,6 +66,15 @@
     <!-- END OF NAVBAR -->
 
     <!-- Welcome message -->
+    
+    <button id="events" onclick ='changebutton(this)'>Events</button>
+    <button id="public" onclick ='changebutton(this)'>Public Jios</button>
+
+    <!-- this one need to log in then can see -->
+    <button id="private" onclick ='changebutton(this)'>Private Jios</button> 
+
+    <br>
+    <!-- all put inside the same container -->
     <div class="container">
       <div class="row">
         <div id = 'personname' onload="findData()" style="display:none"></div>
@@ -92,116 +101,150 @@
 
     <script>
 
+      // cnot call displayevent inside. cnot
+      // now js need it to display from the different objects when press diff buttons
+      
       var eventbriteJson = './json/raw_response_(3-11).json';
 
       var cardLimit;
       var pageCount;
-      
-      const cardContainer = document.getElementById("event-container");
-      const loadMoreButton = document.getElementById("load-more");
-      const cardCountElem = document.getElementById("card-count");
-      const cardTotalElem = document.getElementById("card-total");
+      var private;
 
-      const cardIncrease = 9;
-      let currentPage = 1;
-
-      const handleButtonStatus = () => {
-        if (pageCount === currentPage) {
-          loadMoreButton.classList.add("disabled");
-          loadMoreButton.setAttribute("disabled", true);
+      function changebutton(press){
+        console.log(press.id);
+        if(press.id == 'events'){
+          console.log('here');
+          displayevent()
+        }else if(press.id == 'private'){
+          console.log(typeof(localStorage.getItem('privatejios')));
+          private = JSON.parse(localStorage.getItem('privatejios'))
+          console.log(private);
+        }else if(press.id == 'public'){
+          console.log(typeof(localStorage.getItem('publicjios')));
+          public = JSON.parse(localStorage.getItem('publicjios'))
+          console.log(public);
         }
-      };
-
-      var rowCounter = 1;
-      var insertCounter = 0;
-      var firstTime = true;
-
-      const createCard = (index) => {
-
-        axios.get(eventbriteJson)
-        .then(response => {
-
-          var rowDiv;
-
-          if (firstTime) {
-            const rowDiv = document.createElement('div');
-            rowDiv.className = 'row';
-            rowDiv.id = `row${rowCounter}`;
-            cardContainer.appendChild(rowDiv);
-            firstTime = false;
-          }
-
-          if (insertCounter == 3) {
-            /* CREATE ROW DIV */
-            rowCounter += 1;
-            insertCounter = 0;
-            const rowDiv = document.createElement('div');
-            rowDiv.className = 'row';
-            rowDiv.id = `row${rowCounter}`;
-            cardContainer.appendChild(rowDiv);
-          }
-
-          pageCount = Math.ceil(cardLimit / cardIncrease);
-
-          cardLimit = response.data.events.length;
-
-          var eventImg = response.data.events[index-1].image.url;
-          var eventTitle = response.data.events[index-1].name;
-
-          // console.log(rowCounter);
-
-          /* CREATE COL DIV */
-          var row = document.getElementById(`row${rowCounter}`);
-          const colDiv = document.createElement('div');
-          colDiv.className = 'col-md-4 mb-5';
-
-          const cardDiv = document.createElement('div');
-          cardDiv.className = 'card';
-          cardDiv.style.width = 'auto';
-
-          const imgEle = document.createElement('img');
-          imgEle.src = eventImg;
-          imgEle.className = 'card-img-top';
-
-          const cardTitleDiv = document.createElement('div');
-          cardTitleDiv.className = 'card-title pt-4';
-          cardTitleDiv.innerHTML = eventTitle;
-
-          cardDiv.appendChild(imgEle);
-          cardDiv.appendChild(cardTitleDiv);
-          colDiv.appendChild(cardDiv);
-
-          row.appendChild(colDiv);
-
-          insertCounter += 1;
-
-          cardTotalElem.innerHTML = cardLimit;
-
-        })
-      };
-
-      const addCards = (pageIndex) => {
-      currentPage = pageIndex;
-
-      handleButtonStatus();
-
-      const startRange = (pageIndex - 1) * cardIncrease;
-      const endRange =
-        pageIndex * cardIncrease > cardLimit ? cardLimit : pageIndex * cardIncrease;
-
-      cardCountElem.innerHTML = endRange;
-
-      for (let i = startRange + 1; i <= endRange; i++) {
-        createCard(i);
       }
-      };
+      
+      
+      // console.log(typeof(localStorage.getItem('privatejios')));
+      // private = JSON.parse(localStorage.getItem('privatejios'))
+      // console.log(private);
 
-      window.onload = function () {
-      addCards(currentPage);
-      loadMoreButton.addEventListener("click", () => {
-        addCards(currentPage + 1);
-      });
-      };
+      displayevent()
+      
+      function displayevent(){
+            const cardContainer = document.getElementById("event-container");
+            const loadMoreButton = document.getElementById("load-more");
+            const cardCountElem = document.getElementById("card-count");
+            const cardTotalElem = document.getElementById("card-total");
+
+            const cardIncrease = 9;
+            let currentPage = 1;
+
+            const handleButtonStatus = () => {
+              if (pageCount === currentPage) {
+                loadMoreButton.classList.add("disabled");
+                loadMoreButton.setAttribute("disabled", true);
+              }
+            };
+
+            var rowCounter = 1;
+            var insertCounter = 0;
+            var firstTime = true;
+
+            const createCard = (index) => {
+              
+              axios.get(eventbriteJson)
+              .then(response => {
+                // console.log(response.data);
+                var rowDiv;
+
+                if (firstTime) {
+                  const rowDiv = document.createElement('div');
+                  rowDiv.className = 'row';   //<div class = row>
+                  rowDiv.id = `row${rowCounter}`;
+                  cardContainer.appendChild(rowDiv);
+                  firstTime = false;
+                }
+
+                if (insertCounter == 3) {
+                  /* CREATE ROW DIV */
+                  rowCounter += 1;
+                  insertCounter = 0;
+                  const rowDiv = document.createElement('div');
+                  rowDiv.className = 'row';
+                  rowDiv.id = `row${rowCounter}`;
+                  cardContainer.appendChild(rowDiv);
+                }
+
+                pageCount = Math.ceil(cardLimit / cardIncrease);
+
+                cardLimit = response.data.events.length;
+
+                var eventImg = response.data.events[index-1].image.url;
+                var eventTitle = response.data.events[index-1].name;
+
+                // console.log(rowCounter);
+
+                /* CREATE COL DIV */
+                var row = document.getElementById(`row${rowCounter}`);
+                const colDiv = document.createElement('div');
+                colDiv.className = 'col-md-4 mb-5';
+
+                const cardDiv = document.createElement('div');
+                cardDiv.className = 'card';
+                cardDiv.style.width = 'auto';
+
+                const imgEle = document.createElement('img');
+                imgEle.src = eventImg;
+                imgEle.className = 'card-img-top';
+
+                const cardTitleDiv = document.createElement('div');
+                cardTitleDiv.className = 'card-title pt-4';
+                cardTitleDiv.innerHTML = eventTitle;
+
+                cardDiv.appendChild(imgEle);
+                cardDiv.appendChild(cardTitleDiv);
+                colDiv.appendChild(cardDiv);
+
+                row.appendChild(colDiv);
+
+                insertCounter += 1;
+
+                cardTotalElem.innerHTML = cardLimit;
+
+              })
+            };
+
+            const addCards = (pageIndex) => {
+              console.log(currentPage);
+              console.log(pageIndex);
+            currentPage = pageIndex;
+
+            handleButtonStatus();
+
+            const startRange = (pageIndex - 1) * cardIncrease;
+            const endRange =
+              pageIndex * cardIncrease > cardLimit ? cardLimit : pageIndex * cardIncrease;
+
+            console.log(startRange);
+            console.log(endRange);
+            cardCountElem.innerHTML = endRange;
+            console.log(cardCountElem.textContent);
+
+            for (let i = startRange + 1; i <= endRange; i++) {
+              createCard(i);
+            }
+            };
+
+            window.onload = function () {
+            addCards(currentPage);
+            loadMoreButton.addEventListener("click", () => {
+              addCards(currentPage + 1);
+            });
+            };
+          }
 
     </script>
 
@@ -217,15 +260,15 @@
     
       <script>
         // document.cookie = 'userkwenjrn'
-        var url = document.URL
-        console.log(document.cookie);
-        if(url.includes('=')){
-          var array = url.split('=')
-          personname = document.getElementById('personname')
-          personname.innerText =  `Welcome, ${array[1]}! 👋🏼`
-          personname.setAttribute('style', ' display:inline; font-family: worksans-extrabold; font-size: 4vmin;')
-          personname.setAttribute('class', '')
-        }
+        // var url = document.URL
+        // console.log(document.cookie);
+        // if(url.includes('=')){
+        //   var array = url.split('=')
+        //   personname = document.getElementById('personname')
+        //   personname.innerText =  `Welcome, ${array[1]}! 👋🏼`
+        //   personname.setAttribute('style', ' display:inline; font-family: worksans-extrabold; font-size: 4vmin;')
+        //   personname.setAttribute('class', '')
+        // }
         
       </script>
     

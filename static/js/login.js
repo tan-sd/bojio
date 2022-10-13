@@ -296,3 +296,45 @@ function out(){
     // An error happened.
   });
 }
+
+
+//see private jios
+var privatejios = document.getElementById('private')
+privatejios.addEventListener('click', getprivate)
+
+const dbRef = ref(getDatabase());
+
+function getprivate(){
+get(child(dbRef, `private events/`)).then((snapshot) => {
+  if (snapshot.exists()) {
+
+    localStorage.setItem('privatejios', JSON.stringify(snapshot.val()))
+   
+  } else {
+    console.log("No data available");
+  }
+}).catch((error) => {
+  console.error(error);
+});
+}
+
+
+//get public 
+var publicjios = document.getElementById('public')
+publicjios.addEventListener('click', getpublic)
+
+function getpublic(){
+  get(child(dbRef, `public events/`)).then((snapshot) => {
+    if (snapshot.exists()) {
+  
+      // console.log(snapshot.val());
+      localStorage.setItem('publicjios', JSON.stringify(snapshot.val()))
+
+      // localStorage.setItem('publicjios', JSON.stringify(snapshot.val())
+    } else {
+      console.log("No data available");
+    }
+  }).catch((error) => {
+    console.error(error);
+  });
+  }
