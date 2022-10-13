@@ -84,7 +84,7 @@ var password = document.getElementById('passwordLogin').value
     // });
 
 
-// Retrieve data from firebase and verify
+// Retrieve data from firebase and verify   NOT IN USE NOW
 function findData() {
     var fullname = ''
     var username = document.getElementById('usernameLogin');
@@ -166,20 +166,28 @@ function findData() {
 // }
 
 
+//to get the person's uid and username
 function getdata(){
-    console.log(user);
-    console.log(uid);
     const dbRef = ref(getDatabase());
     get(child(dbRef, `accounts/${uid}`)).then((snapshot) => {
       if (snapshot.exists()) {
-        console.log(snapshot.val());
-        let fullname = snapshot.val().firstname + ' ' + snapshot.val().lastname 
-        console.log(fullname);
-          let personname = document.getElementById('personname')
-          
+        // console.log(snapshot.val());
+        let fullname = snapshot.val().firstname + ' ' + snapshot.val().lastname
+        if(typeof(Storage)!== 'undefined'){
+          localStorage.setItem('fullname', fullname)
+
+        }
+        // console.log(fullname);
+        
+        let personname = document.getElementById('personname')
+        
+        //only say hi at main page
+        if(personname){
           personname.innerText =  `Welcome,  ${fullname} ! 👋🏼`
           personname.setAttribute('style', ' display:inline; font-family: worksans-extrabold; font-size: 4vmin;')
           personname.setAttribute('class', '')
+        }
+         
       } else {
         console.log("No data available");
       }
@@ -189,65 +197,96 @@ function getdata(){
 }
 
 var uid = ''
-let x = 2
+var eventname = ''
+var username =''
+var date =''
+var type = ''
+var activities =''
+var testthis = ''
 
-// {
-//   let x =1
-// }
+//to createjio
+function createJio(eventname, type) {
+  const db = getDatabase();
+  
+  eventname = document.getElementById('name').value
+
+  if (typeof(Storage) !== "undefined") {
+    username = localStorage.getItem('fullname')}
+  else{
+    username = 'nousername'
+  }
+
+  date = document.getElementById('date').value
+  type = document.querySelector('input[name="exampleRadios"]:checked').value;
+
+  // A post entry.
+  const jioData = {
+    // creator: username,
+    eventname: eventname,
+    username: username,
+    date: date,
+    type: type,
+    activities: [1,2,3],
+  };
+  console.log(jioData);
+  // Get a key for a new Post.
+  const newKey = push(child(ref(db), 'events')).key;
+  console.log(newKey);
+  // Write the new post's data simultaneously in the posts list and the user's post list.
+  const updates = {};
+
+  //to separate public n private events
+  // privateevents 
+  //      userid
+  //        -jio data
+
+
+  updates[`${type} events/${uid}/${newKey}`] = jioData;
+
+  // accounts
+  //      firstname ...
+  //      eventsgoing
+              
+  //      createdjios
+              
+  updates['/createdjios/' + uid + '/' + newKey] = jioData;
+
+
+  //add under createdjios which is under username account
+  updates[`accounts/${uid}/createdjios/${newKey}`] = jioData;
+
+  console.log(updates);
+  return update(ref(db), updates);
+}
+
+
+
 const user = auth.currentUser;
     onAuthStateChanged(auth, (user) => {
     if (user) {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/firebase.User
         uid = user.uid;
-        console.log(x);
         console.log("User is logged in.")
         console.log(uid);
+
+        //call function to say hi user
         getdata()
         // console.log(user.username);
         console.log(user);
         // console.log(user);
-        var jiobtn= document.getElementById('createJio')
+        var jiobtn = document.getElementById('createJio')
         jiobtn?.addEventListener('click',createJio)
-
+        
         console.log('hi');
-        // jiobtn?.addEventListener('click', (e) => {
-        var eventname = document.getElementById('name')
-        var date = document.getElementById('date').value
-        var type = 'public'
-        var pub = 'public'
+        console.log(date);
+        console.log('date is'+ date.value);
+
+        
         // var uid = user.uid
-        // var type = document.getElementsByClassName('form-check')[0]
-        // console.log(type);
-        // console.log(type.value);
-        console.log(uid, pub, date, type);
-        function createJio(uid, date, type) {
-          const db = getDatabase();
-
-          // A post entry.
-          const jioData = {
-            // creator: username,
-            uid: uid,
-            date: date,
-            type: type,
-            activities: [1,2,3],
-          };
-          console.log(jioData);
-          // Get a key for a new Post.
-          const newKey = push(child(ref(db), 'events')).key;
-          console.log(newKey);
-          // Write the new post's data simultaneously in the posts list and the user's post list.
-          const updates = {};
-          // updates['/posts/' + newPostKey] = postData;
-          // updates['/user-posts/' + uid + '/' + newPostKey] = jioData;
-          updates[`${pub} events` + newKey] = jioData;
-          updates['/user-jios/' + uid + '/' + newKey] = jioData;
-
-          console.log(updates);
-          return update(ref(db), updates);
-        }
-
-        createJio(uid,date,type)
+ 
+        // const type = document.querySelector('input[name="exampleRadios"]:checked').value;
+  
         // ...
     } else {
         // User is signed out
