@@ -69,66 +69,136 @@
       </div>
     </div>
     
+    <div id='event-container' class="container mt-5" style="font-family: worksans-medium">
+    </div>
 
-    <div id='eventContainer' class="container mt-5" style="font-family: worksans-medium">
+    <div class="container">
+      <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+          <button id="load-more">Load More</button>
+        </div>
+        <div class="col-2">
+          <span>Showing 
+            <span id="card-count"></span> of 
+            <span id="card-total"></span> events      
+          </span>
+        </div>
+      </div>
     </div>
 
     <script>
-      var url = './json/raw_response_(3-8).json';
+
+      var eventbriteJson = './json/raw_response_(3-11).json';
+
+      var cardLimit;
+      var pageCount;
       
-      axios.get(url)
-      .then(response => {
-        // console.log(response.data.events);
+      const cardContainer = document.getElementById("event-container");
+      const loadMoreButton = document.getElementById("load-more");
+      const cardCountElem = document.getElementById("card-count");
+      const cardTotalElem = document.getElementById("card-total");
 
-        var eventContainer = document.getElementById('eventContainer');
-        var str = '';
-        var counter = 0;
+      const cardIncrease = 9;
+      let currentPage = 1;
 
-        for (let i = 0; i < response.data.events.length; i++) {
-          var eventImg = response.data.events[i].image.url;
-          var eventTitle = response.data.events[i].name
-          console.log(eventImg);
+      const handleButtonStatus = () => {
+        if (pageCount === currentPage) {
+          loadMoreButton.classList.add("disabled");
+          loadMoreButton.setAttribute("disabled", true);
+        }
+      };
 
-          counter += 1;
+      var rowCounter = 1;
+      var insertCounter = 0;
+      var firstTime = true;
 
-          if (i%3 == 0) {
+      const createCard = (index) => {
 
-            str += `<div class='row'>
-                      <div class='col-md-4 mb-5'>
-                        <div class="card" style="width: auto">
-                        <img src="${eventImg}" class="card-img-top">
-                        <div class='card-title pt-4'>
-                            ${eventTitle}
-                            </div>
-                        </div>
-                      </div>
-                    `
+        axios.get(eventbriteJson)
+        .then(response => {
 
-          } else {
-            str += `<div class='col-md-4 mb-5'>
-                      <div class='card' style='width: auto'>
-                      <img src="${eventImg}" class="card-img-top">
-                      <div class='card-title pt-4'>
-                            ${eventTitle}
-                            </div>
-                      </div>
-                    </div>
-                    `;
+          var rowDiv;
 
-            if (counter == 3) {
-              str += '</div>';
-              counter = 0;
-              }
-
-            }
+          if (firstTime) {
+            const rowDiv = document.createElement('div');
+            rowDiv.className = 'row';
+            rowDiv.id = `row${rowCounter}`;
+            cardContainer.appendChild(rowDiv);
+            firstTime = false;
           }
 
-        eventContainer.innerHTML += str;
-      })
+          if (insertCounter == 3) {
+            /* CREATE ROW DIV */
+            rowCounter += 1;
+            insertCounter = 0;
+            const rowDiv = document.createElement('div');
+            rowDiv.className = 'row';
+            rowDiv.id = `row${rowCounter}`;
+            cardContainer.appendChild(rowDiv);
+          }
 
-      .catch(error => {
-        console.log(error.message);
-      })
+          pageCount = Math.ceil(cardLimit / cardIncrease);
+
+          cardLimit = response.data.events.length;
+
+          var eventImg = response.data.events[index-1].image.url;
+          var eventTitle = response.data.events[index-1].name;
+
+          // console.log(rowCounter);
+
+          /* CREATE COL DIV */
+          var row = document.getElementById(`row${rowCounter}`);
+          const colDiv = document.createElement('div');
+          colDiv.className = 'col-md-4 mb-5';
+
+          const cardDiv = document.createElement('div');
+          cardDiv.className = 'card';
+          cardDiv.style.width = 'auto';
+
+          const imgEle = document.createElement('img');
+          imgEle.src = eventImg;
+          imgEle.className = 'card-img-top';
+
+          const cardTitleDiv = document.createElement('div');
+          cardTitleDiv.className = 'card-title pt-4';
+          cardTitleDiv.innerHTML = eventTitle;
+
+          cardDiv.appendChild(imgEle);
+          cardDiv.appendChild(cardTitleDiv);
+          colDiv.appendChild(cardDiv);
+
+          row.appendChild(colDiv);
+
+          insertCounter += 1;
+
+          cardTotalElem.innerHTML = cardLimit;
+
+        })
+      };
+
+      const addCards = (pageIndex) => {
+      currentPage = pageIndex;
+
+      handleButtonStatus();
+
+      const startRange = (pageIndex - 1) * cardIncrease;
+      const endRange =
+        pageIndex * cardIncrease > cardLimit ? cardLimit : pageIndex * cardIncrease;
+
+      cardCountElem.innerHTML = endRange;
+
+      for (let i = startRange + 1; i <= endRange; i++) {
+        createCard(i);
+      }
+      };
+
+      window.onload = function () {
+      addCards(currentPage);
+      loadMoreButton.addEventListener("click", () => {
+        addCards(currentPage + 1);
+      });
+      };
 
     </script>
 

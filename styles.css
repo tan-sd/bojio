@@ -135,6 +135,40 @@ nav .navbar-nav a {
     /* border-radius: 5px; */
 }
 
+.card:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+
+.card-actions {
+margin: 8px;
+padding: 16px 0;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+#load-more {
+padding: 16px;
+cursor: pointer;
+transition: all 200ms ease-in-out;
+border-radius: 3px;
+font-size: 0.75rem;
+text-transform: uppercase;
+letter-spacing: 0.15rem;
+border: 1px solid black;
+position: relative;
+left: 50%;
+transform: translate(-50%);
+}
+
+#load-more:not([disabled]):hover {
+box-shadow: 0 1px 9px rgba(0, 0, 0, 0.2);
+}
+
+#load-more[disabled] {
+background-color: #eaeaea !important;
+}
+
 .slider-container {
     width: 100%;
     height: 500px;
