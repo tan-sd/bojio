@@ -96,39 +96,6 @@ nav .navbar-nav a {
 
 /* toggle button end */
 
-/* top banner start */
-#banner {
-    width: 100%;
-    height: 300px;
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    flex-direction: column;
-    background: url(static/img/frontpage-banner.png) no-repeat;
-    color: white;
-    background-position-y: 20%;
-    background-position-x: center;
-    text-align: center;
-}
-
-#searchBar {
-    width: 80%;
-    height: 50px;
-    margin: auto;
-}
-
-#searchSection {
-    background-color: darkorange;
-    margin: 150px;
-    padding: 20px;
-    border-radius: 10px;
-}
-
-#findEvent {
-    text-align: center;
-}
-/* top banner end */
-
 .card {
     /* height: 500px;
     width: 300px; */
@@ -140,33 +107,134 @@ nav .navbar-nav a {
   }
 
 .card-actions {
-margin: 8px;
-padding: 16px 0;
-display: flex;
-justify-content: space-between;
-align-items: center;
+    margin: 8px;
+    padding: 16px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 #load-more {
-padding: 16px;
-cursor: pointer;
-transition: all 200ms ease-in-out;
-border-radius: 3px;
-font-size: 0.75rem;
-text-transform: uppercase;
-letter-spacing: 0.15rem;
-border: 1px solid black;
-position: relative;
-left: 50%;
-transform: translate(-50%);
+    padding: 16px;
+    cursor: pointer;
+    transition: all 200ms ease-in-out;
+    border-radius: 3px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15rem;
+    border: 1px solid black;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+    font-family: worksans-extrabold;
+    background-color: white;
+}
+
+#load-more:not([disabled]):active {
+    /* box-shadow: 0 1px 9px rgba(0, 0, 0, 0.2); */
+    box-shadow: 0 0 0 4px #cce9e4;
 }
 
 #load-more:not([disabled]):hover {
-box-shadow: 0 1px 9px rgba(0, 0, 0, 0.2);
+    background-color: #f0f1f1;
 }
 
 #load-more[disabled] {
 background-color: #eaeaea !important;
+}
+
+/* CSS */
+#events {
+  padding: 15px 30px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  border-radius: 10px;
+  display: block;
+  border: 0px;
+  font-weight: 700;
+  box-shadow: 0px 0px 14px -7px #f09819;
+  background-image: linear-gradient(45deg, #FF512F 0%, #F09819  51%, #FF512F  100%);
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  font-family: worksans-extrabold;
+}
+
+#events:hover {
+  background-position: right center;
+  /* change the direction of the change here */
+  color: #fff;
+  text-decoration: none;
+}
+
+#events:active {
+  transform: scale(0.95);
+}
+
+#public {
+    padding: 15px 30px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;
+    border-radius: 10px;
+    display: block;
+    border: 0px;
+    font-weight: 700;
+    box-shadow: 0px 0px 14px -7px #f09819;
+    background-image: linear-gradient(45deg, #FF512F 0%, #F09819  51%, #FF512F  100%);
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    font-family: worksans-extrabold;
+}
+
+#public:hover {
+    background-position: right center;
+    /* change the direction of the change here */
+    color: #fff;
+    text-decoration: none;
+}
+  
+#public:active {
+    transform: scale(0.95);
+}
+
+#private {
+    padding: 15px 30px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;
+    border-radius: 10px;
+    display: block;
+    border: 0px;
+    font-weight: 700;
+    box-shadow: 0px 0px 14px -7px #f09819;
+    background-image: linear-gradient(45deg, #FF512F 0%, #F09819  51%, #FF512F  100%);
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    font-family: worksans-extrabold;
+}
+
+#private:hover {
+    background-position: right center;
+    /* change the direction of the change here */
+    color: #fff;
+    text-decoration: none;
+}
+  
+#private:active {
+    transform: scale(0.95);
 }
 
 .slider-container {

@@ -30,7 +30,7 @@
     <link rel="icon" type="image/x-icon" href="/static/img/favicon/favicon.ico">
 
   </head>
-  
+
   <script src ="https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js"></script>
   <script src ="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js"></script>
   <script src ="https://www.gstatic.com/firebasejs/9.0.2/firebase-database.js"></script>
@@ -66,12 +66,23 @@
     <!-- END OF NAVBAR -->
 
     <!-- Welcome message -->
-    
-    <button id="events" onclick ='changebutton(this)'>Events</button>
-    <button id="public" onclick ='changebutton(this)'>Public Jios</button>
+
+    <div class="container">
+      <div class="row d-flex align-content-center justify-content-center">
+      <div class="col-sm-3 col-4 d-flex align-content-center justify-content-center">
+        <button class="btn" id="events" onclick ='changebutton(this)'>EVENTS</button>
+      </div>
+      <div class="col-sm-3 col-4 d-flex align-content-center justify-content-center">
+        <button class="btn" id="public" onclick ='changebutton(this)'>PUBLIC JIOS</button>
+      </div>
+      <div class="col-sm-3 col-4 d-flex align-content-center justify-content-center">
+        <button class="btn" id="private" onclick ='changebutton(this)'>PRIVATE JIOS</button> 
+      </div>
+    </div>
+    </div>
 
     <!-- this one need to log in then can see -->
-    <button id="private" onclick ='changebutton(this)'>Private Jios</button> 
+
 
     <br>
     <!-- all put inside the same container -->
@@ -88,7 +99,7 @@
       <div class="row">
         <div class="col-2"></div>
         <div class="col-8">
-          <button id="load-more">Load More</button>
+          <button id="load-more" class="mb-5">View More</button>
         </div>
         <div class="col-2">
           <span>Showing 
@@ -400,19 +411,19 @@
       </div>
     </div> -->
     
-      <script>
-        // document.cookie = 'userkwenjrn'
-        // var url = document.URL
-        // console.log(document.cookie);
-        // if(url.includes('=')){
-        //   var array = url.split('=')
-        //   personname = document.getElementById('personname')
-        //   personname.innerText =  `Welcome, ${array[1]}! 👋🏼`
-        //   personname.setAttribute('style', ' display:inline; font-family: worksans-extrabold; font-size: 4vmin;')
-        //   personname.setAttribute('class', '')
-        // }
+      <!-- <script>
+        document.cookie = 'userkwenjrn'
+        var url = document.URL
+        console.log(document.cookie);
+        if(url.includes('=')){
+          var array = url.split('=')
+          personname = document.getElementById('personname')
+          personname.innerText =  `Welcome, ${array[1]}! 👋🏼`
+          personname.setAttribute('style', ' display:inline; font-family: worksans-extrabold; font-size: 4vmin;')
+          personname.setAttribute('class', '')
+        }
         
-      </script>
+      </script> -->
     
     <!-- search bar -->
     <!-- <div id="banner" class="">
@@ -447,7 +458,7 @@
       </div> -->
       <!-- popular events end -->
 
-      <div class="carousel" data-flickity='{ "groupCells": true }'>
+      <!-- <div class="carousel" data-flickity='{ "groupCells": true }'>
         <div class="carousel-cell"></div>
         <div class="carousel-cell"></div>
         <div class="carousel-cell"></div>
@@ -459,7 +470,7 @@
         <div class="carousel-cell"></div>
         <div class="carousel-cell"></div>
         <div class="carousel-cell"></div>
-      </div>
+      </div> -->
       
 <!-- 
     <div id="map"></div>
