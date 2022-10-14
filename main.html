@@ -101,44 +101,177 @@
 
     <script>
 
-      // cnot call displayevent inside. cnot
-      // now js need it to display from the different objects when press diff buttons
+      // cnot call displayevent inside.
+      // now need it to display from the different objects when press diff buttons
       
-      var eventbriteJson = './json/raw_response_(3-11).json';
 
       var cardLimit;
       var pageCount;
       var private;
+      var endRange;
+      var url = './json/raw_response_(3-11).json';
+
+      function displayevent(){
+
+        const cardContainer = document.getElementById("event-container");
+        const loadMoreButton = document.getElementById("load-more");
+        const cardCountElem = document.getElementById("card-count");
+        const cardTotalElem = document.getElementById("card-total");
+
+        // console.log(cardCountElem.textContent);
+        // console.log(endRange);
+        const cardIncrease = 9;
+        let currentPage = 1;
+
+        console.log(pageCount, currentPage);
+        const handleButtonStatus = () => {
+        if (pageCount === currentPage) {
+          loadMoreButton.classList.add("disabled");
+          loadMoreButton.setAttribute("disabled", true);
+         }
+        };
+
+        var rowCounter = 1;
+        var insertCounter = 0;
+        var firstTime = true;
+
+        const createCard = (index) => {
+
+            axios.get(url)
+            .then(response => {
+
+              var rowDiv;
+
+              if (firstTime) {
+                const rowDiv = document.createElement('div');
+                rowDiv.className = 'row';
+                rowDiv.id = `row${rowCounter}`;
+                cardContainer.appendChild(rowDiv);
+                firstTime = false;
+              }
+
+              if (insertCounter == 3) {
+                /* CREATE ROW DIV */
+                rowCounter += 1;
+                insertCounter = 0;
+                const rowDiv = document.createElement('div');
+                rowDiv.className = 'row';
+                rowDiv.id = `row${rowCounter}`;
+                cardContainer.appendChild(rowDiv);
+              }
+
+        
+            
+              pageCount = Math.ceil(cardLimit / cardIncrease);
+
+              cardLimit = response.data.events.length;
+
+              var eventImg = response.data.events[index-1].image.url;
+              var eventTitle = response.data.events[index-1].name;
+
+              /* CREATE COL DIV */
+              var row = document.getElementById(`row${rowCounter}`);
+              const colDiv = document.createElement('div');
+              colDiv.className = 'col-md-4 mb-5';
+
+              const cardDiv = document.createElement('div');
+              cardDiv.className = 'card';
+              cardDiv.style.width = 'auto';
+
+              const imgEle = document.createElement('img');
+              imgEle.src = eventImg;
+              imgEle.className = 'card-img-top';
+
+              const cardTitleDiv = document.createElement('div');
+              cardTitleDiv.className = 'card-title pt-4';
+              cardTitleDiv.innerHTML = eventTitle;
+
+              cardDiv.appendChild(imgEle);
+              cardDiv.appendChild(cardTitleDiv);
+              colDiv.appendChild(cardDiv);
+
+              row.appendChild(colDiv);
+
+              insertCounter += 1;
+
+              cardTotalElem.innerHTML = cardLimit;
+
+            })
+      };  //end of create card
+
+      const addCards = (pageIndex) => {
+        currentPage = pageIndex;
+
+        handleButtonStatus();
+
+        const startRange = (pageIndex - 1) * cardIncrease;
+        const endRange =
+        pageIndex * cardIncrease > cardLimit ? cardLimit : pageIndex * cardIncrease;
+
+        console.log(cardLimit);
+        cardCountElem.innerHTML = endRange;
+
+        console.log(pageIndex);
+        console.log(endRange,cardLimit);
+        for (let i = startRange + 1; i <= endRange; i++) {
+          createCard(i);
+          console.log(i);
+        }
+      };
+
+      function x() {
+        addCards(currentPage);
+        loadMoreButton.addEventListener("click", () => {
+          addCards(currentPage + 1);
+        });
+      };
+
+      x()
+
+      }
 
       function changebutton(press){
         console.log(press.id);
         if(press.id == 'events'){
+          const cardContainer = document.getElementById("event-container")
+          cardContainer.innerHTML = ''
+
+          const count = document.getElementById("card-count")
+          // console.log(count).innerHTML;
+          count.textContent = ''
           console.log('here');
           displayevent()
+
         }else if(press.id == 'private'){
+
+          const cardContainer = document.getElementById("event-container")
+          cardContainer.innerHTML = ''
           console.log(typeof(localStorage.getItem('privatejios')));
           private = JSON.parse(localStorage.getItem('privatejios'))
-          console.log(private);
+        
+          p_event(private)
+
         }else if(press.id == 'public'){
+          const cardContainer = document.getElementById("event-container")
+          cardContainer.innerHTML = ''
           console.log(typeof(localStorage.getItem('publicjios')));
           public = JSON.parse(localStorage.getItem('publicjios'))
-          console.log(public);
+ 
+          p_event(public)
         }
       }
       
-      
-      // console.log(typeof(localStorage.getItem('privatejios')));
-      // private = JSON.parse(localStorage.getItem('privatejios'))
-      // console.log(private);
 
-      displayevent()
-      
-      function displayevent(){
+      function p_event(p){
+            // console.log('iinside function');
+            console.log(p);
+            let cardLimit = 0
             const cardContainer = document.getElementById("event-container");
             const loadMoreButton = document.getElementById("load-more");
             const cardCountElem = document.getElementById("card-count");
             const cardTotalElem = document.getElementById("card-total");
 
+            console.log('this is ' + cardCountElem);
             const cardIncrease = 9;
             let currentPage = 1;
 
@@ -153,11 +286,9 @@
             var insertCounter = 0;
             var firstTime = true;
 
-            const createCard = (index) => {
+            const createCard = (eventname,username) => {
               
-              axios.get(eventbriteJson)
-              .then(response => {
-                // console.log(response.data);
+                console.log(p);
                 var rowDiv;
 
                 if (firstTime) {
@@ -179,72 +310,83 @@
                 }
 
                 pageCount = Math.ceil(cardLimit / cardIncrease);
+                console.log(pageCount);
+        
 
-                cardLimit = response.data.events.length;
+                    //eventname then username
+                    var eventTitle = eventname
+                    var username = username
 
-                var eventImg = response.data.events[index-1].image.url;
-                var eventTitle = response.data.events[index-1].name;
+                     /* CREATE COL DIV */
+                    var row = document.getElementById(`row${rowCounter}`);
+                    const colDiv = document.createElement('div');
+                    colDiv.className = 'col-md-4 mb-5';
 
-                // console.log(rowCounter);
+                    const cardDiv = document.createElement('div');
+                    cardDiv.className = 'card';
+                    cardDiv.style.width = 'auto';
 
-                /* CREATE COL DIV */
-                var row = document.getElementById(`row${rowCounter}`);
-                const colDiv = document.createElement('div');
-                colDiv.className = 'col-md-4 mb-5';
+                    const cardTitleDiv = document.createElement('div');
+                    cardTitleDiv.className = 'card-title pt-4';
+                    cardTitleDiv.innerHTML = eventTitle;
 
-                const cardDiv = document.createElement('div');
-                cardDiv.className = 'card';
-                cardDiv.style.width = 'auto';
+                    // cardDiv.appendChild(imgEle);
+                    cardDiv.appendChild(cardTitleDiv);
+                    colDiv.appendChild(cardDiv);
 
-                const imgEle = document.createElement('img');
-                imgEle.src = eventImg;
-                imgEle.className = 'card-img-top';
+                    row.appendChild(colDiv);
 
-                const cardTitleDiv = document.createElement('div');
-                cardTitleDiv.className = 'card-title pt-4';
-                cardTitleDiv.innerHTML = eventTitle;
+                    insertCounter += 1;
 
-                cardDiv.appendChild(imgEle);
-                cardDiv.appendChild(cardTitleDiv);
-                colDiv.appendChild(cardDiv);
+                    cardTotalElem.innerHTML = cardLimit;  //max 1
 
-                row.appendChild(colDiv);
+            }  //end of create card
 
-                insertCounter += 1;
-
-                cardTotalElem.innerHTML = cardLimit;
-
-              })
-            };
+            for (user in p){
+                  for(activity in p[user]){
+                    cardLimit += 1
+                    // console.log(activity);
+                  }
+            }
 
             const addCards = (pageIndex) => {
-              console.log(currentPage);
-              console.log(pageIndex);
+
             currentPage = pageIndex;
 
             handleButtonStatus();
 
             const startRange = (pageIndex - 1) * cardIncrease;
-            const endRange =
+           
+            if (cardLimit <= 9){
+              const endRange = cardLimit
+            }else{
+              const endRange =
               pageIndex * cardIncrease > cardLimit ? cardLimit : pageIndex * cardIncrease;
-
-            console.log(startRange);
-            console.log(endRange);
-            cardCountElem.innerHTML = endRange;
-            console.log(cardCountElem.textContent);
-
-            for (let i = startRange + 1; i <= endRange; i++) {
-              createCard(i);
             }
-            };
 
-            window.onload = function () {
+            cardCountElem.innerHTML = endRange;
+
+            for(user in p){
+                  for(activity in p[user]){
+                    console.log(activity);
+                    createCard(p[user][activity]['eventname'], p[user][activity]['username'])
+                  }
+            }
+          } //add card function
+
+            function x() {
             addCards(currentPage);
             loadMoreButton.addEventListener("click", () => {
               addCards(currentPage + 1);
             });
             };
-          }
+
+            x()
+          }//end of public/private event
+
+
+      
+      
 
     </script>
 
