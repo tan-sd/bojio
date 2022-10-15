@@ -76,11 +76,70 @@
 
           <!-- Step 1 -->
           <div class="row" style="margin-top: 3.5vmin;">
-            <div class="col text-center">
+            <div class="col-12 col-sm-6 text-center" id="first-step">
                   <div class="steps-header">Join a group</div>
                   <p class="steps-paragraph">Do what you love, meet others who love it, find your community. The rest is history!</p>
               </div>
-              <!-- <div class="col-6"></div> -->
+              <div class="col-12 col-sm-6">
+                <div class='wrapper'>
+                  <div class='carousel'>
+                    <div class='carousel__item'>
+                      <div class='carousel__item-body'>
+                        <p class='title'>spouting whale</p>
+                        <p>Unicode: U+1F433</p>
+                      </div>
+                    </div>
+                    <div class='carousel__item'>
+                      <div class='carousel__item-body'>
+                        <p class='title'>whale</p>
+                        <p>Unicode: U+1F40B</p>
+                      </div>
+                    </div>
+                    <div class='carousel__item'>
+                      <div class='carousel__item-body'>
+                        <p class='title'>dolphin</p>
+                        <p>Unicode: U+1F42C</p>
+                      </div>
+                    </div>
+                    <div class='carousel__item'>
+                      <div class='carousel__item-body'>
+                        <p class='title'>fish</p>
+                        <p>Unicode: U+1F41F</p>
+                      </div>
+                    </div>
+                    <div class='carousel__item'>
+                      <div class='carousel__item-body'>
+                        <p class='title'>tropical fish</p>
+                        <p>Unicode: U+1F420</p>
+                      </div>
+                    </div>
+                    <div class='carousel__item'>
+                      <div class='carousel__item-body'>
+                        <p class='title'>blowfish</p>
+                        <p>Unicode: U+1F421</p>
+                      </div>
+                    </div>
+                    <div class='carousel__item'>
+                      <div class='carousel__item-body'>
+                        <p class='title'>shark</p>
+                        <p>Unicode: U+1F988</p>
+                      </div>
+                    </div>
+                    <div class='carousel__item'>
+                      <div class='carousel__item-body'>
+                        <p class='title'>octopus</p>
+                        <p>Unicode: U+1F419</p>
+                      </div>
+                    </div>
+                    <div class='carousel__item'>
+                      <div class='carousel__item-body'>
+                        <p class='title'>spiral shell</p>
+                        <p>Unicode: U+1F41A</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>                
+              </div>
             </div>
             
             <!-- Step 2 -->
@@ -102,8 +161,6 @@
               </div>
 
             </div>
-
-
           <!-- how does it work section end -->
 
           <div class="text-center">
@@ -181,13 +238,14 @@
 
           if (elementTop < windowHeight - elementVisible) {
             reveals[i].classList.add("active");
-          } else {
-            reveals[i].classList.remove("active");
-          }
+          } 
+          // else {
+          //   reveals[i].classList.remove("active");
+          // }
         }
       }
 
-window.addEventListener("scroll", reveal);
+      window.addEventListener("scroll", reveal);
     </script>
 
     <!-- Bootstrap - JavaScript Bundle with Popper -->
