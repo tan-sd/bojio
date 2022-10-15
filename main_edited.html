@@ -64,7 +64,7 @@
     <!-- Welcome message -->
     <div class="container">
       <div class="row mb-5">
-        <div id = 'personname' onload="findData()" style="display:none"></div>
+        <div id = 'personname' style="display:none"></div>
       </div>
     </div>
 
@@ -309,6 +309,7 @@
         
         handleEventsButtonStatus();
 
+        
         const startRange = (pageIndex - 1) * eventsCardIncrease;
         const endRange =
         pageIndex * eventsCardIncrease > eventsCardLimit ? eventsCardLimit : pageIndex * eventsCardIncrease;
