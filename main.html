@@ -99,7 +99,7 @@
       <div class="row">
         <div class="col-3"></div>
         <div class="col-sm-6 col-12">
-          <button id="load-more" class="mb-3">View More</button>
+          <button id="view-more" class="mb-3">View More</button>
         </div>
         <div class="col-lg-3 col-12 d-flex justify-content-lg-end justify-content-center mb-5">
           <span>Showing 
@@ -125,7 +125,7 @@
       function displayevent(){
 
         const cardContainer = document.getElementById("event-container");
-        const loadMoreButton = document.getElementById("load-more");
+        const loadMoreButton = document.getElementById("view-more");
         const cardCountElem = document.getElementById("card-count");
         const cardTotalElem = document.getElementById("card-total");
 
@@ -278,7 +278,7 @@
             console.log(p);
             let cardLimit = 0
             const cardContainer = document.getElementById("event-container");
-            const loadMoreButton = document.getElementById("load-more");
+            const viewMoreButton = document.getElementById("view-more");
             const cardCountElem = document.getElementById("card-count");
             const cardTotalElem = document.getElementById("card-total");
 
@@ -288,8 +288,8 @@
 
             const handleButtonStatus = () => {
               if (pageCount === currentPage) {
-                loadMoreButton.classList.add("disabled");
-                loadMoreButton.setAttribute("disabled", true);
+                viewMoreButton.classList.add("disabled");
+                viewMoreButton.setAttribute("disabled", true);
               }
             };
 
