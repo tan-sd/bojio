@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstap - CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+    <script src="static/js/createajio.js" defer></script>
+    <script type='module' src="static/js/login.js" defer></script>
+    <script src="static/js/map.js" defer></script>
+
+    <title>Create a Jio</title>
+    <style>
+
+      
+      #content{
+        
+        background-image: url(wallpaper4.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+        height:100%;
+        transition:10s;
+        
+        animation: change 30s infinite ease-in-out;
+
+        
+        
+      }
+      #info{
+        background-color:white;
+        width:500px;
+        height:550px;
+        margin:0 auto;
+        border:1px solid;
+        border-radius:5%;
+        position:relative;
+        overflow-y:auto;
+        
+      
+      }
+      .navbar-nav a:hover {
+        color: white;
+        
+      }
+
+      h2{
+        text-align:center;
+        margin-top:-5%;
+      }
+      .container form{
+        width:280px;
+        position:absolute;
+        left: 50%;
+        transform: translate(-50%);
+      }
+      #form1{
+        top: 30px;
+        
+        visibility:visible;
+        
+      }
+      #form2{
+        top: 10px;
+        
+        visibility:hidden;
+        
+      }
+
+      #form3{
+        
+        top:-15px;
+        
+        text-align: center;
+        visibility:hidden;
+        
+        
+      }
+      .title1{
+        margin-top:10%
+      }
+
+      @keyframes change{
+        0%{
+          background-image: url(wallpaper1.jpg)
+        }
+        25%{
+          background-image: url(wallpaper2.jpg)
+        }
+        50%{
+          background-image: url(wallpaper3.jpg)
+        }
+
+        75%{
+          background-image: url(wallpaper4.jpg)
+        }
+        100%{
+          background-image: url(wallpaper5.jpg)
+        }
+      
+      }
+  
+
+
+
+    </style>
+</head>
+<body>
+
+  <!-- if no events cnot add box under add event -->
+    
+    <!-- navbar -->
+    
+    <div id="content">
+      <nav class="navbar navbar-expand-sm navbar-light">
+        <div class="container-fluid">
+            <a class="navbar-brand orange" href="./main.html"><span style="color: black">Bo</span>Jio?</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                  <a class="nav-link" aria-current="page" href="./main.html">home</a>
+                  <a class="nav-link" href="./newcreateajio.html">create a jio</a>
+                  <a class="nav-link" href="./about.html">about</a>
+                  <a class="nav-link" href="./register.html">register</a>
+                  <a class="nav-link" href="./login.html">login</a>
+                </div>
+              </div>
+        </div>
+      </nav>
+  
+          <div class="container-fluid text-center ">
+          <div class="row mb-1">
+            <div class="banner-header col">
+              <h1 style="color:white;">create a Jio</h1>
+            </div>
+          </div>
+        </div>
+  
+          <div class="container" id="info">
+            <form id="form1">
+              <h2 class="title1">Step 1: Event Details</h2>
+              <div class="row mb-3">
+                <input type="text" class="form-control" id="name" placeholder="event name">
+              </div>
+              
+              <div class="row mb-3">
+                <input type="date" class="form-control" id="date" placeholder="date">
+              </div>
+              
+  
+              <div class="row ms-1 mb-1">
+                Type of Event:
+                <div class="form-check">   
+                    
+                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="public" >
+                    <label class="form-check-label" for="exampleRadios1">
+                      Public
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="private">
+                    <label class="form-check-label" for="exampleRadios2">
+                      Private
+                    </label>
+                  </div>
+              </div>
+              <hr>
+              <div class="row ms-1 mb-1">
+              <button type="button" class="btn orange border border-3" id="next1">Next</button>
+            </form> 
+  
+            <form id="form2">
+              <h2>Step 2: Add Activities</h2>
+  
+              <label for="activityName">Activity Name</label>
+              <div class="form-group row pb-1">
+                <input type="text" class="form-control" id="activityName" placeholder="Name of activity" ></input>
+              </div>
+              <label for="location" class ='pt-2'>Location</label>
+              <div class="form-group row pb-1">
+              <input type="text" class="form-control" id="location" placeholder="Location"></input>
+              </div>
+              <label for="activityDuration" class ='pt-2'>Duration of activity</label>
+              <div class="form-group row pb-1">
+                <input type="text" class="form-control" id="activityDuration" placeholder="Duration (mins)"></input>
+              </div>
+  
+              <div class="row">
+                <button type="button" class="btn orange border border-3" id="addEvent" onclick="update()">Add event!</button>
+              </div>
+  
+              <div class="row mt-3 " id="result">      
+              </div>
+  
+              <div class="row">
+                <button type="button" class="btn orange border border-3 mb-3" id="back1">Back</button>
+              </div>
+              
+              <div class="row">
+                <button type="button" class="btn orange border border-3 mb-3" id="next2" >Next</button>
+              </div>
+            </form> 
+  
+            <form id="form3">
+              <h2>Route Overview</h2>
+              <div class="row">
+                <div id="map" style="width: 100%;height: 350px;"></div>
+              </div>
+              
+  
+              <div class="row">
+                <button type="button" class="btn orange border border-3 mt-3" id="back2">Back</button>
+              </div>
+              
+              <div class="row">
+                <button type="button" class="btn orange border border-3 mt-3" id="submit">Submit</button>
+              </div>
+            </form>
+  
+          </div>
+
+    </div>
+    
+
+
+    <script>
+      // var date = document.getElementById('date').value
+      // var name = document.getElementById('name').value
+      // console.log(name,date);
+      // // var type = document.querySelector('input[name="exampleRadios"]:checked')
+      // // console.log(type);
+      // // console.log(type.value);
+      var form1=document.getElementById('form1');
+      var form2=document.getElementById('form2');
+      var form3=document.getElementById('form3');
+
+      var next1=document.getElementById('next1');
+      var next2=document.getElementById('next2');
+      var back1=document.getElementById('back1');
+      var back2=document.getElementById('back2');
+
+      next1.onclick=function(){
+        form1.style.visibility="hidden"
+        form2.style.visibility="visible"
+      }
+
+      next2.onclick=function(){
+        form2.style.visibility="hidden"
+        form3.style.visibility="visible"
+      }
+
+      back1.onclick=function(){
+        form1.style.visibility="visible"
+        form2.style.visibility="hidden"
+      }
+
+      back2.onclick=function(){
+        form2.style.visibility="visible"
+        form3.style.visibility="hidden"
+      }
+
+
+    </script>
+    <!-- Bootstrap - JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+    
+    <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBcpqqRoT6E55swScRXfN3WuJqPeD9Q9VU&callback=initMap"></script>
+</body>
+</html>
