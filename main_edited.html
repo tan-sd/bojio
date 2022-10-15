@@ -156,26 +156,26 @@
       var publicPageCount;
       var eventsCardIncrease = 9;
       var publicCardIncrease = 9;
+      var currentPage = 1;
       
       const cardContainer = document.getElementById("event-container");
       const viewMoreButton = document.getElementById("view-more");
       const cardCountElem = document.getElementById("card-count");
       const cardTotalElem = document.getElementById("card-total");
 
-      const handleButtonStatus = () => {
+      const handleEventsButtonStatus = () => {
         if (eventsPageCount === currentPage) {
           viewMoreButton.classList.add("disabled");
           viewMoreButton.setAttribute("disabled", true);
         }
+    }
 
+      const handlePublicButtonStatus = () => {
         if (publicPageCount === currentPage) {
             viewMoreButton.classList.add("disabled");
             viewMoreButton.setAttribute("disabled", true);
         }
       };
-
-      
-      let currentPage = 1;
 
       var rowCounter = 1;
       var insertCounter = 0;
@@ -307,7 +307,7 @@
       const addEventsCards = (pageIndex) => {
         currentPage = pageIndex;
         
-        handleButtonStatus();
+        handleEventsButtonStatus();
 
         const startRange = (pageIndex - 1) * eventsCardIncrease;
         const endRange =
@@ -318,12 +318,14 @@
         for (let i = startRange + 1; i <= endRange; i++) {
             createEventsCard(i);
             }
+            
       };
 
       const addPublicCards = (pageIndex) => {
+
         currentPage = pageIndex;
 
-        handleButtonStatus();
+        handlePublicButtonStatus();
 
         const startRange = (pageIndex - 1) * publicCardIncrease;
         const endRange =
@@ -378,11 +380,6 @@
         }
 
         publicFirstTime = true;
-
-        handleButtonStatus();
-
-        console.log(currentPage);
-        console.log(publicPageCount);
     }
 
     function privateCards() {
@@ -397,15 +394,14 @@
     /* ONLOAD POPULATE EVENT CARDS*/
     window.onload = function () {
         addEventsCards(currentPage);
-
         viewMoreButton.addEventListener("click", () => {
             addEventsCards(currentPage + 1);
         });
-    };
+    }
 
-    // console.log(currentPage);
-    // console.log(publicPageCount);
-    // console.log(eventsPageCount);
+    viewMoreButton.addEventListener("click", () => {
+            addPublicCards(currentPage + 1);
+        });
 
     </script>
     
