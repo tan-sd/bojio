@@ -149,27 +149,38 @@
 
       var eventbriteJson = './json/raw_response_(3-11).json';
 
-      var cardLimit;
-      var pageCount;
+      var eventsCardLimit;
+      var publicCardLimit;
+      var privateCardLimit;
+      var eventsPageCount;
+      var publicPageCount;
+      var eventsCardIncrease = 9;
+      var publicCardIncrease = 9;
       
       const cardContainer = document.getElementById("event-container");
       const viewMoreButton = document.getElementById("view-more");
       const cardCountElem = document.getElementById("card-count");
       const cardTotalElem = document.getElementById("card-total");
 
-      const cardIncrease = 9;
-      let currentPage = 1;
-
       const handleButtonStatus = () => {
-        if (pageCount === currentPage) {
+        if (eventsPageCount === currentPage) {
           viewMoreButton.classList.add("disabled");
           viewMoreButton.setAttribute("disabled", true);
         }
+
+        if (publicPageCount === currentPage) {
+            viewMoreButton.classList.add("disabled");
+            viewMoreButton.setAttribute("disabled", true);
+        }
       };
+
+      
+      let currentPage = 1;
 
       var rowCounter = 1;
       var insertCounter = 0;
-      var firstTime = true;
+      var eventFirstTime = true;
+      var publicFirstTime = true;
 
       const createEventsCard = (index) => {
 
@@ -177,14 +188,15 @@
         axios.get(eventbriteJson)
         .then(response => {
 
-          var rowDiv;
-
-          if (firstTime) {
+            eventsCardLimit = response.data.events.length;
+            var rowDiv;
+            
+          if (eventFirstTime) {
             const rowDiv = document.createElement('div');
             rowDiv.className = 'row';
             rowDiv.id = `row${rowCounter}`;
             cardContainer.appendChild(rowDiv);
-            firstTime = false;
+            eventFirstTime = false;
           }
 
           if (insertCounter == 3) {
@@ -197,9 +209,7 @@
             cardContainer.appendChild(rowDiv);
           }
 
-          pageCount = Math.ceil(cardLimit / cardIncrease);
-
-          cardLimit = response.data.events.length;
+          eventsPageCount = Math.ceil(eventsCardLimit / eventsCardIncrease);
 
           var eventImg = response.data.events[index-1].image.url;
           var eventTitle = response.data.events[index-1].name;
@@ -231,33 +241,100 @@
 
           insertCounter += 1;
 
-          cardTotalElem.innerHTML = cardLimit;
+          cardTotalElem.innerHTML = eventsCardLimit;
 
         })
       };
 
-      const addCards = (pageIndex) => {
-      currentPage = pageIndex;
+      var publicEventName = [];
+      // console.log(publicEventName);
 
-      handleButtonStatus();
+      const createPublicCard = (index) => {
+        
+        console.log(index);
+        publicCardLimit = publicEventName.length;
 
-      const startRange = (pageIndex - 1) * cardIncrease;
-      const endRange =
-        pageIndex * cardIncrease > cardLimit ? cardLimit : pageIndex * cardIncrease;
+        var rowDiv;
 
-      cardCountElem.innerHTML = endRange;
+        if (publicFirstTime) {
+            const rowDiv = document.createElement('div');
+            rowDiv.className = 'row';
+            rowDiv.id = `row${rowCounter}`;
+            cardContainer.appendChild(rowDiv);
+            publicFirstTime = false;
+          }
 
-      for (let i = startRange + 1; i <= endRange; i++) {
-        createEventsCard(i);
+        if (insertCounter == 3) {
+            /* CREATE ROW DIV */
+            rowCounter += 1;
+            insertCounter = 0;
+            const rowDiv = document.createElement('div');
+            rowDiv.className = 'row';
+            rowDiv.id = `row${rowCounter}`;
+            cardContainer.appendChild(rowDiv);
+        }
+
+        // pageCount = Math.ceil(publicCardLimit / publicCardIncrease);
+        publicPageCount = Math.ceil(publicCardLimit / publicCardIncrease);
+
+        var eventTitle = publicEventName[index-1];
+
+        // console.log(rowCounter);
+
+        /* CREATE COL DIV */
+        var row = document.getElementById(`row${rowCounter}`);
+        const colDiv = document.createElement('div');
+        colDiv.className = 'col-md-4 mb-5';
+
+        const cardDiv = document.createElement('div');
+        cardDiv.className = 'card';
+        cardDiv.style.width = 'auto';
+
+        const cardTitleDiv = document.createElement('div');
+        cardTitleDiv.className = 'card-title pt-4';
+        cardTitleDiv.innerHTML = eventTitle;
+
+        cardDiv.appendChild(cardTitleDiv);
+        colDiv.appendChild(cardDiv);
+
+        row.appendChild(colDiv);
+
+        insertCounter += 1;
+
+        cardTotalElem.innerHTML = publicCardLimit;
+    };
+
+      const addEventsCards = (pageIndex) => {
+        currentPage = pageIndex;
+        
+        handleButtonStatus();
+
+        const startRange = (pageIndex - 1) * eventsCardIncrease;
+        const endRange =
+        pageIndex * eventsCardIncrease > eventsCardLimit ? eventsCardLimit : pageIndex * eventsCardIncrease;
+
+        cardCountElem.innerHTML = endRange;
+
+        for (let i = startRange + 1; i <= endRange; i++) {
+            createEventsCard(i);
+            }
+      };
+
+      const addPublicCards = (pageIndex) => {
+        currentPage = pageIndex;
+
+        handleButtonStatus();
+
+        const startRange = (pageIndex - 1) * publicCardIncrease;
+        const endRange =
+            pageIndex * publicCardIncrease > publicCardLimit ? publicCardLimit : pageIndex * publicCardIncrease;
+        
+        cardCountElem.innerHTML = endRange;
+
+        for (let i = startRange + 1; i <= endRange; i++) {
+            createPublicCard(i);
+        }
       }
-      };
-
-      window.onload = function () {
-      addCards(currentPage);
-      viewMoreButton.addEventListener("click", () => {
-        addCards(currentPage + 1);
-        });
-      };
 
       function eventsCards() {
 
@@ -268,7 +345,7 @@
             child = e.lastElementChild;
         }
 
-        addCards(1);
+        addEventsCards(1);
         currentPage = 1;
         
         let viewMoreButton = document.getElementById("view-more");
@@ -277,6 +354,8 @@
             viewMoreButton.classList.remove('disabled');
             viewMoreButton.removeAttribute('disabled');
         }
+
+        eventFirstTime = true;
       }
 
       function publicCards() {
@@ -288,36 +367,23 @@
             child = e.lastElementChild;
         }
 
-        for (i=0;i<publicEventName.length;i++) {
-            const rowDiv = document.createElement('div');
-            rowDiv.className = 'row';
+        addPublicCards(1);
+        currentPage = 1;
 
-            const colDiv = document.createElement('div');
-            colDiv.className = 'col-6';
+        let viewMoreButton = document.getElementById("view-more");
 
-            const cardDiv = document.createElement('div');
-            cardDiv.className = 'card';
-            cardDiv.style.width = 'auto';
-            
-            const cardTitleDiv = document.createElement('div');
-            cardTitleDiv.className = 'card-title pt-4';
-            cardTitleDiv.innerHTML = publicEventName[i];
-
-            cardDiv.appendChild(cardTitleDiv);
-            colDiv.appendChild(cardDiv);
-            rowDiv.appendChild(colDiv)
-
-            // insertCounter += 1;
-
-            // cardTotalElem.innerHTML = cardLimit;
-
-            cardContainer.appendChild(rowDiv);
-
+        if (viewMoreButton.classList.contains('disabled')) {
+            viewMoreButton.classList.remove('disabled');
+            viewMoreButton.removeAttribute('disabled');
         }
+
+        publicFirstTime = true;
+
+        console.log(currentPage);
+        console.log(publicPageCount);
     }
 
     function privateCards() {
-
         var e = document.getElementById('event-container');
         var child = e.lastElementChild;
         while (child) {
@@ -325,27 +391,16 @@
             child = e.lastElementChild;
         }
     }
+    
+    /* ONLOAD POPULATE EVENT CARDS*/
+    window.onload = function () {
+        addEventsCards(currentPage);
 
-    var publicEventName = [];
-    // console.log(publicEventName);
-
-    const createPublicCard = (index) => {
-
-
-        console.log(index);
-        console.log(publicEventName[index-1])
+        viewMoreButton.addEventListener("click", () => {
+            addEventsCards(currentPage + 1);
+        });
     };
 
-        // addCards(1);
-        // currentPage = 1;
-
-        // let viewMoreButton = document.getElementById("view-more");
-
-        // if (viewMoreButton.classList.contains('disabled')) {
-        //     viewMoreButton.classList.remove('disabled');
-        //     viewMoreButton.removeAttribute('disabled');
-        // }
-    
     </script>
     
       <script>
