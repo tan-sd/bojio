@@ -46,21 +46,20 @@ var password = document.getElementById('passwordLogin').value
 
 // get errors here https://firebase.google.com/docs/auth/admin/errors
 
-    // const auth = getAuth();
-    signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-        // Signed in 
-        const user = userCredential.user;
-        window.location.href = "./main.html";
-        
-        // ...
-    })
-    .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        alert(errorMessage);
-    });
-    
+signInWithEmailAndPassword(auth, email, password)
+.then((userCredential) => {
+  // Signed in 
+  const user = userCredential.user;
+  window.location.href = "./main.html";
+  
+  // ...
+})
+.catch((error) => {
+  const errorCode = error.code;
+  const errorMessage = error.message;
+  alert(errorMessage);
+});
+
 });
 
   //Check user stat whwether signed in
@@ -85,74 +84,74 @@ var password = document.getElementById('passwordLogin').value
 
 
 // Retrieve data from firebase and verify   NOT IN USE NOW
-function findData() {
-    var fullname = ''
-    var username = document.getElementById('usernameLogin');
-    var password = document.getElementById('passwordLogin');
-    var usernameInvalidError = document.getElementById('usernameLoginInvalid');
-    var passwordInvalidError = document.getElementById('passwordLoginInvalid');
-    // console.log('hi');
-    const dbref = ref(db);
+// function findData() {
+//     var fullname = ''
+//     var username = document.getElementById('usernameLogin');
+//     var password = document.getElementById('passwordLogin');
+//     var usernameInvalidError = document.getElementById('usernameLoginInvalid');
+//     var passwordInvalidError = document.getElementById('passwordLoginInvalid');
+//     // console.log('hi');
+//     const dbref = ref(db);
 
-    get(child(dbref, "accounts"))
-    .then((snapshot) => {
-    var info = snapshot.val();
-    var keys = Object.keys(info);
+//     get(child(dbref, "accounts"))
+//     .then((snapshot) => {
+//     var info = snapshot.val();
+//     var keys = Object.keys(info);
 
-    if (username.value.length == 0){
-      username.classList = 'form-control is-invalid';
-      usernameInvalidError.innerHTML = 'Please enter your username.';
+//     if (username.value.length == 0){
+//       username.classList = 'form-control is-invalid';
+//       usernameInvalidError.innerHTML = 'Please enter your username.';
       
-    }
+//     }
 
-    if (password.value.length == 0) {
-      password.classList = 'form-control is-invalid';
-      passwordInvalidError.innerHTML = 'Please enter your password.';
-      return
+//     if (password.value.length == 0) {
+//       password.classList = 'form-control is-invalid';
+//       passwordInvalidError.innerHTML = 'Please enter your password.';
+//       return
 
-    } else {
-      password.classList = 'form-control';
-      passwordInvalidError.innerHTML = '';
+//     } else {
+//       password.classList = 'form-control';
+//       passwordInvalidError.innerHTML = '';
       
-    }
+//     }
 
-    for (var i=0; i < keys.length; i++) {
-        var k = keys[i];
-        var nameDB = info[k].username;
-        var passwordDB = info[k].password;
+//     for (var i=0; i < keys.length; i++) {
+//         var k = keys[i];
+//         var nameDB = info[k].username;
+//         var passwordDB = info[k].password;
         
-        if (username.value === nameDB) {
-          username.classList = 'form-control';
-          usernameInvalidError.innerHTML = '';
-            if (password.value === passwordDB) {
-                //k is the unique id to identify users
-                document.cookie = `${k}`
-                // console.log(k);
-                fullname = info[k].firstname + info[k].lastname
-                gotomain()
-                break;
+//         if (username.value === nameDB) {
+//           username.classList = 'form-control';
+//           usernameInvalidError.innerHTML = '';
+//             if (password.value === passwordDB) {
+//                 //k is the unique id to identify users
+//                 document.cookie = `${k}`
+//                 // console.log(k);
+//                 fullname = info[k].firstname + info[k].lastname
+//                 gotomain()
+//                 break;
 
-            } else {
-              if (password.value.length > 0) {
-                password.classList = 'form-control is-invalid';
-                passwordInvalidError.innerHTML = 'The password is incorrect. Please try again.';
-                break;
-              }
-            }
-        } else {
-            if (username.value.length > 0) {
-              username.classList = 'form-control is-invalid';
-              usernameInvalidError.innerHTML = 'The username does not exist. Please try again.';
-              password.classList = 'form-control';
-              passwordInvalidError.innerHTML = '';
-            }
-        }
-    }
+//             } else {
+//               if (password.value.length > 0) {
+//                 password.classList = 'form-control is-invalid';
+//                 passwordInvalidError.innerHTML = 'The password is incorrect. Please try again.';
+//                 break;
+//               }
+//             }
+//         } else {
+//             if (username.value.length > 0) {
+//               username.classList = 'form-control is-invalid';
+//               usernameInvalidError.innerHTML = 'The username does not exist. Please try again.';
+//               password.classList = 'form-control';
+//               passwordInvalidError.innerHTML = '';
+//             }
+//         }
+//     }
 
-    }, function (error) {
-        console.log("Error:" + error.code)
-    });
-}
+//     }, function (error) {
+//         console.log("Error:" + error.code)
+//     });
+// }
 
 // Onclick eventlistener for log in bottom
 
@@ -219,7 +218,6 @@ function createJio(eventname, type) {
   date = document.getElementById('date').value
   type = document.querySelector('input[name="exampleRadios"]:checked').value;
 
-  // A post entry.
   const jioData = {
     // creator: username,
     eventname: eventname,
@@ -228,10 +226,10 @@ function createJio(eventname, type) {
     type: type,
     activities: [1,2,3],
   };
-  console.log(jioData);
+
   // Get a key for a new Post.
   const newKey = push(child(ref(db), 'events')).key;
-  console.log(newKey);
+
   // Write the new post's data simultaneously in the posts list and the user's post list.
   const updates = {};
 
@@ -244,10 +242,10 @@ function createJio(eventname, type) {
   updates[`${type} events/${uid}/${newKey}`] = jioData;
 
   // accounts
-  //      firstname ...
-  //      eventsgoing
+
+  // eventsgoing
               
-  //      createdjios
+  // createdjios
               
   updates['/createdjios/' + uid + '/' + newKey] = jioData;
 
@@ -260,7 +258,7 @@ function createJio(eventname, type) {
 }
 
 
-
+//check user sign in or out
 const user = auth.currentUser;
     onAuthStateChanged(auth, (user) => {
     if (user) {
@@ -272,22 +270,13 @@ const user = auth.currentUser;
 
         //call function to say hi user
         getdata()
-        // console.log(user.username);
+     
         console.log(user);
-        // console.log(user);
+
         var jiobtn = document.getElementById('createJio')
         jiobtn?.addEventListener('click',createJio)
         
-        console.log('hi');
-        console.log(date);
-        console.log('date is'+ date.value);
 
-        
-        // var uid = user.uid
- 
-        // const type = document.querySelector('input[name="exampleRadios"]:checked').value;
-  
-        // ...
     } else {
         // User is signed out
         // ...
@@ -295,4 +284,57 @@ const user = auth.currentUser;
     }
     });
 
-// })
+
+//to sign user out
+var signout = document.getElementById('signout')
+signout.addEventListener('click', out)
+function out(){
+  signOut(auth).then(() => {
+    // Sign-out successful.
+    console.log('user signed out');
+  }).catch((error) => {
+    // An error happened.
+  });
+}
+
+
+//see private jios
+var privatejios = document.getElementById('private')
+privatejios.addEventListener('click', getprivate)
+
+const dbRef = ref(getDatabase());
+
+function getprivate(){
+get(child(dbRef, `private events/`)).then((snapshot) => {
+  if (snapshot.exists()) {
+
+    localStorage.setItem('privatejios', JSON.stringify(snapshot.val()))
+   
+  } else {
+    console.log("No data available");
+  }
+}).catch((error) => {
+  console.error(error);
+});
+}
+
+
+//get public 
+var publicjios = document.getElementById('public')
+publicjios.addEventListener('click', getpublic)
+
+function getpublic(){
+  get(child(dbRef, `public events/`)).then((snapshot) => {
+    if (snapshot.exists()) {
+  
+      // console.log(snapshot.val());
+      localStorage.setItem('publicjios', JSON.stringify(snapshot.val()))
+
+      // localStorage.setItem('publicjios', JSON.stringify(snapshot.val())
+    } else {
+      console.log("No data available");
+    }
+  }).catch((error) => {
+    console.error(error);
+  });
+  }
