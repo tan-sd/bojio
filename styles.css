@@ -114,7 +114,7 @@ nav .navbar-nav a {
     align-items: center;
 }
 
-#load-more {
+#view-more {
     padding: 16px;
     cursor: pointer;
     transition: all 200ms ease-in-out;
@@ -130,16 +130,16 @@ nav .navbar-nav a {
     background-color: white;
 }
 
-#load-more:not([disabled]):active {
+#view-more:not([disabled]):active {
     /* box-shadow: 0 1px 9px rgba(0, 0, 0, 0.2); */
     box-shadow: 0 0 0 4px #cce9e4;
 }
 
-#load-more:not([disabled]):hover {
+#view-more:not([disabled]):hover {
     background-color: #f0f1f1;
 }
 
-#load-more[disabled] {
+#view-more[disabled] {
 background-color: #eaeaea !important;
 }
 
