@@ -3,10 +3,11 @@ import {getAuth, onAuthStateChanged, signOut} from 'firebase/auth';
 import { useRouter } from 'vue-router' 
 import { getDatabase, ref, child, push, update, set, get } from 'firebase/database'
 
-import uid from '../App.vue'
+// import uid from '../App.vue'
+var uid;
 
 export function getdata(){
-    console.log(uid);
+    uid = localStorage.getItem("uid")
     const dbRef = ref(getDatabase());
     get(child(dbRef, `accounts/${uid}`)).then((snapshot) => {
       if (snapshot.exists()) {

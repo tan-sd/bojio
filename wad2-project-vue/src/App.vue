@@ -32,7 +32,7 @@
           <ul class="navbar-nav" v-if="!isLoggedIn" >
             <li class="nav-item active pe-4">
               <!-- <a class="nav-link" href="./about.html">About</a> -->
-              <router-link to="/aboutpage" class="nav-link"> About</router-link> 
+              <router-link to="/aboutpage/:id" class="nav-link"> About</router-link> 
             </li>
 
             <li class="nav-item pe-4">
@@ -45,7 +45,7 @@
               <!-- <a class="nav-link" href="./signup.html">Sign up</a> -->
             </li>
             <li class="nav-item">
-              <router-link to="/login/:id" class="nav-link"> <span class="nav-login"> Login </span> 🔥</router-link>
+              <router-link to="/login/" class="nav-link"> <span class="nav-login"> Login </span> 🔥</router-link>
               <!-- <a class="nav-link" href="./login.html"><span class="nav-login">Login</span> 🔥</a> -->
             </li>
           </ul>
@@ -54,7 +54,7 @@
           <ul class="navbar-nav" v-else >
             <li class="nav-item active pe-4">
               <!-- <a class="nav-link" href="./about.html">About</a> -->
-              <router-link to="/aboutpage" class="nav-link"> About</router-link> 
+              <router-link to="/aboutpage/:id" class="nav-link"> About</router-link> 
             </li>
             <li class="nav-item pe-4">
               <router-link to="/createajio" class="nav-link"> Create a Jio</router-link> 
@@ -108,7 +108,7 @@
 // import { getDatabase, ref, child, push, update, set, get } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js";
 // import { getAuth, signInWithEmailAndPassword, onAuthStateChanged , signOut } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-auth.js";
 
-import { onMounted, ref } from 'vue'
+import { onMounted, onBeforeMount, ref } from 'vue'
 import {getAuth, onAuthStateChanged, signOut} from 'firebase/auth';
 import { useRouter } from 'vue-router' 
 import { getDatabase, onValue } from 'firebase/database'
@@ -119,16 +119,25 @@ const isLoggedIn = ref(false)
 var uid;
 
 let auth;
-onMounted(()=>{
+onBeforeMount(()=>{
   auth = getAuth();
   onAuthStateChanged(auth, (user)=>{ 
     if(user) {
       isLoggedIn.value = true;
       console.log(user);
       uid = user.uid
+
+      if (typeof(Storage) !== "undefined") {
+          // Store
+          localStorage.setItem("uid", uid);
+      
+        } else {
+          document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
+        }
       console.log(uid);
       // console.log(uid +'is loggedin');
       getdata()
+
     } else {
       isLoggedIn.value = false;
     }
@@ -138,6 +147,10 @@ onMounted(()=>{
 const handlesignOut = () => {
     signOut(auth).then(()=>{ 
       router.push('/')
+      // clear welcome msg
+      let personname = document.getElementById('personname')
+      console.log(personname);
+      personname.setAttribute('style','display:none')
 
     })
   }
