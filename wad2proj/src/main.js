@@ -1,15 +1,18 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
-import firebase from "firebase";
+// import firebase from "firebase";
+
+import { initializeApp } from 'firebase/app'
+
+
 
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './assets/global.css'
 
 // createApp(App).mount('#app')
-
-var firebaseConfig = {
+const firebaseConfig = {
     apiKey: "AIzaSyDC4kZ-Ec-jP7dnlFEmvD5rW9bOIXRyT3Q",
     authDomain: "wad2-project-d8ba0.firebaseapp.com",
     projectId: "wad2-project-d8ba0",
@@ -19,7 +22,9 @@ var firebaseConfig = {
     databaseURL: "https://wad2-project-d8ba0-default-rtdb.asia-southeast1.firebasedatabase.app/"
 };
 
-firebase.initializeApp(firebaseConfig)
+// firebase.initializeApp(firebaseConfig)
+initializeApp(firebaseConfig);
+
 const app = createApp(App)
 app.use(router)
 app.mount('#app')
