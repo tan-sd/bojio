@@ -2,8 +2,7 @@ import { createApp, VueElement } from 'vue'
 import App from './App.vue'
 import router from './router'
 // import firebase from "firebase"
-import Vue from 'vue';
-import Message from './components/HelloWorld.vue'
+
 
 import { initializeApp } from 'firebase/app'
 import { TroisJSVuePlugin } from 'troisjs';
@@ -11,13 +10,6 @@ import { TroisJSVuePlugin } from 'troisjs';
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './assets/global.css'
-
-Vue.component('app-message', Message)
-
-new Vue({
-    el:'#app',
-    render: h =>h(App)
-})
 
 // createApp(App).mount('#app')
 const firebaseConfig = {

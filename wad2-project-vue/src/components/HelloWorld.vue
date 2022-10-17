@@ -4,22 +4,20 @@
  
  <div id="app">
 
+   <h1>this is a great message</h1>
    <app-message></app-message>
  </div>
-    <h1>this is a great message</h1>
 </template>
 
 <script>
 
-// eslint-disable-next-line no-unused-vars
-// import axios from 'axios'
 
-// export default {
-//   name: 'HelloWorld',
-//   props: {
-//     msg: String
-//   }
-// }
+export default {
+  name: 'HelloWorld',  //name of the component
+  props: {
+    msg: String
+  }
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

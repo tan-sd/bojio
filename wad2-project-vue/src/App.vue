@@ -20,6 +20,22 @@
 
 <template>
 
+<!-- <div class="container" style="display:flex; justify-content:space-between;">
+
+  <button @click="activeTab = 'EventsButton'">A</button>
+  <button @click="activeTab = 'PublicButton'">B</button>
+  <button @click="activeTab = 'PrivateButton'">C</button>
+
+</div>
+<keep-alive>
+  <component :is="activeTab" />
+</keep-alive> -->
+
+ <!-- <EventsButton v-if="activeTab === 'EventsButton'"/>
+ <PublicButton v-if="activeTab === 'PublicButton'"/> 
+ <PrivateButton v-if="activeTab === 'PrivateButton'"/> -->
+
+
 <nav class="navbar navbar-expand-lg navbar-light mb-4 mt-2">
       <div class="container">
         <!-- <a class="navbar-brand" href="./main.html">BOJIO</a> -->
@@ -113,6 +129,7 @@ import {getAuth, onAuthStateChanged, signOut} from 'firebase/auth';
 import { useRouter } from 'vue-router' 
 import { getDatabase, onValue } from 'firebase/database'
 import { getdata } from './utils';
+
 const router = useRouter();
 const isLoggedIn = ref(false)
 
@@ -155,31 +172,16 @@ const handlesignOut = () => {
     })
   }
 
-// const database = getDatabase(app);
-// const auth = getAuth();
-
-  // const router = useRouter()
-
-  // runs after firebase is initialized
-  // firebase.auth().onAuthStateChanged(function(user) {
-  //     if (user) {
-  //       isLoggedIn.value = true // if we have a user
-  //     } else {
-  //       isLoggedIn.value = false // if we do not
-  //     }
-  // })
-  // const signOut = () => {
-  //   firebase.auth().signOut()
-  //   router.push('/')
-  // }
 </script>
 
 <script>
 
 
+
 export default {
   name: 'App',
   components: {
+    // EventsButton,PublicButton,PrivateButton
     
     
 },
@@ -187,7 +189,8 @@ export default {
 data () {
   return {
     title: '',
-    showPopup: false
+    showPopup: false,
+   
   }
 },
 
