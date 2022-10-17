@@ -173,14 +173,16 @@
               emailInvalidError.innerHTML = 'You have entered an invalid email. Please try again.';
               // errMsg.value = 'Invalid email';
               break;
-            case 'auth/user-not-found':
+            case 'auth/email-already-in-use':
+              emailInput.classList = 'form-control is-invalid';
+              emailInvalidError.innerHTML = 'Email already exists. Please try again.';
               // errMsg.value = 'No account with that email was found';
               // email.classList = 'form-control is-invalid';
               // emailInvalidError.innerHTML = 'Account does not exist. Please try again.';
               // password.classList = 'form-control';
               // passwordInvalidError.innerHTML = '';
               break;
-            case 'auth/wrong-password':
+            case 'auth/wrong-password':  //need to refer from old files from here
               // errMsg.value = 'Incorrect password';
               // email.classList = 'form-control';
               // emailInvalidError.innerHTML = '';
