@@ -246,6 +246,35 @@ background-color: #eaeaea !important;
     overflow: hidden;
 }
 
+#view-more {
+    padding: 16px;
+    cursor: pointer;
+    transition: all 200ms ease-in-out;
+    border-radius: 3px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15rem;
+    border: 1px solid black;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+    font-family: worksans-extrabold;
+    background-color: white;
+}
+
+#view-more:not([disabled]):active {
+    /* box-shadow: 0 1px 9px rgba(0, 0, 0, 0.2); */
+    box-shadow: 0 0 0 4px #cce9e4;
+}
+
+#view-more:not([disabled]):hover {
+    background-color: #f0f1f1;
+}
+
+#view-more[disabled] {
+background-color: #eaeaea !important;
+}
+
 /* create carousel */
 
 .carousel-cell {

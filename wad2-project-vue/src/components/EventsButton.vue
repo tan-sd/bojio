@@ -15,7 +15,6 @@
       
          </div>
         </div>
-        <button id="view-more" class="mb-3" @click="loadMore" style="box-shadow: 0px 0px 14px -7px #f09819">View More</button>
         <!-- <button id='view-more' class="btn mb-3" @click="loadMore" style="box-shadow: 0px 0px 14px -7px #f09819" >Load</button> -->
     </div>
 
@@ -24,6 +23,7 @@
         <div class="row">
           <div class="col-3"></div>
           <div class="col-sm-6 col-12">
+            <button id="view-more" class="mb-3" @click="loadMore">View More</button>
           </div>
           <div class="col-lg-3 col-12 d-flex justify-content-lg-end justify-content-center mb-5">
             <span>Showing 
