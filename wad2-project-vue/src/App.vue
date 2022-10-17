@@ -76,7 +76,7 @@
               <!-- <a class="nav-link" href="./signup.html">Sign up</a> -->
             </li>
             <li class="nav-item">
-              <router-link to="/login" class="nav-link" @click="handlesignOut" v-if="isLoggedIn">Logout🔥</router-link>
+              <router-link to="/login" class="nav-link" @click="handlesignOut" v-if="isLoggedIn">Log out</router-link>
           
               <!-- <a class="nav-link" href="./login.html"><span class="nav-login">Login</span> 🔥</a> -->
             </li>
@@ -86,12 +86,6 @@
       </div>
 </nav>
 <router-view />
-
-<div class="container">
-      <div class="row mb-5">
-        <div id = 'personname' style="display:none"></div>
-      </div>
-</div> 
 
 </template>
 
@@ -175,14 +169,10 @@ const handlesignOut = () => {
 
 <script>
 
-
-
 export default {
   name: 'App',
   components: {
     // EventsButton,PublicButton,PrivateButton
-    
-    
 },
 
 data () {

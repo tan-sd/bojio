@@ -5,7 +5,7 @@
       <div class="row mb-5">
         <div id = 'personname' style="display:none"></div>
       </div>
-    </div>
+    </div> 
 
     <div class="container">
         <div class="row d-flex align-content-center justify-content-center">

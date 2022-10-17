@@ -36,7 +36,7 @@
 
                         <div class="form-group col" style="width: auto;">
                           <div class="form-floating">
-                          <input type="text" class="form-control" id="emailLogin" placeholder="username" v-model="email">
+                          <input type="text" class="form-control" id="emailLogin" placeholder="email" v-model="email">
                             <label for="emailLogin" class="text-muted">email</label>
                             <div id="emailLoginInvalid" class="invalid-feedback">
                             </div>
@@ -45,7 +45,7 @@
 
                         <div class="form-group col pt-3">
                           <div class="form-floating">
-                          <input type="password" class="form-control" id="passwordLogin" placeholder="password" v-model="password" >
+                          <input type="password" class="form-control" id="passwordLogin" placeholder='password' v-model="password" >
                             <label for="usernameLogin" class="text-muted">password</label>
                             <div id="passwordLoginInvalid" class="invalid-feedback">
                             </div>
@@ -97,6 +97,10 @@
     const errMsg = ref()
     var uid;
     const signIn = () => { // we also renamed this method
+    var email = document.getElementById('emailLogin');
+    var password = document.getElementById('passwordLogin');
+    var emailInvalidError = document.getElementById('emailLoginInvalid');
+    var passwordInvalidError = document.getElementById('passwordLoginInvalid');
       
         const auth = getAuth()
         signInWithEmailAndPassword(auth, email.value, password.value) // THIS LINE CHANGED
@@ -113,6 +117,7 @@
         }
 
           console.log('Successfully logged in!');
+          console.log(auth.currentUser);
           router.push(`/aboutpage/${current.uid}`) // redirect to the feed
         })
         .catch(error => {
@@ -121,15 +126,31 @@
           switch (error.code){
             case 'auth/invalid-email':
               errMsg.value = 'Invalid email';
+              email.classList = 'form-control is-invalid';
+              emailInvalidError.innerHTML = 'You have entered an invalid email. Please try again.';
+              password.classList = 'form-control';
+              passwordInvalidError.innerHTML = '';
               break;
             case 'auth/user-not-found':
-              errMsg.value = ' No account with that email was found';
+              errMsg.value = 'No account with that email was found';
+              email.classList = 'form-control is-invalid';
+              emailInvalidError.innerHTML = 'Account does not exist. Please try again.';
+              password.classList = 'form-control';
+              passwordInvalidError.innerHTML = '';
               break;
             case 'auth/wrong-password':
               errMsg.value = 'Incorrect password';
+              email.classList = 'form-control';
+              emailInvalidError.innerHTML = '';
+              password.classList = 'form-control is-invalid';
+              passwordInvalidError.innerHTML = 'The password is incorrect. Please try again.';
               break;
             default: 
               errMsg.value = 'Email or password was incorrect';
+              email.classList = 'form-control is-invalid';
+              emailInvalidError.innerHTML = 'Incorrect Email or password. Please try again.';
+              password.classList = 'form-control'
+              passwordInvalidError.innerHTML = '';
               break;
 
           }

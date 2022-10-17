@@ -149,7 +149,7 @@
       mounted() {
         const renderer = this.$refs.renderer;
         const world = this.$refs.gltf.scene;
-        console.log(world)
+        // console.log(world)
         renderer.onBeforeRender(() => {
           if (world) world.rotation.y -= 0.007;
         });
