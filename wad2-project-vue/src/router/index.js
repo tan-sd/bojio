@@ -21,7 +21,7 @@ const routes =[
     component: () => import("../views/LogIn.vue"),
   },
   {
-    path: "/aboutpage/:id",
+    path: "/aboutpage/",
     component: () => import("../views/AboutPage.vue"),
   },
   {

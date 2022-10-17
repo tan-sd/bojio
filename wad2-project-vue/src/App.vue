@@ -47,7 +47,7 @@
           <ul class="navbar-nav" v-if="!isLoggedIn" >
             <li class="nav-item active pe-4">
               <!-- <a class="nav-link" href="./about.html">About</a> -->
-              <router-link to="/aboutpage/:id" class="nav-link"> About</router-link> 
+              <router-link to="/aboutpage" class="nav-link"> About</router-link> 
             </li>
 
             <li class="nav-item pe-4">
@@ -60,7 +60,7 @@
               <!-- <a class="nav-link" href="./signup.html">Sign up</a> -->
             </li>
             <li class="nav-item">
-              <router-link to="/login/" class="nav-link"> <span class="nav-login"> Login </span> 🔥</router-link>
+              <router-link to="/login" class="nav-link"> <span class="nav-login"> Login </span> 🔥</router-link>
               <!-- <a class="nav-link" href="./login.html"><span class="nav-login">Login</span> 🔥</a> -->
             </li>
           </ul>
@@ -69,7 +69,7 @@
           <ul class="navbar-nav" v-else >
             <li class="nav-item active pe-4">
               <!-- <a class="nav-link" href="./about.html">About</a> -->
-              <router-link to="/aboutpage/:id" class="nav-link"> About</router-link> 
+              <router-link to="/aboutpage" class="nav-link"> About</router-link> 
             </li>
             <li class="nav-item pe-4">
               <router-link to="/createajio" class="nav-link"> Create a Jio</router-link> 

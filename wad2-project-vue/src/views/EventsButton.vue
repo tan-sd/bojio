@@ -38,8 +38,10 @@
 <script>
 import sourceData from'../data.json'
 
+console.log(sourceData);
+console.log(typeof(sourceData));
     export default {
-        // name: 'EventsButton',
+        name: 'EventsButton',
         data(){
             return {
             events: sourceData.events,

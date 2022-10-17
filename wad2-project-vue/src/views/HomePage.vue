@@ -7,6 +7,7 @@
       </div>
     </div> 
 
+    
     <div class="container">
         <div class="row d-flex align-content-center justify-content-center">
         <div class="col-sm-3 col-4 d-flex align-content-center justify-content-center">
@@ -72,15 +73,19 @@
         </div>
       </div> -->
 
+
 </template> 
 
 
-<script>
 
+<!-- <meta http-equiv="Content-Security-Policy" content="connect-src 'ws://localhost:8080';"> -->
+<script>
+//  const socket = new WebSocket('ws://localhost:8080')
+// console.log(socket)
 import sourceData from '../data.json'
-import EventsButton from '../components/EventsButton.vue'
-import PublicButton from '../components/PublicButton.vue'
-import PrivateButton from '../components/PrivateButton.vue'
+import EventsButton from './EventsButton.vue'
+import PublicButton from './PublicButton.vue'
+import PrivateButton from './PrivateButton.vue'
 
 export default {
     name:'App',

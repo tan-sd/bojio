@@ -161,7 +161,7 @@
         createUserWithEmailAndPassword(getAuth(), email.value, password.value) // need .value because ref()
         .then(() => {
           console.log('Successfully registered!');
-          router.push('/aboutpage') // redirect to the feed
+          router.push('/') // redirect to the feed
         })
         .catch(error => {
           // WORK IN PROGRESS -- SHENG DA (Binding and Form Verfication)
@@ -204,7 +204,7 @@
       signInWithPopup(getAuth(), provider)
         .then((result) => { 
             console.log(result.user);
-            router.push('/ahoutpage')
+            router.push('/')
         })
         .catch((error) => { 
           
