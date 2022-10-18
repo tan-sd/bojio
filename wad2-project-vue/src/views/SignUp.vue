@@ -62,7 +62,7 @@
 
                       <div class="register-form-field form-group col pt-3" style="width: auto">
                         <div class="form-floating">
-                          <input type="text" class="form-control" id="emailSignUp" placeholder="Email" required>
+                          <input type="text" class="form-control" id="emailSignUp" placeholder="Email" v-model="email" required>
                           <label for="email" class="text-muted">email</label>
                           <div id="emailSignUpInvalid" class="invalid-feedback">
                             Please enter an email.
@@ -72,7 +72,7 @@
 
                       <div class="register-form-field form-group col pt-3" style="width: auto">
                         <div class="form-floating">
-                          <input type="password" class="form-control" id="password" placeholder="Password" required>
+                          <input type="password" class="form-control" id="password" placeholder="Password" v-model="password" required>
                           <label for="password" class="text-muted">password</label>
                           <div id="passwordInvalid" class="invalid-feedback">
                           </div>
@@ -169,6 +169,7 @@
           // alert(error.message);
           switch (error.code){
             case 'auth/invalid-email':
+              console.log(email.value);
               emailInput.classList = 'form-control is-invalid';
               emailInvalidError.innerHTML = 'You have entered an invalid email. Please try again.';
               // errMsg.value = 'Invalid email';
