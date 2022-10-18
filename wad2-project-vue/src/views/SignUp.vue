@@ -72,7 +72,7 @@
 
                       <div class="register-form-field form-group col pt-3" style="width: auto">
                         <div class="form-floating">
-                          <input type="password" class="form-control" id="password" placeholder="Password" v-model="password" required>
+                          <input type="password" class="form-control" id="passwordInput" placeholder="Password" v-model="password" required>
                           <label for="password" class="text-muted">password</label>
                           <div id="passwordInvalid" class="invalid-feedback">
                           </div>
@@ -81,7 +81,7 @@
 
                       <div class="register-form-field form-group col pt-3" style="width: auto">
                         <div class="form-floating">
-                          <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm password" required>
+                          <input type="password" class="form-control" id="confirmPasswordInput" placeholder="Confirm password" required>
                           <label for="confirmPassword" class="text-muted">confirm password</label>
                           <div id="confirmPasswordInvalid" class="invalid-feedback">
                             The passwords you entered does not match
@@ -118,13 +118,12 @@
     <p><button @click="register">Submit</button></p>
     <p><button @click="signInWithGoogle">Sign in With Google</button></p>
   </template>
-  
 
-  <style>
-
-  
-
-  </style>
+  <script>
+    export default {
+      title: 'BOJIO – Sign up',
+    }
+  </script>
 
   <script setup>
     import { ref } from 'vue'
@@ -157,6 +156,9 @@
 
       var emailInput = document.getElementById('emailSignUp');
       var emailInvalidError = document.getElementById('emailSignUpInvalid');
+      var passwordInput = document.getElementById('passwordInput');
+      var confirmPasswordInput = document.getElementById('confirmPasswordInput');
+      var passwordInvalidError = document.getElementById('passwordInvalid');
 
         createUserWithEmailAndPassword(getAuth(), email.value, password.value) // need .value because ref()
         .then(() => {
@@ -177,18 +179,26 @@
             case 'auth/email-already-in-use':
               emailInput.classList = 'form-control is-invalid';
               emailInvalidError.innerHTML = 'Email already exists. Please try again.';
+              passwordInput.classList = 'form-control is-valid';
+              passwordInvalidError.innerHTML = '';
               // errMsg.value = 'No account with that email was found';
               // email.classList = 'form-control is-invalid';
               // emailInvalidError.innerHTML = 'Account does not exist. Please try again.';
               // password.classList = 'form-control';
               // passwordInvalidError.innerHTML = '';
               break;
-            case 'auth/wrong-password':  //need to refer from old files from here
+            case 'auth/weak-password':  //need to refer from old files from here
+              passwordInput.classList = 'form-control is-invalid';
+              passwordInvalidError.innerHTML = 'Password must be at least 6 characters.';
               // errMsg.value = 'Incorrect password';
               // email.classList = 'form-control';
               // emailInvalidError.innerHTML = '';
               // password.classList = 'form-control is-invalid';
               // passwordInvalidError.innerHTML = 'The password is incorrect. Please try again.';
+              break;
+            case 'auth/internal-error':
+              passwordInput.classList = 'form-control is-invalid';
+              passwordInvalidError.innerHTML = 'Please enter your password.';
               break;
             default: 
               // errMsg.value = 'Email or password was incorrect';

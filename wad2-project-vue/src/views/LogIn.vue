@@ -86,6 +86,12 @@
     <p><button @click="signIn">Submit</button></p>
   </template>
   
+  <script>
+    export default {
+      title: 'BOJIO – Login',
+    }
+  </script>
+
   <script setup>
     import { ref } from 'vue'
     // import firebase from 'firebase'
@@ -152,7 +158,6 @@
               password.classList = 'form-control'
               passwordInvalidError.innerHTML = '';
               break;
-
           }
         });
     }

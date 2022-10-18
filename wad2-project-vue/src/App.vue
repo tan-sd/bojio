@@ -172,7 +172,9 @@ const handlesignOut = () => {
 </script>
 
 <script>
-
+function refresh() {
+  window.location.reload;
+}
 export default {
   name: 'App',
   components: {

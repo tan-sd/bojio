@@ -9,7 +9,6 @@
                   <img class="card-img-top" :src="event.image.url" alt="card image collar">
                   <div class="card-body" style="width: auto;">
                   <div class="card-title pt-4"> {{event.name}}</div>
-                   
                   </div>
                 </div>
       
@@ -17,7 +16,6 @@
         </div>
         <!-- <button id='view-more' class="btn mb-3" @click="loadMore" style="box-shadow: 0px 0px 14px -7px #f09819" >Load</button> -->
     </div>
-
 
     <div class="container" id="bottom">
         <div class="row">
@@ -58,6 +56,11 @@ console.log(typeof(sourceData));
         }
         this.length = this.length + 9;   
         console.log(this.length);
+        console.log(this.events.length);
+        if (this.length == this.events.length) {
+          var viewMoreBtn = document.getElementById('view-more');
+          viewMoreBtn.classList.add('disabled');
+        }
     
         },
         },

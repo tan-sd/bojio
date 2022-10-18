@@ -76,8 +76,6 @@
 
 </template> 
 
-
-
 <!-- <meta http-equiv="Content-Security-Policy" content="connect-src 'ws://localhost:8080';"> -->
 <script>
 //  const socket = new WebSocket('ws://localhost:8080')
@@ -89,10 +87,9 @@ import PrivateButton from './PrivateButton.vue'
 
 export default {
     name:'App',
+    title: 'BOJIO – Homepage',
     components: {
     EventsButton,PublicButton,PrivateButton
-    
-    
 },
     data(){
         return {

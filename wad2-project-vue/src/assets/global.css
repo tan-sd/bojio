@@ -130,8 +130,8 @@ nav .navbar-nav a {
     background-color: white;
 }
 
-#load-more:not([disabled]):active {
-    /* box-shadow: 0 1px 9px rgba(0, 0, 0, 0.2); */
+/* #load-more:not([disabled]):active {
+    box-shadow: 0 1px 9px rgba(0, 0, 0, 0.2);
     box-shadow: 0 0 0 4px #cce9e4;
 }
 
@@ -141,6 +141,11 @@ nav .navbar-nav a {
 
 #load-more[disabled] {
 background-color: #eaeaea !important;
+} */
+
+.disabled {
+    background-color: #eaeaea !important;
+    cursor: not-allowed !important;
 }
 
 /* CSS */
@@ -780,7 +785,19 @@ visibility: hidden;
     background-image: linear-gradient(100deg, #ef4136, #fbb040);
     border-radius: 37% 63% 73% 27% / 81% 76% 24% 19%;
     z-index: -1;
-} 
+}
+
+#loginBtn {
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+#signupBtn {
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+}
 
 #errors {
     color: red;

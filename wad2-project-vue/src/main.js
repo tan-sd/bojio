@@ -8,6 +8,7 @@ import { TroisJSVuePlugin } from 'troisjs';
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './assets/global.css'
+import titleMixin from './utils/titleMixin';
 
 // createApp(App).mount('#app')
 // const firebaseConfig = {
@@ -26,3 +27,4 @@ import './assets/global.css'
 const app = createApp(App)
 app.use(router).use(TroisJSVuePlugin);
 app.mount('#app')
+app.mixin(titleMixin)

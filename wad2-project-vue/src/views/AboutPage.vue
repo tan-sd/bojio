@@ -146,6 +146,7 @@
     
     <script>
     export default {
+      title: 'BOJIO – About',
       mounted() {
         const renderer = this.$refs.renderer;
         const world = this.$refs.gltf.scene;

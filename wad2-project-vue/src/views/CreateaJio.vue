@@ -1,12 +1,12 @@
 <template>
     <main class="securepage">
-        <h1>Secure Page</h1>
+        <!-- <h1>Secure Page</h1> -->
         
         <div id="content">
         <div class="container-fluid text-center ">
           <div class="row mb-1">
             <div class="banner-header col">
-              <h1 style="color:white;">create a Jio</h1>
+              <h1 style="color:black">Create a Jio</h1>
             </div>
           </div>
         </div>
@@ -22,7 +22,6 @@
                 <input type="date" class="form-control" id="date" placeholder="date">
               </div>
               
-  
               <div class="row ms-1 mb-1">
                 Type of Event:
                 <div class="form-check">   
@@ -97,3 +96,9 @@
         
     </main>
 </template> 
+
+  <script>
+    export default {
+      title: 'BOJIO – Create a Jio',
+    }
+  </script>
