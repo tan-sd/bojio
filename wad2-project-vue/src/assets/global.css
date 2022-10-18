@@ -800,4 +800,90 @@ td {
     border: 1px solid;
 }
 
+/* #content{
+        
+    background-image: url(wallpaper4.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height:100%;
+    transition:10s;
+    
+    animation: change 30s infinite ease-in-out;
+
+    
+    
+  } */
+  #info{
+    background-color:white;
+    width:500px;
+    height:550px;
+    margin:0 auto;
+    border:1px solid;
+    border-radius:5%;
+    position:relative;
+    overflow-y:auto;
+    
+  
+  }
+  .navbar-nav a:hover {
+    color: orange;
+    
+  }
+
+  h2{
+    text-align:center;
+    margin-top:-5%;
+  }
+  .container form{
+    width:280px;
+    position:absolute;
+    left: 50%;
+    transform: translate(-50%);
+  }
+  #form1{
+    top: 30px;
+    
+    visibility:visible;
+    
+  }
+  #form2{
+    top: 10px;
+    
+    visibility:hidden;
+    
+  }
+
+  #form3{
+    
+    top:-15px;
+    
+    text-align: center;
+    visibility:hidden;
+    
+    
+  }
+  .title1{
+    margin-top:10%
+  }
+
+  /* @keyframes change{
+    0%{
+      background-image: url(wallpaper1.jpg)
+    }
+    25%{
+      background-image: url(wallpaper2.jpg)
+    }
+    50%{
+      background-image: url(wallpaper3.jpg)
+    }
+
+    75%{
+      background-image: url(wallpaper4.jpg)
+    }
+    100%{
+      background-image: url(wallpaper5.jpg)
+    }
+  
+  } */
+
 /* CREATE A JIO PAGE END */
