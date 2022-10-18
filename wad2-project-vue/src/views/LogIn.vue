@@ -117,6 +117,8 @@
           if (typeof(Storage) !== "undefined") {
           // Store
           localStorage.setItem("uid", uid);
+          // localStorage.setItem('fullname', fullname)
+// 
       
         } else {
           document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
@@ -124,7 +126,8 @@
 
           console.log('Successfully logged in!');
           console.log(auth.currentUser);
-          router.push(`/aboutpage/${current.uid}`) // redirect to the feed
+          router.push('/')
+          // router.push(`/aboutpage/${current.uid}`) // redirect to the feed
         })
         .catch(error => {
           console.log(error.code)

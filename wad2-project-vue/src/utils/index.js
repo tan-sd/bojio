@@ -268,7 +268,7 @@ export function getdata(){
         let fullname = snapshot.val().firstname + ' ' + snapshot.val().lastname
         if(typeof(Storage)!== 'undefined'){
           localStorage.setItem('fullname', fullname)
-
+          console.log(localStorage.getItem('fullname'));
         }
         // console.log(fullname);
         

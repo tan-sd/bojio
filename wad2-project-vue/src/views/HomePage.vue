@@ -2,7 +2,7 @@
    
     <!-- Welcome message -->
     <!-- will be putting if person exist here but dont work yet -->
-    <div class="container" >
+    <div class="container" v-if="fullname.length > 0">
       <div class="row mb-5">
         <div id = 'personname' style="display:inline; font-family: worksans-extrabold; font-size: 4vmin;"> Welcome, {{fullname}}! 👋🏼</div>
       </div>

@@ -160,11 +160,12 @@ onBeforeMount(()=>{
 
 const handlesignOut = () => {
     signOut(auth).then(()=>{ 
-      router.push('/')
       // clear welcome msg
+      localStorage.setItem("fullname", '');
       let personname = document.getElementById('personname')
       console.log(personname);
       personname.setAttribute('style','display:none')
+      router.push('/')
 
     })
   }
