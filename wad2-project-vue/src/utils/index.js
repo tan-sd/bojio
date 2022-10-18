@@ -21,6 +21,82 @@ const db = getDatabase(app);
 // console.log(db);
 // const dbRef = ref(getDatabase());
 
+
+
+//register user
+
+//validate email
+// function validate_email(email){
+//   var expression = /^[^@]+@\w+(\.\w+)+\w$/
+//   if(expression.test(email) == true){
+//     //ok email
+//     return true
+
+//   } else{
+//     //email invalid
+//     return false
+//   }
+// }
+
+//   const auth = getAuth();
+//   var signupBtn = document.getElementById('signupBtn')
+//   signupBtn?.addEventListener('click', (e) => {
+//   var firstName = document.getElementById('firstName');
+//   var lastName = document.getElementById('lastName');
+//   var username = document.getElementById('username');
+  
+//   var email = document.getElementById("email").value;
+//     // var username = document.getElementById("username").value;
+//     var password = document.getElementById("password").value;
+//     var status = securityCheck()
+//     if (status){
+//       createUserWithEmailAndPassword(auth, email, password)
+//       .then((userCredential) => {
+//           // Signed in 
+//           const user = userCredential.user;
+//           console.log(user);
+//           console.log(user.uid);
+//           set(ref(db, "accounts/" + user.uid),{
+//             firstname: firstName.value,
+//             lastname: lastName.value,
+//             username: username.value,
+//             email: email,
+//             password: password,
+//             events: ['no events'],
+//             createdjios: ['no jios'],
+        
+//           })
+//           .then(() => {
+//             alert('details created successfully!')
+//           })
+//           .catch((error) => {
+//             alert(error);
+//           })
+          
+//           alert("Successfully signed up!");
+//           //Redirect user if you want
+//       })
+//       .catch((error) => {
+//           const errorCode = error.code;
+//           const errorMessage = error.message;
+
+//           if(errorMessage == 'Firebase: Error (auth/email-already-in-use).'){ 
+//             var email = document.getElementById('email')
+//             email.classList = "form-control is-invalid";
+//             document.getElementById('emailInvalid').innerText = 'Email already exists.'
+
+//           }
+//           // ..
+//           else{
+//             alert(errorMessage);
+
+//           }
+//       });
+//     }
+
+// })
+
+//get public data
 export function getpublic(){
   // console.log('this function is getthis');
   return new Promise((resolve, reject) =>{
@@ -93,66 +169,65 @@ export function getdata(){
 
 
 
-// var eventname = ''
-// var username =''
-// var date =''
-// var type = ''
-// var activities =''
-// var testthis = ''
+var eventname = ''
+var username =''
+var date =''
+var type = ''
+var activities =''
+var testthis = ''
 
 // //to createjio
-// export function createJio(eventname, type) {
-//   const db = getDatabase();
+export function createJio(eventname, type) {
+  const db = getDatabase();
   
-//   eventname = document.getElementById('name').value
+  eventname = document.getElementById('name').value
 
-//   if (typeof(Storage) !== "undefined") {
-//     username = localStorage.getItem('fullname')}
-//   else{
-//     username = 'nousername'
-//   }
+  if (typeof(Storage) !== "undefined") {
+    username = localStorage.getItem('fullname')}
+  else{
+    username = 'nousername'
+  }
 
-//   date = document.getElementById('date').value
-//   type = document.querySelector('input[name="exampleRadios"]:checked').value;
+  date = document.getElementById('date').value
+  type = document.querySelector('input[name="exampleRadios"]:checked').value;
 
-//   const jioData = {
-//     // creator: username,
-//     eventname: eventname,
-//     username: username,
-//     date: date,
-//     type: type,
-//     activities: [1,2,3],
-//   };
+  const jioData = {
+    // creator: username,
+    eventname: eventname,
+    username: username,
+    date: date,
+    type: type,
+    activities: [1,2,3],
+  };
 
-//   // Get a key for a new Post.
-//   const newKey = push(child(ref(db), 'events')).key;
+  // Get a key for a new Post.
+  const newKey = push(child(ref(db), 'events')).key;
 
-//   // Write the new post's data simultaneously in the posts list and the user's post list.
-//   const updates = {};
+  // Write the new post's data simultaneously in the posts list and the user's post list.
+  const updates = {};
 
-//   //to separate public n private events
-//   // privateevents 
-//   //      userid
-//   //        -jio data
+  //to separate public n private events
+  // privateevents 
+  //        -jio data
 
 
-//   updates[`${type} events/${uid}/${newKey}`] = jioData;
+  updates[`${type} events/${newKey}`] = jioData;
 
-//   // accounts
+  // accounts
 
-//   // eventsgoing
+  // eventsgoing
               
-//   // createdjios
+  // createdjios
               
-//   updates['/createdjios/' + uid + '/' + newKey] = jioData;
+  updates['/createdjios/' + uid + '/' + newKey] = jioData;
 
 
-//   //add under createdjios which is under username account
-//   updates[`accounts/${uid}/createdjios/${newKey}`] = jioData;
+  //add under createdjios which is under username account
+  updates[`accounts/${uid}/createdjios/${newKey}`] = jioData;
 
-//   console.log(updates);
-//   return update(ref(db), updates);
-// }
+  console.log(updates);
+  return update(ref(db), updates);
+}
 
 
 // // //see private jios
