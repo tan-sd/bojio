@@ -1,4 +1,3 @@
-
 <!-- <template> -->
   <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
 
@@ -19,6 +18,22 @@
 <!-- </template> -->
 
 <template>
+
+<!-- <div class="container" style="display:flex; justify-content:space-between;">
+
+  <button @click="activeTab = 'EventsButton'">A</button>
+  <button @click="activeTab = 'PublicButton'">B</button>
+  <button @click="activeTab = 'PrivateButton'">C</button>
+
+</div>
+<keep-alive>
+  <component :is="activeTab" />
+</keep-alive> -->
+
+ <!-- <EventsButton v-if="activeTab === 'EventsButton'"/>
+ <PublicButton v-if="activeTab === 'PublicButton'"/> 
+ <PrivateButton v-if="activeTab === 'PrivateButton'"/> -->
+
 
 <nav class="navbar navbar-expand-lg navbar-light mb-4 mt-2">
       <div class="container">
@@ -45,7 +60,7 @@
               <!-- <a class="nav-link" href="./signup.html">Sign up</a> -->
             </li>
             <li class="nav-item">
-              <router-link to="/login/:id" class="nav-link"> <span class="nav-login"> Login </span> 🔥</router-link>
+              <router-link to="/login" class="nav-link"> <span class="nav-login"> Login </span> 🔥</router-link>
               <!-- <a class="nav-link" href="./login.html"><span class="nav-login">Login</span> 🔥</a> -->
             </li>
           </ul>
@@ -61,7 +76,7 @@
               <!-- <a class="nav-link" href="./signup.html">Sign up</a> -->
             </li>
             <li class="nav-item">
-              <router-link to="/login" class="nav-link" @click="handlesignOut" v-if="isLoggedIn">Logout🔥</router-link>
+              <router-link to="/login" class="nav-link" @click="handlesignOut" v-if="isLoggedIn">Log out</router-link>
           
               <!-- <a class="nav-link" href="./login.html"><span class="nav-login">Login</span> 🔥</a> -->
             </li>
@@ -71,12 +86,6 @@
       </div>
 </nav>
 <router-view />
-
-<div class="container">
-      <div class="row mb-5">
-        <div id = 'personname' style="display:none"></div>
-      </div>
-</div> 
 
 </template>
 
@@ -108,27 +117,37 @@
 // import { getDatabase, ref, child, push, update, set, get } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js";
 // import { getAuth, signInWithEmailAndPassword, onAuthStateChanged , signOut } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-auth.js";
 
-import { onMounted, ref } from 'vue'
+import { onMounted, onBeforeMount, ref } from 'vue'
 import {getAuth, onAuthStateChanged, signOut} from 'firebase/auth';
 import { useRouter } from 'vue-router' 
 import { getDatabase, onValue } from 'firebase/database'
 import { getdata } from './utils';
+
 const router = useRouter();
 const isLoggedIn = ref(false)
 
 var uid;
 
 let auth;
-onMounted(()=>{
+onBeforeMount(()=>{
   auth = getAuth();
   onAuthStateChanged(auth, (user)=>{ 
     if(user) {
       isLoggedIn.value = true;
       console.log(user);
       uid = user.uid
+
+      if (typeof(Storage) !== "undefined") {
+          // Store
+          localStorage.setItem("uid", uid);
+      
+        } else {
+          document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
+        }
       console.log(uid);
       // console.log(uid +'is loggedin');
       getdata()
+
     } else {
       isLoggedIn.value = false;
     }
@@ -138,43 +157,29 @@ onMounted(()=>{
 const handlesignOut = () => {
     signOut(auth).then(()=>{ 
       router.push('/')
+      // clear welcome msg
+      let personname = document.getElementById('personname')
+      console.log(personname);
+      personname.setAttribute('style','display:none')
 
     })
   }
 
-// const database = getDatabase(app);
-// const auth = getAuth();
-
-  // const router = useRouter()
-
-  // runs after firebase is initialized
-  // firebase.auth().onAuthStateChanged(function(user) {
-  //     if (user) {
-  //       isLoggedIn.value = true // if we have a user
-  //     } else {
-  //       isLoggedIn.value = false // if we do not
-  //     }
-  // })
-  // const signOut = () => {
-  //   firebase.auth().signOut()
-  //   router.push('/')
-  // }
 </script>
 
 <script>
 
-
 export default {
   name: 'App',
   components: {
-    
-    
+    // EventsButton,PublicButton,PrivateButton
 },
 
 data () {
   return {
     title: '',
-    showPopup: false
+    showPopup: false,
+   
   }
 },
 
@@ -193,7 +198,7 @@ methods: {
   /* font-family: Avenir, Helvetica, Arial, sans-serif; */
   /* -webkit-font-smoothing: antialiased; */
   /* -moz-osx-font-smoothing: grayscale; */
-  text-align: center;
+  /* text-align: center; */
   /* color: #2c3e50; */
   /* margin-top: 60px; */
 }

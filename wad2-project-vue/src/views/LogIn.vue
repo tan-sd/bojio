@@ -36,8 +36,8 @@
 
                         <div class="form-group col" style="width: auto;">
                           <div class="form-floating">
-                          <input type="text" class="form-control" id="emailLogin" placeholder="username">
-                            <label for="emailLogin" class="text-muted">username</label>
+                          <input type="text" class="form-control" id="emailLogin" placeholder="email" v-model="email">
+                            <label for="emailLogin" class="text-muted">email</label>
                             <div id="emailLoginInvalid" class="invalid-feedback">
                             </div>
                           </div>
@@ -45,7 +45,7 @@
 
                         <div class="form-group col pt-3">
                           <div class="form-floating">
-                          <input type="password" class="form-control" id="passwordLogin" placeholder="password">
+                          <input type="password" class="form-control" id="passwordLogin" placeholder='password' v-model="password" >
                             <label for="usernameLogin" class="text-muted">password</label>
                             <div id="passwordLoginInvalid" class="invalid-feedback">
                             </div>
@@ -53,7 +53,7 @@
                         </div>                        
                       </div>
                     
-                    <button type="button" style="background-color: rgb(255, 127, 45); color: white" class="btn orange border border-3 mt-4 rounded-5" id="loginBtn">Log in</button>
+                    <button type="button" style="background-color: rgb(255, 127, 45); color: white" class="btn orange border border-3 mt-4 rounded-5" id="loginBtn" @click="signIn">Log in</button>
                   </form>
             </div>
 
@@ -95,13 +95,30 @@
     const password = ref('')
     const router = useRouter() // get a reference to our vue router
     const errMsg = ref()
+    var uid;
     const signIn = () => { // we also renamed this method
+    var email = document.getElementById('emailLogin');
+    var password = document.getElementById('passwordLogin');
+    var emailInvalidError = document.getElementById('emailLoginInvalid');
+    var passwordInvalidError = document.getElementById('passwordLoginInvalid');
       
         const auth = getAuth()
         signInWithEmailAndPassword(auth, email.value, password.value) // THIS LINE CHANGED
         .then(() => {
+          console.log(auth);
+          const current = auth.currentUser;
+          console.log(current.uid);
+          if (typeof(Storage) !== "undefined") {
+          // Store
+          localStorage.setItem("uid", uid);
+      
+        } else {
+          document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
+        }
+
           console.log('Successfully logged in!');
-          router.push('/aboutpage') // redirect to the feed
+          console.log(auth.currentUser);
+          router.push(`/aboutpage/${current.uid}`) // redirect to the feed
         })
         .catch(error => {
           console.log(error.code)
@@ -109,15 +126,31 @@
           switch (error.code){
             case 'auth/invalid-email':
               errMsg.value = 'Invalid email';
+              email.classList = 'form-control is-invalid';
+              emailInvalidError.innerHTML = 'You have entered an invalid email. Please try again.';
+              password.classList = 'form-control';
+              passwordInvalidError.innerHTML = '';
               break;
             case 'auth/user-not-found':
-              errMsg.value = ' No account with that email was found';
+              errMsg.value = 'No account with that email was found';
+              email.classList = 'form-control is-invalid';
+              emailInvalidError.innerHTML = 'Account does not exist. Please try again.';
+              password.classList = 'form-control';
+              passwordInvalidError.innerHTML = '';
               break;
             case 'auth/wrong-password':
               errMsg.value = 'Incorrect password';
+              email.classList = 'form-control';
+              emailInvalidError.innerHTML = '';
+              password.classList = 'form-control is-invalid';
+              passwordInvalidError.innerHTML = 'The password is incorrect. Please try again.';
               break;
             default: 
               errMsg.value = 'Email or password was incorrect';
+              email.classList = 'form-control is-invalid';
+              emailInvalidError.innerHTML = 'Incorrect Email or password. Please try again.';
+              password.classList = 'form-control'
+              passwordInvalidError.innerHTML = '';
               break;
 
           }

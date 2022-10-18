@@ -40,7 +40,7 @@
                     <div class="col">
                       <div class="register-form-field form-group col" style="width: auto;">
                         <div class="form-floating">
-                          <input type="text" class="form-control" id="lastName" placeholder="First name">
+                          <input type="text" class="form-control" id="lastName" placeholder="Last name">
                           <label for="lastName" class="text-muted">last name</label>
                           <div id="firstNameInvalid" class="invalid-feedback">
                             Enter a last name.
@@ -62,9 +62,9 @@
 
                       <div class="register-form-field form-group col pt-3" style="width: auto">
                         <div class="form-floating">
-                          <input type="text" class="form-control" id="email" placeholder="Username" required>
+                          <input type="text" class="form-control" id="emailSignUp" placeholder="Email" required>
                           <label for="email" class="text-muted">email</label>
-                          <div id="emailInvalid" class="invalid-feedback">
+                          <div id="emailSignUpInvalid" class="invalid-feedback">
                             Please enter an email.
                           </div>
                         </div>
@@ -91,7 +91,7 @@
                       
                   </div>
                   
-                  <button type="button" style="background-color: rgb(255, 127, 45); color: white" class="btn orange border border-3 mt-4 rounded-5" id="signupBtn">Sign up</button>
+                  <button type="button" style="background-color: rgb(255, 127, 45); color: white" class="btn orange border border-3 mt-4 rounded-5" id="signupBtn" @click="register">Sign up</button>
                     
                 </form>
             </div>
@@ -135,16 +135,68 @@
     const email = ref('')
     const password = ref('')
     const router = useRouter() // get a reference to our vue router
+
+              
+    // var errorCount = 0;
+    // console.log(emailInvalidError);
+    // var firstNameInput = document.getElementById('firstName');
+    // var lastNameInput = document.getElementById('lastName');
+    // var usernameInput = document.getElementById('username');
+    // var passwordInput = document.getElementById('password');
+    // var confirmPasswordInput = document.getElementById('confirmPassword');
+    // var passwordInvalidError = document.getElementById('passwordInvalid');
+
+    // if(emailInput.value.length == 0) {
+    //         emailInput.classList = "form-control is-invalid";
+    //       } else {
+    //         emailInput.classList = "form-control is-valid";
+    //       }
+
+
     const register = () => {
-      
+
+      var emailInput = document.getElementById('emailSignUp');
+      var emailInvalidError = document.getElementById('emailSignUpInvalid');
+
         createUserWithEmailAndPassword(getAuth(), email.value, password.value) // need .value because ref()
         .then(() => {
           console.log('Successfully registered!');
-          router.push('/aboutpage') // redirect to the feed
+          router.push('/') // redirect to the feed
         })
         .catch(error => {
+          // WORK IN PROGRESS -- SHENG DA (Binding and Form Verfication)
           console.log(error.code)
-          alert(error.message);
+          // alert(error.message);
+          switch (error.code){
+            case 'auth/invalid-email':
+              emailInput.classList = 'form-control is-invalid';
+              emailInvalidError.innerHTML = 'You have entered an invalid email. Please try again.';
+              // errMsg.value = 'Invalid email';
+              break;
+            case 'auth/email-already-in-use':
+              emailInput.classList = 'form-control is-invalid';
+              emailInvalidError.innerHTML = 'Email already exists. Please try again.';
+              // errMsg.value = 'No account with that email was found';
+              // email.classList = 'form-control is-invalid';
+              // emailInvalidError.innerHTML = 'Account does not exist. Please try again.';
+              // password.classList = 'form-control';
+              // passwordInvalidError.innerHTML = '';
+              break;
+            case 'auth/wrong-password':  //need to refer from old files from here
+              // errMsg.value = 'Incorrect password';
+              // email.classList = 'form-control';
+              // emailInvalidError.innerHTML = '';
+              // password.classList = 'form-control is-invalid';
+              // passwordInvalidError.innerHTML = 'The password is incorrect. Please try again.';
+              break;
+            default: 
+              // errMsg.value = 'Email or password was incorrect';
+              // email.classList = 'form-control is-invalid';
+              // emailInvalidError.innerHTML = 'Incorrect Email or password. Please try again.';
+              // password.classList = 'form-control'
+              // passwordInvalidError.innerHTML = '';
+              break;
+          }
         });
     }
 
@@ -154,7 +206,7 @@
       signInWithPopup(getAuth(), provider)
         .then((result) => { 
             console.log(result.user);
-            router.push('/ahoutpage')
+            router.push('/')
         })
         .catch((error) => { 
           

@@ -17,11 +17,11 @@ const routes =[
     component: () => import("../views/SignUp.vue"),
   },
   {
-    path: "/login/:id",
+    path: "/login/",
     component: () => import("../views/LogIn.vue"),
   },
   {
-    path: "/aboutpage",
+    path: "/aboutpage/",
     component: () => import("../views/AboutPage.vue"),
   },
   {
