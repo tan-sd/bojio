@@ -31,6 +31,10 @@ const routes =[
       requiresAuth: true,
     }
   },
+  {
+    path: "/friendspage",
+    component: () => import("../views/FriendsPage.vue"),
+  },
 ]
 
 

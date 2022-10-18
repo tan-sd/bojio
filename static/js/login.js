@@ -205,30 +205,59 @@ var testthis = ''
 
 //to createjio
 function createJio(eventname, type) {
-  const db = getDatabase();
-  
+  const db = getDatabase(app);
+  // console.log(jioref);
   eventname = document.getElementById('name').value
-
+  
   if (typeof(Storage) !== "undefined") {
     username = localStorage.getItem('fullname')}
-  else{
-    username = 'nousername'
-  }
+    else{
+      username = 'nousername'
+    }
+    
+    date = document.getElementById('date').value
+    type = document.querySelector('input[name="exampleRadios"]:checked').value;
+    
+    const jioData = {
+      // creator: username,
+      eventname: eventname,
+      username: username,
+      date: date,
+      type: type,
+      activities: [1,2,3],
+    };
+    // console.log(child(ref(db, 'private events/')));
+    // console.log(db);
+    // console.log(newKey);
+    // console.log(jioData);
+    // console.log(child(ref(db)));
+    
 
-  date = document.getElementById('date').value
-  type = document.querySelector('input[name="exampleRadios"]:checked').value;
+    //this ok
+    const newKey = push(child(ref(db), 'private events')).key;
+    // set(ref(db, 'private events/' + newKey), 
+    //   jioData
+    // );
+    
+    // the above to make it private events->activity key->info
+    
+    
+    // set(child(ref(db, 'private events/'), {
+      //   eventname: eventname,
+      //   username: username,
+      //   date: date,
+      //   type: type,
+      //   activities: [1,2,3],
+      // }));
+      // const jioref = ref(db,'private events').set(jioData)
+      //end here
+    
 
-  const jioData = {
-    // creator: username,
-    eventname: eventname,
-    username: username,
-    date: date,
-    type: type,
-    activities: [1,2,3],
-  };
+
+  
 
   // Get a key for a new Post.
-  const newKey = push(child(ref(db), 'events')).key;
+  // const newKey = push(child(ref(db), 'events')).key;
 
   // Write the new post's data simultaneously in the posts list and the user's post list.
   const updates = {};
@@ -239,8 +268,9 @@ function createJio(eventname, type) {
   //        -jio data
 
 
-  updates[`${type} events/${uid}/${newKey}`] = jioData;
+  // updates[`${type} events/${uid}/${newKey}`] = jioData;
 
+  updates[`${type} events/${newKey}`] = jioData;
   // accounts
 
   // eventsgoing

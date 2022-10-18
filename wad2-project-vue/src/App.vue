@@ -75,6 +75,10 @@
               <router-link to="/createajio" class="nav-link"> Create a Jio</router-link> 
               <!-- <a class="nav-link" href="./signup.html">Sign up</a> -->
             </li>
+            <li class="nav-item pe-4">
+              <router-link to="/friendspage" class="nav-link"> Add Friend </router-link> 
+              <!-- <a class="nav-link" href="./signup.html">Sign up</a> -->
+            </li>
             <li class="nav-item">
               <router-link to="/login" class="nav-link" @click="handlesignOut" v-if="isLoggedIn">Log out</router-link>
           
