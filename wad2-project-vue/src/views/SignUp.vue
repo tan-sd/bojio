@@ -55,7 +55,7 @@
                           <input type="text" class="form-control" id="username" placeholder="Username" required>
                           <label for="username" class="text-muted">username</label>
                           <div id="usernameInvalid" class="invalid-feedback">
-                            Please enter an username.
+                            Please enter an username with at least 8 characters.
                           </div>
                         </div>
                       </div>
@@ -122,48 +122,108 @@
   <script>
     export default {
       title: 'BOJIO – Sign up',
+
+    //   data(){
+    //     return{
+    //       email: '',
+    //       password: ''
+    //     }
+    //   },
+
+    //   computed: {
+    //     getemail(){
+    //       var email = this.email
+    //       return email
+    //     }
+    //   }
     }
   </script>
 
   <script setup>
-    import { ref } from 'vue'
+    // import { ref } from 'vue'
     // import firebase from 'firebase'
+    import { initializeApp } from 'firebase/app'
+    import { securityCheck } from '../utils/index.js'
     import { useRouter } from 'vue-router' // import router
     import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
+    import { getDatabase, ref, set } from 'firebase/database'
+
+    
     // import { useRouter } from 'vue-router'
-    const email = ref('')
-    const password = ref('')
+    const firebaseConfig = {
+      apiKey: "AIzaSyDC4kZ-Ec-jP7dnlFEmvD5rW9bOIXRyT3Q",
+      authDomain: "wad2-project-d8ba0.firebaseapp.com",
+      databaseURL: "https://wad2-project-d8ba0-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "wad2-project-d8ba0",
+      storageBucket: "wad2-project-d8ba0.appspot.com",
+      messagingSenderId: "168248515824",
+      appId: "1:168248515824:web:bfcb3221af409131e07635"
+    };
+    // const email = ref('')
+    // const password = ref('')
     const router = useRouter() // get a reference to our vue router
-
-              
-    // var errorCount = 0;
-    // console.log(emailInvalidError);
-    // var firstNameInput = document.getElementById('firstName');
-    // var lastNameInput = document.getElementById('lastName');
-    // var usernameInput = document.getElementById('username');
-    // var passwordInput = document.getElementById('password');
-    // var confirmPasswordInput = document.getElementById('confirmPassword');
-    // var passwordInvalidError = document.getElementById('passwordInvalid');
-
-    // if(emailInput.value.length == 0) {
-    //         emailInput.classList = "form-control is-invalid";
-    //       } else {
-    //         emailInput.classList = "form-control is-valid";
-    //       }
-
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
 
     const register = () => {
 
+      var status = securityCheck() //returns true when form is ok
       var emailInput = document.getElementById('emailSignUp');
       var emailInvalidError = document.getElementById('emailSignUpInvalid');
       var passwordInput = document.getElementById('passwordInput');
       var confirmPasswordInput = document.getElementById('confirmPasswordInput');
       var passwordInvalidError = document.getElementById('passwordInvalid');
+      console.log(status);
 
-        createUserWithEmailAndPassword(getAuth(), email.value, password.value) // need .value because ref()
+      // if(emailInput.value.length == 0) {
+      //   emailInput.classList = "form-control is-invalid";
+      // } else {
+      //   emailInput.classList = "form-control is-valid";
+      // }
+
+      // var signupBtn = document.getElementById('signupBtn')
+      // signupBtn?.addEventListener('click', (e) => {
+      var firstName = document.getElementById('firstName');
+      var lastName = document.getElementById('lastName');
+      var username = document.getElementById("username");
+      console.log(status);
+      if(status){
+        createUserWithEmailAndPassword(getAuth(), emailInput.value, passwordInput.value) // need .value because ref()
+        .then((userCredential) => {
+
+          console.log(userCredential);
+          console.log(userCredential.user);
+          const user = userCredential.user
+          const uid = user.uid
+          const fullname = firstName.value + lastName.value
+
+          if(typeof(Storage)!== 'undefined'){
+          localStorage.setItem('fullname', fullname)
+          localStorage.setItem('uid', uid)
+          
+          console.log(localStorage.getItem('fullname'));
+          }
+
+          set(ref(db, "accounts/" + user.uid),{
+          firstname: firstName.value,
+          lastname: lastName.value,
+          username: username.value,
+          email: emailInput.value,
+          password: passwordInput.value,
+          events: ['no events'],
+          createdjios: ['no jios'],
+        })
         .then(() => {
-          console.log('Successfully registered!');
-          router.push('/') // redirect to the feed
+          alert('details created successfully!')
+        })
+        .catch((error) => {
+          alert(error);
+        })
+        
+        alert("Successfully signed up!");
+
+        console.log('Successfully registered!');
+        router.push('/') // redirect to the feed
         })
         .catch(error => {
           // WORK IN PROGRESS -- SHENG DA (Binding and Form Verfication)
@@ -171,7 +231,6 @@
           // alert(error.message);
           switch (error.code){
             case 'auth/invalid-email':
-              console.log(email.value);
               emailInput.classList = 'form-control is-invalid';
               emailInvalidError.innerHTML = 'You have entered an invalid email. Please try again.';
               // errMsg.value = 'Invalid email';
@@ -209,6 +268,9 @@
               break;
           }
         });
+
+      }
+    // })
     }
 
 

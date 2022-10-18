@@ -1,9 +1,10 @@
 <template>
    
     <!-- Welcome message -->
-    <div class="container">
+    <!-- will be putting if person exist here but dont work yet -->
+    <div class="container" >
       <div class="row mb-5">
-        <div id = 'personname' style="display:none"></div>
+        <div id = 'personname' style="display:inline; font-family: worksans-extrabold; font-size: 4vmin;"> Welcome, {{fullname}}! 👋🏼</div>
       </div>
     </div> 
 
@@ -96,11 +97,20 @@ export default {
             events: sourceData.events,
             length: 9, 
             uid: localStorage.getItem("uid"),
-            activeTab : 'EventsButton'
+            activeTab : 'EventsButton',
+            // fullname: fullname
         }
     },
+//     watch: {
+//   input: function () {
+//     if (isLocalStorage() /* function to detect if localstorage is supported*/) {
+//       localStorage.setItem('storedData', this.input)
+//     }
+//   }
+// }
     methods: {
     loadMore() {
+      console.log(this.fullname);
       console.log(this.events);
       if (this.length >= this.events.length) {
         return
@@ -118,4 +128,9 @@ export default {
 
 }
 
+</script>
+
+<script setup>
+  var fullname = localStorage.getItem('fullname')
+  console.log(fullname);
 </script>

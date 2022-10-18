@@ -1,5 +1,5 @@
 import { onMounted } from 'vue'
-import {getAuth, onAuthStateChanged, signOut} from 'firebase/auth';
+import {getAuth, onAuthStateChanged, signOut, createUserWithEmailAndPassword} from 'firebase/auth';
 import { useRouter } from 'vue-router' 
 import { initializeApp } from 'firebase/app'
 import { getDatabase, ref, child, push, update, set, get, onValue } from 'firebase/database'
@@ -21,80 +21,202 @@ const db = getDatabase(app);
 // console.log(db);
 // const dbRef = ref(getDatabase());
 
+//validate email
+function validate_email(email){
+  var expression = /^[^@]+@\w+(\.\w+)+\w$/
+  if(expression.test(email) == true){
+    //ok email
+    return true
 
+  } else{
+    //email invalid
+    return false
+  }
+}
+
+export function securityCheck(){
+  
+  var errorCount = 0;
+  var email = document.getElementById('emailSignUp')
+  var firstName = document.getElementById('firstName');
+  var lastName = document.getElementById('lastName');
+  var username = document.getElementById('username');
+  var password = document.getElementById('passwordInput');
+  var confirmPassword = document.getElementById('confirmPasswordInput');
+  var passwordInvalidError = document.getElementById('passwordInvalid');
+  var usernameInvalidError = document.getElementById('usernameInvalid')
+  var passwordValidation = false;
+  var emailstatus = validate_email(email.value)
+  var emailInvalidError = document.getElementById('emailSignUpInvalid');
+
+  if(!emailstatus){            
+    email.classList = "form-control is-invalid";
+    emailInvalidError.innerText = 'Please enter a valid email.'
+    errorCount += 1;
+  }
+ 
+  else if(email.value.length == 0) {
+    email.classList = "form-control is-invalid";
+    errorCount += 1;
+
+  } else {
+    console.log('email valid');
+    email.classList = "form-control is-valid";
+  }
+
+  if(firstName.value.length == 0) {
+    firstName.classList = "form-control is-invalid";
+    errorCount += 1;
+
+  } else {
+    firstName.classList = "form-control is-valid";
+  }
+  
+  if(lastName.value.length == 0) {
+    lastName.classList = "form-control is-invalid";
+    errorCount += 1;
+
+  } else {
+    lastName.classList = "form-control is-valid";
+  }
+
+  if(username.value.length < 8 ){
+    username.classList = "form-control is-invalid";
+    // msg+='Please enter a valid username <br>'
+    errorCount += 1;
+  } else {
+    username.classList = "form-control is-valid";
+    usernameInvalidError.innerText = ''
+  }
+
+  if(password.value.length == 0) {
+    password.classList = "form-control is-invalid";
+    passwordInvalidError.innerText = "Please enter your password.";
+    errorCount += 1;
+  } else if (password.value.length < 8) {
+    password.classList = "form-control is-invalid";
+    passwordInvalidError.innerText = "Password must be at least 8 characters.";
+    errorCount += 1;
+  } else {
+    password.classList = "form-control is-valid";
+    passwordInvalidError.innerText = '';
+    passwordValidation = true;
+  }
+
+  // console.log(passwordValidation);
+  if(passwordValidation == false) {
+    null;
+  } else if (password.value != confirmPassword.value) {
+    password.classList = "form-control is-invalid";
+    confirmPassword.classList = "form-control is-invalid";
+  } else {
+    password.classList = "form-control is-valid";
+    confirmPassword.classList = "form-control is-valid";
+  }
+
+  var db_user  = ''
+
+  if (errorCount == 0 && emailstatus) {
+    // return true
+    //check if username alr exists
+    var userexist = false;
+      const dbRef = ref(getDatabase());
+      get(child(dbRef, `accounts/`)).then((snapshot) => {
+        console.log(snapshot);
+        if (snapshot.exists()) {
+          console.log(snapshot.val());
+        } else {
+          console.log("No data available");
+        }
+      }).catch((error) => {
+        console.error(error);
+      });
+      console.log(userexist);
+      if(!userexist){
+
+        //means user dont exist n its gd
+        return true
+        }
+      return false
+  }
+
+}
 
 //register user
+export function register(){
 
-//validate email
-// function validate_email(email){
-//   var expression = /^[^@]+@\w+(\.\w+)+\w$/
-//   if(expression.test(email) == true){
-//     //ok email
-//     return true
+  const auth = getAuth();
+  var emailInput = document.getElementById('emailSignUp');
+  var emailInvalidError = document.getElementById('emailSignUpInvalid');
 
-//   } else{
-//     //email invalid
-//     return false
-//   }
-// }
-
-//   const auth = getAuth();
-//   var signupBtn = document.getElementById('signupBtn')
-//   signupBtn?.addEventListener('click', (e) => {
-//   var firstName = document.getElementById('firstName');
-//   var lastName = document.getElementById('lastName');
-//   var username = document.getElementById('username');
-  
-//   var email = document.getElementById("email").value;
-//     // var username = document.getElementById("username").value;
-//     var password = document.getElementById("password").value;
-//     var status = securityCheck()
-//     if (status){
-//       createUserWithEmailAndPassword(auth, email, password)
-//       .then((userCredential) => {
-//           // Signed in 
-//           const user = userCredential.user;
-//           console.log(user);
-//           console.log(user.uid);
-//           set(ref(db, "accounts/" + user.uid),{
-//             firstname: firstName.value,
-//             lastname: lastName.value,
-//             username: username.value,
-//             email: email,
-//             password: password,
-//             events: ['no events'],
-//             createdjios: ['no jios'],
+      if(emailInput.value.length == 0) {
+        emailInput.classList = "form-control is-invalid";
+      } else {
+        emailInput.classList = "form-control is-valid";
+      }
+      
+  var signupBtn = document.getElementById('signupBtn')
+  signupBtn?.addEventListener('click', (e) => {
+  var firstName = document.getElementById('firstName');
+  var lastName = document.getElementById('lastName');
+  var username = document.getElementById("username");
+  // var username = document.getElementById('username');
+  console.log(firstName, lastName);
+  var email = document.getElementById("emailSignup").value;
+  var password = document.getElementById("password").value;
+  var status = securityCheck()
+  console.log(status);
+  if (status){
+    createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+        // Signed in 
+        const user = userCredential.user;
+        console.log(user);
+        console.log(user.uid);
+        set(ref(db, "accounts/" + user.uid),{
+          firstname: firstName.value,
+          lastname: lastName.value,
+          username: username.value,
+          email: email,
+          password: password,
+          events: ['no events'],
+          createdjios: ['no jios'],
+        })
+        .then(() => {
+          alert('details created successfully!')
+        })
+        .catch((error) => {
+          alert(error);
+        })
         
-//           })
-//           .then(() => {
-//             alert('details created successfully!')
-//           })
-//           .catch((error) => {
-//             alert(error);
-//           })
-          
-//           alert("Successfully signed up!");
-//           //Redirect user if you want
-//       })
-//       .catch((error) => {
-//           const errorCode = error.code;
-//           const errorMessage = error.message;
+        alert("Successfully signed up!");
+        //Redirect user if you want
+    })
+    .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
 
-//           if(errorMessage == 'Firebase: Error (auth/email-already-in-use).'){ 
-//             var email = document.getElementById('email')
-//             email.classList = "form-control is-invalid";
-//             document.getElementById('emailInvalid').innerText = 'Email already exists.'
+        if(errorMessage == 'Firebase: Error (auth/email-already-in-use).'){ 
+          var email = document.getElementById('email')
+          email.classList = "form-control is-invalid";
+          document.getElementById('emailInvalid').innerText = 'Email already exists.'
 
-//           }
-//           // ..
-//           else{
-//             alert(errorMessage);
+        }
+        // ..
+        else{
+          alert(errorMessage);
 
-//           }
-//       });
-//     }
+        }
+    }
+    
+    
+    );   //catch finish
+  } //if status
 
-// })
+} //signup event listener
+) //signup event listener
+}
+
 
 //get public data
 export function getpublic(){
