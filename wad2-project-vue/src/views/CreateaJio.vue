@@ -12,7 +12,7 @@
         </div>
 
         <div class="container" id="info">
-        <form id="form1">
+        <form id="form1" :class="{hidden:shown}">
               <h2 class="title1">Step 1: Event Details</h2>
               <div class="row mb-3">
                 <input type="text" class="form-control" id="name" placeholder="event name">
@@ -40,11 +40,11 @@
               </div>
               <hr>
               <div class="row ms-1 mb-1">
-              <button type="button" class="btn orange border border-3" id="next1">Next</button>
+              <button type="button" class="btn orange border border-3" id="next1" @click="next1()">Next</button>
               </div>
             </form> 
 
-                    <form id="form2">
+              <form id="form2" :class="{hidden:shown}">
               <h2>Step 2: Add Activities</h2>
   
               <label for="activityName">Activity Name</label>
@@ -76,7 +76,7 @@
               </div>
             </form> 
 
-            <form id="form3">
+            <form id="form3" :class="{hidden:shown}">
               <h2>Route Overview</h2>
               <div class="row">
                 <div id="map" style="width: 100%;height: 350px;"></div>
@@ -97,8 +97,22 @@
     </main>
 </template> 
 
-  <script>
-    export default {
-      title: 'BOJIO – Create a Jio',
-    }
-  </script>
+<style scoped>
+
+  .hidden {
+    visibility: hidden
+  }
+  .visible {
+    visibility: visible
+  }
+  
+</style>
+  
+    <script>
+      export default {
+        title: 'BOJIO – Create a Jio',
+        data() {
+          return {
+            shown: false,
+          }}}
+    </script>

@@ -169,8 +169,6 @@
   </div>
 </template>
 
-<<<<<<< Updated upstream
-    </template>
     
     <script>
     export default {
@@ -186,21 +184,6 @@
         orbitCtrl.enableZoom = false;
       },
     };
-=======
-<script>
-export default {
-  mounted() {
-    const renderer = this.$refs.renderer;
-    const world = this.$refs.gltf.scene;
-    // console.log(world)
-    renderer.onBeforeRender(() => {
-      if (world) world.rotation.y -= 0.007;
-    });
-    const orbitCtrl = this.$refs.renderer.three.cameraCtrl;
-    orbitCtrl.enableZoom = false;
-  },
-};
->>>>>>> Stashed changes
 
 function reveal() {
   var reveals = document.querySelectorAll(".reveal");
