@@ -35,6 +35,11 @@ const routes =[
     path: "/friendspage",
     component: () => import("../views/FriendsPage.vue"),
   },
+  {
+    path: "/events/:idx",
+    name: 'event',
+    component: () => import ("../views/EventPage.vue"),
+  }
 ]
 
 
@@ -95,5 +100,4 @@ router.beforeEach(async (to,from,next) => {
   }
 })
 
-export default router;
-
+export default router

@@ -4,18 +4,19 @@
     <div id='event-container' class="container mt-5" style="font-family: worksans-medium">
       <div class="row" id ='app'>
         <div class="col-md-4 mb-5" v-for="(event, index) in eventsloaded.slice(0, events.length)" :key="index">
-      
+          <router-link style="text-decoration: none; color: inherit;" :to="{ name: 'event', params: { idx: index, image: event.image.url }}">
                 <div class="card" style="width:auto">
                   <img class="card-img-top" :src="event.image.url" alt="card image collar">
                   <div class="card-body" style="width: auto;">
                   <div class="card-title pt-4"> {{event.name}}</div>
                   </div>
+                  </div>
+                </router-link>
                 </div>
       
          </div>
         </div>
         <!-- <button id='view-more' class="btn mb-3" @click="loadMore" style="box-shadow: 0px 0px 14px -7px #f09819" >Load</button> -->
-    </div>
 
     <div class="container" id="bottom">
         <div class="row">
