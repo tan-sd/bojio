@@ -12,7 +12,7 @@
         </div>
 
         <div class="container" id="info">
-        <form id="form1">
+        <form id="form1" v-bind:class="{ hidden: form1 }">
               <h2 class="title1">Step 1: Event Details</h2>
               <div class="row mb-3">
                 <input type="text" class="form-control" id="name" placeholder="event name">
@@ -40,11 +40,11 @@
               </div>
               <hr>
               <div class="row ms-1 mb-1">
-              <button type="button" class="btn orange border border-3" id="next1">Next</button>
+              <button type="button" class="btn orange border border-3" @click="changeVis" v-bind:class="{ hidden: form1 }" id="next1">Next</button>
               </div>
             </form> 
 
-                    <form id="form2">
+              <form id="form2" v-bind:class="{visible: form2}">
               <h2>Step 2: Add Activities</h2>
   
               <label for="activityName">Activity Name</label>
@@ -97,8 +97,37 @@
     </main>
 </template> 
 
+<style scoped>
+
+.hidden {
+  display: none;
+}
+.visible {
+  display: unset 
+}
+
+</style>
+
   <script>
     export default {
       title: 'BOJIO – Create a Jio',
-    }
+      data() {
+        return {
+          form1: false,
+          form2: false,
+          form3: false,
+        }
+      },
+      methods: {
+        changeVis() {
+              if (this.form1 == false) {
+                this.form1 = true;
+                this.form2 = true;
+              } else {
+                this.form1 = false;
+              }
+            }
+        }
+      }
+  
   </script>

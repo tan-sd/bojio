@@ -154,6 +154,12 @@
               password.classList = 'form-control is-invalid';
               passwordInvalidError.innerHTML = 'The password is incorrect. Please try again.';
               break;
+            case 'auth/internal-error':
+              email.classList = 'form-control';
+              emailInvalidError.innerHTML = '';
+              password.classList = 'form-control is-invalid';
+              passwordInvalidError.innerHTML = 'Please insert your password.'
+              break;
             default: 
               errMsg.value = 'Email or password was incorrect';
               email.classList = 'form-control is-invalid';
