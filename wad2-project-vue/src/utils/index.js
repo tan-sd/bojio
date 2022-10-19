@@ -229,7 +229,7 @@ export function getpublic(){
         // const request = snapshot.val()[key]
         // console.log(key, request.email);
         const data = snapshot.val()
-        console.log(snapshot.val);
+        console.log("getpublic - data:" + data);
         console.log(typeof(data));
         return resolve(data)
       })
@@ -377,20 +377,23 @@ export function createJio(eventname, type) {
 // // var publicjios = document.getElementById('public')
 // // publicjios.addEventListener('click', getpublic)
 
-// export function getpublic(){
-//   const dbRef = ref(getDatabase());
-//   get(child(dbRef, `public events/`)).then((snapshot) => {
-//     if (snapshot.exists()) {
+export function getpublic2(){
+  console.log("getpublic2")
+  const dbRef = ref(getDatabase());
+  get(child(dbRef, `public events/`)).then((snapshot) => {
+    console.log("getpublic2 - then")
+    if (snapshot.exists()) {
+      console.log("getpublic2 - snapshotexists")
   
-//       // console.log(snapshot.val());
-//       localStorage.setItem('publicjios', JSON.stringify(snapshot.val()))
-//       // console.log(snapshot.val());
-//       return(snapshot.val())
-//       // localStorage.setItem('publicjios', JSON.stringify(snapshot.val())
-//     } else {
-//       console.log("No data available");
-//     }
-//   }).catch((error) => {
-//     console.error(error);
-//   });
-//   }
+      // console.log(snapshot.val());
+      localStorage.setItem('publicjios', JSON.stringify(snapshot.val()))
+      console.log("snapshot.val():"+snapshot.val());
+      return(snapshot.val())
+      // localStorage.setItem('publicjios', JSON.stringify(snapshot.val())
+    } else {
+      console.log("No data available");
+    }
+  }).catch((error) => {
+    console.error(error);
+  });
+  }

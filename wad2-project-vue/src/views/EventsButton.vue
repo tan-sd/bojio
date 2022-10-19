@@ -4,15 +4,28 @@
     <div id='event-container' class="container mt-5" style="font-family: worksans-medium">
       <div class="row" id ='app'>
         <div class="col-md-4 mb-5" v-for="(event, index) in eventsloaded.slice(0, events.length)" :key="index">
-          <router-link style="text-decoration: none; color: inherit;" :to="{ name: 'event', params: { idx: index, image: event.image.url }}">
+          {{event.id}}
+          <router-link style="text-decoration: none; color: inherit;" :to="{ name: 'event', params: { idx: index, image: event.image.url , eventid: event.id}}">
                 <div class="card" style="width:auto">
                   <img class="card-img-top" :src="event.image.url" alt="card image collar">
-                  <div class="card-body" style="width: auto;">
+                  <div class="card-body" style="width: auto;"> 
                   <div class="card-title pt-4"> {{event.name}}</div>
+                  Start Date: {{event['start_date']}}
+                  <br>
+                  End Date: {{event['end_date']}}
+
+                  <br><br>
+                  Tags:
+
+                  <div v-for="tag of event.tags.slice(0,2)" :key="tag">
+                    {{tag['display_name']}}
+               
+                  </div>
+
                   </div>
                   </div>
-                </router-link>
-                </div>
+          </router-link>
+        </div>
       
          </div>
         </div>
@@ -77,3 +90,13 @@ console.log(typeof(sourceData));
 <style scoped>
 
 </style>
+
+<script setup>
+console.log(sourceData);
+  for( var event of sourceData.events){
+    console.log(event.tags);
+    for( var tag of event.tags){
+      console.log(tag['display_name']);
+    }
+  }
+</script>
