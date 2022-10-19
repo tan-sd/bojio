@@ -329,6 +329,47 @@ background-color: #eaeaea !important;
     top: 0%;
     left: 0%;
 }
+
+/* .card { */
+    /* height: 500px;
+    width: 300px;
+    border-radius: 5px;
+    border: 2px solid black; */
+/* } */
+
+.slider-container {
+    width: 100%;
+    height: 500px;
+    left: 50%;
+    /* position: absolute; 
+    transform: translate(-50%, -50%); */
+    overflow: hidden;
+}
+
+/* trying to transfer slider container to upper n lower carousel doesnt work :( */
+.upper-carousel {
+    top: 500px;
+    /* position: absolute;
+    transform: translate(-50%, -50%); */
+    left: 50%;
+}
+
+.lower-carousel {
+    top: 1000px;
+    /* position: absolute; */
+    /* transform: translate(-50%, -50%); */
+    left: 50%;
+}
+
+.inner-slider {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    pointer-events: none;
+    /* position: relative; */
+    top: 0%;
+    left: 0%;
+}
 /* HOMEPAGE END */
 
 /* ABOUT PAGE START */
@@ -704,48 +745,7 @@ visibility: hidden;
 
 /* ABOUT PAGE END */
 
-/* HOMEPAGE START */
-/* .card { */
-    /* height: 500px;
-    width: 300px;
-    border-radius: 5px;
-    border: 2px solid black; */
-/* } */
 
-.slider-container {
-    width: 100%;
-    height: 500px;
-    left: 50%;
-    /* position: absolute; 
-    transform: translate(-50%, -50%); */
-    overflow: hidden;
-}
-
-/* trying to transfer slider container to upper n lower carousel doesnt work :( */
-.upper-carousel {
-    top: 500px;
-    /* position: absolute;
-    transform: translate(-50%, -50%); */
-    left: 50%;
-}
-
-.lower-carousel {
-    top: 1000px;
-    /* position: absolute; */
-    /* transform: translate(-50%, -50%); */
-    left: 50%;
-}
-
-.inner-slider {
-    width: 100%;
-    display: flex;
-    gap: 10px;
-    pointer-events: none;
-    /* position: relative; */
-    top: 0%;
-    left: 0%;
-}
-/* HOMEPAGE END */
 
 /* START OF FORM PAGES */
 

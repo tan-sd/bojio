@@ -76,7 +76,7 @@
               </div>
             </form> 
 
-            <form id="form3">
+            <form id="form3" :class="{hidden:shown}">
               <h2>Route Overview</h2>
               <div class="row">
                 <div id="map" style="width: 100%;height: 350px;"></div>
