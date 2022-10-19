@@ -2,25 +2,25 @@
     <div>
       <section class="wrapper">
         <!-- IMAGE -->
-        <img :src=this.events[this.$route.params.idx].image.url>
+        <img :src=events[$route.params.idx].image.url>
 
         <hr>
 
         <!-- EVENT NAME -->
         Event Name:
-        <div>{{ this.events[this.$route.params.idx].name }}</div>
+        <div>{{ events[$route.params.idx].name }}</div>
 
         <hr>
 
         <!-- EVENT VENUE -->
         Venue:
-        <div>{{ this.events[this.$route.params.idx].primary_venue.name}}</div>
+        <div>{{ events[$route.params.idx].primary_venue.name}}</div>
 
         <hr>
 
         <!-- EVENT ORGANIZER -->
         Organised by:
-        <div>{{ this.events[this.$route.params.idx].primary_organizer.name}}</div>
+        <div>{{ events[$route.params.idx].primary_organizer.name}}</div>
 
         <hr>
 
@@ -29,10 +29,6 @@
         <!-- <div v-html="description">{{ this.events[this.$route.params.idx].full_description}}</div> -->
         <div v-html="description"></div> {{getId()}}
         <hr>
-       
-
-
-        <!-- {{content}} -->
 
         <br>
        
@@ -45,7 +41,6 @@
 import sourceData from'../data.json';
 import axios from 'axios'
 import { getIdToken } from '@firebase/auth';
-// import VueAxios from 'vue-axios'
 
 export default {
         name: 'EventsButton',
@@ -53,7 +48,6 @@ export default {
             return {
             events: sourceData.events, 
             description: '',
-            content: '',
             eventid: '',
             url: ''
             }
