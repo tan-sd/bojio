@@ -45,7 +45,7 @@
             </form> 
 
               <form id="form2" v-bind:class="{visible: form2}">
-              <h2>Step 2: Add Activities</h2>
+              <h3>Step 2: Add Activities</h3>
   
               <label for="activityName">Activity Name</label>
               <div class="form-group row pb-1">
@@ -59,17 +59,19 @@
               <div class="form-group row pb-1">
                 <input type="text" class="form-control" id="activityDuration" placeholder="Duration (mins)" v-model="singleAct.activityDuration">
               </div>
-              <h3 v-if="actArr.length==0">
+              <h4 class="mt-3 mb-3" v-if="actArr.length==0">
               You have no activities yet
-              </h3>
-              <div v-else class="row mt-3 " id="result"> 
+              </h4>
+              <div v-else class="row mt-3 mb-3" id="result"> 
                 <table>
                   <tr><th>Number</th><th>Name</th><th>Location</th><th>Duration</th><th></th></tr>
-                  <tr v-for="act in actArr" :key="act.id">
-                    <td>{{count}}</td>
+                  <tr v-for="(act,index) in actArr" :key="act.id">
+
+                    <td>{{index+1}}</td>
                     <td>{{act.activityName}}</td>
                     <td>{{act.activityLocation}}</td>
                     <td>{{act.activityDuration}}</td>
+                    <td><button type="button" id="{{index}}" @click="remove()">Delete</button></td>
                     
                   </tr>
 
@@ -137,6 +139,7 @@
           actArr:[],
           singleAct:{activityName:'',activityDuration:null,activityLocation:'',},
           
+          
         }
       },
       methods: {
@@ -167,13 +170,15 @@
             },
         update(){
           this.actArr.push(this.singleAct);
-
+        },
+        remove(){
+          
         }
         },
-      computed: {
-        count:this.actArr.length,
+      // computed: {
 
-      }
+
+      // }
       }
   
   </script>
