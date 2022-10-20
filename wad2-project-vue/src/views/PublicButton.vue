@@ -112,9 +112,9 @@ export default {
   
     getpublic().then((value) =>{ 
           this.publicevents = value
-          console.log("created - " + this.publicevents);
-          console.log(typeof(value));
-          console.log('end of .then');
+          // console.log("created - " + this.publicevents);
+          // console.log(typeof(value));
+          // console.log('end of .then');
         })
         .catch((message)=> {
           console.log('error');

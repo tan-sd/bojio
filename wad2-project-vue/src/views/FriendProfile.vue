@@ -1,5 +1,7 @@
 <template>
     hi this is friend profile
+    <br>
+    user id: {{friendid}}
 </template>
 
 <script>

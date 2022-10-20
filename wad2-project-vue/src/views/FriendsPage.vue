@@ -9,10 +9,10 @@
             <button>Search</button>
                 
                 <div>
-                    <ul v-for="user in allusers" :key="user">
-                        <router-link :to="{params:{ idx:user }}">
-                            
-                            <li>{{user}}</li>
+                    <ul v-for="(user, userid) in allusers" :key="user">
+                        <router-link :to="{ name:'individual profile', params:{ idx: userid}}">
+              
+                            <li>{{user.username}}</li>
 
                         </router-link>
                     </ul>
@@ -57,11 +57,15 @@ export default{
                 (value) => 
                 {
                     const temparray = []
-                    for(const user in value){
-                        console.log(value[user].username);
-                        temparray.push(value[user].username)
-                    }
-                    this.allusers = temparray
+                    this.allusers = value
+                    // for(const user in value){
+                        // console.log(user);
+                        // temparray.push(user)
+                        // console.log(value[user].username);
+                        // temparray.push(value[user].username)
+                    // }
+                    // console.log(temparray);
+                    // this.allusers = temparray
                 }
                
             ).then((value) => console.log('finish loading'))
