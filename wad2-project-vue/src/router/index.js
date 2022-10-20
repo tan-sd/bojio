@@ -39,6 +39,11 @@ const routes =[
     path: "/events/:idx",
     name: 'event',
     component: () => import ("../views/EventPage.vue"),
+  },
+  {
+    path: "/friendspage/:idx",
+    name: 'individual profile',
+    component: () => import ("../views/FriendProfile.vue"),
   }
 ]
 

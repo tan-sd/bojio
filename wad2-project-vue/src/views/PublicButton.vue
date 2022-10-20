@@ -109,34 +109,47 @@ export default {
   created() {
     // this.publicevents = getpublic2();
     // console.log("this.publicevents: " + this.publicevents);
+  
+    getpublic().then((value) =>{ 
+          this.publicevents = value
+          console.log("created - " + this.publicevents);
+          console.log(typeof(value));
+          console.log('end of .then');
+        })
+        .catch((message)=> {
+          console.log('error');
+        })
 
-    // getpublic().then((value) =>{ 
-    //       this.publicevents = value
-    //       console.log("created - " + this.publicevents);
-    //       console.log(typeof(value));
-    //     })
-    //     .catch((message)=> {
-    //       console.log('error');
-    //     })
+    // console.log("getpublic2")
+    // const dbRef = ref(getDatabase());
+    // get(child(dbRef, `public events/`)).then((snapshot) => {
+    //   console.log("getpublic2 - then")
+    //   if (snapshot.exists()) {
+    //     console.log("getpublic2 - snapshotexists")
 
-    console.log("getpublic2")
-    const dbRef = ref(getDatabase());
-    get(child(dbRef, `public events/`)).then((snapshot) => {
-      console.log("getpublic2 - then")
-      if (snapshot.exists()) {
-        console.log("getpublic2 - snapshotexists")
+    //     // console.log(snapshot.val());
+    //     localStorage.setItem('publicjios', JSON.stringify(snapshot.val()))
+    //     console.log("snapshot.val():" + snapshot.val());
+    //     this.publicevents = snapshot.val();
+    //     // localStorage.setItem('publicjios', JSON.stringify(snapshot.val())
+    //   } else {
+    //     console.log("No data available");
+    //   }
+    // }).catch((error) => {
+    //   console.error(error);
+    // });
+  },
 
-        // console.log(snapshot.val());
-        localStorage.setItem('publicjios', JSON.stringify(snapshot.val()))
-        console.log("snapshot.val():" + snapshot.val());
-        this.publicevents = snapshot.val();
-        // localStorage.setItem('publicjios', JSON.stringify(snapshot.val())
-      } else {
-        console.log("No data available");
-      }
-    }).catch((error) => {
-      console.error(error);
-    });
+  mounted() { 
+    getpublic().then((value) =>{ 
+          this.publicevents = value
+          console.log("created - " + this.publicevents);
+          console.log(typeof(value));
+          console.log('end of .then');
+        })
+        .catch((message)=> {
+          console.log('error');
+        })
   }
 }
 

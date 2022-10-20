@@ -290,6 +290,33 @@ export function getdata(){
 }
 
 
+//get all users for friendspage
+export async function getusers(){
+  uid = localStorage.getItem("uid")
+  return new Promise((resolve, reject) =>{
+    const dbRef = ref(getDatabase());
+    get(child(dbRef, `accounts/`)).then((snapshot) => {
+      if (snapshot.exists()) {
+        // console.log(snapshot.val());
+        let fullname = snapshot.val().firstname + ' ' + snapshot.val().lastname
+        const allusers = snapshot.val()
+        // for(const user in allusers){
+          // console.log(allusers[user].username);
+        // }
+        return (resolve(snapshot.val()))
+        
+      } else {
+      
+        console.log("No data available");
+        return reject
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
+  })
+}
+
+
 
 var eventname = ''
 var username =''
