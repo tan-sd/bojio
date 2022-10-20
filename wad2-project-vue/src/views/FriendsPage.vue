@@ -4,21 +4,28 @@
             <h1>Find a Friend Page</h1>
             
             <input type="text" name="searchfriend" v-model="searchedperson" placeholder="Search username">
-            {{searchedperson}}
+        
 
             <button>Search</button>
-                
-                <div>
-                    <ul v-for="(user, userid) in allusers" :key="user">
-                        <router-link :to="{ name:'individual profile', params:{ idx: userid}}">
-              
-                            <li>{{user.username}}</li>
 
-                        </router-link>
-                    </ul>
+<!--             
+            <div class="ui icon input" style="width: 100%">
+            <input type="text" placeholder="Search..." />
+            <i class="search icon"></i>
+            </div> -->
+
+            <div class="ui cards">
+            <div class="card ui fluid" v-for="(user, userid) in filtereddata" :key="user">
+                <div class="content">
+                    <router-link :to="{ name:'individual profile', params:{ idx: userid, createdjios: user.createdjios}}">
+                        <p>{{user.username}}</p>
+                    </router-link>
                 </div>
-
-        </div>
+                <span><button>Add Friend</button></span>
+            </div>
+            </div>
+        
+        </div> 
 </template> 
 
 <script>
@@ -40,9 +47,6 @@ export default{
     title: 'BOJIO – Friend List',
     name: 'friendpage',
    
-    components: {
-    
-    },
   
     data(){
         return{
@@ -50,6 +54,47 @@ export default{
             allusers: [],
         }
     },
+
+    computed: {
+        filtereddata(){ 
+        //     return (this.allusers.value.filter((user) => { 
+        //         return( user.username.toLowerCase().indexOf(this.searchedperson.toLowerCase()) != -1
+        //         )
+        //     }))
+            // return this.allusers.filter(
+            //     (search) =>this.allusers.length
+            //     ? Object.keys(this.allusers[0])
+            //     .some(key => '' + search[key]).toLowerCase().includes(this.searchedperson)
+            //     : true
+            // )
+            var currentlist = this.allusers
+            var temparray = []
+
+            console.log(currentlist);
+            //user gives the key 
+            //currentlist[user] gives the user details
+            for(const user in currentlist){
+                const person = currentlist[user]
+                const jios = currentlist[user]['createdjios']
+                console.log(jios);
+                const username = currentlist[user].username
+                if(username.includes(this.searchedperson)){
+                    console.log(user)
+                    temparray.push(currentlist[user])
+                }
+            }
+
+            if(this.searchedperson == ''){
+                temparray = currentlist
+            }
+
+            return temparray
+            // return Object.entries(this.allusers)     
+            //     .filter(item => item.username == this.searchedperson)
+            // return this.allusers
+        }
+    },
+
     created() {
         
             // console.log('hi');

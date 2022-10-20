@@ -1,42 +1,23 @@
-<template>
-  <div id='event-container' class="container mt-5" style="font-family: worksans-medium">
-    <div class="row" id='app'>
-
-      <div class="col-md-4 mb-5" v-for="(event, index) in publicevents" :key="index">
-        <div class="card" style="width:auto">
-          <!-- <img class="card-img-top" :src="event.image.url" alt="card image collar"> -->
-          <div class="card-body" style="width: auto;">
-            <div class="card-title pt-4"> {{event.eventname}}</div>
-
-          </div>
-        </div>
-
-      </div>
-    </div>
-    <!-- <button id='view-more' class="btn mb-3" @click="loadMore" style="box-shadow: 0px 0px 14px -7px #f09819" >Load</button> -->
-  </div>
-</template>
-
 <script>
 
 import { onMounted } from 'vue';
 import { getpublic, getpublic2, snapshotToArray } from '../utils/index.js'
 import {getAuth, onAuthStateChanged, signOut, createUserWithEmailAndPassword} from 'firebase/auth';
 import { useRouter } from 'vue-router' 
-import { initializeApp } from 'firebase/app'
-import { getDatabase, ref, child, push, update, set, get, onValue } from 'firebase/database'
-const firebaseConfig = {
-  apiKey: "AIzaSyDC4kZ-Ec-jP7dnlFEmvD5rW9bOIXRyT3Q",
-  authDomain: "wad2-project-d8ba0.firebaseapp.com",
-  databaseURL: "https://wad2-project-d8ba0-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "wad2-project-d8ba0",
-  storageBucket: "wad2-project-d8ba0.appspot.com",
-  messagingSenderId: "168248515824",
-  appId: "1:168248515824:web:bfcb3221af409131e07635"
-};
+// import { initializeApp } from 'firebase/app'
+// import { getDatabase, ref, child, push, update, set, get, onValue } from 'firebase/database'
+// const firebaseConfig = {
+//   apiKey: "AIzaSyDC4kZ-Ec-jP7dnlFEmvD5rW9bOIXRyT3Q",
+//   authDomain: "wad2-project-d8ba0.firebaseapp.com",
+//   databaseURL: "https://wad2-project-d8ba0-default-rtdb.asia-southeast1.firebasedatabase.app",
+//   projectId: "wad2-project-d8ba0",
+//   storageBucket: "wad2-project-d8ba0.appspot.com",
+//   messagingSenderId: "168248515824",
+//   appId: "1:168248515824:web:bfcb3221af409131e07635"
+// };
 
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
+// const app = initializeApp(firebaseConfig);
+// const db = getDatabase(app);
 
 // var events = getthis()
 // getthis().then((value) =>{ 
@@ -72,6 +53,21 @@ export default {
 
     },
 
+    firebaseevents() {
+      getpublic().then((value) =>{ 
+          console.log('inside this');
+          this.publicevents = value
+          // console.log("created - " + this.publicevents);
+          // console.log(typeof(value));
+          // console.log('end of .then');
+        })
+        .catch((message)=> {
+          console.log(message);
+          console.log('error');
+        })
+
+    }
+
     // outerfunction(){ 
 
     //   getthis.then((value) =>{ 
@@ -106,20 +102,24 @@ export default {
     },
   },
 
-  created() {
+  // created() {
+  //   console.log('inside created');
     // this.publicevents = getpublic2();
     // console.log("this.publicevents: " + this.publicevents);
   
-    getpublic().then((value) =>{ 
-          this.publicevents = value
-          // console.log("created - " + this.publicevents);
-          // console.log(typeof(value));
-          // console.log('end of .then');
-        })
-        .catch((message)=> {
-          console.log('error');
-        })
+    // getpublic().then((value) =>{ 
+    //       console.log('inside this');
+    //       this.publicevents = value
+    //       // console.log("created - " + this.publicevents);
+    //       // console.log(typeof(value));
+    //       // console.log('end of .then');
+    //     })
+    //     .catch((message)=> {
+    //       console.log(message);
+    //       console.log('error');
+    //     })
 
+    // this.firebaseevents()
     // console.log("getpublic2")
     // const dbRef = ref(getDatabase());
     // get(child(dbRef, `public events/`)).then((snapshot) => {
@@ -138,18 +138,12 @@ export default {
     // }).catch((error) => {
     //   console.error(error);
     // });
-  },
+  // },
 
   mounted() { 
-    getpublic().then((value) =>{ 
-          this.publicevents = value
-          console.log("created - " + this.publicevents);
-          console.log(typeof(value));
-          console.log('end of .then');
-        })
-        .catch((message)=> {
-          console.log('error');
-        })
+    console.log('inside mounted');
+    this.firebaseevents()
+    console.log('end of mounted');
   }
 }
 
@@ -159,3 +153,23 @@ export default {
 <style scoped>
 
 </style>
+
+<template>
+  <div id='event-container' class="container mt-5" style="font-family: worksans-medium">
+    <div class="row" id='app'>
+
+      <div class="col-md-4 mb-5" v-for="(event, index) in publicevents" :key="index">
+        <div class="card" style="width:auto">
+          <!-- <img class="card-img-top" :src="event.image.url" alt="card image collar"> -->
+          <div class="card-body" style="width: auto;">
+            <div class="card-title pt-4"> {{event.eventname}}</div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- <button id='view-more' class="btn mb-3" @click="loadMore" style="box-shadow: 0px 0px 14px -7px #f09819" >Load</button> -->
+  </div>
+</template>
+
