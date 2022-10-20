@@ -40,7 +40,7 @@
               </div>
               <hr>
               <div class="row ms-1 mb-1">
-              <button type="button" class="btn orange border border-3" @click="changeVis" v-bind:class="{ hidden: form1 }" id="next1">Next</button>
+              <button type="button" class="btn orange border border-3" @click="changeVis1" v-bind:class="{ hidden: form1 }" id="next1">Next</button>
               </div>
             </form> 
 
@@ -49,34 +49,52 @@
   
               <label for="activityName">Activity Name</label>
               <div class="form-group row pb-1">
-                <input type="text" class="form-control" id="activityName" placeholder="Name of activity" >
+                <input type="text" class="form-control" id="activityName" placeholder="Name of activity" v-model="singleAct.activityName" >
               </div>
               <label for="location" class ='pt-2'>Location</label>
               <div class="form-group row pb-1">
-              <input type="text" class="form-control" id="location" placeholder="Location">
+              <input type="text" class="form-control" id="location" placeholder="Location" v-model="singleAct.activityLocation" >
               </div>
               <label for="activityDuration" class ='pt-2'>Duration of activity</label>
               <div class="form-group row pb-1">
-                <input type="text" class="form-control" id="activityDuration" placeholder="Duration (mins)">
+                <input type="text" class="form-control" id="activityDuration" placeholder="Duration (mins)" v-model="singleAct.activityDuration">
+              </div>
+              <h3 v-if="actArr.length==0">
+              You have no activities yet
+              </h3>
+              <div v-else class="row mt-3 " id="result"> 
+                <table>
+                  <tr><th>Number</th><th>Name</th><th>Location</th><th>Duration</th><th></th></tr>
+                  <tr v-for="act in actArr" :key="act.id">
+                    <td>{{count}}</td>
+                    <td>{{act.activityName}}</td>
+                    <td>{{act.activityLocation}}</td>
+                    <td>{{act.activityDuration}}</td>
+                    
+                  </tr>
+
+                  
+                </table>
+                
               </div>
   
               <div class="row">
-                <button type="button" class="btn orange border border-3" id="addEvent" onclick="update()">Add event!</button>
+                <button type="button" class="btn orange border border-3" id="addEvent" @click="update()">Add event!</button>
               </div>
   
               <div class="row mt-3 " id="result">      
               </div>
   
               <div class="row">
-                <button type="button" class="btn orange border border-3 mb-3" id="back1">Back</button>
+                <button type="button" class="btn orange border border-3 mb-3" id="back1" @click="prevVis1">Back</button>
               </div>
               
               <div class="row">
-                <button type="button" class="btn orange border border-3 mb-3" id="next2" >Next</button>
+                <button type="button" class="btn orange border border-3 mb-3" id="next2" @click="changeVis2">Next</button>
               </div>
             </form> 
 
-            <form id="form3" :class="{hidden:shown}">
+            <form id="form3" :class="{visible:form3}">
               <h2>Route Overview</h2>
               <div class="row">
                 <div id="map" style="width: 100%;height: 350px;"></div>
@@ -84,11 +102,11 @@
               
   
               <div class="row">
-                <button type="button" class="btn orange border border-3 mt-3" id="back2">Back</button>
+                <button type="button" class="btn orange border border-3 mt-3" id="back2" @click="prevVis2">Back</button>
               </div>
               
               <div class="row">
-                <button type="button" class="btn orange border border-3 mt-3" id="submit">Submit</button>
+                <button type="button" class="btn orange border border-3 mt-3" id="submit" >Submit</button>
               </div>
             </form>
         </div>
@@ -116,18 +134,46 @@
           form1: false,
           form2: false,
           form3: false,
+          actArr:[],
+          singleAct:{activityName:'',activityDuration:null,activityLocation:'',},
+          
         }
       },
       methods: {
-        changeVis() {
+        changeVis1() {
               if (this.form1 == false) {
                 this.form1 = true;
                 this.form2 = true;
-              } else {
+              } 
+            },
+        changeVis2() {
+              if (this.form2 == true) {
+                this.form2 = false;
+                this.form3 = true;
+              } 
+            },
+        prevVis1() {
+              if (this.form2 == true) {
                 this.form1 = false;
-              }
-            }
+                this.form2 = false;
+              } 
+            },
+
+        prevVis2() {
+              if (this.form3 == true) {
+                this.form2 = true;
+                this.form3 = false;
+              } 
+            },
+        update(){
+          this.actArr.push(this.singleAct);
+
         }
+        },
+      computed: {
+        count:this.actArr.length,
+
+      }
       }
   
   </script>
