@@ -3,16 +3,21 @@
 
     <div id='event-container' class="container mt-5" style="font-family: worksans-medium">
       <div class="row" id ='app'>
-        <div class="col-md-4 mb-5" v-for="(event, index) in eventsloaded.slice(0, events.length)" :key="index">
-          {{event.id}}
+        <div class="col-lg-4 col-md-6 mb-5" v-for="(event, index) in eventsloaded.slice(0, events.length)" :key="index">
           <router-link style="text-decoration: none; color: inherit;" :to="{ name: 'event', params: { idx: index, image: event.image.url , eventid: event.id}}">
-                <div class="card" style="width:auto">
+                <div class="card" style="width:auto; height: 500px">
                   <img class="card-img-top" :src="event.image.url" alt="card image collar">
                   <div class="card-body" style="width: auto;"> 
-                  <div class="card-title pt-4"> {{event.name}}</div>
-                  Start Date: {{event['start_date']}}
+                  <div class="card-title pt-4 eventTitle">{{ event.name }}</div>
+                  <div class="card-text">
+                    <div class="eventVenue">{{event.primary_venue.name}}</div>
+                    <div class="eventOrganizer mt-2">{{event.primary_organizer.name}}</div>
+                  </div>
+
+                  <!-- <br>
+                  Start Date: {{event.start_date}}
                   <br>
-                  End Date: {{event['end_date']}}
+                  End Date: {{event.end_date}}
 
                   <br><br>
                   Tags:
@@ -20,7 +25,7 @@
                   <div v-for="tag of event.tags.slice(0,2)" :key="tag">
                     {{tag['display_name']}}
                
-                  </div>
+                  </div> -->
 
                   </div>
                   </div>

@@ -74,6 +74,22 @@ nav .navbar-nav a {
 
 /* HOMEPAGE START */
 
+.eventTitle {
+    font-family: worksans-semibold;
+    font-size: 1.2rem;
+}
+
+.eventVenue {
+    font-size: 0.8rem;
+    font-family: worksans-medium;
+    color: grey;
+}
+
+.eventOrganizer {
+    font-family: worksans-medium;
+    font-size: 0.8rem;
+}
+
 /* toggle button start */
 .listButtonLeft {
     width: 30px;
