@@ -76,7 +76,7 @@
               <!-- <a class="nav-link" href="./signup.html">Sign up</a> -->
             </li>
             <li class="nav-item pe-4">
-              <router-link to="/friendspage" class="nav-link"> Add Friend </router-link> 
+              <router-link to="/friendspage" class="nav-link"> Friend List </router-link> 
               <!-- <a class="nav-link" href="./signup.html">Sign up</a> -->
             </li>
             <li class="nav-item">
@@ -144,6 +144,8 @@ onBeforeMount(()=>{
       if (typeof(Storage) !== "undefined") {
           // Store
           localStorage.setItem("uid", uid);
+          console.log(' set uid already');
+          console.log(localStorage.getItem('uid'));
       
         } else {
           document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";

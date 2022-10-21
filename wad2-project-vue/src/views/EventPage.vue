@@ -40,7 +40,7 @@
 
 import sourceData from'../data.json';
 import axios from 'axios'
-import { getIdToken } from '@firebase/auth';
+// import { getIdToken } from '@firebase/auth';
 
 export default {
         name: 'EventsButton',

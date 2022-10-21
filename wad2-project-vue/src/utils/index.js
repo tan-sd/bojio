@@ -306,7 +306,7 @@ export async function getusers(){
     const dbRef = ref(getDatabase());
     get(child(dbRef, `accounts/`)).then((snapshot) => {
       if (snapshot.exists()) {
-        // console.log(snapshot.val());
+        console.log(snapshot.val());
         let fullname = snapshot.val().firstname + ' ' + snapshot.val().lastname
         const allusers = snapshot.val()
         // for(const user in allusers){
@@ -433,3 +433,43 @@ export function getpublic2(){
     console.error(error);
   });
   }
+
+//when i wan to add friends
+export function createfriendrequest(receiver) {
+  const db = getDatabase();
+  //my own uid
+  const uid = localStorage.getItem("uid")
+  console.log('my own uid is' + uid);
+  console.log('receiver uid is' + receiver);
+
+  // Write the new post's data simultaneously in the posts list and the user's post list.
+  const updates = {};
+
+  updates[`/friendrequest/${uid}/${receiver}`] = 'pending'
+              
+  // updates['/friendrequest/' + uid + '/' ] = 'pending'
+  console.log(updates);
+  console.log('end of create friend req function');
+  return update(ref(db), updates);
+}
+
+//get all friend requests
+export async function getfriendrequests(){
+  uid = localStorage.getItem("uid")
+  return new Promise((resolve, reject) =>{
+    const dbRef = ref(getDatabase());
+    get(child(dbRef, `friendrequest/`)).then((snapshot) => {
+      if (snapshot.exists()) {
+        // console.log(snapshot.val());
+        return (resolve(snapshot.val()))
+        
+      } else {
+      
+        console.log("No data available");
+        return reject
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
+  })
+}
