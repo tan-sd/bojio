@@ -1,6 +1,8 @@
 import { createApp, VueElement } from 'vue'
 import App from './App.vue'
 import router from './router'
+import VueGoogleMaps from '@fawmi/vue-google-maps'
+
 // import firebase from "firebase"
 
 import { TroisJSVuePlugin } from 'troisjs';
@@ -25,6 +27,10 @@ import titleMixin from './utils/titleMixin';
 // initializeApp(firebaseConfig);
 
 const app = createApp(App)
-app.use(router).use(TroisJSVuePlugin);
+app.use(router).use(TroisJSVuePlugin).use(VueGoogleMaps, {
+    load: {
+        key: 'AIzaSyBcpqqRoT6E55swScRXfN3WuJqPeD9Q9VU',
+    },
+});
 app.mount('#app')
 app.mixin(titleMixin)
