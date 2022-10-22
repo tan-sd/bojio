@@ -1,7 +1,7 @@
 <template>
   <div class="p-2"></div>
   <!-- "where anyone is invited anywhere part start" -->
-  <div class="container">
+  <div class="container about-fadeup">
     <div class="row">
       <div class="col">
         <div class="about-header text-center p-3">
@@ -24,7 +24,7 @@
   </div>
 
   <!-- WORLD 3D MODEL -->
-  <div class="container" id="world-model">
+  <div class="container about-fadeup" id="world-model">
     <Renderer ref="renderer" alpha antialias orbit-ctrl resize="window">
       <Camera :position="{ z: 5 }" />
       <Scene>
@@ -45,27 +45,28 @@
     </Renderer>
   </div>
 
-  <div class="about-subheader text-center">
+  <div class="about-subheader text-center reveal">
     what does 'bojio' mean?
   </div>
-  <div class="about-header-text mx-auto text-center">
+  <div class="about-header-text mx-auto text-center pb-5 reveal">
     'Bojio' is a Singaporean way to express your fear of missing out - its direct translation is "no invite". Sometimes, there are events or outings (<i>"late-night supper anyone?"</i>) where you want to attend with your friends, but they simply can't accommodate to your schedule. So, your friends end up going without you, and you say 'bojio'! 
   </div>
 
   <!-- maybe can make shrink when screen size decrease? -->
 
   <!-- how does it work section start -->
-  <div class="about-subheader text-center mt-2">
-    how does it work?
+  <div class="about-subheader text-center mt-2 reveal">
+    how does our platform work?
   </div>
-  <div class="about-header-text mx-auto text-center">
+  <div class="about-header-text mx-auto text-center reveal">
     <i>the three main ways to use our platform</i>
   </div>
 
 
   <div class="container">
+
     <!-- join any group -->
-    <div class="row" style="margin-top: 3.5vmin">
+    <div class="row reveal" style="margin-top: 3.5vmin">
       <div class="col-12 col-sm-6 text-center" id="first-step">
         <div class="about-step-header">Join any group</div>
         <span class="about-step-text mx-auto">
@@ -144,7 +145,7 @@
     </div>
 
     <!-- Step 2 -->
-    <div class="row" style="margin-top: 3.5vmin">
+    <div class="row reveal" style="margin-top: 3.5vmin">
 
       <div class="col-12 col-sm-6">
         <img src="../../img/about-events.png" class="about-img" alt="">
@@ -160,16 +161,23 @@
     </div>
 
     <!-- Step 3 -->
-    <div class="row" style="margin-top: 3.5vmin">
-      <div class="col text-center">
-        <div class="steps-header">Start a group</div>
-        <p class="steps-paragraph">
-          You don't have to be an expert to gather people together and explore
-          shared interests.
+    <div class="row reveal" style="margin-top: 3.5vmin">
+      
+      <div class="col-12 col-sm-6 text-center">
+        <div class="about-step-header">Start a group</div>
+        <p class="about-step-text mx-auto text-center">
+          Have an activity of your own in mind? Create a 'jio' and post it to start gathering people for that Mala run!
         </p>
       </div>
-      <!-- <div class="col-6"></div> -->
+
+      <div class="col-12 col-sm-6">
+        <p class="about-img">
+          <img src="../../img/about-create.png" class="about-img" alt="">
+        </p>
+      </div>
+
     </div>
+
   </div>
   <!-- how does it work section end -->
 

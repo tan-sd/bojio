@@ -438,6 +438,7 @@ background-color: #eaeaea !important;
 }
 
 /* join a group, find events, create a group */
+
 .about-step-header {
     font-family: worksans-semibold;
     color: black;
@@ -674,11 +675,15 @@ background-color: #eaeaea !important;
 }
 
 .banner-header-form {
-    font-family: worksans-extrabold;
-    font-size: 8vmin;
-    background: linear-gradient(246deg, #ef4136, #fbb040);
+    font-family: worksans-semibold;
+    font-size: 4rem;
+    line-height: 1;
+    padding: 0.5rem;
+    margin-bottom: 1vmin;
+    background: linear-gradient(90deg, #ef4136, #fbb040);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .banner-text-form {
