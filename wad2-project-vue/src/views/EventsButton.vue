@@ -97,11 +97,11 @@ console.log(typeof(sourceData));
 </style>
 
 <script setup>
-console.log(sourceData);
-  for( var event of sourceData.events){
-    console.log(event.tags);
-    for( var tag of event.tags){
-      console.log(tag['display_name']);
-    }
-  }
+// console.log(sourceData);
+//   for( var event of sourceData.events){
+//     console.log(event.tags);
+//     for( var tag of event.tags){
+//       console.log(tag['display_name']);
+//     }
+//   }
 </script>
