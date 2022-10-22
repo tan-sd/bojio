@@ -11,6 +11,7 @@ import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './assets/global.css'
 import titleMixin from './utils/titleMixin';
+import 'bootstrap-icons/font/bootstrap-icons.css'
 
 // createApp(App).mount('#app')
 // const firebaseConfig = {
