@@ -268,7 +268,8 @@ export function getpublic(){
   
 
 
-export function getdata(){
+export async function getdata(){
+  return new Promise((resolve, reject) =>{
     uid = localStorage.getItem("uid")
     const dbRef = ref(getDatabase());
     get(child(dbRef, `accounts/${uid}`)).then((snapshot) => {
@@ -279,20 +280,24 @@ export function getdata(){
           localStorage.setItem('fullname', fullname)
           console.log(localStorage.getItem('fullname'));
         }
+
+        return resolve(fullname) 
         // console.log(fullname);
         
-        let personname = document.getElementById('personname')
+        // let personname = document.getElementById('personname')
         
         //only say hi at main page
-        if(personname){
-          personname.innerText =  `Welcome,  ${fullname} ! 👋🏼`
-          personname.setAttribute('style', ' display:inline; font-family: worksans-extrabold; font-size: 4vmin;')
-          personname.setAttribute('class', '')
-        }
+        // if(personname){
+        //   personname.innerText =  `Welcome,  ${fullname} ! 👋🏼`
+        //   personname.setAttribute('style', ' display:inline; font-family: worksans-extrabold; font-size: 4vmin;')
+        //   personname.setAttribute('class', '')
+        // }
          
       } else {
         console.log("No data available");
+        return reject
       }
+    })
     }).catch((error) => {
       console.error(error);
     });
@@ -454,7 +459,6 @@ export function createfriendrequest(receiver) {
 //get all friend requests
 export async function getfriendrequests(){
   uid = localStorage.getItem("uid")
-  //see one day
   console.log('loading getfriend req n check if uid avail' + uid);
   return new Promise((resolve, reject) =>{
     const dbRef = ref(getDatabase());
@@ -495,46 +499,23 @@ export function makefriends(sender) {
 }
 
 
-//get userid
-//get all users for friendspage
-// export function getuserid(){
-//   const auth = getAuth();
-//   let isLoggedIn = false
-//   onAuthStateChanged(auth, (user)=>{ 
-//     if(user) {
-//       isLoggedIn = true;
-//       console.log(user);
-//       uid = user.uid
-
-//       console.log(uid);
-//       // console.log(uid +'is loggedin');
-//       getdata()
-
-//     } else {
-//       isLoggedIn.value = false;
-//     }
-//   })
-
-//   return uid
-// }
-  // return new Promise((resolve, reject) =>{
-  //   const dbRef = ref(getDatabase());
-  //   get(child(dbRef, `accounts/`)).then((snapshot) => {
-  //     if (snapshot.exists()) {
-  //       console.log(snapshot.val());
-  //       let fullname = snapshot.val().firstname + ' ' + snapshot.val().lastname
-  //       const allusers = snapshot.val()
-  //       // for(const user in allusers){
-  //         // console.log(allusers[user].username);
-  //       // }
-  //       return (resolve(snapshot.val()))
-        
-  //     } else {
+//get userid to say hi
+export function getuserid(){
+  const auth = getAuth();
+  let isLoggedIn = false
+  return new Promise((resolve, reject) =>{
+    onAuthStateChanged(auth, (user)=>{ 
+      if(user) {
+        console.log(user);
+        uid = user.uid
+        return resolve(uid)
       
-  //       console.log("No data available");
-  //       return reject
-  //     }
-  //   }).catch((error) => {
-  //     console.error(error);
-  //   });
-  // })
+      } 
+        console.log('cnot find');
+        return reject('under reject path')
+      
+    
+    })
+
+  })
+}

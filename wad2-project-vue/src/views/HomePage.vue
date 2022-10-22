@@ -8,9 +8,6 @@
       </div>
     </div> 
 
-  
-
-    
     <div class="container">
         <div class="row d-flex align-content-center justify-content-center">
         <div class="col-sm-3 col-4 d-flex align-content-center justify-content-center">
@@ -87,7 +84,8 @@ import sourceData from '../data.json'
 import EventsButton from './EventsButton.vue'
 import PublicButton from './PublicButton.vue'
 import PrivateButton from './PrivateButton.vue'
-import {getuserid} from '../utils/index.js'
+import {getuserid, getdata} from '../utils/index.js'
+import { onMounted } from 'vue'
 
 export default {
     name:'App',
@@ -102,7 +100,7 @@ export default {
             uid: localStorage.getItem("uid"),
             // userid: '',
             activeTab : 'EventsButton',
-            // fullname: fullname
+            fullname: ''
         }
     },
 //     watch: {
@@ -123,7 +121,11 @@ export default {
       console.log(this.length);
   
     },
-  },
+
+    updatefullname() { 
+      this.fullname = localStorage.getItem('fullname')  
+    }
+    },
   computed: {
     eventsloaded() {
       return this.events.slice(0, this.length);
@@ -131,8 +133,23 @@ export default {
   },
 
   created(){
-    // this.userid = getuserid()
-    // console.log('look at this' + this.userid);
+
+    getuserid().then((value)=>{
+  
+      this.uid = value
+      localStorage.setItem('uid', value)
+      
+    })
+
+    getdata().then((value) =>
+      { 
+        this.fullname = value
+      }
+      )
+  },
+
+  onMounted(){ 
+    this.updatefullname()
   }
 
 }
@@ -140,7 +157,7 @@ export default {
 </script>
 
 <script setup>
-  var fullname = localStorage.getItem('fullname')
-  console.log(fullname);
-  console.log('uid is ' + localStorage.getItem('uid'));
+  // var fullname = localStorage.getItem('fullname')
+  // console.log(fullname);
+  // console.log('uid is ' + localStorage.getItem('uid'));
 </script>
