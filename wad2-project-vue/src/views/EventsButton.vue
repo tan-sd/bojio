@@ -10,8 +10,8 @@
                   <div class="card-body" style="width: auto;"> 
                     <div class="card-title pt-4 eventTitle">{{ event.name }}</div>
                     <div class="card-text">
-                      <div class="eventDate">{{event.start_date}}, {{event.start_time}}</div>
-                      <div class="eventVenue mt-2">{{event.primary_venue.name}}</div>
+                      <div class="eventDate"><i class="bi bi-calendar2-week-fill" style="margin-right: 10px"></i>{{event.start_date}}, {{event.start_time}}</div>
+                      <div class="eventVenue mt-2"><i class="bi bi-geo-alt-fill" style="margin-right: 10px"></i>{{event.primary_venue.name}}</div>
                       <div class="eventOrganizer mt-2">{{event.primary_organizer.name}}</div>
                     </div>
 <!-- 
