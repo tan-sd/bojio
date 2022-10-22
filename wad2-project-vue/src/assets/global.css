@@ -427,16 +427,9 @@ background-color: #eaeaea !important;
     margin-bottom:3vmin;
 }
 
-
 .about-subheader {
     font-size: 3rem;
 }
-
-.about-step-header {
-    font-family: worksans-semibold;
-    font-size: 2rem;
-}
-
 
 /* 3D Model */
 #world-model {
@@ -444,27 +437,25 @@ background-color: #eaeaea !important;
     justify-content: center;
 }
 
-/* How does it work?*/
-.steps-header {
-    font-family: worksans-extrabold;
-    font-size: 1.2rem;
+/* join a group, find events, create a group */
+.about-step-header {
+    font-family: worksans-semibold;
+    color: black;
+    font-size: 2rem;
 }
 
-/* .steps-paragraph {
-    position: relative;
+.about-step-text {
     font-family: worksans-medium;
     font-size: 1.375rem;
-    left: 50%;
-    transform: translate(-50%);
-    font-size: 0.65rem;
-} */
-
-#first-step {
+    width: 70%;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
 }
 
+.about-img{
+    max-height: 100%;
+    max-width: 100%;
+    border-radius: 10px;
+}
 .carousel {
     height: 500px;
     position: relative;
@@ -555,8 +546,8 @@ background-color: #eaeaea !important;
     padding: 16px 20px 16px 70px;
 }
 
-.title {
-    text-transform: uppercase;
+.about-carousel-title {
+    font-family: worksans-semibold;
     font-size: 20px;
     margin-top: 10px;
 }

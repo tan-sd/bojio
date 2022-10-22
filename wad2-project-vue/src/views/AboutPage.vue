@@ -14,12 +14,10 @@
 
     <div class="row">
       <div class="col">
-        <div class="about-text mx-auto text-center">
-          <div>
+        <div class="about-header-text mx-auto text-center">
             Ever wanted to go McDonald's at 2am, but none of your friends are awake?
             Or maybe you want to attend a Dua Lipa concert, but have no one to go with? <br><br>
             Well, that's where we come in.
-          </div>
         </div>
       </div>
     </div>
@@ -65,88 +63,100 @@
   </div>
 
 
-  <div class="container steps-container">
-    <!-- Step 1 -->
+  <div class="container">
+    <!-- join any group -->
     <div class="row" style="margin-top: 3.5vmin">
       <div class="col-12 col-sm-6 text-center" id="first-step">
         <div class="about-step-header">Join any group</div>
-        <span class="about-step-text text-center">
-            Find groups (a.k.a. 'jios') that are open to all, and are intending to attend an event or activity that you're interested in.
+        <span class="about-step-text mx-auto">
+            Browse through groups that are open to all (a.k.a. 'public jios'), and join those that pique your interest.
         </span>
       </div>
       
-      <div class="col-12 col-sm-6">
-        <div class="wrapper">
-          <div class="carousel">
-            <div class="carousel__item">
-              <div class="carousel__item-body">
-                <p class="title">spouting whale</p>
-                <p>Unicode: U+1F433</p>
-              </div>
-            </div>
-            <div class="carousel__item">
-              <div class="carousel__item-body">
-                <p class="title">whale</p>
-                <p>Unicode: U+1F40B</p>
-              </div>
-            </div>
-            <div class="carousel__item">
-              <div class="carousel__item-body">
-                <p class="title">dolphin</p>
-                <p>Unicode: U+1F42C</p>
-              </div>
-            </div>
-            <div class="carousel__item">
-              <div class="carousel__item-body">
-                <p class="title">fish</p>
-                <p>Unicode: U+1F41F</p>
-              </div>
-            </div>
-            <div class="carousel__item">
-              <div class="carousel__item-body">
-                <p class="title">tropical fish</p>
-                <p>Unicode: U+1F420</p>
-              </div>
-            </div>
-            <div class="carousel__item">
-              <div class="carousel__item-body">
-                <p class="title">blowfish</p>
-                <p>Unicode: U+1F421</p>
-              </div>
-            </div>
-            <div class="carousel__item">
-              <div class="carousel__item-body">
-                <p class="title">shark</p>
-                <p>Unicode: U+1F988</p>
-              </div>
-            </div>
-            <div class="carousel__item">
-              <div class="carousel__item-body">
-                <p class="title">octopus</p>
-                <p>Unicode: U+1F419</p>
-              </div>
-            </div>
-            <div class="carousel__item">
-              <div class="carousel__item-body">
-                <p class="title">spiral shell</p>
-                <p>Unicode: U+1F41A</p>
-              </div>
+      <!-- vertical carousel -->
+      <div class="col-12 col-sm-6 wrapper carousel">
+
+          <div class="carousel__item">
+            <div class="carousel__item-body">
+              <p class="title">89.7 Supper Club Jio</p>
+              <p>Monday, 10pm</p>
             </div>
           </div>
-        </div>
+
+          <div class="carousel__item">
+            <div class="carousel__item-body">
+              <p class="title">Dua Lipa Concert Group</p>
+              <p>Next Sunday, 8pm</p>
+            </div>
+          </div>
+
+          <div class="carousel__item">
+            <div class="carousel__item-body">
+              <p class="title">dolphin</p>
+              <p>Unicode: U+1F42C</p>
+            </div>
+          </div>
+
+          <div class="carousel__item">
+            <div class="carousel__item-body">
+              <p class="title">fish</p>
+              <p>Unicode: U+1F41F</p>
+            </div>
+          </div>
+
+          <div class="carousel__item">
+            <div class="carousel__item-body">
+              <p class="title">tropical fish</p>
+              <p>Unicode: U+1F420</p>
+            </div>
+          </div>
+
+          <div class="carousel__item">
+            <div class="carousel__item-body">
+              <p class="title">spouting whale</p>
+              <p>Unicode: U+1F433</p>
+            </div>
+          </div>
+
+          <div class="carousel__item">
+            <div class="carousel__item-body">
+              <p class="title">spouting whale</p>
+              <p>Unicode: U+1F433</p>
+            </div>
+          </div>
+
+          <div class="carousel__item">
+            <div class="carousel__item-body">
+              <p class="title">spouting whale</p>
+              <p>Unicode: U+1F433</p>
+            </div>
+          </div>
+
+          <div class="carousel__item">
+            <div class="carousel__item-body">
+              <p class="title">spouting whale</p>
+              <p>Unicode: U+1F433</p>
+            </div>
+          </div>
+
       </div>
+      
     </div>
 
     <!-- Step 2 -->
     <div class="row" style="margin-top: 3.5vmin">
-      <div class="col text-center">
-        <div class="steps-header">Find an event</div>
-        <p class="steps-paragraph">
-          Events are happening on just about any topic you can think of, from
-          online gaming and photography to yoga and hiking.
+
+      <div class="col-12 col-sm-6">
+        <img src="../../img/about-events.png" class="about-img" alt="">
+      </div>
+
+      <div class="col-12 col-sm-6 text-center">
+        <div class="about-step-header">Filter by event</div>
+        <p class="about-step-text mx-auto text-center">
+          Want to attend a specific event with people? Filter the groups based on the event on our homepage and voila! 
         </p>
       </div>
-      <!-- <div class="col-6"></div> -->
+
     </div>
 
     <!-- Step 3 -->
