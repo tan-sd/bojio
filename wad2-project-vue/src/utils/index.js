@@ -2,7 +2,7 @@ import { onMounted } from 'vue'
 import {getAuth, onAuthStateChanged, signOut, createUserWithEmailAndPassword} from 'firebase/auth';
 import { useRouter } from 'vue-router' 
 import { initializeApp } from 'firebase/app'
-import { getDatabase, ref, child, push, update, set, get, onValue } from 'firebase/database'
+import { getDatabase, ref, child, push, update, set, get, onValue, remove } from 'firebase/database'
 
 // import uid from '../App.vue'
 var uid;
@@ -441,8 +441,6 @@ export function createfriendrequest(receiver) {
   const uid = localStorage.getItem("uid")
   console.log('my own uid is' + uid);
   console.log('receiver uid is' + receiver);
-
-  // Write the new post's data simultaneously in the posts list and the user's post list.
   const updates = {};
 
   updates[`/friendrequest/${uid}/${receiver}`] = 'pending'
@@ -456,6 +454,8 @@ export function createfriendrequest(receiver) {
 //get all friend requests
 export async function getfriendrequests(){
   uid = localStorage.getItem("uid")
+  //see one day
+  console.log('loading getfriend req n check if uid avail' + uid);
   return new Promise((resolve, reject) =>{
     const dbRef = ref(getDatabase());
     get(child(dbRef, `friendrequest/`)).then((snapshot) => {
@@ -473,3 +473,68 @@ export async function getfriendrequests(){
     });
   })
 }
+
+
+//when i wan to make them friends after accepting 
+export function makefriends(sender) {
+  //when i press accept, i was the receiver so uid go to receiver
+  const db = getDatabase();
+  //my own uid
+  const uid = localStorage.getItem("uid")
+  console.log('my own uid is' + uid);
+  console.log('person tat sent req uid is' + sender);
+  const updates = {};
+
+  updates[`/friends/${uid}/${sender}`] = 'friends'
+  updates[`/friends/${sender}/${uid}`] = 'friends'
+              
+  console.log(updates)
+  console.log('end of make friend req function')
+  remove(ref(db, `friendrequest/${sender}/${uid}`))
+  return update(ref(db), updates);
+}
+
+
+//get userid
+//get all users for friendspage
+// export function getuserid(){
+//   const auth = getAuth();
+//   let isLoggedIn = false
+//   onAuthStateChanged(auth, (user)=>{ 
+//     if(user) {
+//       isLoggedIn = true;
+//       console.log(user);
+//       uid = user.uid
+
+//       console.log(uid);
+//       // console.log(uid +'is loggedin');
+//       getdata()
+
+//     } else {
+//       isLoggedIn.value = false;
+//     }
+//   })
+
+//   return uid
+// }
+  // return new Promise((resolve, reject) =>{
+  //   const dbRef = ref(getDatabase());
+  //   get(child(dbRef, `accounts/`)).then((snapshot) => {
+  //     if (snapshot.exists()) {
+  //       console.log(snapshot.val());
+  //       let fullname = snapshot.val().firstname + ' ' + snapshot.val().lastname
+  //       const allusers = snapshot.val()
+  //       // for(const user in allusers){
+  //         // console.log(allusers[user].username);
+  //       // }
+  //       return (resolve(snapshot.val()))
+        
+  //     } else {
+      
+  //       console.log("No data available");
+  //       return reject
+  //     }
+  //   }).catch((error) => {
+  //     console.error(error);
+  //   });
+  // })

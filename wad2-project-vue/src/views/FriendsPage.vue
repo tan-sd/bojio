@@ -10,12 +10,12 @@
 
             <!-- display friend requests here first -->
             <br><br>
-            <div v-if="norequests">
+            <div v-if="!norequests">
                 friend req here
                 <!-- {{requests}} -->
-                <div v-for="request in requests" :key="request">
-                    <div>{{request}}</div>
-                    <button>Accept request</button>
+                <div v-for="request, index in requests" :key="request">
+                    <div>{{request}} id: {{index}}</div>
+                    <button @click="accept(request, index)">Accept request</button>
                 </div>
             </div>
 
@@ -47,7 +47,7 @@
 
 <script>
 
-import {getusers, createfriendrequest, getfriendrequests} from '../utils'
+import {getusers, createfriendrequest, getfriendrequests, makefriends} from '../utils'
 
 // const data = {
 //     name: 'to show users',
@@ -73,7 +73,7 @@ export default{
             pressed: false,
             allrequests: '',
             requests: '',
-            norequests: true,
+            norequests: false,
             // cannot disable button
         }
     },
@@ -109,7 +109,7 @@ export default{
             console.log(temparray);
             if(temparray.length == 0){ 
                 console.log('no friend requests');
-                this.norequests = false
+                this.norequests = true
                 
             }else{ 
 
@@ -118,22 +118,44 @@ export default{
                 console.log('there is at least 1 request');
                 this.requests = temparray
                 //find usernames of the users
-                // const allusers = this.allusers
-                // console.log(allusers);
-                // var usernames = []
-                // for(const user in allusers){ 
-                //     //user is the key
-                //     // console.log(user);
-                //     if(temparray.includes(user)){
+                const allusers = this.allusers
+                console.log(allusers);
+                var usernames = {}
+                for(const user in allusers){ 
+                    //user is the key
+                    // console.log(user);
+                    if(temparray.includes(user)){
                 
-                //         const username = allusers[user]['username']
-                //         usernames.push(username)
-                //     }
-
-                //     this.requests = usernames
-                // }
+                        const username = allusers[user]['username']
+                        usernames[user] = username
+                        // usernames.push(username)
+                    }
+                }
+                this.requests = usernames
+                console.log(this.requests);
             }
 
+        },
+
+        //accept request
+        accept(user, userid){ 
+            console.log('retrieve friend id:' + userid);
+            console.log(user);
+            console.log(this.requests);
+            console.log(this.requests[userid]);
+            delete this.requests[userid]
+            
+            console.log(this.requests)
+            
+            makefriends(userid)
+            var objectlen = Object.keys(this.requests).length
+            if(objectlen === 0){
+                console.log('now empty object');
+                this.norequests = true
+            }
+            else{ 
+                console.log(objectlen);
+            }
         }
     },
 
@@ -215,4 +237,27 @@ export default{
     
 }
 
+</script>
+
+<script setup>
+// var a= {'tom': 'val1', 'david': 'val2'}
+// console.log('the keys are ' + Object.keys(a));
+// console.log(Object.keys(a).length);
+
+// console.log('val of first key' + a['tom']);
+// delete a['tom']
+
+// console.log(a); //true
+
+// //why when object.keys(true).length itll give 0 for === and ==
+// var objectlen = Object.keys(a).length
+// console.log(objectlen);
+// if(objectlen == 0){
+// console.log('now empty object');
+// this.norequests = true
+
+// }
+// else{ 
+// console.log(objectlen);
+// }
 </script>

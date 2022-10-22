@@ -8,6 +8,8 @@
       </div>
     </div> 
 
+  
+
     
     <div class="container">
         <div class="row d-flex align-content-center justify-content-center">
@@ -85,6 +87,7 @@ import sourceData from '../data.json'
 import EventsButton from './EventsButton.vue'
 import PublicButton from './PublicButton.vue'
 import PrivateButton from './PrivateButton.vue'
+import {getuserid} from '../utils/index.js'
 
 export default {
     name:'App',
@@ -97,6 +100,7 @@ export default {
             events: sourceData.events,
             length: 9, 
             uid: localStorage.getItem("uid"),
+            // userid: '',
             activeTab : 'EventsButton',
             // fullname: fullname
         }
@@ -126,6 +130,11 @@ export default {
     },
   },
 
+  created(){
+    // this.userid = getuserid()
+    // console.log('look at this' + this.userid);
+  }
+
 }
 
 </script>
@@ -133,4 +142,5 @@ export default {
 <script setup>
   var fullname = localStorage.getItem('fullname')
   console.log(fullname);
+  console.log('uid is ' + localStorage.getItem('uid'));
 </script>
