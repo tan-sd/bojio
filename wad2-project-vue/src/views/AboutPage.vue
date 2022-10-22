@@ -1,4 +1,5 @@
 <template>
+  <div class="p-2"></div>
   <!-- "where anyone is invited anywhere part start" -->
   <div class="container">
     <div class="row">
@@ -46,23 +47,34 @@
     </Renderer>
   </div>
 
+  <div class="about-subheader text-center">
+    what does 'bojio' mean?
+  </div>
+  <div class="about-header-text mx-auto text-center">
+    'Bojio' is a Singaporean way to express your fear of missing out - its direct translation is "no invite". Sometimes, there are events or outings (<i>"late-night supper anyone?"</i>) where you want to attend with your friends, but they simply can't accommodate to your schedule. So, your friends end up going without you, and you say 'bojio'! 
+  </div>
+
   <!-- maybe can make shrink when screen size decrease? -->
 
   <!-- how does it work section start -->
-  <div class="banner-header-about-1 text-center pt-5 reveal">
-    <div>how does it work?</div>
+  <div class="about-subheader text-center mt-2">
+    how does it work?
+  </div>
+  <div class="about-header-text mx-auto text-center">
+    <i>the three main ways to use our platform</i>
   </div>
 
-  <div class="container steps-container reveal">
+
+  <div class="container steps-container">
     <!-- Step 1 -->
     <div class="row" style="margin-top: 3.5vmin">
       <div class="col-12 col-sm-6 text-center" id="first-step">
-        <div class="steps-header">Join a group</div>
-        <p class="steps-paragraph">
-          Do what you love, meet others who love it, find your community. The
-          rest is history!
-        </p>
+        <div class="about-step-header">Join any group</div>
+        <span class="about-step-text text-center">
+            Find groups (a.k.a. 'jios') that are open to all, and are intending to attend an event or activity that you're interested in.
+        </span>
       </div>
+      
       <div class="col-12 col-sm-6">
         <div class="wrapper">
           <div class="carousel">
