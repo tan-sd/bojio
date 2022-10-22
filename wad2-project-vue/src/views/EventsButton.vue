@@ -10,7 +10,7 @@
                   <div class="card-body" style="width: auto;"> 
                     <div class="card-title pt-4 eventTitle">{{ event.name }}</div>
                     <div class="card-text">
-                      <div class="eventDate"><i class="bi bi-calendar2-week-fill" style="margin-right: 10px"></i>{{event.start_date}}, {{event.start_time}}</div>
+                      <div class="eventDate"><i class="bi bi-calendar2-week-fill" style="margin-right: 10px"></i>{{convertDate(event.start_date)}}, {{convert24(event.start_time)}}</div>
                       <div class="eventVenue mt-2"><i class="bi bi-geo-alt-fill" style="margin-right: 10px"></i>{{event.primary_venue.name}}</div>
                       <div class="eventOrganizer mt-2">{{event.primary_organizer.name}}</div>
                     </div>
@@ -65,6 +65,9 @@ console.log(typeof(sourceData));
             events: sourceData.events,
             length: 9, 
             uid: localStorage.getItem("uid"),
+            splitDate: null,
+            month: null,
+            date: null,
             
         }
         },
@@ -83,11 +86,27 @@ console.log(typeof(sourceData));
         }
     
         },
+
+        convert24(time) {
+            time = time.split(':');
+            return time[0] >= 12 && (time[0]-12 || 12) + ':' + time[1] + ' PM' || (Number(time[0]) || 12) + ':' + time[1] + ' AM';
+          },
+
+        convertDate(fullDate) {
+         fullDate = fullDate.split('-');
+         var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+         var days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+         var eventD = new Date(fullDate);
+         const date = eventD.getDay() 
+         return days[date] + ', ' + months[fullDate[1]] + ' ' + fullDate[2];
+
+        }
+
         },
         computed: {
-        eventsloaded() {
-        return this.events.slice(0, this.length);
-        },
+          eventsloaded() {
+          return this.events.slice(0, this.length);
+          },
         },
     }
     
