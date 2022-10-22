@@ -3,13 +3,9 @@
   <div class="container">
     <div class="row">
       <div class="col">
-        <div
-          class="banner-header-about-1 text-center pt-5"
-          style="line-height: 1"
-        >
+        <div class="about-header text-center p-3">
           <div>
-            Where anyone is <br />
-            invited anywhere
+            invite anyone, anywhere.
           </div>
         </div>
       </div>
@@ -17,11 +13,11 @@
 
     <div class="row">
       <div class="col">
-        <div class="banner-text-about mx-auto text-center">
+        <div class="about-text mx-auto text-center">
           <div>
-            <span style="font-weight: bold">Bojio</span> is a platform where
-            individuals can make new friends by hosting or attending events of
-            similar interest.
+            Ever wanted to go McDonald's at 2am, but none of your friends are awake?
+            Or maybe you want to attend a Dua Lipa concert, but have no one to go with? <br><br>
+            Well, that's where we come in.
           </div>
         </div>
       </div>
@@ -53,8 +49,8 @@
   <!-- maybe can make shrink when screen size decrease? -->
 
   <!-- how does it work section start -->
-  <div class="banner-header-about-2 text-center pt-5 reveal">
-    <div>How does it work?</div>
+  <div class="banner-header-about-1 text-center pt-5 reveal">
+    <div>how does it work?</div>
   </div>
 
   <div class="container steps-container reveal">

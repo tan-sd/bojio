@@ -398,38 +398,36 @@ background-color: #eaeaea !important;
 /* ABOUT PAGE START */
 
 /* where anyone is invited anywhere */
-.banner-header-about-1 {
-font-family: worksans-extrabold;
-background: linear-gradient(141deg, #00c2ff, #4ff29f);
+.about-header {
+font-family: worksans-semibold;
+font-size: 4rem;
+background: linear-gradient(90deg, #ef4136, #fbb040);
 -webkit-background-clip: text;
-background-clip: text;
 -webkit-text-fill-color: transparent;
-font-size: 3.125rem;
+background-clip: text;
 animation: fadeup 0.5s ease-out;
 transition: 1s all ease;
 }
 
-.banner-header-about-2 {
-font-family: worksans-extrabold;
-background: linear-gradient(142deg, #ac72ff, #23d2ff);
--webkit-background-clip: text;
-background-clip: text;
--webkit-text-fill-color: transparent;
-font-size: 3.125rem;
-}
-
-/* Bojio is a platform... */
-.banner-text-about {
+/* ever wanted to... */
+.about-text {
 font-family: worksans-medium;
 color: black;
 position: relative;
-width: 50%;
+width: 70%;
 font-size: 1.375rem;
 line-height: 135%;
 margin-top: 3.5vmin;
 animation: fadeup 0.5s ease-out;
 transition: 1s all ease;
 }
+
+/* 3D Model */
+#world-model {
+    display: flex;
+    justify-content: center;
+    animation: fadeup 2s ease-out;
+    }
 
 /* How does it work?*/
 .steps-header {
@@ -467,12 +465,7 @@ font-size: 160%;
 transition: 0.2s ease-in-out;
 }
 
-/* 3D Model */
-#world-model {
-display: flex;
-justify-content: center;
-animation: fadeup 2s ease-out;
-}
+
 
 #first-step {
 display: flex;
@@ -652,118 +645,6 @@ visibility: hidden;
     transform: translateY(0);
     opacity: 1;
 }
-}
-
-@media only screen and (min-device-width: 390px) {
-/* screen equal or above 390 px */
-.banner-header-about-1 {
-    font-size: 2rem;
-}
-
-.banner-header-about-2 {
-    font-size: 2rem;
-}
-
-.banner-text-about {
-    font-size: 0.65rem;
-    line-height: 150%;
-    width: 65%;
-}
-
-.steps-header {
-    font-size: 1.2rem;
-}
-
-.steps-paragraph {
-    font-size: 0.65rem;
-    width: 60%;
-}
-}
-
-@media only screen and (min-device-width: 402px) {
-/* screen equal or above 390 px */
-.banner-header-about-1 {
-    font-size: 3rem;
-}
-
-.banner-header-about-2 {
-    font-size: 3rem;
-}
-
-.banner-text-about {
-    font-size: 1rem;
-    width: 70%;
-}
-
-.steps-header {
-    font-size: 1.5rem;
-}
-
-.steps-paragraph {
-    font-size: 1rem;
-}
-}
-
-@media only screen and (min-width: 800px) {
-/* screen equal or above 800px */
-.banner-header-about-1 {
-    font-size: 5rem;
-}
-
-.banner-header-about-2 {
-    font-size: 5rem;
-}
-}
-
-@media only screen and (min-width: 1000px) {
-/* screen equal or above 1000px */
-.banner-header-about-1 {
-    font-size: 6rem;
-}
-
-.banner-header-about-2 {
-    font-size: 6rem;
-}
-}
-
-@media only screen and (min-width: 1200px) {
-/* screen equal or above 1200px */
-.banner-header-about-1 {
-    font-size: 6.875rem;
-}
-
-.banner-header-about-2 {
-    font-size: 6.875rem;
-}
-
-.banner-text-about {
-    font-size: 1.375rem;
-}
-
-.steps-header {
-    font-size: 3rem;
-}
-
-.steps-paragraph {
-    font-size: 1.375rem;
-    width: 70%;
-}
-}
-
-/* cards */
-.card-css {
-    border-color: rgb(255, 127, 45);
-    margin-right: 5%;
-    margin-left: 5%;
-}
-
-.card-css:hover {
-    background-color: rgb(255, 127, 45);
-    color: white;
-}
-
-.arrow {
-    transform: translateY(500%);
 }
 
 /* ABOUT PAGE END */
