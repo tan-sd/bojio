@@ -90,6 +90,11 @@ nav .navbar-nav a {
     font-size: 0.8rem;
 }
 
+.eventDate {
+    font-family: worksans-semibold;
+    color: rgb(255, 127, 45);
+}
+
 /* toggle button start */
 .listButtonLeft {
     width: 30px;

@@ -8,27 +8,28 @@
                 <div class="card" style="width:auto; height: 500px">
                   <img class="card-img-top" :src="event.image.url" alt="card image collar">
                   <div class="card-body" style="width: auto;"> 
-                  <div class="card-title pt-4 eventTitle">{{ event.name }}</div>
-                  <div class="card-text">
-                    <div class="eventVenue">{{event.primary_venue.name}}</div>
-                    <div class="eventOrganizer mt-2">{{event.primary_organizer.name}}</div>
-                  </div>
-
-                  <!-- <br>
+                    <div class="card-title pt-4 eventTitle">{{ event.name }}</div>
+                    <div class="card-text">
+                      <div class="eventDate">{{event.start_date}}, {{event.start_time}}</div>
+                      <div class="eventVenue mt-2">{{event.primary_venue.name}}</div>
+                      <div class="eventOrganizer mt-2">{{event.primary_organizer.name}}</div>
+                    </div>
+<!-- 
+                  <br>
                   Start Date: {{event.start_date}}
                   <br>
                   End Date: {{event.end_date}}
 
                   <br><br>
-                  Tags:
-
+                  Tags: -->
+<!-- 
                   <div v-for="tag of event.tags.slice(0,2)" :key="tag">
                     {{tag['display_name']}}
                
                   </div> -->
 
                   </div>
-                  </div>
+                </div>
           </router-link>
         </div>
       
