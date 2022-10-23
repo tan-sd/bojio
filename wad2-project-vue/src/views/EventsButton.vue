@@ -8,25 +8,18 @@
                 <div class="card" style="width:auto; height: 500px">
                   <img class="card-img-top" :src="event.image.url" alt="card image collar">
                   <div class="card-body" style="width: auto;"> 
-                    <div class="card-title pt-4 eventTitle">{{ event.name }}</div>
+                    <div class="card-title pt-1 eventTitle">{{ event.name }}</div>
                     <div class="card-text">
                       <div class="eventDate"><i class="bi bi-calendar2-week-fill" style="margin-right: 10px"></i>{{convertDate(event.start_date)}}, {{convert24(event.start_time)}}</div>
                       <div class="eventVenue mt-2"><i class="bi bi-geo-alt-fill" style="margin-right: 10px"></i>{{event.primary_venue.name}}</div>
                       <div class="eventOrganizer mt-2">{{event.primary_organizer.name}}</div>
                     </div>
-<!-- 
-                  <br>
-                  Start Date: {{event.start_date}}
-                  <br>
-                  End Date: {{event.end_date}}
 
-                  <br><br>
-                  Tags: -->
-<!-- 
-                  <div v-for="tag of event.tags.slice(0,2)" :key="tag">
-                    {{tag['display_name']}}
-               
-                  </div> -->
+                  <div class="tagContainer mt-3">
+                  <div class="" v-for="tag of event.tags.slice(0,2)" :key="tag">
+                    <div class="badge text-bg-secondary">{{tag['display_name']}}</div>
+                  </div>
+                </div>
 
                   </div>
                 </div>
