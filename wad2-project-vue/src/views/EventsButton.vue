@@ -52,7 +52,7 @@
           <div class="col-lg-3 col-12 d-flex justify-content-lg-end justify-content-center mb-5">
             <span>Showing 
               <span id="card-count">{{eventsloaded.length}}</span> of 
-              <span id="card-total"></span> {{length}} events      
+              <span id="card-total"></span> {{events.length}} events      
             </span>
           </div>
         </div>

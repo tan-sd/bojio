@@ -27,7 +27,7 @@
           </div>
           <div id="event-page-body" class="container"> <!-- event page body-->
             <h1>About</h1>
-            <div v-html="description"></div> {{getId()}}
+            <div v-html="description"></div>
 
           </div>
 
@@ -59,12 +59,6 @@ export default {
 
         methods: {
 
-          getId() {
-            const eventId = this.events[this.$route.params.idx].id
-            this.url = `https://www.eventbriteapi.com/v3/events/${eventId}/description/?token=PRFPTWCYQ4TUG6MWF7GF`
-            this.eventId = eventId
-          },
-
           displayDate(){
             const eventDate = this.events[this.$route.params.idx].start_date
             let fullDate = eventDate.split('-');
@@ -91,7 +85,12 @@ export default {
           }
 
         },
+
         mounted() {
+
+          const eventId = this.events[this.$route.params.idx].id
+          this.eventId = eventId
+          this.url = `https://www.eventbriteapi.com/v3/events/${eventId}/description/?token=PRFPTWCYQ4TUG6MWF7GF`
           //use description
           axios.get(this.url)
           .then(response => (
