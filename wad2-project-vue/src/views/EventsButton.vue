@@ -246,8 +246,8 @@ console.log(typeof(sourceData));
 
           convertDate(fullDate) {
           fullDate = fullDate.split('-');
-          var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-          var days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+          var months = ['','Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+          var days = ['Sun','Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
           var eventD = new Date(fullDate);
           const date = eventD.getDay() 
           return days[date] + ', ' + months[fullDate[1]] + ' ' + fullDate[2];

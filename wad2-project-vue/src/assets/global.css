@@ -283,7 +283,7 @@ background-color: #eaeaea !important;
     height: 500px;
     overflow:hidden;
     display:flex;
-    background-image: url(https://images.pexels.com/photos/777059/pexels-photo-777059.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500);
+    background: black;
 }
 
 #event-page-card{
@@ -296,6 +296,10 @@ background-color: #eaeaea !important;
 #event-page-card-details {
     list-style: none;
     -webkit-padding-start: 0; 
+}
+
+#event-page-body{
+    
 }
 
 /* EVENT DETAILS PAGE END */

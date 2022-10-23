@@ -11,9 +11,12 @@
                     </div>
                     <div class="col-6 m-0 my-auto ps-3" id="event-page-card-details">
                       <h3>{{ events[$route.params.idx].name }}</h3>
-                      <li><i class="bi bi-calendar2-week-fill" style="margin-right: 10px;"></i>day date time</li>
-                      <li><i class="bi bi-geo-alt-fill" style="margin-right: 10px;"></i>location</li>
-                      <li><i class="bi bi-people-fill" style="margin-right: 10px;"></i>see who's going</li>
+                      <div>
+                        <i class="bi bi-calendar2-week-fill eventDate" style="margin-right: 10px;"></i>{{displayDate()}}, {{convertTime()}}
+                      </div>
+                      <div>
+                        <i class="bi bi-geo-alt-fill eventVenue" style="margin-right: 10px;"></i>{{getVenue()}}
+                      </div>
                       <div class="row mx-auto ">
                         <router-link to="/createajio" class="btn btn-primary col-5"> Create a Jio for this event </router-link>
                         <span class="col-1"></span>
@@ -37,6 +40,7 @@
 
 import sourceData from'../data.json';
 import axios from 'axios'
+import { variableDeclarator } from '@babel/types';
 // import { getIdToken } from '@firebase/auth';
 
 export default {
@@ -45,24 +49,39 @@ export default {
             return {
             events: sourceData.events, 
             description: '',
-            eventid: '',
-            url: ''
+            eventId: '',
+            url: '',
             }
         },
 
         methods: {
 
           getId() {
-            const eventid = this.events[this.$route.params.idx].id
-            this.url = `https://www.eventbriteapi.com/v3/events/${eventid}/description/?token=PRFPTWCYQ4TUG6MWF7GF`
-            this.eventid = eventid
-          }, 
+            const eventId = this.events[this.$route.params.idx].id
+            this.url = `https://www.eventbriteapi.com/v3/events/${eventId}/description/?token=PRFPTWCYQ4TUG6MWF7GF`
+            this.eventId = eventId
+          },
 
-          getImg() {
-            const eventImg = this.events[this.$route.params.idx].image.url
-            console.log(eventImg);
+          displayDate(){
+            const eventDate = this.events[this.$route.params.idx].start_date
+            let fullDate = eventDate.split('-');
+            let months = ['','Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            let days = ['Sun','Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            let eventD = new Date(fullDate);
+            const date = eventD.getDay() 
+            return days[date] + ', ' + months[fullDate[1]] + ' ' + fullDate[2];
+
+          },
+
+          convertTime(){
+            let time = this.events[this.$route.params.idx].start_time
+            time = time.split(':');
+              return time[0] >= 12 && (time[0]-12 || 12) + ':' + time[1] + ' PM' || (Number(time[0]) || 12) + ':' + time[1] + ' AM';
+          },
+
+          getVenue(){
+            return this.events[this.$route.params.idx].primary_venue.name
           }
-
 
         },
         mounted() {
