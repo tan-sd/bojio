@@ -5,7 +5,7 @@
     <div>
 
       Search:
-      <input type="textbox">
+      <input type="textbox" v-model="searchedname" placeholder="enter event name..." @keydown="search()" @keyup.delete="deletesearch()">
 
       Filter by Location:
       <select v-model="selectedlocation" placeholder="select location" @click="filter">
@@ -15,7 +15,6 @@
     </div>
 
     </div>
-    
 
     <!-- if no filters used  -->
     <div v-if="!usefilter">
@@ -42,9 +41,23 @@
             </router-link>
           </div>
         </div>
-
-
       </div>
+
+      <div class="container" id="bottom">
+        <div class="row">
+          <div class="col-3"></div>
+          <div class="col-sm-6 col-12">
+            <button id="view-more" class="mb-3" @click="loadMore">View More</button>
+          </div>
+          <div class="col-lg-3 col-12 d-flex justify-content-lg-end justify-content-center mb-5">
+            <span>Showing 
+              <span id="card-count">{{eventsloaded.length}}</span> of 
+              <span id="card-total"></span> {{length}} events      
+            </span>
+          </div>
+        </div>
+      </div>
+
     </div>
         <!-- <button id='view-more' class="btn mb-3" @click="loadMore" style="box-shadow: 0px 0px 14px -7px #f09819" >Load</button> -->
 
@@ -73,11 +86,26 @@
             </router-link>
           </div>
         </div>
-        
       </div>
+
+      <div class="container" id="bottom">
+        <div class="row">
+          <div class="col-3"></div>
+          <div class="col-sm-6 col-12">
+            <button id="view-more" class="mb-3" @click="loadMore">View More</button>
+          </div>
+          <div class="col-lg-3 col-12 d-flex justify-content-lg-end justify-content-center mb-5">
+            <span>Showing 
+              <span id="card-count">{{filterevents.length}}</span> of 
+              <span id="card-total"></span> {{filterevents.length}} events      
+            </span>
+          </div>
+        </div>
+      </div>
+
     </div>
 
-    <div class="container" id="bottom">
+    <!-- <div class="container" id="bottom">
         <div class="row">
           <div class="col-3"></div>
           <div class="col-sm-6 col-12">
@@ -90,13 +118,19 @@
             </span>
           </div>
         </div>
-      </div>
+      </div> -->
+
 </template>
 
 <script>
 import sourceData from'../data.json'
 
-console.log(sourceData);
+// const search = (e) =>{ 
+//   if(e.key == '.'){ 
+//     console.log('fullstop');
+//   }
+// }
+// console.log(sourceData);
 console.log(typeof(sourceData));
     export default {
         name: 'EventsButton',
@@ -117,7 +151,9 @@ console.log(typeof(sourceData));
             selectedlocation: '',
             usefilter: false,
             filterarray: [],
-            
+            searchedname: '',
+            usesearch: false,
+            searcharray: []
         }
         },
         methods: {
@@ -160,6 +196,49 @@ console.log(typeof(sourceData));
             this.filterarray = temparray
           },
 
+          search(){ 
+            // console.log($e.key);
+            var search = this.searchedname
+            if(search.length > 0){ 
+              this.usesearch = true
+            }else{ 
+              this.usesearch = false
+            }
+            console.log(search)
+            var allevents = this.events
+            //dont replace this.events , shd create a new search array
+            var temparray = []
+            // console.log(allevents);
+            for(const event of allevents){ 
+              // console.log(event);
+              const eventname = event['name'].toLowerCase()
+              // console.log(eventname);
+              if(eventname.includes(search.toLowerCase())){ 
+                temparray.push(event)
+              }
+            }
+            this.searcharray = temparray
+            console.log(temparray);
+          },
+
+          deletesearch(){ 
+            console.log('in delete search');
+            var search = this.searchedname
+            var allevents = sourceData.events
+            var temparray = []
+
+            for(const event of allevents){ 
+              // console.log(event);
+              const eventname = event['name'].toLowerCase()
+              // console.log(eventname);
+              if(eventname.includes(search.toLowerCase())){ 
+                temparray.push(event)
+              }
+            }
+            this.searcharray = temparray
+
+          },
+
           convert24(time) {
               time = time.split(':');
               return time[0] >= 12 && (time[0]-12 || 12) + ':' + time[1] + ' PM' || (Number(time[0]) || 12) + ':' + time[1] + ' AM';
@@ -176,14 +255,30 @@ console.log(typeof(sourceData));
           }
 
         },
+
         computed: {
           eventsloaded() {
+            if(this.usesearch){
+              //change events to searcharray
+              this.events = this.searcharray
+            }
           return this.events.slice(0, this.length);
           },
 
           filterevents(){ 
+            this.allevents = this.filterarray
+            if(this.usesearch){ 
+              // if use search, take searcharray
+              this.search()
+              return this.searcharray
+            }
+            // else take filter array
             return this.filterarray
           }
+          },
+
+          searchevents(){ 
+            return this.searcharray
           }
     }
     
