@@ -67,7 +67,7 @@
 
     <!-- join any group -->
     <div class="row reveal" style="margin-top: 3.5vmin">
-      <div class="col-12 col-sm-6 text-center" id="first-step">
+      <div class="col-12 col-sm-6 text-center my-auto" id="first-step">
         <div class="about-step-header">Join any group</div>
         <span class="about-step-text mx-auto">
             Browse through groups that are open to all (a.k.a. 'public jios'), and join those that pique your interest.
@@ -151,7 +151,7 @@
         <img src="../../img/about-events.png" class="about-img" alt="">
       </div>
 
-      <div class="col-12 col-sm-6 text-center">
+      <div class="col-12 col-sm-6 text-center my-auto">
         <div class="about-step-header">Filter by event</div>
         <p class="about-step-text mx-auto text-center">
           Want to attend a specific event with people? Filter the groups based on the event on our homepage and voila! 
@@ -163,7 +163,7 @@
     <!-- Step 3 -->
     <div class="row reveal" style="margin-top: 3.5vmin">
       
-      <div class="col-12 col-sm-6 text-center">
+      <div class="col-12 col-sm-6 text-center my-auto">
         <div class="about-step-header">Start a group</div>
         <p class="about-step-text mx-auto text-center">
           Have an activity of your own in mind? Create a 'jio' and post it to start gathering people for that Mala run!
