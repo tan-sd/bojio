@@ -1,8 +1,10 @@
 <template>
     <div>
-      <section class="wrapper">
         <!-- IMAGE -->
-        <img :src=events[$route.params.idx].image.url>
+        <div id="event-page-img">
+          <img :src=events[$route.params.idx].image.url>
+        </div>
+        <div>{{ events[$route.params.idx].name }}</div>
 
         <hr>
 
@@ -29,10 +31,13 @@
         <!-- <div v-html="description">{{ this.events[this.$route.params.idx].full_description}}</div> -->
         <div v-html="description"></div> {{getId()}}
         <hr>
-
         <br>
        
-      </section>
+
+      <!-- location marker -->
+        <i class="bi bi-geo-alt-fill" style="margin-right: 10px;"></i> 
+        <!-- calendar icon -->
+        <i class="bi bi-calendar2-week-fill" style="margin-right: 10px;"></i>
     </div>
   </template>
 

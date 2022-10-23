@@ -1,3 +1,4 @@
+/* fonts */
 @font-face {
     font-family: worksans-extrabold;
     src: url('../../public/Font/worksans/WorkSans-ExtraBold.ttf');
@@ -13,12 +14,13 @@
     src: url('../../public/Font/worksans/WorkSans-SemiBold.ttf');
 }
 
+
 html {
     scroll-behavior: smooth;
-    overflow-y: scroll;
-    
+    overflow-y: scroll; /* to ensure that scroll bar on the right shows for all pages */
 }
 
+/* fading in matters */
 .reveal {
     position: relative;
     transform: translateY(150px);
@@ -55,10 +57,6 @@ html {
     width: 100%;
 }
 
-/* for anything that doesn't turn orange */
-.orange {
-    color: rgb(255, 127, 45);
-}
 
 /* navbar items */
 nav .navbar-nav a {
@@ -93,36 +91,6 @@ nav .navbar-nav a {
 .eventDate {
     font-family: worksans-semibold;
     color: rgb(255, 127, 45);
-}
-
-/* toggle button start */
-.listButtonLeft {
-    width: 30px;
-    height: 30px;
-    border: 1px solid #000;
-    border-radius: 5px 0px 0px 5px;
-    display: inline-block;
-}
-
-.listButtonRight {
-    width: 30px;
-    height: 30px;
-    border: 1px solid black;
-    border-radius: 0px 5px 5px 0px;
-    display: inline-block;
-}
-
-#hamburgerIcon {
-    position: absolute;
-    width: 25px;
-}
-
-/* toggle button end */
-
-.card {
-    /* height: 500px;
-    width: 300px; */
-    /* border-radius: 5px; */
 }
 
 .card:hover {
@@ -171,7 +139,6 @@ background-color: #eaeaea !important;
     cursor: not-allowed !important;
 }
 
-/* CSS */
 #events {
   padding: 15px 30px;
   text-align: center;
@@ -303,97 +270,31 @@ background-color: #eaeaea !important;
 background-color: #eaeaea !important;
 }
 
-/* create carousel */
-
-.carousel-cell {
-    width: 28%;
-    height: 200px;
-    margin-right: 10px;
-    background: #8c8;
-    border-radius: 5px;
-    counter-increment: carousel-cell;
-}
-
-.carousel-cell.is-selected {
-    background: #ed2;
-}
-
-/* cell number */
-.carousel-cell:before {
-    display: block;
-    text-align: center;
-    content: counter(carousel-cell);
-    line-height: 200px;
-    font-size: 80px;
-    color: white;
-}
-
-/* trying to transfer slider container to upper n lower carousel doesnt work :( */
-.upper-carousel {
-    top: 500px;
-    /* position: absolute;
-    transform: translate(-50%, -50%); */
-    left: 50%;
-}
-
-.lower-carousel {
-    top: 1000px;
-    /* position: absolute; */
-    /* transform: translate(-50%, -50%); */
-    left: 50%;
-}
-
-.inner-slider {
-    width: 100%;
-    display: flex;
-    gap: 10px;
-    pointer-events: none;
-    /* position: relative; */
-    top: 0%;
-    left: 0%;
-}
-
-/* .card { */
-    /* height: 500px;
-    width: 300px;
-    border-radius: 5px;
-    border: 2px solid black; */
-/* } */
-
-.slider-container {
-    width: 100%;
-    height: 500px;
-    left: 50%;
-    /* position: absolute; 
-    transform: translate(-50%, -50%); */
-    overflow: hidden;
-}
-
-/* trying to transfer slider container to upper n lower carousel doesnt work :( */
-.upper-carousel {
-    top: 500px;
-    /* position: absolute;
-    transform: translate(-50%, -50%); */
-    left: 50%;
-}
-
-.lower-carousel {
-    top: 1000px;
-    /* position: absolute; */
-    /* transform: translate(-50%, -50%); */
-    left: 50%;
-}
-
-.inner-slider {
-    width: 100%;
-    display: flex;
-    gap: 10px;
-    pointer-events: none;
-    /* position: relative; */
-    top: 0%;
-    left: 0%;
-}
 /* HOMEPAGE END */
+
+/* EVENT DETAILS PAGE START */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* EVENT DETAILS PAGE END */
 
 /* ABOUT PAGE START */
 
