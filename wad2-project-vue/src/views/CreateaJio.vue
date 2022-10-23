@@ -115,11 +115,17 @@
   
             <div class="col" id="map">
               <h3>Map</h3>
+              <GMapAutocomplete
+                placeholder="This is a placeholder"
+                @place_changed="setPlace"
+                :options="autocompleteOptions"
+                ></GMapAutocomplete>
               <GMapMap
               :center="center"
-              :zoom="7"
-              map-type-id="terrain"
+              :zoom="10"
+              map-type-id="roadmap"
               style="width: 500px; height: 300px"
+              :options="options"
               >
             <GMapMarker
                 :key="marker.id"
@@ -146,36 +152,52 @@
       name: 'App',
       data() {
         return {
-          center: { lat: 51.093048, lng: 6.842120 },
+          center: { lat: 1.3421, lng: 103.8198 },
           markers: [
         {
           id: 'dfsldjl3r',
           position: {
             lat: 51.093048, lng: 6.842120
           },
-
-          
-
-
         }
       ],
           titleLimit: 100,
           descriptionLimit: 300,
           description: '',
           title: '',
-          eventDateTime:new Date(),//initialise to current date before changing first
+          eventDateTime: new Date(),//initialise to current date before changing first
           currentDateTime: new Date(),
           actArr:[],
           actTitle: '',
           actLocation:'',
           actDuration:'',
           totalDuration:0,
+          currentPlace: null,
+          autocompleteOptions: {
+            componentRestrictions: {
+              country: ['sg']
+            }
+          },
+          options: {
+              zoomControl: false,
+              mapTypeControl: false,
+              scaleControl: false,
+              streetViewControl: false,
+              rotateControl: false,
+              fullscreenControl: false,
 
+              styles: [
+              ]
+          }
           // currentTime:new Date().toLocaleTimeString('en-GB').slice(0, 5),
         }
       },
 
       methods: {
+        setPlace(place) {
+          this.currentPlace = place;
+
+        },
         addAct(){
           this.actArr.push({name:this.actTitle,location:this.actLocation,duration:this.actDuration})
           this.totalDuration += parseFloat(this.actDuration)

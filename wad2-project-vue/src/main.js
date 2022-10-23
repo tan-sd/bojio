@@ -32,6 +32,7 @@ const app = createApp(App)
 app.use(router).use(TroisJSVuePlugin).use(VueGoogleMaps, {
     load: {
         key: 'AIzaSyBcpqqRoT6E55swScRXfN3WuJqPeD9Q9VU',
+        libraries: 'places'
     },
 });
 app.mount('#app')
