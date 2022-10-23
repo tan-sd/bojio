@@ -112,7 +112,6 @@ export default{
                 this.norequests = true
                 
             }else{ 
-
                 //make request as an object
                 // {userid: username}
                 console.log('there is at least 1 request');
