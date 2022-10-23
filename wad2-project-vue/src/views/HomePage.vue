@@ -30,6 +30,7 @@
     <!-- <button @click="activeTab = 'EventsButton'">A</button> -->
     <!-- <button @click="activeTab = 'PublicButton'">B</button> -->
     <!-- <button @click="activeTab = 'PrivateButton'">C</button> -->
+    
 
     </div>
 
@@ -100,7 +101,22 @@ export default {
             uid: localStorage.getItem("uid"),
             // userid: '',
             activeTab : 'EventsButton',
-            fullname: ''
+            fullname: '',
+            districtcode:{
+              'north': [25,26,27,28],
+              'south': [21,11,10,9,8,7,6,5,4,3,2,1],
+              'east': [20,19,18,17,16,15,14,13,12],
+              'west': [22,23,24]
+            },
+
+            sgdistrictcode:{ 
+              'north': [72,73,77,78,75,76,79,80],
+              'south': [1,2,3,4,5,6,7,8,14,15,16,9,10,11,12,13,17,18,19,20,21,22,23,24,25,26,27,28,29,30,58,59],
+              'east': [31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,81,51,52,53,54,55,82,56,57],
+              'west': [60,61,62,63,64,65,66,67,68,69,70,71]
+            },
+            selectedlocation: '',
+            usefilter: false,
         }
     },
 //     watch: {
@@ -111,25 +127,26 @@ export default {
 //   }
 // }
     methods: {
-    loadMore() {
-      console.log(this.fullname);
-      console.log(this.events);
-      if (this.length >= this.events.length) {
-        return
-      }
-      this.length = this.length + 9;   
-      console.log(this.length);
-  
-    },
+      loadMore() {
+        console.log(this.fullname);
+        console.log(this.events);
+        if (this.length >= this.events.length) {
+          return
+        }
+        this.length = this.length + 9;   
+        console.log(this.length);
+    
+      },
 
-    updatefullname() { 
-      this.fullname = localStorage.getItem('fullname')  
-    }
+      updatefullname() { 
+        this.fullname = localStorage.getItem('fullname')  
+      }
     },
   computed: {
-    eventsloaded() {
-      return this.events.slice(0, this.length);
-    },
+      eventsloaded() {
+        return this.events.slice(0, this.length);
+      },
+
   },
 
   created(){
