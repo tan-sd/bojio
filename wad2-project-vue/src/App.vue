@@ -18,6 +18,7 @@
 <!-- </template> -->
 
 <template>
+  
 
 <!-- <div class="container" style="display:flex; justify-content:space-between;">
 
@@ -127,6 +128,12 @@ import { useRouter } from 'vue-router'
 import { getDatabase, onValue } from 'firebase/database'
 import { getdata } from './utils';
 
+
+
+
+
+
+
 const router = useRouter();
 const isLoggedIn = ref(false)
 
@@ -182,6 +189,7 @@ export default {
   name: 'App',
   components: {
     // EventsButton,PublicButton,PrivateButton
+    
 },
 
 data () {
