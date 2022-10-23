@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import VueGoogleMaps from '@fawmi/vue-google-maps'
 
+
 // import firebase from "firebase"
 
 import { TroisJSVuePlugin } from 'troisjs';
@@ -35,3 +36,5 @@ app.use(router).use(TroisJSVuePlugin).use(VueGoogleMaps, {
 });
 app.mount('#app')
 app.mixin(titleMixin)
+
+

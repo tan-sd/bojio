@@ -115,25 +115,19 @@
   
             <div class="col" id="map">
               <h3>Map</h3>
-            <GMapMap class="mt-2"
+              <GMapMap
               :center="center"
-              :zoom="10"
-              :disableDefaultUI="true"
-              map-type-id="roadmap"
-              style="width:800px ; height: 500px">
-              <GMapCluster>
+              :zoom="7"
+              map-type-id="terrain"
+              style="width: 500px; height: 300px"
+              >
+            <GMapMarker
+                :key="marker.id"
+                v-for="marker in markers"
+                :position="marker.position"
+            />
+          </GMapMap>
 
-              <GMapMarker
-                  :key="index"
-                  v-for="(m, index) in markers"
-                  :position="m.position"
-                  :clickable="true"
-                  :draggable="true"
-                  @click="center=m.position"
-              />
-              </GMapCluster>
-
-            </GMapMap>
             </div>
                 
             </div>
@@ -154,12 +148,17 @@
         return {
           center: { lat: 51.093048, lng: 6.842120 },
           markers: [
-            {
-              position: {
-                lat: 51.093048, lng: 6.842120
-              },
-            },
-          ],
+        {
+          id: 'dfsldjl3r',
+          position: {
+            lat: 51.093048, lng: 6.842120
+          },
+
+          
+
+
+        }
+      ],
           titleLimit: 100,
           descriptionLimit: 300,
           description: '',
