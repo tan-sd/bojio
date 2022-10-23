@@ -3,7 +3,7 @@
         <div id="event-page">
 
 
-          <div id="event-page-banner" class="">
+          <div id="event-page-banner" class="" v-bind:style="{ backgroundImage: 'url(' + events[$route.params.idx].image.url + ')' }">>
 
                 <div class="row bg-light" id="event-page-card">
                     <div class="col-6 p-0">
@@ -18,14 +18,14 @@
                         <i class="bi bi-geo-alt-fill eventVenue" style="margin-right: 10px;"></i>{{getVenue()}}
                       </div>
                       <div class="row mx-auto ">
-                        <router-link to="/createajio" class="btn btn-primary col-5"> Create a Jio for this event </router-link>
+                        <router-link to="/createajio" class="col-5"> <span id="event-page-button">Create a Jio for this event</span> </router-link>
                         <span class="col-1"></span>
-                        <router-link to="/" class="btn btn-primary col-5"> Join a group for this event </router-link>
+                        <router-link to="/" class="col-5"> <span id="event-page-button">Join a group for this event</span> </router-link>
                       </div>
                     </div>
                 </div>
           </div>
-          <div id="event-page-body"> <!-- event page body-->
+          <div id="event-page-body" class="container"> <!-- event page body-->
             <h1>About</h1>
             <div v-html="description"></div> {{getId()}}
 
@@ -43,6 +43,8 @@ import axios from 'axios'
 import { variableDeclarator } from '@babel/types';
 // import { getIdToken } from '@firebase/auth';
 
+
+
 export default {
         name: 'EventsButton',
         data(){
@@ -51,6 +53,7 @@ export default {
             description: '',
             eventId: '',
             url: '',
+            eventImg: ''
             }
         },
 
@@ -81,6 +84,10 @@ export default {
 
           getVenue(){
             return this.events[this.$route.params.idx].primary_venue.name
+          },
+
+          getImg(){
+            return this.events[this.$route.params.idx].image.url
           }
 
         },
