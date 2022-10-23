@@ -26,17 +26,24 @@
                   <div class="card" style="width:auto; height: 500px">
                     <img class="card-img-top" :src="event.image.url" alt="card image collar">
                     <div class="card-body" style="width: auto;">
-                      <div class="card-title pt-4 eventTitle">{{ event.name }}</div>
+                      <div class="card-title pt-1 eventTitle">{{ event.name }}</div>
                       <div class="card-text">
-                        <div class="eventDate"><i class="bi bi-calendar2-week-fill" style="margin-right: 10px"></i>{{event.start_date}}, {{event.start_time}}</div>
+                        <div class="eventDate"><i class="bi bi-calendar2-week-fill" style="margin-right: 10px"></i>{{convertDate(event.start_date)}}, {{convert24(event.start_time)}}</div>
                         <div class="eventVenue mt-2"><i class="bi bi-geo-alt-fill" style="margin-right: 10px"></i>{{event.primary_venue.name}}</div>
                         <div class="eventOrganizer mt-2">{{event.primary_organizer.name}}</div>
+                      </div>
+                      <div class="tagContainer mt-3">
+                                <div class="" v-for="tag of event.tags.slice(0,2)" :key="tag">
+                                  <div class="badge text-bg-secondary">{{tag['display_name']}}</div>
+                                </div>
                       </div>
                     </div>
                   </div>
             </router-link>
           </div>
         </div>
+
+
       </div>
     </div>
         <!-- <button id='view-more' class="btn mb-3" @click="loadMore" style="box-shadow: 0px 0px 14px -7px #f09819" >Load</button> -->
@@ -46,21 +53,27 @@
       <div id='event-container' class="container mt-5" style="font-family: worksans-medium">
         <div class="row" id ='app'>
           <div class="col-lg-4 col-md-6 mb-5" v-for="(event, index) in filterevents.slice(0, events.length)" :key="index">
-            <router-link style="text-decoration: none; color: inherit;" :to="{ name: 'event', params: { idx: index}}">
-                  <div class="card" style="width:auto; height: 500px"> 
+            <router-link style="text-decoration: none; color: inherit;" :to="{ name: 'event', params: { idx: index, }}">
+                  <div class="card" style="width:auto; height: 500px">
                     <img class="card-img-top" :src="event.image.url" alt="card image collar">
                     <div class="card-body" style="width: auto;">
-                      <div class="card-title pt-4 eventTitle">{{ event.name }}</div>
+                      <div class="card-title pt-1 eventTitle">{{ event.name }}</div>
                       <div class="card-text">
-                        <div class="eventDate"><i class="bi bi-calendar2-week-fill" style="margin-right: 10px"></i>{{event.start_date}}, {{event.start_time}}</div>
+                        <div class="eventDate"><i class="bi bi-calendar2-week-fill" style="margin-right: 10px"></i>{{convertDate(event.start_date)}}, {{convert24(event.start_time)}}</div>
                         <div class="eventVenue mt-2"><i class="bi bi-geo-alt-fill" style="margin-right: 10px"></i>{{event.primary_venue.name}}</div>
                         <div class="eventOrganizer mt-2">{{event.primary_organizer.name}}</div>
+                      </div>
+                      <div class="tagContainer mt-3">
+                                <div class="" v-for="tag of event.tags.slice(0,2)" :key="tag">
+                                  <div class="badge text-bg-secondary">{{tag['display_name']}}</div>
+                                </div>
                       </div>
                     </div>
                   </div>
             </router-link>
           </div>
         </div>
+        
       </div>
     </div>
 
