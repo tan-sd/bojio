@@ -2,7 +2,7 @@
     <main class="securepage">
         <!-- <h1>Secure Page</h1> -->
       
-        <div class="container-fluid text-center mt-5">
+        <div class="container-fluid text-center mt-2">
         <p class ='login-msg'></p>
         <div class="row">
           <div class="banner-header-form col">
@@ -21,26 +21,16 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-2"></div>
-            <div class="col-8 d-flex justify-content-center align-items-center">
+            <div class="col d-flex pt-4 border border solid">
                 <form class="register-form" style="width: 600px;">
 
-                      <!-- i change these frm username to email -->
-                        <!-- <div class="form-group col" style="width: auto;">
-                          <div class="form-floating">
-                          <input type="text" class="form-control" id="usernameLogin" placeholder="username">
-                            <label for="usernameLogin" class="text-muted">username</label>
-                            <div id="usernameLoginInvalid" class="invalid-feedback">
-                            </div>
-                          </div>
-                        </div> -->
+                        <h3>Event Details</h3>
 
-                        <div class="form-row pt-4">
-
+                        <div class="form-row ">
                           <div class="form-group col" style="width: auto;">
                             <div class="form-floating">
                             <input type="text" class="form-control" id="emailLogin" placeholder="email" v-model="title">
-                              <label for="emailLogin" class="text-muted">event title</label>
+                              <label for="emailLogin" class="text-muted">Event title</label>
                               <div id="emailLoginInvalid" class="invalid-feedback">
                               </div>
                             </div>
@@ -51,59 +41,106 @@
                           <div class="form-group col mt-5" style="width: auto">
                             <div class="form-floating">
                               <textarea v-model="description" class="form-control" placeholder="description" id="description" style="height: 200px;"></textarea>
-                              <label for="description" class="text-muted">event description</label>
+                              <label for="description" class="text-muted">Event description</label>
                             </div>
                         </div>
                         <div class="float-end mt-1">{{checkDescription}} / {{descriptionLimit}}</div>
                       </div>
                       
-
-                      <div class="register-form-field form-group col mt-5" style="width: auto;">
-                        <div class="form-floating">
-                          <input type="date" class="form-control w-50" id="firstName" placeholder="First name">
-                          <label for="firstName" class="text-muted">date</label>
-                          <div id="firstNameInvalid" class="invalid-feedback">
-                            Enter a first name.
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="register-form-field form-group col mt-5" style="width: auto;">
-                        <div class="form-floating">
-                          <input type="text" class="form-control" id="firstName" placeholder="First name">
-                          <label for="firstName" class="text-muted">Location</label>
-                          <div id="firstNameInvalid" class="invalid-feedback">
-                            Enter a first name.
-                          </div>
-                        </div>
-                      </div>
-
-                      <GMapMap class="mt-5"
-                      :center="center"
-                      :zoom="15"
-                      :disableDefaultUI="true"
-                      map-type-id="roadmap"
-                      style="width: auto; height: 300px"
-                  >
-                    <GMapCluster>
-                      <GMapMarker
-                          :key="index"
-                          v-for="(m, index) in markers"
-                          :position="m.position"
-                          :clickable="true"
-                          :draggable="true"
-                          @click="center=m.position"
-                      />
-                    </GMapCluster>
-                  </GMapMap>
                       
-                    
-                    <button type="button" style="background-color: rgb(255, 127, 45); color: white" class="btn orange border border-3 mt-4 rounded-5" id="loginBtn">Create Jio</button>
+                        <div class="register-form-field form-group col mt-5 " style="width: auto;">
+                        <div class="form-floating">
+                          <input type="datetime-local" class="form-control" id="eventDateTime" placeholder="eventDateTime" v-model=eventDateTime>
+                          <label for="firstName" class="text-muted">Event date and time</label>
+                        </div>
+                        <div id="DateTimeInvalid" class="text-danger" v-if="new Date(eventDateTime)<currentDateTime" >
+                          Enter a valid date and time for the event.
+                        </div>
+                      </div>
+
+                      
+                      <div class="form-group col mt-3" style="width: auto;">
+                            <h3>Add Activities</h3>
+                            <div class="form-floating">
+                            <input type="text" class="form-control" id="activityTitle" placeholder="activityTitle" v-model="actTitle">
+                              <label for="activityTitle" class="text-muted">Activity title</label>
+                              <div id="emailLoginInvalid" class="invalid-feedback">
+                              </div>
+                            </div>
+                            
+                          </div>
+                          
+
+                          <div class="form-group col mt-5" style="width: auto">
+                            <div class="form-floating">
+                              <input type="text" class="form-control" id="activityLocation" placeholder="activityLocation" v-model="actLocation">
+                              <label for="activityLocation" class="text-muted">Activity Location</label>
+                            </div>
+                          </div>
+                        
+
+                      <div class="form-group col mt-5" style="width: auto">
+                            <div class="form-floating">
+                              <input type="text" class="form-control" id="activityDuration" placeholder="activityDuration" v-model="actDuration">
+                              <label for="activityLocation" class="text-muted">Activity Duration (mins)</label>
+                            </div>
+                        </div>
+
+                        <button type="button" style="background-color: rgb(255, 127, 45); color: white" class="btn orange border border-3 mt-4 rounded-5" id="addAct" @click="addAct()">Add activity!</button>
+
+
                   </form>
             </div>
-            <div class="col-2"></div>
+            <div class="col d-flex flex-column pt-4 border border solid ">
+                
+              <div class="col" id="results">
+                <h3>Activity Table</h3>
+                
+                  <div v-if="actArr.length==0">
+                  <h5>You have no activities yet</h5>
+                  </div>
+                  <div v-else>
+                    <table >
+                    <tr><th>#</th><th>Name</th><th>Location</th><th>Activity(Mins)</th><th></th></tr>
+                    <tr v-for="act,index in this.actArr" :key="act">
+                      <th>{{index+1}}</th><td>{{act.name}}</td><td>{{act.location}}</td><td>{{act.duration}}</td><td>
+                        <button type="button" @click="remove()">Remove</button>
+                      </td>
+                    </tr>
+                  </table>
+                  <p>Total Duration(Mins): {{totalDuration}}</p>
+                </div>
+
+            </div>
+  
+            <div class="col" id="map">
+              <h3>Map</h3>
+            <GMapMap class="mt-2"
+              :center="center"
+              :zoom="10"
+              :disableDefaultUI="true"
+              map-type-id="roadmap"
+              style="width:800px ; height: 500px">
+              <GMapCluster>
+
+              <GMapMarker
+                  :key="index"
+                  v-for="(m, index) in markers"
+                  :position="m.position"
+                  :clickable="true"
+                  :draggable="true"
+                  @click="center=m.position"
+              />
+              </GMapCluster>
+
+            </GMapMap>
+            </div>
+                
+            </div>
+            
         </div>
       </div>
+      <button type="button" style="background-color: rgb(255, 127, 45); color: white" class="btn orange border border-3 mt-4 rounded-5" id="loginBtn">Create Jio</button>
 
     </main>
 
@@ -127,16 +164,51 @@
           descriptionLimit: 300,
           description: '',
           title: '',
+          eventDateTime:new Date(),//initialise to current date before changing first
+          currentDateTime: new Date(),
+          actArr:[],
+          actTitle: '',
+          actLocation:'',
+          actDuration:'',
+          totalDuration:0,
+
+          // currentTime:new Date().toLocaleTimeString('en-GB').slice(0, 5),
         }
       },
+
+      methods: {
+        addAct(){
+          this.actArr.push({name:this.actTitle,location:this.actLocation,duration:this.actDuration})
+          this.totalDuration += parseFloat(this.actDuration)
+          this.clearForm();
+          
+        },
+        remove(){
+          this.actArr.splice(this.index,1)
+          this.totalDuration -= parseFloat(this.actDuration)
+        },
+        clearForm() {
+      this.actDuration = ""
+      this.actLocation = ""
+      this.actTitle =""
+        },
+      },
+      
       computed: {
         checkDescription() {
           return this.description.length
         },
         checkTitle() {
           return this.title.length
-        }
+        },
+        formatDate(){
+          return this.currentYear+'-'+this.currentMonth+'-'+this.currentDate
+        },
+        
+        
       }
     }
+    
+    
 
   </script>
