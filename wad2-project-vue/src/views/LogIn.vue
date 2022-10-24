@@ -52,8 +52,16 @@
                           </div>
                         </div>                        
                       </div>
+
+                      <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <div><a class='float-end' style="text-decoration: none; color: rgb(255, 127, 45); font-family: worksans-medium;" href="#">Forgot your password?</a></div>
+                            </div>
+                        </div>
+                      </div>
                     
-                    <button type="button" style="background-color: rgb(255, 127, 45); color: white" class="btn orange border border-3 mt-4 rounded-5" id="loginBtn" @click="signIn">Log in</button>
+                    <button type="button" style="background-color: rgb(255, 127, 45); color: white; padding: 1rem; font-family: worksans-semibold;" class="btn orange border border-3 mt-4 w-50" id="loginBtn" @click="signIn">Log in</button>
                   </form>
             </div>
 
@@ -65,16 +73,7 @@
       <div class="container pt-4">
         <div class="row">
             <div class="col text-center">
-                <div><a style="text-decoration: none; color: rgb(255, 127, 45);" href="#">Forgot your password?</a></div>
-            </div>
-        </div>
-      </div>
-
-
-      <div class="container pt-1">
-        <div class="row">
-            <div class="col text-center">
-                <div>Don't have an account? <a style="text-decoration: none; color: rgb(255, 127, 45);" href="./signup.html">Sign up here</a></div>
+                <div>Don't have an account? <a style="text-decoration: none; color: rgb(255, 127, 45); font-family: worksans-medium" href="./signup.html">Sign up</a></div>
             </div>
         </div>
       </div>

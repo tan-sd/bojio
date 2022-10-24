@@ -91,7 +91,7 @@
                       
                   </div>
                   
-                  <button type="button" style="background-color: rgb(255, 127, 45); color: white" class="btn orange border border-3 mt-4 rounded-5" id="signupBtn" @click="register">Sign up</button>
+                  <button type="button" style="background-color: rgb(255, 127, 45); color: white; padding: 1rem; font-family: worksans-semibold;" class="btn orange border border-3 mt-4 w-50" id="signupBtn" @click="register">Create account</button>
                     
                 </form>
             </div>
@@ -108,7 +108,7 @@
       <div class="container pt-4">
         <div class="row">
             <div class="col text-center">
-                <div>Already have an account? <a style="text-decoration: none; color: rgb(255, 127, 45);" href="/login.html">Sign in</a></div>
+                <div>Already have an account? <a style="text-decoration: none; color: rgb(255, 127, 45); font-family: worksans-medium;" href="/login.html">Sign in</a></div>
             </div>
         </div>
       </div>
