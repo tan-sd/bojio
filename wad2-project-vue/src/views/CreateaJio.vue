@@ -73,7 +73,13 @@
 
                           <div class="form-group col mt-5" style="width: auto">
                             <div class="form-floating">
-                              <input type="text" class="form-control" id="activityLocation" placeholder="activityLocation" v-model="actLocation">
+                              
+                              <GMapAutocomplete
+                              type="text" class="form-control" id="activityLocation"  
+                              placeholder="This is a placeholder"
+                              @place_changed="setPlace"
+                              :options="autocompleteOptions"
+                              ></GMapAutocomplete>
                               <label for="activityLocation" class="text-muted">Activity Location</label>
                             </div>
                           </div>
@@ -104,7 +110,7 @@
                     <tr><th>#</th><th>Name</th><th>Location</th><th>Activity(Mins)</th><th></th></tr>
                     <tr v-for="act,index in this.actArr" :key="act">
                       <th>{{index+1}}</th><td>{{act.name}}</td><td>{{act.location}}</td><td>{{act.duration}}</td><td>
-                        <button type="button" @click="remove()">Remove</button>
+                        <button type="button" style="background-color: rgb(255, 127, 45); color: white" class="btn orange border border-3 rounded-5" id="loginBtn" @click="remove()">Remove</button>
                       </td>
                     </tr>
                   </table>
@@ -115,11 +121,7 @@
   
             <div class="col" id="map">
               <h3>Map</h3>
-              <GMapAutocomplete
-                placeholder="This is a placeholder"
-                @place_changed="setPlace"
-                :options="autocompleteOptions"
-                ></GMapAutocomplete>
+              
               <GMapMap
               :center="center"
               :zoom="10"
@@ -132,11 +134,16 @@
                 v-for="marker in markers"
                 :position="marker.position"
             />
-          </GMapMap>
+            <GMapInfoWindow>
+      <div>I am in info window <MyComponent/>
+      </div>
+    </GMapInfoWindow>
+            
+            </GMapMap>
 
             </div>
                 
-            </div>
+          </div>
             
         </div>
       </div>
@@ -155,9 +162,9 @@
           center: { lat: 1.3421, lng: 103.8198 },
           markers: [
         {
-          id: 'dfsldjl3r',
+          id: 1,
           position: {
-            lat: 51.093048, lng: 6.842120
+            lat: 1.3421, lng: 103.8198
           },
         }
       ],
@@ -178,6 +185,8 @@
               country: ['sg']
             }
           },
+          currentLat:'',
+          currentLng:'',
           options: {
               zoomControl: false,
               mapTypeControl: false,
@@ -195,13 +204,23 @@
 
       methods: {
         setPlace(place) {
-          this.currentPlace = place;
-
+          this.actLocation = place.name
+          this.currentLat=place.geometry.location.lat()
+          this.currentLng=place.geometry.location.lng()
+          console.log(this.actLocation);
         },
         addAct(){
+          if(isNaN(this.actDuration)){
+            console.log("error")
+          }
+          else{
+            this.markers.push({id:Math.random(),position:{lat:this.currentLat,lng:this.currentLng}})
           this.actArr.push({name:this.actTitle,location:this.actLocation,duration:this.actDuration})
           this.totalDuration += parseFloat(this.actDuration)
           this.clearForm();
+
+          }
+          
           
         },
         remove(){
