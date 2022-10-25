@@ -8,6 +8,7 @@
       </div>
     </div> 
 
+    {{filterchoice}}
   <!-- WORLD 3D MODEL -->
   <div class="container about-fadeup border border-1" id="world-model">
     <Renderer
@@ -33,11 +34,21 @@
           @load="onReady"
           @progress="onProgress"
           @error="onError"
-          @pointerEnter = 'onPointerEvent'
-          @pointerLeave = 'onPointerLeave'
+          @pointerEnter="onPointerEvent"
+          @click="onPointerLeave"
+
           
           >
           <!-- @pointerOver="onPointerOver" -->
+          <!-- @pointerEnter = 'onPointerEvent' -->
+      
+          <!-- @mouseLeave = 'onPointerLeave'
+          @pointerOver ='onPointerLeave'
+          @pointerDown="onPointerLeave"
+          @pointerOut="onPointerLeave"
+          @pointerCancel="onPointerLeave"
+          @pointerLeave="onPointerLeave" -->
+          <!-- @pointerOver="onPointerEvent" -->
         </GltfModel>
       </Scene>
     </Renderer>
@@ -69,7 +80,7 @@
 
     </div>
 
-    <EventsButton v-if="activeTab === 'EventsButton'"/>
+    <EventsButton v-if="activeTab === 'EventsButton'" :data="filterchoice"/>
     <PublicButton v-if="activeTab === 'PublicButton'"/> 
     <PrivateButton v-if="activeTab === 'PrivateButton'"/>
 <!--  
@@ -152,22 +163,19 @@ export default {
             selectedlocation: '',
             usefilter: false,
             currentIntersection: null,
+            clicked: false,
+            count: 0,
+            filterchoice: '',
         }
     },
-//     watch: {
-//   input: function () {
-//     if (isLocalStorage() /* function to detect if localstorage is supported*/) {
-//       localStorage.setItem('storedData', this.input)
-//     }
-//   }
-// }
+
     methods: {
       onPointerEvent(event) {
-        // console.log(event)
         // if (this.currentIntersection === null) {
           console.log(event)
           // this.currentIntersection = event.intersect.object.material;
-          event.intersect.object.material.color.set(event.over ? 1000 : 1)
+          // event.intersect.object.material.color.set(event.over ? 1 : 1000)
+          console.log(event.over);
           console.log(this.currentIntersection)
           console.log('it is null')
         // }
@@ -179,13 +187,42 @@ export default {
 
       },
       onPointerLeave(event) {
-        console.log('left')
+
+        //identify location
+        var location = event.intersect.object.name
+        if(location =='North'){ 
+          this.filterchoice = 'north'
+        }
+
+        if(location == 'Central'){ 
+          this.filterchoice = 'south'
+        }
+
+        if(location == 'East'){ 
+          this.filterchoice = 'east'
+        }
+
+        if(location == 'West'){ 
+          this.filterchoice = 'west'
+        }
+
+        this.count += 1
+        if(this.count % 4 == 0){ 
+          this.clicked = false
+        }else{ 
+        
+          this.clicked = true
+        }
+       
+        if (this.clicked === true) {
+          event.intersect.object.material.color.set(100)
+        } else {
+          event.intersect.object.material.color.set(1000)
+        }
+
+        console.log('i am clicked '+ this.clicked);
+        return
       },
-        // if (event.over === true) {
-        //   event.intersect.object.material.color.set(100)
-        // } else {
-        //   event.intersect.object.material.color.set(1000)
-        // }
       filter() {
         // console.log(this.events);
         //   if (this.length >= this.events.length) {

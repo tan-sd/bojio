@@ -3,6 +3,7 @@
     <div class="container" style="display:flex; justify-content:space-between;">
 
     <div>
+      
 
       Search:
       <input type="textbox" v-model="searchedname" placeholder="enter event name..." @keydown="search()" @keyup.delete="deletesearch()">
@@ -11,10 +12,17 @@
       <select v-model="selectedlocation" placeholder="select location" @click="filter">
         <option v-for="value,key in sgdistrictcode" :key="value">{{key}}</option>
       </select>
+     
+    </div>
+ 
+    <span v-if="data != ''">
+      {{usemapfilter()}}
+    </span>
 
     </div>
 
-    </div>
+    <!-- if use map -->
+
 
     <!-- if no filters used  -->
     <div v-if="!usefilter">
@@ -134,6 +142,7 @@ import sourceData from'../data.json'
 console.log(typeof(sourceData));
     export default {
         name: 'EventsButton',
+        props:['data'],
         data(){
             return {
             events: sourceData.events,
@@ -153,7 +162,8 @@ console.log(typeof(sourceData));
             filterarray: [],
             searchedname: '',
             usesearch: false,
-            searcharray: []
+            searcharray: [],
+            filterchoice: this.data
         }
         },
         methods: {
@@ -174,12 +184,13 @@ console.log(typeof(sourceData));
 
           filter(){ 
             var chosenlocation = this.selectedlocation
+            // console.log(chosenlocation);
             var temparray = []
             if(chosenlocation != ''){ 
               this.usefilter = true
-              console.log(chosenlocation);
+              // console.log(chosenlocation);
               const allpostalcodes = this.sgdistrictcode[chosenlocation]
-              console.log(allpostalcodes);
+              // console.log(allpostalcodes);
               //loop through events. if events postal code inside this all postal codes, i add
               const events = this.events
               for(const event of events){ 
@@ -194,6 +205,13 @@ console.log(typeof(sourceData));
               }
             }
             this.filterarray = temparray
+          },
+
+          usemapfilter(){ 
+            // console.log('in map filter function');
+            // var chosenlocation = this.filterchoice
+            this.selectedlocation = this.data
+            this.filter()
           },
 
           search(){ 
@@ -279,7 +297,16 @@ console.log(typeof(sourceData));
 
           searchevents(){ 
             return this.searcharray
-          }
+          },
+
+          // mapfilter(){ 
+          //   return this.filterchoice
+          // },
+
+        // created(){ 
+        //   var mapfilter = this.filterchoice
+        //   console.log(mapfilter);
+        // }
     }
     
 </script>

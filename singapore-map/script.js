@@ -39,6 +39,7 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 
 var container = document.getElementById('container');
 container.appendChild(renderer.domElement);
+mouse = new THREE.Vector2(1,1);
 
 var loader = new THREE.GLTFLoader();
 
@@ -48,6 +49,22 @@ loader.load("3d-model/singapore-map.gltf", function(gltf) {
     gltf.scene.scale.set(150, 150 ,150);
     scene.add(gltf.scene);
 });
+
+document.addEventListener('mousemove', onDocumentMouseMove, false);
+
+function onDocumentMouseMove(event)
+{
+  console.log('inside mouse move');
+	// the follo
+  // wing line would stop any other event handler from firing
+	// (such as the mouse's TrackballControls)
+	event.preventDefault();
+
+	// update the mouse variable
+	mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+	mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+}
 
 // Car
 car = createCar();
