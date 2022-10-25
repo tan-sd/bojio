@@ -110,7 +110,7 @@
                     <tr><th>#</th><th>Name</th><th>Location</th><th>Activity(Mins)</th><th></th></tr>
                     <tr v-for="act,index in this.actArr" :key="act">
                       <th>{{index+1}}</th><td>{{act.name}}</td><td>{{act.location}}</td><td>{{act.duration}}</td><td>
-                        <button type="button" style="background-color: rgb(255, 127, 45); color: white" class="btn orange border border-3 rounded-5" id="loginBtn" @click="actArr.splice(index, 1), markers.splice(index,1)">Remove</button>
+                        <button type="button" style="background-color: rgb(255, 127, 45); color: white" class="btn orange border border-3 rounded-5" id="loginBtn" @click="actArr.splice(index, 1), markers.splice(index,1), remove(act.duration)">Remove</button>
                       </td>
                     </tr>
                   </table>
