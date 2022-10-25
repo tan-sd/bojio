@@ -110,7 +110,7 @@
                     <tr><th>#</th><th>Name</th><th>Location</th><th>Activity(Mins)</th><th></th></tr>
                     <tr v-for="act,index in this.actArr" :key="act">
                       <th>{{index+1}}</th><td>{{act.name}}</td><td>{{act.location}}</td><td>{{act.duration}}</td><td>
-                        <button type="button" style="background-color: rgb(255, 127, 45); color: white" class="btn orange border border-3 rounded-5" id="loginBtn" @click="remove()">Remove</button>
+                        <button type="button" style="background-color: rgb(255, 127, 45); color: white" class="btn orange border border-3 rounded-5" id="loginBtn" @click="actArr.splice(index, 1), markers.splice(index,1), remove">Remove</button>
                       </td>
                     </tr>
                   </table>
@@ -126,7 +126,7 @@
               :center="center"
               :zoom="10"
               map-type-id="roadmap"
-              style="width: 500px; height: 300px"
+              style="width: 1000px; height: 400px"
               :options="options"
               >
             <GMapMarker
@@ -154,20 +154,15 @@
   </template>
 
   <script>
+import { remove } from '@firebase/database'
+
 
     export default {
       name: 'App',
       data() {
         return {
           center: { lat: 1.3421, lng: 103.8198 },
-          markers: [
-        {
-          id: 1,
-          position: {
-            lat: 1.3421, lng: 103.8198
-          },
-        }
-      ],
+          markers: [],
           titleLimit: 100,
           descriptionLimit: 300,
           description: '',
@@ -224,7 +219,10 @@
           
         },
         remove(){
-          this.actArr.splice(this.index,1)
+          // console.log(this.currentLat)
+          // console.log(this.currentLat)
+          // console.log(this.index)
+          // // this.actArr.splice(this.index,1)
           this.totalDuration -= parseFloat(this.actDuration)
         },
         clearForm() {
