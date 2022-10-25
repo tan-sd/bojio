@@ -305,6 +305,7 @@ background-color: #eaeaea !important;
 }
 #event-banner-card-image{
     border-radius:10px 10px 0px 0px; 
+    max-height:300px;
 }
 #event-banner-card-body{
     color:black;
