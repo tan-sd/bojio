@@ -8,6 +8,41 @@
       </div>
     </div> 
 
+  <!-- WORLD 3D MODEL -->
+  <div class="container about-fadeup border border-1" id="world-model">
+    <Renderer
+      ref="renderer"
+      alpha antialias resize="window"
+      :pointer="{ intersectRecursive: true }"
+      >
+
+      <Camera :position="{ z: 4 }" />
+      <Scene>
+        <HemisphereLight />
+        <PointLight
+          color="white"
+          :position="{ x: 100, y: 10000, z: 40 }"
+          :intensity="0.5"
+        />
+        <Raycaster 
+        
+        />
+        <GltfModel
+          ref="gltf"
+          src="/Model/test3.gltf"
+          @load="onReady"
+          @progress="onProgress"
+          @error="onError"
+          @pointerEnter = 'onPointerEvent'
+          @pointerLeave = 'onPointerLeave'
+          
+          >
+          <!-- @pointerOver="onPointerOver" -->
+        </GltfModel>
+      </Scene>
+    </Renderer>
+  </div>
+
     <div class="container">
         <div class="row d-flex align-content-center justify-content-center">
         <div class="col-sm-3 col-4 d-flex align-content-center justify-content-center">
@@ -74,7 +109,6 @@
         </div>
       </div> -->
 
-
 </template> 
 
 <!-- <meta http-equiv="Content-Security-Policy" content="connect-src 'ws://localhost:8080';"> -->
@@ -117,6 +151,7 @@ export default {
             },
             selectedlocation: '',
             usefilter: false,
+            currentIntersection: null,
         }
     },
 //     watch: {
@@ -127,6 +162,43 @@ export default {
 //   }
 // }
     methods: {
+      onPointerEvent(event) {
+        // console.log(event)
+        // if (this.currentIntersection === null) {
+          console.log(event)
+          // this.currentIntersection = event.intersect.object.material;
+          event.intersect.object.material.color.set(event.over ? 1000 : 1)
+          console.log(this.currentIntersection)
+          console.log('it is null')
+        // }
+        // console.log(currentIntersection)
+        // currentIntersection.material.color.set(0xffff00);
+
+        // console.log(event.over)
+        // event.intersect.object.material.color.set(event.over ? 500 : 1000)
+
+      },
+      onPointerLeave(event) {
+        console.log('left')
+      },
+        // if (event.over === true) {
+        //   event.intersect.object.material.color.set(100)
+        // } else {
+        //   event.intersect.object.material.color.set(1000)
+        // }
+      filter() {
+        // console.log(this.events);
+        //   if (this.length >= this.events.length) {
+        //       return
+        //   }
+        //   this.length = this.length + 9;   
+        //   console.log(this.length);
+        //   console.log(this.events.length);
+        //   if (this.length == this.events.length) {
+        //     var viewMoreBtn = document.getElementById('view-more');
+        //     viewMoreBtn.classList.add('disabled');
+        //   }
+      },
       loadMore() {
         console.log(this.fullname);
         console.log(this.events);
@@ -149,6 +221,14 @@ export default {
 
   },
 
+  mounted() {
+        // const renderer = this.$refs.renderer;
+        // const world = this.$refs.gltf.scene;
+        // console.log(world)
+        // const orbitCtrl = this.$refs.renderer.three.cameraCtrl
+        // orbitCtrl.enableZoom = false;
+      },
+
   created(){
 
     getuserid().then((value)=>{
@@ -165,7 +245,7 @@ export default {
       )
   },
 
-  onMounted(){ 
+  onMounted() { 
     this.updatefullname()
   }
 
