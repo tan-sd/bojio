@@ -1,43 +1,33 @@
 <template>
-        <div id="event-page">
-
-          <div id="event-page-banner" class="" v-bind:style="{ backgroundImage: 'url(' + imageurl + ')' }">
-
-                <div class="row bg-light" id="event-page-card">
-                    <div class="col-6 p-0">
-                      <img :src=imageurl class="card-img">
-                    </div>
-                    <div class="col-6 m-0 my-auto ps-3" id="event-page-card-details">
-                      <h3>{{ name }}</h3>
-                    
-                      <i class="bi bi-calendar2-week-fill eventDate" style="margin-right: 10px;"></i>{{displayDate()}}, {{convertTime()}}
-                      <div>
-                        <i class="bi bi-geo-alt-fill eventVenue" style="margin-right: 10px;"></i>{{getVenue()}}
-                      </div>
-                      <br>
-
-                      Organised by:
-                      <div v-html="organizerName"></div>
-                      <div>
-                      </div>
-                      <div class="row mx-auto ">
-                        <router-link to="/createajio" class="col-5"> <span id="event-page-button">Create a Jio for this event</span> </router-link>
-                        <span class="col-1"></span>
-                        <router-link to="/" class="col-5"> <span id="event-page-button">Join a group for this event</span> </router-link>
-                      </div>
+    <div id="event-banner-div">
+        <img id="event-banner-background" v-bind:style="{ backgroundImage: 'url(' + imageurl + ')' }" alt="">
+        <div class="row">
+            <div id="event-banner-card" class="col-11 col-sm-10 col-md-8 col-lg-6">
+                <img id="event-banner-card-image" class='card-img' :src=imageurl  alt=''>
+                <div id="event-banner-card-body">
+                    <div class="row">
+                        <div class="col-12 col-md-6 mb-2">
+                            <h5>{{ name }}</h5>
+                            <p><i class="bi bi-calendar2-week-fill eventDate" style="margin-right: 10px;"></i>{{displayDate()}}, {{convertTime()}}</p>
+                            <p><i class="bi bi-geo-alt-fill eventVenue" style="margin-right: 10px;"></i>{{getVenue()}}</p>
+                            <!-- <p>Organised by</p> -->
+                        </div>
+                        <div id="event-card-buttons" class="col-12 col-md-6 text-center">
+                            <button type='button' class='btn btn-primary col-12'><a href="#About">Find Out More</a></button>
+                            <button type='button' class='btn btn-primary col-12'><a href="">Create a Jio for this event</a></button>
+                            <button type='button' class='btn btn-primary col-12'><a href="">Join a Jio for this event</a></button>
+                        </div>
                     </div>
                 </div>
-          </div>
-          <div id="event-page-body" class="container"> 
-            <h1>About</h1>
-            <div v-html="description"></div>
-
-          </div>
-
-
-
+            </div>
         </div>
-      
+    </div>
+    <div class="container mt-3">
+        <h1>{{ name }}</h1>
+        <h1><a name="About">About</a></h1>
+    </div>
+
+
   </template>
 
 <script>
@@ -115,7 +105,8 @@ export default {
         computed: {
           get(){ 
             return this.$route.params.idx
-          }
+          },
+          
         },
         
         created() {

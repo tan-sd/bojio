@@ -52,8 +52,6 @@
     'Bojio' is a Singaporean way to express your fear of missing out - its direct translation is "no invite". Sometimes, there are events or outings (<i>"late-night supper anyone?"</i>) where you want to attend with your friends, but they simply can't accommodate to your schedule. So, your friends end up going without you, and you say 'bojio'! 
   </div>
 
-  <!-- maybe can make shrink when screen size decrease? -->
-
   <!-- how does it work section start -->
   <div class="about-subheader text-center mt-2 reveal">
     how does our platform work?
@@ -75,18 +73,18 @@
       </div>
       
       <!-- vertical carousel -->
-      <div class="col-12 col-sm-6 wrapper carousel">
+      <div class="col-12 col-sm-6 wrapper carousel my-auto">
 
           <div class="carousel__item">
             <div class="carousel__item-body">
-              <p class="title">89.7 Supper Club Jio</p>
+              <p class="about-carousel-title">89.7 Supper Club Jio</p>
               <p>Monday, 10pm</p>
             </div>
           </div>
 
           <div class="carousel__item">
             <div class="carousel__item-body">
-              <p class="title">Dua Lipa Concert Group</p>
+              <p class="about-carousel-title">Dua Lipa Concert Group</p>
               <p>Next Sunday, 8pm</p>
             </div>
           </div>
@@ -145,9 +143,10 @@
     </div>
 
     <!-- Step 2 -->
-    <div class="row reveal" style="margin-top: 3.5vmin">
+    <div class="row pb-5 reveal" style="margin-top: 3.5vmin">
 
-      <div class="col-12 col-sm-6">
+      <div class="col-12 col-sm-6 my-auto">
+        replace with carousel of events?
         <img src="../../img/about-events.png" class="about-img" alt="">
       </div>
 
@@ -181,17 +180,14 @@
   </div>
   <!-- how does it work section end -->
 
-  <div class="text-center">
-    <!-- need to create 'if logged in, redirect to create a jio, else, redirect to login page' -->
-    <!-- also need to create restriction if they try to access create a jio directly, they have to login  -->
-    <button
-      type="button"
-      class="btn mt-4 mb-5"
-      id="banner-btn"
-      onclick="window.location.href='newcreateajio.html';"
-    >
-      <span>Get Started</span>
-    </button>
+  <div class="text-center p-5 reveal">
+    not sure why the above div moves down as you scroll down
+    <router-link to="/createajio" class="nav-link">
+      <button type="button" class="btn mt-4 mb-5" id="banner-btn" onclick="window.location.href='';">      
+        <span>Get Started</span>
+      </button>
+    </router-link> 
+
   </div>
 </template>
 
@@ -217,7 +213,7 @@ function reveal() {
   for (var i = 0; i < reveals.length; i++) {
     var windowHeight = window.innerHeight;
     var elementTop = reveals[i].getBoundingClientRect().top;
-    var elementVisible = 150;
+    var elementVisible = 100;
 
     if (elementTop < windowHeight - elementVisible) {
       reveals[i].classList.add("active");

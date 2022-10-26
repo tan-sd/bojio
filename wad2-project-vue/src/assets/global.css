@@ -273,46 +273,67 @@ background-color: #eaeaea !important;
 /* HOMEPAGE END */
 
 /* EVENT DETAILS PAGE START */
-#event-page{
-    /* position: absolute; */
-    width: 100%;
-    
-}
-
-#event-page-banner{
-    width:100%;
-    height: 500px;
-    overflow:hidden;
-    display:flex;    
-}
-
-#event-page-card{
-    font-family: worksans-medium;
+#event-banner-div{
     position: relative;
-    margin: auto;
-    filter: none;
-}
-
-#event-page-card-details {
-    list-style: none;
-    -webkit-padding-start: 0; 
-}
-
-#event-page-body{
-    width:80%;
+    overflow: hidden;
     font-family: worksans-medium;
 }
 
-#event-page-body p{
-    color:red;
+#event-banner-background{
+    position: relative;
+    z-index: 0;
+    width: 100%;
+    height: 600px;
+    -webkit-filter: blur(5px); /* blur background image */
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(5px);
+    background-position: center;
+    transform: scale(1.5); /* to remove white edges */
 }
 
-#event-page-button {
-    padding: 15px 30px;
+#event-banner-card{
+    position: absolute;
+    padding:0;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    z-index:1;
+    margin:0;
+    border-radius:10%;
+}
+#event-banner-card-image{
+    border-radius:10px 10px 0px 0px; 
+    max-height:300px;
+}
+#event-banner-card-body{
+    color:black;
+    background-color: white;
+    padding: 20px;
+    border-radius:0px 0px 10px 10px;
+}
+#event-banner-card-body h2{
+    margin:0;
+}
+#event-banner-card-body p{
+    margin:0;
+}
+#event-banner-card-body a{
+    color: white;
+    text-decoration: none;
+}
+#event-card-buttons{
+    margin-top:auto;
+    margin-bottom: auto;
+}
+
+#event-card-buttons button{
+    height:40px;
+    margin: 5px;
     text-align: center;
     transition: 0.5s;
     background-size: 200% auto;
-    color: white;
     border-radius: 10px;
     display: block;
     border: 0px;
@@ -321,17 +342,10 @@ background-color: #eaeaea !important;
     cursor: pointer;
     user-select: none;
     -webkit-user-select: none;
-    touch-action: manipulation;
+    touch-action: manipulation; 
     text-decoration-line: none;
-  }
-  
-  #event-page-button:hover {
-    background-position: right center;
-    /* change the direction of the change here */
-    color: #fff;
-    text-decoration: none;
+}
 
-  }
 
 /* EVENT DETAILS PAGE END */
 
