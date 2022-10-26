@@ -268,7 +268,7 @@ export function getpublic(){
   
 
 
-export async function getdata(){
+export function getdata(){
   return new Promise((resolve, reject) =>{
     uid = localStorage.getItem("uid")
     const dbRef = ref(getDatabase());
@@ -280,20 +280,20 @@ export async function getdata(){
           localStorage.setItem('fullname', fullname)
           console.log(localStorage.getItem('fullname'));
         }
-
-        return resolve(fullname) 
+        console.log('line 283');
         // console.log(fullname);
         
         // let personname = document.getElementById('personname')
         
-        //only say hi at main page
+        // //only say hi at main page
         // if(personname){
-        //   personname.innerText =  `Welcome,  ${fullname} ! 👋🏼`
-        //   personname.setAttribute('style', ' display:inline; font-family: worksans-extrabold; font-size: 4vmin;')
-        //   personname.setAttribute('class', '')
-        // }
-         
-      } else {
+        //     personname.innerText =  `Welcome,  ${fullname} ! 👋🏼`
+        //     personname.setAttribute('style', ' display:inline; font-family: worksans-extrabold; font-size: 4vmin;')
+        //     personname.setAttribute('class', '')
+        //   }
+          
+          return resolve (fullname) 
+        } else {
         console.log("No data available");
         return reject
       }

@@ -117,6 +117,7 @@
                   <p>Total Duration(Mins): {{totalDuration}}</p>
                 </div>
 
+                {{actArr}}
             </div>
   
             <div class="col" id="map">
@@ -210,9 +211,9 @@ import { remove } from '@firebase/database'
           }
           else{
             this.markers.push({id:Math.random(),position:{lat:this.currentLat,lng:this.currentLng}})
-          this.actArr.push({name:this.actTitle,location:this.actLocation,duration:this.actDuration})
-          this.totalDuration += parseFloat(this.actDuration)
-          this.clearForm();
+            this.actArr.push({name:this.actTitle,location:this.actLocation,duration:this.actDuration})
+            this.totalDuration += parseFloat(this.actDuration)
+            this.clearForm();
 
           }
           
@@ -225,10 +226,10 @@ import { remove } from '@firebase/database'
           console.log('aft' + this.totalDuration);
         },
         clearForm() {
-      this.actDuration = ""
-      this.actLocation = ""
-      this.actTitle =""
-        },
+          this.actDuration = ""
+          this.actLocation = ""
+          this.actTitle =""
+            },
       },
       
       computed: {
