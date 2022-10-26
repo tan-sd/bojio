@@ -23,6 +23,7 @@
         </div>
     </div>
     <div class="container mt-3">
+      {{getlat}} {{getlng}} 
       <div id='longitude'>{{ longitude }}</div>
       <div id="latitude">{{ latitude }}</div>
         <h1>{{ name }}</h1>
@@ -139,6 +140,26 @@ export default {
           get(){ 
             return this.$route.params.idx
           },
+
+          getlat(){ 
+            var obj = this.center
+            obj.lat = this.latitude
+
+            var array = this.markers
+            array[0].position.lat = this.latitude
+
+            return ''
+          },
+
+          getlng(){ 
+            var obj = this.center
+            obj.lng= this.longitude
+
+            var array = this.markers
+            array[0].position.lng = this.longitude
+            
+            return ''
+          }
         },
         
         created() {
@@ -180,6 +201,7 @@ export default {
                     .then(response => (
                       this.organizerName = response.data.name
                     ))
+
                 }
                   
                 ).catch( error =>{ 
@@ -187,11 +209,8 @@ export default {
               
                 })
 
-          
-        
+        },
 
-
-        }
 }
 
 

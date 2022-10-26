@@ -74,11 +74,11 @@
                           <div class="form-group col mt-5" style="width: auto">
                             <div class="form-floating">
                               
-                              <GMapAutocomplete
+                              <GMapAutocomplete 
                               type="text" class="form-control" id="activityLocation"  
                               placeholder="This is a placeholder"
                               @place_changed="setPlace"
-                              :options="autocompleteOptions"
+                              :options="autocompleteOptions" 
                               ></GMapAutocomplete>
                               <label for="activityLocation" class="text-muted">Activity Location</label>
                             </div>
@@ -92,7 +92,7 @@
                             </div>
                         </div>
 
-                        <button type="button" style="background-color: rgb(255, 127, 45); color: white" class="btn orange border border-3 mt-4 rounded-5" id="addAct" @click="addAct()">Add activity!</button>
+                        <button type="button" style="background-color: rgb(255, 127, 45); color: white" class="btn orange border border-3 mt-4 rounded-5" id="addAct" @click="addAct(), document.GMapAutocomplete.set('place',null);">Add activity!</button>
 
 
                   </form>
@@ -211,9 +211,10 @@ import { remove } from '@firebase/database'
           }
           else{
             this.markers.push({id:Math.random(),position:{lat:this.currentLat,lng:this.currentLng}})
-            this.actArr.push({name:this.actTitle,location:this.actLocation,duration:this.actDuration})
-            this.totalDuration += parseFloat(this.actDuration)
-            this.clearForm();
+          this.actArr.push({name:this.actTitle,location:this.actLocation,duration:this.actDuration})
+          this.totalDuration += parseFloat(this.actDuration)
+          this.clearForm();
+          document.GMapAutocomplete.set('place',null);
 
           }
           
