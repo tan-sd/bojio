@@ -117,6 +117,7 @@
                   <p>Total Duration(Mins): {{totalDuration}}</p>
                 </div>
 
+                {{actArr}}
             </div>
   
             <div class="col" id="map">
@@ -226,10 +227,10 @@ import { remove } from '@firebase/database'
           console.log('aft' + this.totalDuration);
         },
         clearForm() {
-      this.actDuration = ""
-      this.actLocation = ""
-      this.actTitle =""
-        },
+          this.actDuration = ""
+          this.actLocation = ""
+          this.actTitle =""
+            },
       },
       
       computed: {

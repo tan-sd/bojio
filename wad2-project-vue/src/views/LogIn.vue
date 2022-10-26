@@ -96,6 +96,8 @@
     // import firebase from 'firebase'
     import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
     import { useRouter } from 'vue-router' // import router
+    import { useCookies } from 'vue3-cookies';
+
     const email = ref('')
     const password = ref('')
     const router = useRouter() // get a reference to our vue router
@@ -115,8 +117,11 @@
           console.log(current.uid);
           if (typeof(Storage) !== "undefined") {
           // Store
-          localStorage.setItem("uid", uid);
+          // localStorage.setItem("uid", uid);
+          // use cookie to send uid and fullname
           // localStorage.setItem('fullname', fullname)
+          
+          const {cookies} =useCookies()
 // 
       
         } else {

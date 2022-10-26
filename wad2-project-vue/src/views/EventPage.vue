@@ -23,9 +23,26 @@
         </div>
     </div>
     <div class="container mt-3">
+      <div id='longitude'>{{ longitude }}</div>
+      <div id="latitude">{{ latitude }}</div>
         <h1>{{ name }}</h1>
         <h1><a name="About">About</a></h1>
     </div>
+
+    <GMapMap
+              :center="center"
+              :zoom="15"
+              map-type-id="roadmap"
+              style="width: 700px; height: 400px"
+              :options="options"
+              >
+            <GMapMarker
+                :key="marker.id"
+                v-for="marker in markers"
+                :position="marker.position"
+            />
+            
+            </GMapMap>
 
 
   </template>
@@ -37,12 +54,12 @@ import axios from 'axios'
 import { variableDeclarator } from '@babel/types';
 // import { getIdToken } from '@firebase/auth';
 
-
-
 export default {
         name: 'EventsButton',
         data(){
             return {
+            latitude: '',
+            longitude: '',
             events: sourceData.events, 
             description: '',
             eventId: '',
@@ -61,6 +78,25 @@ export default {
             eventName:'',
             date: '',
             time: '',
+            center: { lat: this.latitude, lng: this.longitude },
+            markers: [
+              {
+                position: {
+                  lat: this.latitude, lng: this.longitude
+                }
+              }
+            ],
+            options: {
+              zoomControl: false,
+              mapTypeControl: false,
+              scaleControl: false,
+              streetViewControl: false,
+              rotateControl: false,
+              fullscreenControl: false,
+
+              styles: [
+              ]
+            },
             }
         },
 
@@ -92,21 +128,17 @@ export default {
           },
 
           getId(){ 
-         
             this.eventId = this.$route.params.idx
             var eventId = this.$route.params.idx
             this.url = `https://www.eventbriteapi.com/v3/events/${eventId}/?token=PRFPTWCYQ4TUG6MWF7GF`
             this.descriptionURL = `https://www.eventbriteapi.com/v3/events/${eventId}/description/?token=PRFPTWCYQ4TUG6MWF7GF`
-
-          }
-
+          },
         },
         
         computed: {
           get(){ 
             return this.$route.params.idx
           },
-          
         },
         
         created() {
@@ -133,13 +165,16 @@ export default {
                     axios.get(this.venueURL)
                     .then(response => (
                       console.log(response.data),
-                      this.venueName = response.data.name
+                      this.venueName = response.data.name,
+                      this.latitude = parseFloat(response.data.latitude),
+                      this.longitude = parseFloat(response.data.longitude),
+                      console.log(this.longitude)
                     )),
                     
                     axios.get(this.descriptionURL)
-                    .then(response => (
+                    .then(response => 
                       this.description = response.data.description
-                    )),
+                    ),
 
                     axios.get(this.organizerURL)
                     .then(response => (

@@ -30,7 +30,7 @@
         />
         <GltfModel
           ref="gltf"
-          src="/Model/test3.gltf"
+          src="/Model/singapore.gltf"
           @load="onReady"
           @progress="onProgress"
           @error="onError"

@@ -13,6 +13,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import './assets/global.css'
 import titleMixin from './utils/titleMixin';
 import 'bootstrap-icons/font/bootstrap-icons.css'
+import { VueCookies } from 'vue3-cookies';
 
 // createApp(App).mount('#app')
 // const firebaseConfig = {
@@ -35,6 +36,7 @@ app.use(router).use(TroisJSVuePlugin).use(VueGoogleMaps, {
         libraries: 'places'
     },
 });
+app.use(VueCookies)
 app.mount('#app')
 app.mixin(titleMixin)
 
