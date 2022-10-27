@@ -102,7 +102,6 @@
 
             <div class="form-group col mt-5" style="width: auto">
               <div class="form-floating">
-
                 <GMapAutocomplete
                   type="text"
                   class="form-control"
@@ -112,9 +111,7 @@
                   :options="autocompleteOptions"
                   :value="this.search"
                 >
-           
-              
-              </GMapAutocomplete>
+                </GMapAutocomplete>
                 <label for="activityLocation" class="text-muted"
                   >Activity Location</label
                 >
@@ -124,7 +121,7 @@
             <div class="form-group col mt-5" style="width: auto">
               <div class="form-floating">
                 <input
-                  type="text"
+                  type="number"
                   class="form-control"
                   id="activityDuration"
                   placeholder="activityDuration"
@@ -133,6 +130,12 @@
                 <label for="activityLocation" class="text-muted"
                   >Activity Duration (mins)</label
                 >
+              </div>
+            </div>
+            <div v-if="this.actError.length > 0">
+              <h5 style="color: red">error</h5>
+              <div v-for="err in this.actError" :key="err.id">
+                <p>{{ err }}</p>
               </div>
             </div>
 
@@ -201,15 +204,10 @@
             >
               <GMapMarker
                 :key="marker.id"
-                v-for="(marker,i) in markers"
+                v-for="(marker, i) in markers"
                 :position="marker.position"
-                :label="(i+1).toString()"
-                
-
+                :label="(i + 1).toString()"
               />
-              <GMapInfoWindow>
-                <div>I am in info window <MyComponent /></div>
-              </GMapInfoWindow>
             </GMapMap>
           </div>
         </div>
@@ -220,6 +218,7 @@
       style="background-color: rgb(255, 127, 45); color: white"
       class="btn orange border border-3 mt-4 rounded-5"
       id="loginBtn"
+      @click="createjio"
     >
       Create Jio
     </button>
@@ -233,7 +232,8 @@ export default {
   name: "App",
   data() {
     return {
-      
+      actError: [],
+      evtError: [],
       center: { lat: 1.3421, lng: 103.8198 },
       markers: [],
       titleLimit: 100,
@@ -274,13 +274,19 @@ export default {
       this.actLocation = place.name;
       this.currentLat = place.geometry.location.lat();
       this.currentLng = place.geometry.location.lng();
-
     },
     addAct() {
-      
-      
-      if (isNaN(this.actDuration)) {
-        console.log("error");
+      console.log(this.actLocation);
+      console.log(this.actDuration);
+
+      if (this.actDuration == "") {
+        this.actError.push("Duration is empty or invalid");
+      }
+      if (document.getElementById("activityLocation").value == "") {
+        this.actError.push("Location is empty or invalid");
+      }
+      if (this.actTitle == "") {
+        this.actError.push("Activity has no title boo");
       } else {
         this.markers.push({
           id: Math.random(),
@@ -304,9 +310,23 @@ export default {
     },
     clearForm() {
       this.actDuration = "";
-      document.getElementById("activityLocation").value='';
+      document.getElementById("activityLocation").value = "";
       this.actTitle = "";
+      this.actError = [];
     },
+    createjio(){
+      if (this.title == "") {
+        this.evtError.push("Duration is empty or invalid");
+      }
+      if (this.description == "") {
+        this.evtError.push("Location is empty or invalid");
+      }
+      if (new Date(this.eventDateTime) < this.currentDateTime) {
+        this.evtError.push("Activity has no title boo");
+      }
+      console.log(this.evtError);
+
+    }
   },
 
   computed: {
@@ -321,9 +341,6 @@ export default {
         this.currentYear + "-" + this.currentMonth + "-" + this.currentDate
       );
     },
-    
   },
-
-  
 };
 </script>

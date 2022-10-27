@@ -18,6 +18,8 @@
     "jquery": "^3.6.1",
     "name": "^0.0.2",
     "popper.js": "^1.16.1",
+    "three": "^0.134.0",
+    "troisjs": "^0.3.4",
     "vue": "^3.2.13",
     "vue-router": "^4.1.5",
     "vue3-cookies": "^1.0.6",
