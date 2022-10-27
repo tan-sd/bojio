@@ -8,6 +8,7 @@
     "jquery": "^3.6.1",
     "popper.js": "^1.16.1",
     "three": "^0.134.0",
-    "troisjs": "^0.3.4"
+    "troisjs": "^0.3.4",
+    "vue-cookies": "^1.8.1"
   }
 }
