@@ -286,7 +286,7 @@ export default {
         this.actError.push("Location is empty or invalid");
       }
       if (this.actTitle == "") {
-        this.actError.push("Activity has no title boo");
+        this.actError.push("Activity has no title");
       } else {
         this.markers.push({
           id: Math.random(),
@@ -316,13 +316,16 @@ export default {
     },
     createjio(){
       if (this.title == "") {
-        this.evtError.push("Duration is empty or invalid");
+        this.evtError.push("Event has no title ");
       }
       if (this.description == "") {
-        this.evtError.push("Location is empty or invalid");
+        this.evtError.push("Event has no description ");
       }
       if (new Date(this.eventDateTime) < this.currentDateTime) {
-        this.evtError.push("Activity has no title boo");
+        this.evtError.push("Please choose a valid date");
+      }
+      if (this.actArr.length<1){
+        this.evtError.push("Please include some activities");
       }
       console.log(this.evtError);
 
