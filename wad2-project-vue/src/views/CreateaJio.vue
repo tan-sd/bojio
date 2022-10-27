@@ -201,9 +201,11 @@
             >
               <GMapMarker
                 :key="marker.id"
-                v-for="(marker) in markers"
+                v-for="(marker,i) in markers"
                 :position="marker.position"
-                label="0"
+                :label="(i+1).toString()"
+                
+
               />
               <GMapInfoWindow>
                 <div>I am in info window <MyComponent /></div>
