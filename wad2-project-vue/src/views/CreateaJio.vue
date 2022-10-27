@@ -17,9 +17,9 @@
 
     <div class="container-fluid">
       <div class="row">
-        <div class="col d-flex pt-4 border border solid">
+        <div class="col d-flex pt-4">
           <form class="register-form" style="width: 600px">
-            <h3>Event Details</h3>
+            <div class='mb-3' style="font-family: worksans-medium">Event Details</div>
 
             <div class="form-row">
               <div class="form-group col" style="width: auto">
@@ -27,12 +27,14 @@
                   <input
                     type="text"
                     class="form-control"
-                    id="emailLogin"
-                    placeholder="email"
+                    id="eventTitle"
+                    placeholder="event title"
                     v-model="title"
                   />
-                  <label for="emailLogin" class="text-muted">Event title</label>
-                  <div id="emailLoginInvalid" class="invalid-feedback"></div>
+                  <label for="eventTitle" class="text-muted">Event title</label>
+                  <div id="eventTitleInvalid" class="invalid-feedback">
+                    Please provide the event title.
+                  </div>
                 </div>
                 <div class="float-end mt-1">
                   {{ checkTitle }} / {{ titleLimit }}
@@ -45,12 +47,14 @@
                     v-model="description"
                     class="form-control"
                     placeholder="description"
-                    id="description"
+                    id="eventDescription"
                     style="height: 200px"
                   ></textarea>
-                  <label for="description" class="text-muted"
-                    >Event description</label
-                  >
+                  <label for="eventDescription" class="text-muted"
+                    >Event description</label>
+                  <div id="eventDescriptionInvalid" class="invalid-feedback">
+                    Please provide a description.
+                  </div>
                 </div>
               </div>
               <div class="float-end mt-1">
@@ -70,21 +74,23 @@
                   placeholder="eventDateTime"
                   v-model="eventDateTime"
                 />
-                <label for="firstName" class="text-muted"
-                  >Event date and time</label
-                >
+                <label for="eventDateTime" class="text-muted"
+                  >Event date and time</label>
+                  <div id="eventDateTimeInvalid" class="invalid-feedback"></div>
               </div>
-              <div
+              <!-- <div
                 id="DateTimeInvalid"
                 class="text-danger"
                 v-if="new Date(eventDateTime) < currentDateTime"
               >
                 Enter a valid date and time for the event.
-              </div>
+              </div> -->
             </div>
 
+            <hr>
+
             <div class="form-group col mt-3" style="width: auto">
-              <h3>Add Activities</h3>
+              <div class='mb-3' style="font-family: worksans-medium">Activities</div>
               <div class="form-floating">
                 <input
                   type="text"
@@ -96,11 +102,13 @@
                 <label for="activityTitle" class="text-muted"
                   >Activity title</label
                 >
-                <div id="emailLoginInvalid" class="invalid-feedback"></div>
+                <div class="invalid-feedback">
+                Please provide the activity title.
+              </div>
               </div>
             </div>
 
-            <div class="form-group col mt-5" style="width: auto">
+            <div class="form-group col mt-3" style="width: auto">
               <div class="form-floating">
                 <GMapAutocomplete
                   type="text"
@@ -115,10 +123,13 @@
                 <label for="activityLocation" class="text-muted"
                   >Activity Location</label
                 >
+                <div class="invalid-feedback">
+                Please provide the location.
+              </div>
               </div>
             </div>
 
-            <div class="form-group col mt-5" style="width: auto">
+            <div class="form-group col mt-3" style="width: auto">
               <div class="form-floating">
                 <input
                   type="number"
@@ -130,14 +141,17 @@
                 <label for="activityLocation" class="text-muted"
                   >Activity Duration (mins)</label
                 >
+                <div class="invalid-feedback">
+                Please provide the duration.
+              </div>
               </div>
             </div>
-            <div v-if="this.actError.length > 0">
+            <!-- <div v-if="this.actError.length > 0">
               <h5 style="color: red">error</h5>
               <div v-for="err in this.actError" :key="err.id">
                 <p>{{ err }}</p>
               </div>
-            </div>
+            </div> -->
 
             <button
               type="button"
@@ -276,18 +290,41 @@ export default {
       this.currentLng = place.geometry.location.lng();
     },
     addAct() {
+      var errors = 0
       console.log(this.actLocation);
       console.log(this.actDuration);
+      var activityLocation = document.getElementById('activityLocation');
+      var activityTitle = document.getElementById('activityTitle');
+      var activityDuration = document.getElementById('activityDuration');
 
       if (this.actDuration == "") {
-        this.actError.push("Duration is empty or invalid");
-      }
-      if (document.getElementById("activityLocation").value == "") {
-        this.actError.push("Location is empty or invalid");
-      }
-      if (this.actTitle == "") {
-        this.actError.push("Activity has no title");
+        activityDuration.classList = ('form-control is-invalid');
+        // this.actError.push("Duration is empty or invalid");
+        errors += 1
       } else {
+        activityDuration.classList = ('form-control is-valid');
+      }
+
+      if (activityLocation.value == "") {
+        activityLocation.classList = ('form-control is-invalid');
+        // this.actError.push("Location is empty or invalid");
+        errors += 1
+      } else {
+        activityLocation.classList = ('form-control is-valid')
+      }
+
+      if (this.actTitle == "") {
+        activityTitle.classList = ('form-control is-invalid');
+        // this.actError.push("Activity has no title");
+        errors += 1
+      } else {
+        activityTitle.classList = ('form-control is-valid')
+      }
+      
+      if (errors == 0) {
+        activityDuration.classList = ('form-control');
+        activityLocation.classList = ('form-control');
+        activityTitle.classList = ('form-control');
         this.markers.push({
           id: Math.random(),
           position: { lat: this.currentLat, lng: this.currentLng },
@@ -315,20 +352,53 @@ export default {
       this.actError = [];
     },
     createjio(){
+      var eventTitle = document.getElementById('eventTitle');
+      var eventDescription = document.getElementById('eventDescription');
+      var eventDateTime = document.getElementById('eventDateTime');
+      var eventDateTimeInvalid = document.getElementById('eventDateTimeInvalid');
+      var errors = 0;
+
       if (this.title == "") {
-        this.evtError.push("Event has no title ");
+        eventTitle.classList = ('form-control is-invalid');
+        // this.evtError.push("Event has no title");
+        errors += 1;
+      } else {
+        eventTitle.classList = ('form-control is-valid');
       }
+
       if (this.description == "") {
-        this.evtError.push("Event has no description ");
+        eventDescription.classList = ('form-control is-invalid');
+        // this.evtError.push("Event has no description ");
+        errors += 1
+      } else {
+        eventDescription.classList = ('form-control is-valid');
       }
-      if (new Date(this.eventDateTime) < this.currentDateTime) {
-        this.evtError.push("Please choose a valid date");
+
+      if (eventDateTime.value == '' || new Date(this.eventDateTime) < this.currentDateTime) {
+        eventDateTime.classList = ('form-control is-invalid')
+        eventDateTimeInvalid.innerHTML = 'Please provide a valid date.'
+        // this.evtError.push("Please choose a valid date");
+      } else {
+        eventDateTime.classList = ('form-control is-valid');
+        eventDateTimeInvalid.innerHTML = ''
       }
+
       if (this.actArr.length<1){
-        this.evtError.push("Please include some activities");
+        // [FILLUP].classList = ('form-control is-invalid')
+        // [FILLUP].innerHTML = 'Please provide at least one activity.'
+        // this.evtError.push("Please provide at least one activity");
+      } else {
+        // [FILLUP].classList = ('form-control is-valid')
+        // [FILLUP].innerHTML = ''
       }
+
       console.log(this.evtError);
 
+      if(errors == 0) {
+        eventTitle.classList = ('form-control');
+        eventDescription.classList = ('form-control');
+        eventDateTime.classList = ('form-control');
+      }
     }
   },
 
