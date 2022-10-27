@@ -24,17 +24,18 @@
     </div>
     <div class="container mt-3">
       {{getlat}} {{getlng}} 
-      <div id='longitude'>{{ longitude }}</div>
-      <div id="latitude">{{ latitude }}</div>
         <h1>{{ name }}</h1>
         <h1><a name="About">About</a></h1>
     </div>
 
-    <GMapMap
+    <div class="container">
+      <div class="row">
+        <div class="col d-flex align-item-center justify-content-center mx-auto">
+          <GMapMap
               :center="center"
-              :zoom="15"
+              :zoom="16"
               map-type-id="roadmap"
-              style="width: 700px; height: 400px"
+              style="width: 80vmin; height: 50vmin"
               :options="options"
               >
             <GMapMarker
@@ -44,7 +45,9 @@
             />
             
             </GMapMap>
-
+        </div>
+      </div>
+    </div>
 
   </template>
 
