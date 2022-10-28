@@ -54,9 +54,10 @@
                       </div>
 
                       <div class="container">
-                        <div class="row">
-                            <div class="col">
-                                <div><a class='float-end' style="text-decoration: none; color: rgb(255, 127, 45); font-family: worksans-medium;" href="#">Forgot your password?</a></div>
+                        <div class="row mt-1">
+                            <div class="col p-0">
+                                <!-- <div><a class='float-end' style="text-decoration: none; color: rgb(255, 127, 45); font-family: worksans-medium;" href="#">Forgot your password?</a></div> -->
+                                <router-link to="/resetpassword" style="text-decoration: none; color: rgb(255, 127, 45); font-family: worksans-medium;" class="nav-link float-end"> Forgot your password?</router-link> 
                             </div>
                         </div>
                       </div>
@@ -70,19 +71,19 @@
         </div>
       </div>
 
-      <div class="container pt-4">
+      <div class="container pt-4 mb-5">
         <div class="row">
             <div class="col text-center">
-                <div>Don't have an account? <a style="text-decoration: none; color: rgb(255, 127, 45); font-family: worksans-medium" href="./signup.html">Sign up</a></div>
+                <div>Don't have an account? <router-link to='/signup' style="text-decoration: none; color: rgb(255, 127, 45); font-family: worksans-medium">Sign up</router-link></div>
             </div>
         </div>
       </div>
-
+<!-- 
     <h1>Login to Your Account</h1>
     <p><input type="text" placeholder="Email" v-model="email" /></p>
     <p><input type="password" placeholder="Password" v-model="password" /></p>
     <p v-if="errMsg">{{errMsg}}</p>
-    <p><button @click="signIn">Submit</button></p>
+    <p><button @click="signIn">Submit</button></p> -->
   </template>
   
   <script>

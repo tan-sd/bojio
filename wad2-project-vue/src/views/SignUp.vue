@@ -105,18 +105,18 @@
         </div>
       </div>
 
-      <div class="container pt-4">
+      <div class="container pt-4 mb-5">
         <div class="row">
             <div class="col text-center">
-                <div>Already have an account? <a style="text-decoration: none; color: rgb(255, 127, 45); font-family: worksans-medium;" href="/login.html">Sign in</a></div>
+                <div>Already have an account? <router-link to="/login" style="text-decoration: none; color: rgb(255, 127, 45); font-family: worksans-medium;">Sign in</router-link></div>
             </div>
         </div>
       </div>
 
-    <p><input type="text" placeholder="Email" v-model="email" /></p>
+    <!-- <p><input type="text" placeholder="Email" v-model="email" /></p>
     <p><input type="password" placeholder="Password" v-model="password" /></p>
     <p><button @click="register">Submit</button></p>
-    <p><button @click="signInWithGoogle">Sign in With Google</button></p>
+    <p><button @click="signInWithGoogle">Sign in With Google</button></p> -->
   </template>
 
   <script>
