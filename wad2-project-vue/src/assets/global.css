@@ -151,7 +151,7 @@ background-color: #eaeaea !important;
   border: 0px;
   font-weight: 700;
   box-shadow: 0px 0px 14px -7px #f09819;
-  background-image: linear-gradient(45deg, #FF512F 0%, #F09819  51%, #FF512F  100%);
+  background-image: linear-gradient(45deg, #FF512F 0%, #f5b459  51%, #FF512F  100%);
   cursor: pointer;
   user-select: none;
   -webkit-user-select: none;
@@ -422,6 +422,8 @@ background-color: #eaeaea !important;
     border-radius: 10px;
 }
 
+/* carousel start */
+
 .carousel {
     height: 500px;
     position: relative;
@@ -445,66 +447,43 @@ background-color: #eaeaea !important;
             animation: carousel-animate-vertical 15s linear infinite;
 }
 
-.carousel__item:nth-child(1) {
-    -webkit-animation-delay: calc(3s * -1);
-            animation-delay: calc(3s * -1);
-}
-
-.carousel__item:nth-child(2) {
-    -webkit-animation-delay: calc(3s * 0);
-            animation-delay: calc(3s * 0);
-}
-
-.carousel__item:nth-child(3) {
-    -webkit-animation-delay: calc(3s * 1);
-            animation-delay: calc(3s * 1);
-}
-
-.carousel__item:nth-child(4) {
-    -webkit-animation-delay: calc(3s * 2);
-            animation-delay: calc(3s * 2);
-}
-
-.carousel__item:last-child {
-    -webkit-animation-delay: calc(3s * 3);
-            animation-delay: calc(3s * 3);
-}
-
-
-.carousel__item-head {
-    border-radius: 50%;
-    background-color: #d7f7fc;
-    width: 90px;
-    height: 90px;
-    padding: 14px;
-    position: relative;
-    margin-right: -45px;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 50px;
-}
-
 .carousel__item-body {
-    width: 100%;
+    min-width:500px;
     background-color: #fff;
     border-radius: 8px;
-    padding: 16px 20px 16px 70px;
-}
-
-.carousel__item-image {
-    width: 50%;
-}
-
-.about-carousel-title {
-    font-family: worksans-semibold;
     font-size: 20px;
-    margin-top: 10px;
+}
+      
+
+.carousel__item-image-div {
+    padding: 0;
+}
+.carousel__item-image-div img {
+    width: 100%;
+    padding: 0;
+    border-radius:8px 0px 0px 8px;
 }
 
+.title {
+font-family: worksans-semibold;
+font-size: 30px;
+margin-top: auto;
+margin-bottom: auto;
+}
 
-    
+.carousel__item-words{
+    font-family: worksans-medium;
+}
+
+.carousel__fake-button{
+    background: linear-gradient(90deg, #ef4136, #fbb040);
+    border-radius: 10px;
+    height: 15%;
+    width: 40%;
+    color: white;
+    font-size: 15px;
+}
+
 /* carousel animations */
 *, *::before, *::after {
     box-sizing: border-box;
@@ -517,15 +496,13 @@ background-color: #eaeaea !important;
   }
   .wrapper{
     width: 50%;
+    max-width:100%;
   }
   
   .carousel {
-    position: relative;
     width: 100%;
-    max-width: 500px;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
+    margin-left: auto;
+    margin-right:auto;
   }
   
   .carousel__item {
@@ -565,29 +542,7 @@ background-color: #eaeaea !important;
             animation-delay: calc(-3s * 2);
   }
   
-  .carousel__item-head {
-    background-color: #d7f7fc;
-    width: 90px;
-    height: 90px;
-    position: relative;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 50px;
-  }
-  
-  .carousel__item-body {
-    width: 100%;
-    background-color: #fff;
-    border-radius: 8px;
-  }
-  
-  .title {
-    text-transform: uppercase;
-    font-size: 20px;
-    margin-top: 10px;
-  }
+
   
   @-webkit-keyframes carousel-animate-vertical {
     0% {
@@ -654,11 +609,10 @@ background-color: #eaeaea !important;
       visibility: hidden;
     }
   }
-  .image {
-    width: 100px;
-  }
-/* banner button */
-#banner-btn {
+  /* carousel end */
+
+/* bottom button */
+#bottom-btn {
     margin-top: 30px;
     padding-left: 40px;
     padding-right: 40px;
@@ -672,10 +626,14 @@ background-color: #eaeaea !important;
     transition: 0.2s ease-in-out;
     }
     
-/* banner button hover effects */
-#banner-btn:hover {
+/* bottom button hover effects */
+#bottom-btn:hover {
     font-size: 160%;
     transition: 0.2s ease-in-out;
+}
+
+.about-bottom-div{
+    height:150px;
 }
 /* making everything fade in*/
 

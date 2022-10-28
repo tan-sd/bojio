@@ -45,7 +45,7 @@
   </div>
 
 
-    <div id="about-bojio-bg" class="p-2 mb-1 reveal text-center">
+    <div id="about-bojio-bg" class="p-2 mb-1 text-center reveal">
       <div id="about-bojio" class="mx-auto p-1">
         BOJIO
       </div>
@@ -80,65 +80,80 @@
       
       <!-- vertical carousel -->
       <!-- <div class="col-12 col-sm-6 wrapper carousel my-auto"> -->
-        <div class='wrapper'>
+        <div class='wrapper col-12 col-xl-6'>
           <div class='carousel'>
 
             <div class='carousel__item container'>
               <div class='carousel__item-body row'>
-                <div class='carousel__item-image col-6'>
+                <div class='carousel__item-image-div col-4'>
                   <img class='image' src='https://play-lh.googleusercontent.com/CWzqShf8hi-AhV9dUjzsqk2URzdIv8Vk2LmxBzf-Hc8T-oGkLVXe6pMpcXv36ofpvtc'>
                 </div>
-                <div class='carousel__item-words col-6'>
+                <div class='carousel__item-words col-8'>
                   <p class='title'>Dua Lipa Concert</p>
-                  <p class='body'>24 October 2022</p>
+                  <p class='body'>24 October 2022<br> 8pm to 12am</p>
+                  <p class='carousel__fake-button text-center my-auto'>
+                    Create a Jio
+                  </p>
                 </div>
               </div>
             </div>
 
             <div class='carousel__item container'>
               <div class='carousel__item-body row'>
-                <div class='carousel__item-image col-6'>
+                <div class='carousel__item-image-div col-4'>
                   <img class='image' src='https://play-lh.googleusercontent.com/CWzqShf8hi-AhV9dUjzsqk2URzdIv8Vk2LmxBzf-Hc8T-oGkLVXe6pMpcXv36ofpvtc'>
                 </div>
-                <div class='carousel__item-words col-6'>
+                <div class='carousel__item-words col-8'>
                   <p class='title'>Dua Lipa Concert</p>
-                  <p class='body'>24 October 2022</p>
+                  <p class='body'>24 October 2022<br> 8pm to 12am</p>
+                  <p class='carousel__fake-button text-center my-auto'>
+                    Join a Jio
+                  </p>
                 </div>
               </div>
             </div>
 
             <div class='carousel__item container'>
               <div class='carousel__item-body row'>
-                <div class='carousel__item-image col-6'>
+                <div class='carousel__item-image-div col-4'>
                   <img class='image' src='https://play-lh.googleusercontent.com/CWzqShf8hi-AhV9dUjzsqk2URzdIv8Vk2LmxBzf-Hc8T-oGkLVXe6pMpcXv36ofpvtc'>
                 </div>
-                <div class='carousel__item-words col-6'>
+                <div class='carousel__item-words col-8'>
                   <p class='title'>Dua Lipa Concert</p>
-                  <p class='body'>24 October 2022</p>
+                  <p class='body'>24 October 2022<br> 8pm to 12am</p>
+                  <p class='carousel__fake-button text-center my-auto'>
+                    Find Out More
+                  </p>
                 </div>
               </div>
             </div>
 
             <div class='carousel__item container'>
               <div class='carousel__item-body row'>
-                <div class='carousel__item-image col-6'>
+                <div class='carousel__item-image-div col-4'>
                   <img class='image' src='https://play-lh.googleusercontent.com/CWzqShf8hi-AhV9dUjzsqk2URzdIv8Vk2LmxBzf-Hc8T-oGkLVXe6pMpcXv36ofpvtc'>
                 </div>
-                <div class='carousel__item-words col-6'>
+                <div class='carousel__item-words col-8'>
                   <p class='title'>Dua Lipa Concert</p>
-                  <p class='body'>24 October 2022</p>
+                  <p class='body'>24 October 2022<br> 8pm to 12am</p>
+                  <p class='carousel__fake-button text-center my-auto'>
+                    Create a Jio
+                  </p>
                 </div>
               </div>
             </div>
-            
+
             <div class='carousel__item container'>
               <div class='carousel__item-body row'>
-                <div class='carousel__item-image col-6'>
+                <div class='carousel__item-image-div col-4'>
                   <img class='image' src='https://play-lh.googleusercontent.com/CWzqShf8hi-AhV9dUjzsqk2URzdIv8Vk2LmxBzf-Hc8T-oGkLVXe6pMpcXv36ofpvtc'>
                 </div>
-                <div class='carousel__item-words col-6'>
+                <div class='carousel__item-words col-8'>
                   <p class='title'>Dua Lipa Concert</p>
-                  <p class='body'>24 October 2022</p>
+                  <p class='body'>24 October 2022<br> 8pm to 12am</p>
+                  <p class='carousel__fake-button text-center my-auto'>
+                    Create a Jio
+                  </p>
                 </div>
               </div>
             </div>
@@ -155,7 +170,7 @@
 
       <div class="col-12 col-sm-6 my-auto">
         replace with carousel of events?
-        <img src="../../img/about-events.png" class="about-img" alt="">
+        <img src="../assets/images/about-events.png" class="about-img" alt="">
       </div>
 
       <div class="col-12 col-sm-6 text-center my-auto">
@@ -179,7 +194,7 @@
 
       <div class="col-12 col-sm-6">
         <p class="about-img">
-          <img src="../../img/about-create.png" class="about-img" alt="">
+          <img src="../assets/images/about-create.png" class="about-img" alt="">
         </p>
       </div>
 
@@ -188,15 +203,19 @@
   </div>
   <!-- how does it work section end -->
 
-  <div class="text-center p-5 reveal">
-    not sure why the above div moves down as you scroll down
-    <router-link to="/createajio" class="nav-link">
-      <button type="button" class="btn mt-4 mb-5" id="banner-btn" onclick="window.location.href='';">      
+  <div class="text-center reveal">
+    <router-link to="/" class="nav-link">
+      <button type="button" class="btn mt-4 mb-5" id="bottom-btn">      
         <span>Get Started</span>
       </button>
     </router-link> 
+  </div>
+
+  <!-- to stop button div above from moving up or down after animation -->
+  <div class="about-bottom-div"> 
 
   </div>
+
 </template>
 
     
