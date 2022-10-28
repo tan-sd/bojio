@@ -79,72 +79,74 @@
       </div>
       
       <!-- vertical carousel -->
-      <div class="col-12 col-sm-6 wrapper carousel my-auto">
+      <!-- <div class="col-12 col-sm-6 wrapper carousel my-auto"> -->
+        <div class='wrapper'>
+          <div class='carousel'>
 
-          <div class="carousel__item">
-            <div class="carousel__item-body">
-              <p class="about-carousel-title">89.7 Supper Club Jio</p>
-              <p>Monday, 10pm</p>
+            <div class='carousel__item container'>
+              <div class='carousel__item-body row'>
+                <div class='carousel__item-image col-6'>
+                  <img class='image' src='https://play-lh.googleusercontent.com/CWzqShf8hi-AhV9dUjzsqk2URzdIv8Vk2LmxBzf-Hc8T-oGkLVXe6pMpcXv36ofpvtc'>
+                </div>
+                <div class='carousel__item-words col-6'>
+                  <p class='title'>Dua Lipa Concert</p>
+                  <p class='body'>24 October 2022</p>
+                </div>
+              </div>
             </div>
-          </div>
 
-          <div class="carousel__item">
-            <div class="carousel__item-body">
-              <p class="about-carousel-title">Dua Lipa Concert Group</p>
-              <p>Next Sunday, 8pm</p>
+            <div class='carousel__item container'>
+              <div class='carousel__item-body row'>
+                <div class='carousel__item-image col-6'>
+                  <img class='image' src='https://play-lh.googleusercontent.com/CWzqShf8hi-AhV9dUjzsqk2URzdIv8Vk2LmxBzf-Hc8T-oGkLVXe6pMpcXv36ofpvtc'>
+                </div>
+                <div class='carousel__item-words col-6'>
+                  <p class='title'>Dua Lipa Concert</p>
+                  <p class='body'>24 October 2022</p>
+                </div>
+              </div>
             </div>
-          </div>
 
-          <div class="carousel__item">
-            <div class="carousel__item-body">
-              <p class="title">dolphin</p>
-              <p>Unicode: U+1F42C</p>
+            <div class='carousel__item container'>
+              <div class='carousel__item-body row'>
+                <div class='carousel__item-image col-6'>
+                  <img class='image' src='https://play-lh.googleusercontent.com/CWzqShf8hi-AhV9dUjzsqk2URzdIv8Vk2LmxBzf-Hc8T-oGkLVXe6pMpcXv36ofpvtc'>
+                </div>
+                <div class='carousel__item-words col-6'>
+                  <p class='title'>Dua Lipa Concert</p>
+                  <p class='body'>24 October 2022</p>
+                </div>
+              </div>
             </div>
-          </div>
 
-          <div class="carousel__item">
-            <div class="carousel__item-body">
-              <p class="title">fish</p>
-              <p>Unicode: U+1F41F</p>
+            <div class='carousel__item container'>
+              <div class='carousel__item-body row'>
+                <div class='carousel__item-image col-6'>
+                  <img class='image' src='https://play-lh.googleusercontent.com/CWzqShf8hi-AhV9dUjzsqk2URzdIv8Vk2LmxBzf-Hc8T-oGkLVXe6pMpcXv36ofpvtc'>
+                </div>
+                <div class='carousel__item-words col-6'>
+                  <p class='title'>Dua Lipa Concert</p>
+                  <p class='body'>24 October 2022</p>
+                </div>
+              </div>
             </div>
-          </div>
-
-          <div class="carousel__item">
-            <div class="carousel__item-body">
-              <p class="title">tropical fish</p>
-              <p>Unicode: U+1F420</p>
+            
+            <div class='carousel__item container'>
+              <div class='carousel__item-body row'>
+                <div class='carousel__item-image col-6'>
+                  <img class='image' src='https://play-lh.googleusercontent.com/CWzqShf8hi-AhV9dUjzsqk2URzdIv8Vk2LmxBzf-Hc8T-oGkLVXe6pMpcXv36ofpvtc'>
+                </div>
+                <div class='carousel__item-words col-6'>
+                  <p class='title'>Dua Lipa Concert</p>
+                  <p class='body'>24 October 2022</p>
+                </div>
+              </div>
             </div>
-          </div>
 
-          <div class="carousel__item">
-            <div class="carousel__item-body">
-              <p class="title">spouting whale</p>
-              <p>Unicode: U+1F433</p>
-            </div>
           </div>
+        </div>
+       
 
-          <div class="carousel__item">
-            <div class="carousel__item-body">
-              <p class="title">spouting whale</p>
-              <p>Unicode: U+1F433</p>
-            </div>
-          </div>
-
-          <div class="carousel__item">
-            <div class="carousel__item-body">
-              <p class="title">spouting whale</p>
-              <p>Unicode: U+1F433</p>
-            </div>
-          </div>
-
-          <div class="carousel__item">
-            <div class="carousel__item-body">
-              <p class="title">spouting whale</p>
-              <p>Unicode: U+1F433</p>
-            </div>
-          </div>
-
-      </div>
       
     </div>
 
