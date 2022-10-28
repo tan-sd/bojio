@@ -498,6 +498,27 @@ export function makefriends(sender) {
   return update(ref(db), updates);
 }
 
+//display all my friends
+export async function displayfriends(){
+  uid = localStorage.getItem("uid")
+  // console.log('loading getfriend req n check if uid avail' + uid);
+  return new Promise((resolve, reject) =>{
+    const dbRef = ref(getDatabase());
+    get(child(dbRef, `friends/${uid}`)).then((snapshot) => {
+      if (snapshot.exists()) {
+        // console.log(snapshot.val());
+        return (resolve(snapshot.val()))
+        
+      } else {
+      
+        console.log("No data available");
+        return reject
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
+  })
+}
 
 //get userid to say hi
 export function getuserid(){

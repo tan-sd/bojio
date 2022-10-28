@@ -12,7 +12,7 @@
             <br><br>
             <div v-if="!norequests">
                 friend req here
-                <!-- {{requests}} -->
+                {{requests}}
                 <div v-for="request, index in requests" :key="request">
                     <div>{{request}} id: {{index}}</div>
                     <button @click="accept(request, index)">Accept request</button>
@@ -24,6 +24,13 @@
             </div>
 
             <br><br>
+
+            my current friends are...
+            <ul>
+                <li v-for="friend, key in myfriends" :key="key">
+                    {{friend}}
+                </li>
+            </ul>
 <!--             
             <div class="ui icon input" style="width: 100%">
             <input type="text" placeholder="Search..." />
@@ -47,7 +54,7 @@
 
 <script>
 
-import {getusers, createfriendrequest, getfriendrequests, makefriends} from '../utils'
+import {getusers, createfriendrequest, getfriendrequests, makefriends, displayfriends} from '../utils'
 
 // const data = {
 //     name: 'to show users',
@@ -74,6 +81,7 @@ export default{
             allrequests: '',
             requests: '',
             norequests: false,
+            myfriends: '',
             // cannot disable button
         }
     },
@@ -99,6 +107,8 @@ export default{
                 console.log(sender);
                 for (const receiver in friendrequests[sender]){ 
                     console.log(' this is receiver:' + receiver)
+
+                    // if im the person tat received, get all the req sent to me
                     if(receiver == userid ){ 
                         console.log('here')
                         temparray.push(sender)
@@ -122,14 +132,16 @@ export default{
                 var usernames = {}
                 for(const user in allusers){ 
                     //user is the key
-                    // console.log(user);
+                    console.log(user);
                     if(temparray.includes(user)){
                 
                         const username = allusers[user]['username']
                         usernames[user] = username
                         // usernames.push(username)
+                        console.log(username);
                     }
                 }
+                console.log(usernames);
                 this.requests = usernames
                 console.log(this.requests);
             }
@@ -155,6 +167,33 @@ export default{
             else{ 
                 console.log(objectlen);
             }
+        },
+
+        getfriendnames(){ 
+            var friendsobj = this.myfriends
+            var temparray = []
+
+            for( const personid in friendsobj ){ 
+                console.log(personid);
+                temparray.push(personid)
+            }
+            // find usernames of the users
+            const allusers = this.allusers
+            console.log(allusers);
+            var usernames = {}
+            for(const user in allusers){ 
+                //user is the key
+                console.log(user);
+                if(temparray.includes(user)){
+            
+                    const username = allusers[user]['username']
+                    usernames[user] = username
+                    // usernames.push(username)
+                    console.log(username);
+                }
+            }
+            // console.log(usernames);
+            this.myfriends = usernames
         }
     },
 
@@ -225,6 +264,16 @@ export default{
                     console.log(value);
                     this.allrequests = value
                     this.checkfriendrequest()
+                }
+
+            )
+
+            displayfriends().then(
+                (value) =>
+                { 
+                    console.log(value);
+                    this.myfriends = value
+                    this.getfriendnames()
                 }
 
             )
