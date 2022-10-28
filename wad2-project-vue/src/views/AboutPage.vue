@@ -15,8 +15,7 @@
     <div class="row">
       <div class="col">
         <div class="about-header-text mx-auto text-center">
-            Ever wanted to go McDonald's at 2am, but none of your friends are awake?
-            Or maybe you want to attend a Dua Lipa concert, but have no one to go with? <br><br>
+            Ever wanted to go somewhere, but have no one to go with? <br><br>
             Well, that's where we come in.
         </div>
       </div>
@@ -45,12 +44,19 @@
     </Renderer>
   </div>
 
-  <div class="about-subheader text-center reveal">
-    what does 'bojio' mean?
-  </div>
-  <div class="about-header-text mx-auto text-center pb-5 reveal">
-    'Bojio' is a Singaporean way to express your fear of missing out - its direct translation is "no invite". Sometimes, there are events or outings (<i>"late-night supper anyone?"</i>) where you want to attend with your friends, but they simply can't accommodate to your schedule. So, your friends end up going without you, and you say 'bojio'! 
-  </div>
+
+    <div id="about-bojio-bg" class="p-2 mb-1 reveal text-center">
+      <div id="about-bojio" class="mx-auto p-1">
+        BOJIO
+      </div>
+      <div id="" class="mx-auto about-header-text">
+        <i>verb: </i>/bo˨ 'tsjo˦/<br>
+      </div>
+      <div class="mx-auto about-header-text">
+        <div class="text-center mt-2">To leave someone out from an event or activity by not inviting them.</div>
+      </div>
+    </div>
+
 
   <!-- how does it work section start -->
   <div class="about-subheader text-center mt-2 reveal">
@@ -194,7 +200,7 @@
     
     <script>
     export default {
-      title: 'BOJIO – About',
+      title: 'About | Bojio',
       mounted() {
         const renderer = this.$refs.renderer;
         const world = this.$refs.gltf.scene;

@@ -358,9 +358,10 @@ background-color: #eaeaea !important;
 }
 
 .about-header, 
-.about-subheader 
+.about-subheader,
+#about-bojio
 {
-    font-family: worksans-semibold;
+    font-family: worksans-extrabold;
     font-size: 4rem;
     line-height: 1;
     padding: 0.5rem;
@@ -381,8 +382,8 @@ background-color: #eaeaea !important;
     margin-bottom:3vmin;
 }
 
-.about-subheader {
-    font-size: 3rem;
+.about-subheader,{
+    font-size: 3rem;    
 }
 
 /* 3D Model */
@@ -392,6 +393,15 @@ background-color: #eaeaea !important;
 }
 
 /* join a group, find events, create a group */
+
+#about-bojio{
+    font-family: worksans-extrabold;
+    width: 70%;
+    color:black 
+}
+/* #about-bojio-bg{
+    height:300px;
+} */
 
 .about-step-header {
     font-family: worksans-semibold;
