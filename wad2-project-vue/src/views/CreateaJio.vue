@@ -4,14 +4,12 @@
 
     <div class="container-fluid text-center mt-2">
       <p class="login-msg"></p>
-      <div class="row">
-        <div class="banner-header-form col">Create a Jio</div>
-      </div>
-    </div>
+        <div class="row">
+          <div class="banner-header-form col">Create a Jio</div>
 
-    <div class="container-fluid text-center pt-1">
-      <div class="row">
-        <div class="banner-text-form col">Make any occasion unforgettable!</div>
+        <div class="row">
+          <div class="banner-text-form col">Make any occasion unforgettable!</div>
+        </div>
       </div>
     </div>
 
@@ -19,7 +17,7 @@
       <div class="row">
         <div class="col d-flex pt-4">
           <form class="register-form" style="width: 600px">
-            <div class='mb-3' style="font-family: worksans-medium">Event Details</div>
+            <div class='mb-3'>Event Details</div>
 
             <div class="form-row">
               <div class="form-group col" style="width: auto">
@@ -153,23 +151,28 @@
               </div>
             </div> -->
 
-            <button
-              type="button"
-              style="background-color: rgb(255, 127, 45); color: white"
-              class="btn orange border border-3 mt-4 rounded-5"
-              id="addAct"
-              @click="addAct(), document.GMapAutocomplete.set('place', null)"
-            >
-              Add activity!
-            </button>
+            <div class="row">
+              <div class="col d-flex justify-content-center">
+                <button
+                  type="button"
+                  style="background-color: rgb(255, 127, 45); color: white; padding: 1rem; font-family: worksans-semibold;"
+                  class="btn orange border border-3 mt-4 w-50"
+                  id="addAct"
+                  @click="addAct(), document.GMapAutocomplete.set('place', null)"
+                  >
+                  Add activity
+              </button>
+              </div>
+            </div>
+            
           </form>
         </div>
-        <div class="col d-flex flex-column pt-4 border border solid">
+        <div class="col d-flex flex-column pt-4">
           <div class="col" id="results">
-            <h3>Activity Table</h3>
+            <div>Activity Table</div>
 
             <div v-if="actArr.length == 0">
-              <h5>You have no activities yet</h5>
+              <div>You have no activities yet</div>
             </div>
             <div v-else>
               <table>
@@ -207,11 +210,9 @@
           </div>
 
           <div class="col" id="map">
-            <h3>Map</h3>
-
             <GMapMap
               :center="center"
-              :zoom="10"
+              :zoom="12"
               map-type-id="roadmap"
               style="width: 1000px; height: 400px"
               :options="options"
@@ -226,16 +227,23 @@
           </div>
         </div>
       </div>
+
+      <div class="container-fluid">
+        <div class="row mt-5">
+          <div class="col mx-auto">
+            <button
+              type="button"
+              style="background-color: rgb(255, 127, 45); color: white; padding: 1rem; font-family: worksans-semibold;"
+              class="btn orange border border-3 mt-4 w-25"
+              id="loginBtn"
+              @click="createjio"
+              >
+                Create Jio
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
-    <button
-      type="button"
-      style="background-color: rgb(255, 127, 45); color: white"
-      class="btn orange border border-3 mt-4 rounded-5"
-      id="loginBtn"
-      @click="createjio"
-    >
-      Create Jio
-    </button>
   </main>
 </template>
 

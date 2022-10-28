@@ -490,10 +490,10 @@ margin-bottom: auto;
   }
   
   body {
-    font-family: "Work Sans", sans-serif;
-    font-weight: 400;
+    font-family: worksans-medium;
     height: 100vh;
   }
+
   .wrapper{
     width: 50%;
     max-width:100%;
@@ -753,8 +753,11 @@ td {
   
   }
   .navbar-nav a:hover {
-    color: orange;
-    
+    color: #fbb040;
+  }
+
+  .navbar-nav a:focus {
+    color: #ef4136; 
   }
 
   h2{
