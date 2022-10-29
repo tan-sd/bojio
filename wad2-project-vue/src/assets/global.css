@@ -756,10 +756,6 @@ td {
     color: #fbb040;
   }
 
-  .navbar-nav a:focus {
-    color: #ef4136; 
-  }
-
   h2{
     text-align:center;
     margin-top:-5%;
