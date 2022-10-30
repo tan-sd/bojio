@@ -292,7 +292,7 @@ export function getpublic(){
           // const request = snapshot.val()[key]
           // console.log(key, request.email);
           const data = snapshot.val()
-          console.log(snapshot.val);
+          console.log(snapshot.val());
           console.log(typeof(data));
           if(data != null){
 
@@ -584,25 +584,25 @@ export function getuserid(){
   })
 }
 
-//to check if user is logged in or alr logged out
-// export async function checkloggedstatus(){
-//   var isLoggedIn = false
-//   uid = localStorage.getItem("uid")
-  
-//   return new Promise((resolve, reject) =>{
-//     const dbRef = ref(getDatabase());
-//     get(child(dbRef, `friends/${uid}`)).then((snapshot) => {
-//       if (snapshot.exists()) {
-//         // console.log(snapshot.val());
-//         return (resolve(snapshot.val()))
+//get users for private jio button
+export async function getusername(personuid){
+  // uid = localStorage.getItem("uid")
+  return new Promise((resolve, reject) =>{
+    const dbRef = ref(getDatabase());
+    get(child(dbRef, `accounts/${personuid}`)).then((snapshot) => {
+      if (snapshot.exists()) {
+        // console.log(snapshot.val());
         
-//       } else {
+        // }
+        return (resolve(snapshot.val().username))
+        
+      } else {
       
-//         console.log("No data available");
-//         return reject
-//       }
-//     }).catch((error) => {
-//       console.error(error);
-//     });
-//   })
-// }
+        console.log("No data available");
+        return reject
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
+  })
+}

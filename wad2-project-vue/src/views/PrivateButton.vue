@@ -13,7 +13,16 @@
     <div id='event-container' class="container mt-5" style="font-family: worksans-medium">
       <div class="row" id='app'>
 
-        <div class="col-md-4 mb-5" v-for="(event, index) in privateevents" :key="index">
+        <div v-if="!hasfriends">
+            Try adding friends and jio them out!
+            <br><br><br><br>
+          </div>
+          <div v-if="Object.keys(privateevents).length == 0">
+            Your friends never create any jios leh. Why don't you create a jio?
+            <br><br><br><br>
+          </div>
+
+        <div v-else class="col-md-4 mb-5" v-for="(event, index) in privateevents" :key="index">
           <div class="card" style="width:auto">
             <!-- <img class="card-img-top" :src="event.image.url" alt="card image collar"> -->
             <div class="card-body" style="width: auto;">
@@ -32,7 +41,7 @@
 <script>
 
 import { onMounted } from 'vue';
-import { getprivate, snapshotToArray } from '../utils/index.js'
+import { getprivate, snapshotToArray, getusername, displayfriends } from '../utils/index.js'
 // import Modal from './Modal.vue'
 import {ref} from 'vue'
 
@@ -49,9 +58,11 @@ export default {
 
   data() {
     return {
-      privateevents: 'hi',
+      privateevents: {},
       length: 1,
       uid: localStorage.getItem("uid"),
+      myfriends: [],
+      hasfriends: false,
       // modalVisible: true,
       // showmodal: true
 
@@ -85,24 +96,51 @@ export default {
   },
 
   created() {
-    getprivate().then((value) => {
-      const keys = Object.keys(value)
-      console.log(keys);
-      // for(let key in keys){
+    var friendsjios = {}
+    var myfriends = this.myfriends
+    // get my friends out first
+    displayfriends().then((value) => {
+      this.hasfriends = true
 
-      //     for( let i in value){
-      //         const value = i[key]
-      //         console.log(value);
-      //     }
-      // }
+      for (let personuid in value) {
+        // console.log(personuid);
+        getusername(personuid).then((value) => {
+          let username = value
+          myfriends.push(username)
 
-      this.privateevents = value
-      console.log(this.privateevents);
-      console.log(typeof (value));
+          //then i check if the these friends got any private events created
+
+          getprivate().then((value) => {
+            // value will get an object with keys thats the event unique id
+            const keys = Object.keys(value) 
+            // keys is a list with the event unique ids
+            for(let i in value){ 
+              let data = value[i]
+              console.log(i);
+              let individual_username = data.username
+              console.log(individual_username);
+              console.log(myfriends);
+              // if current person is my friend and i has not add the activity in
+              if((myfriends.includes(individual_username)) && !(Object.prototype.hasOwnProperty.call(friendsjios,data)) ){
+                console.log(individual_username);
+                friendsjios[i] = data
+                console.log(friendsjios);
+              }
+
+            }
+            console.log(friendsjios);
+            this.privateevents = friendsjios
+            this.myfriends = myfriends
+
+          })
+            .catch((message) => {
+              console.log('error');
+            })
+
+        })
+      }
+
     })
-      .catch((message) => {
-        console.log('error');
-      })
   }
 }
 

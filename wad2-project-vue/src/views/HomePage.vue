@@ -83,14 +83,13 @@
 
     </div>
 
-
-    <span v-if="uid.length <=1">
+    <!-- <span v-if="uid.length <=1">
       <EventsButton v-if="activeTab === 'EventsButton'" :data="filterchoice"/>
       <PublicButton v-if="activeTab === 'PublicButton'"/>
-      <PrivateButton :disabled=true />
-    </span>
+      <PrivateButton class="d-none" />
+    </span> -->
 
-    <span v-else>
+    <span>
     <EventsButton v-if="activeTab === 'EventsButton'" :data="filterchoice"/>
     <PublicButton v-if="activeTab === 'PublicButton'"/> 
     <PrivateButton v-if="activeTab === 'PrivateButton'"/>

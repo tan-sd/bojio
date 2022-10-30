@@ -56,6 +56,7 @@ export default {
     firebaseevents() {
       getpublic().then((value) =>{ 
           console.log('inside this');
+          console.log(value);
           this.publicevents = value
           // console.log("created - " + this.publicevents);
           // console.log(typeof(value));
