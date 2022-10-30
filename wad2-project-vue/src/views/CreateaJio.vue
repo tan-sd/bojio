@@ -4,11 +4,13 @@
 
     <div class="container-fluid text-center mt-2">
       <p class="login-msg"></p>
-        <div class="row">
-          <div class="banner-header-form col">Create a Jio</div>
+      <div class="row">
+        <div class="banner-header-form col">Create a Jio</div>
 
         <div class="row">
-          <div class="banner-text-form col">Make any occasion unforgettable!</div>
+          <div class="banner-text-form col">
+            Make any occasion unforgettable!
+          </div>
         </div>
       </div>
     </div>
@@ -17,7 +19,7 @@
       <div class="row">
         <div class="col d-flex pt-4">
           <form class="register-form" style="width: 600px">
-            <div class='mb-3'>Event Details</div>
+            <div class="mb-3">Event Details</div>
 
             <div class="form-row">
               <div class="form-group col" style="width: auto">
@@ -49,7 +51,8 @@
                     style="height: 200px"
                   ></textarea>
                   <label for="eventDescription" class="text-muted"
-                    >Event description</label>
+                    >Event description</label
+                  >
                   <div id="eventDescriptionInvalid" class="invalid-feedback">
                     Please provide a description.
                   </div>
@@ -73,8 +76,9 @@
                   v-model="eventDateTime"
                 />
                 <label for="eventDateTime" class="text-muted"
-                  >Event date and time</label>
-                  <div id="eventDateTimeInvalid" class="invalid-feedback"></div>
+                  >Event date and time</label
+                >
+                <div id="eventDateTimeInvalid" class="invalid-feedback"></div>
               </div>
               <!-- <div
                 id="DateTimeInvalid"
@@ -85,10 +89,12 @@
               </div> -->
             </div>
 
-            <hr>
+            <hr />
 
             <div class="form-group col mt-3" style="width: auto">
-              <div class='mb-3' style="font-family: worksans-medium">Activities</div>
+              <div class="mb-3" style="font-family: worksans-medium">
+                Activities
+              </div>
               <div class="form-floating">
                 <input
                   type="text"
@@ -101,8 +107,8 @@
                   >Activity title</label
                 >
                 <div class="invalid-feedback">
-                Please provide the activity title.
-              </div>
+                  Please provide the activity title.
+                </div>
               </div>
             </div>
 
@@ -121,9 +127,7 @@
                 <label for="activityLocation" class="text-muted"
                   >Activity Location</label
                 >
-                <div class="invalid-feedback">
-                Please provide the location.
-              </div>
+                <div class="invalid-feedback">Please provide the location.</div>
               </div>
             </div>
 
@@ -139,9 +143,7 @@
                 <label for="activityLocation" class="text-muted"
                   >Activity Duration (mins)</label
                 >
-                <div class="invalid-feedback">
-                Please provide the duration.
-              </div>
+                <div class="invalid-feedback">Please provide the duration.</div>
               </div>
             </div>
             <!-- <div v-if="this.actError.length > 0">
@@ -155,16 +157,22 @@
               <div class="col d-flex justify-content-center">
                 <button
                   type="button"
-                  style="background-color: rgb(255, 127, 45); color: white; padding: 1rem; font-family: worksans-semibold;"
+                  style="
+                    background-color: rgb(255, 127, 45);
+                    color: white;
+                    padding: 1rem;
+                    font-family: worksans-semibold;
+                  "
                   class="btn orange border border-3 mt-4 w-50"
                   id="addAct"
-                  @click="addAct(), document.GMapAutocomplete.set('place', null)"
-                  >
+                  @click="
+                    addAct(), document.GMapAutocomplete.set('place', null)
+                  "
+                >
                   Add activity
-              </button>
+                </button>
               </div>
             </div>
-            
           </form>
         </div>
         <div class="col d-flex flex-column pt-4">
@@ -197,6 +205,7 @@
                       @click="
                         actArr.splice(index, 1),
                           markers.splice(index, 1),
+                          places.splice(index, 1),
                           remove(act.duration)
                       "
                     >
@@ -216,12 +225,13 @@
               map-type-id="roadmap"
               style="width: 1000px; height: 400px"
               :options="options"
+              ref="map"
             >
               <GMapMarker
                 :key="marker.id"
-                v-for="(marker, i) in markers"
+                v-for="(marker) in markers"
                 :position="marker.position"
-                :label="(i + 1).toString()"
+                
               />
             </GMapMap>
           </div>
@@ -233,12 +243,17 @@
           <div class="col mx-auto">
             <button
               type="button"
-              style="background-color: rgb(255, 127, 45); color: white; padding: 1rem; font-family: worksans-semibold;"
+              style="
+                background-color: rgb(255, 127, 45);
+                color: white;
+                padding: 1rem;
+                font-family: worksans-semibold;
+              "
               class="btn orange border border-3 mt-4 w-25"
               id="loginBtn"
               @click="createjio"
-              >
-                Create Jio
+            >
+              Create Jio
             </button>
           </div>
         </div>
@@ -252,12 +267,18 @@ import { remove } from "@firebase/database";
 
 export default {
   name: "App",
+  mounted(){
+    
+  },
   data() {
     return {
       actError: [],
       evtError: [],
       center: { lat: 1.3421, lng: 103.8198 },
       markers: [],
+      places:[],
+      coords: "",
+      destination: "",
       titleLimit: 100,
       descriptionLimit: 300,
       description: "",
@@ -284,59 +305,91 @@ export default {
         streetViewControl: false,
         rotateControl: false,
         fullscreenControl: false,
-
         styles: [],
+
       },
       // currentTime:new Date().toLocaleTimeString('en-GB').slice(0, 5),
     };
   },
 
   methods: {
+
+
     setPlace(place) {
       this.actLocation = place.name;
       this.currentLat = place.geometry.location.lat();
       this.currentLng = place.geometry.location.lng();
     },
     addAct() {
-      var errors = 0
-      console.log(this.actLocation);
-      console.log(this.actDuration);
-      var activityLocation = document.getElementById('activityLocation');
-      var activityTitle = document.getElementById('activityTitle');
-      var activityDuration = document.getElementById('activityDuration');
+      
+      var directionsService = new window.google.maps.DirectionsService;
+      var directionsDisplay = new window.google.maps.DirectionsRenderer;
+      directionsDisplay.setMap(this.$refs.map.$mapObject);
+      
+
+      function calculateAndDisplayRoute(directionsService, directionsDisplay, start, destination) {
+        directionsService.route({
+          origin: start,
+          destination: destination,
+          travelMode: 'DRIVING'
+        }, function(response, status) {
+          if (status === 'OK') {
+            directionsDisplay.setDirections(response);
+          } else {
+            window.alert('Directions request failed due to ' + status);
+          }})}
+      
+      
+      
+      
+      
+      var errors = 0;
+      
+      var activityLocation = document.getElementById("activityLocation");
+      var activityTitle = document.getElementById("activityTitle");
+      var activityDuration = document.getElementById("activityDuration");
 
       if (this.actDuration == "") {
-        activityDuration.classList = ('form-control is-invalid');
+        activityDuration.classList = "form-control is-invalid";
         // this.actError.push("Duration is empty or invalid");
-        errors += 1
+        errors += 1;
       } else {
-        activityDuration.classList = ('form-control is-valid');
+        activityDuration.classList = "form-control is-valid";
       }
 
       if (activityLocation.value == "") {
-        activityLocation.classList = ('form-control is-invalid');
+        activityLocation.classList = "form-control is-invalid";
         // this.actError.push("Location is empty or invalid");
-        errors += 1
+        errors += 1;
       } else {
-        activityLocation.classList = ('form-control is-valid')
+        activityLocation.classList = "form-control is-valid";
       }
 
       if (this.actTitle == "") {
-        activityTitle.classList = ('form-control is-invalid');
+        activityTitle.classList = "form-control is-invalid";
         // this.actError.push("Activity has no title");
-        errors += 1
+        errors += 1;
       } else {
-        activityTitle.classList = ('form-control is-valid')
+        activityTitle.classList = "form-control is-valid";
       }
-      
+
       if (errors == 0) {
-        activityDuration.classList = ('form-control');
-        activityLocation.classList = ('form-control');
-        activityTitle.classList = ('form-control');
+        this.places.push(this.actLocation)
+        
+        activityDuration.classList = "form-control";
+        activityLocation.classList = "form-control";
+        activityTitle.classList = "form-control";
         this.markers.push({
-          id: Math.random(),
-          position: { lat: this.currentLat, lng: this.currentLng },
+          position: { lat: parseFloat(this.currentLat), lng: parseFloat(this.currentLng) },
         });
+        console.log(typeof(this.markers[0]))
+        if(this.markers.length>1){
+          for(var i=0;i<this.markers.length-1;i++){
+            calculateAndDisplayRoute(directionsService, directionsDisplay, this.places[i], this.places[i+1]);
+          }
+            
+          
+        }
         this.actArr.push({
           name: this.actTitle,
           location: this.actLocation,
@@ -345,7 +398,12 @@ export default {
         this.totalDuration += parseFloat(this.actDuration);
         this.clearForm();
         document.GMapAutocomplete.set("place", null);
+        
       }
+      
+      
+      
+      
     },
     remove(activity) {
       console.log("the activity is" + activity);
@@ -359,39 +417,44 @@ export default {
       this.actTitle = "";
       this.actError = [];
     },
-    createjio(){
-      var eventTitle = document.getElementById('eventTitle');
-      var eventDescription = document.getElementById('eventDescription');
-      var eventDateTime = document.getElementById('eventDateTime');
-      var eventDateTimeInvalid = document.getElementById('eventDateTimeInvalid');
+    createjio() {
+      var eventTitle = document.getElementById("eventTitle");
+      var eventDescription = document.getElementById("eventDescription");
+      var eventDateTime = document.getElementById("eventDateTime");
+      var eventDateTimeInvalid = document.getElementById(
+        "eventDateTimeInvalid"
+      );
       var errors = 0;
 
       if (this.title == "") {
-        eventTitle.classList = ('form-control is-invalid');
+        eventTitle.classList = "form-control is-invalid";
         // this.evtError.push("Event has no title");
         errors += 1;
       } else {
-        eventTitle.classList = ('form-control is-valid');
+        eventTitle.classList = "form-control is-valid";
       }
 
       if (this.description == "") {
-        eventDescription.classList = ('form-control is-invalid');
+        eventDescription.classList = "form-control is-invalid";
         // this.evtError.push("Event has no description ");
-        errors += 1
+        errors += 1;
       } else {
-        eventDescription.classList = ('form-control is-valid');
+        eventDescription.classList = "form-control is-valid";
       }
 
-      if (eventDateTime.value == '' || new Date(this.eventDateTime) < this.currentDateTime) {
-        eventDateTime.classList = ('form-control is-invalid')
-        eventDateTimeInvalid.innerHTML = 'Please provide a valid date.'
+      if (
+        eventDateTime.value == "" ||
+        new Date(this.eventDateTime) < this.currentDateTime
+      ) {
+        eventDateTime.classList = "form-control is-invalid";
+        eventDateTimeInvalid.innerHTML = "Please provide a valid date.";
         // this.evtError.push("Please choose a valid date");
       } else {
-        eventDateTime.classList = ('form-control is-valid');
-        eventDateTimeInvalid.innerHTML = ''
+        eventDateTime.classList = "form-control is-valid";
+        eventDateTimeInvalid.innerHTML = "";
       }
 
-      if (this.actArr.length<1){
+      if (this.actArr.length < 1) {
         // [FILLUP].classList = ('form-control is-invalid')
         // [FILLUP].innerHTML = 'Please provide at least one activity.'
         // this.evtError.push("Please provide at least one activity");
@@ -402,12 +465,12 @@ export default {
 
       console.log(this.evtError);
 
-      if(errors == 0) {
-        eventTitle.classList = ('form-control');
-        eventDescription.classList = ('form-control');
-        eventDateTime.classList = ('form-control');
+      if (errors == 0) {
+        eventTitle.classList = "form-control";
+        eventDescription.classList = "form-control";
+        eventDateTime.classList = "form-control";
       }
-    }
+    },
   },
 
   computed: {
@@ -422,6 +485,9 @@ export default {
         this.currentYear + "-" + this.currentMonth + "-" + this.currentDate
       );
     },
+    markersLength(){
+      return this.markers.length
+    }
   },
 };
 </script>
