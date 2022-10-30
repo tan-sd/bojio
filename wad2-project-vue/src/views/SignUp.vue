@@ -22,10 +22,10 @@
             <div class="col-8 d-flex justify-content-center align-items-center">
                 <form class="register-form" style="width: 400px;">
 
-                  <div class="form-row pt-4">
+                  <div class="form-row mt-4">
 
                     <div class="row">
-                    <div class="col">
+                    <div class="col-md-6 mt-3">
                       <div class="register-form-field form-group col" style="width: auto;">
                         <div class="form-floating">
                           <input type="text" class="form-control" id="firstName" placeholder="First name">
@@ -37,7 +37,7 @@
                       </div>
                     </div>
 
-                    <div class="col">
+                    <div class="col-md-6 mt-3">
                       <div class="register-form-field form-group col" style="width: auto;">
                         <div class="form-floating">
                           <input type="text" class="form-control" id="lastName" placeholder="Last name">
@@ -50,7 +50,7 @@
                     </div>
                     </div>
 
-                      <div class="register-form-field form-group col pt-3" style="width: auto">
+                      <div class="register-form-field form-group col mt-3" style="width: auto">
                         <div class="form-floating">
                           <input type="text" class="form-control" id="username" placeholder="Username" required>
                           <label for="username" class="text-muted">username</label>
@@ -60,7 +60,7 @@
                         </div>
                       </div>
 
-                      <div class="register-form-field form-group col pt-3" style="width: auto">
+                      <div class="register-form-field form-group col mt-3" style="width: auto">
                         <div class="form-floating">
                           <input type="text" class="form-control" id="emailSignUp" placeholder="Email" v-model="email" required>
                           <label for="email" class="text-muted">email</label>
@@ -70,7 +70,7 @@
                         </div>
                       </div>
 
-                      <div class="register-form-field form-group col pt-3" style="width: auto">
+                      <div class="register-form-field form-group col mt-3" style="width: auto">
                         <div class="form-floating">
                           <input type="password" class="form-control" id="passwordInput" placeholder="Password" v-model="password" required>
                           <label for="password" class="text-muted">password</label>
@@ -79,7 +79,7 @@
                         </div>
                       </div>
 
-                      <div class="register-form-field form-group col pt-3" style="width: auto">
+                      <div class="register-form-field form-group col mt-3" style="width: auto">
                         <div class="form-floating">
                           <input type="password" class="form-control" id="confirmPasswordInput" placeholder="Confirm password" required>
                           <label for="confirmPassword" class="text-muted">confirm password</label>
@@ -89,9 +89,10 @@
                         </div>  
                       </div>
                       
+                      <div class="col">
+                        <button type="button" style="background-color: rgb(255, 127, 45); color: white; padding: 1rem; font-family: worksans-semibold;" class="btn orange border border-3 mt-4 w-75" id="signupBtn" @click="register">Create account</button>
+                      </div>
                   </div>
-                  
-                  <button type="button" style="background-color: rgb(255, 127, 45); color: white; padding: 1rem; font-family: worksans-semibold;" class="btn orange border border-3 mt-4 w-50" id="signupBtn" @click="register">Create account</button>
                     
                 </form>
             </div>
@@ -105,7 +106,7 @@
         </div>
       </div>
 
-      <div class="container pt-4 mb-5">
+      <div class="container pt-4 pb-5">
         <div class="row">
             <div class="col text-center">
                 <div>Already have an account? <router-link to="/login" style="text-decoration: none; color: rgb(255, 127, 45); font-family: worksans-medium;">Sign in</router-link></div>
@@ -233,6 +234,10 @@
             case 'auth/invalid-email':
               emailInput.classList = 'form-control is-invalid';
               emailInvalidError.innerHTML = 'You have entered an invalid email. Please try again.';
+              emailInput.classList.add('errShake');
+              emailInput.onanimationend = () => {
+                setTimeout(emailInput.classList.remove('errShake', 200))
+              }
               // errMsg.value = 'Invalid email';
               break;
             case 'auth/email-already-in-use':
@@ -240,6 +245,10 @@
               emailInvalidError.innerHTML = 'Email already exists. Please try again.';
               passwordInput.classList = 'form-control is-valid';
               passwordInvalidError.innerHTML = '';
+              emailInput.classList.add('errShake');
+              emailInput.onanimationend = () => {
+                setTimeout(emailInput.classList.remove('errShake', 200))
+              }
               // errMsg.value = 'No account with that email was found';
               // email.classList = 'form-control is-invalid';
               // emailInvalidError.innerHTML = 'Account does not exist. Please try again.';
@@ -254,10 +263,18 @@
               // emailInvalidError.innerHTML = '';
               // password.classList = 'form-control is-invalid';
               // passwordInvalidError.innerHTML = 'The password is incorrect. Please try again.';
+              passwordInput.classList.add('errShake');
+              passwordInput.onanimationend = () => {
+                setTimeout(passwordInput.classList.remove('errShake', 200))
+              }
               break;
             case 'auth/internal-error':
               passwordInput.classList = 'form-control is-invalid';
               passwordInvalidError.innerHTML = 'Please enter your password.';
+              passwordInput.classList.add('errShake');
+              passwordInput.onanimationend = () => {
+                setTimeout(passwordInput.classList.remove('errShake', 200))
+              }
               break;
             default: 
               // errMsg.value = 'Email or password was incorrect';

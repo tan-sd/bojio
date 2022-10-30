@@ -3,8 +3,10 @@
   <div v-if="uid.length <= 1" class=" h1 container text-center" >
     <br><br>
     <!-- <Modal v-if="showmodal" v-on:closepopup="close()" ></Modal> -->
-    Please log in / create an account to check private jios!
-    <br><br><br><br>
+    <div style="padding-bottom: 10vmin; font-size: 4vmin; font-family: worksans-medium;">
+      Please <span class="privateJio"><router-link to="/login">login</router-link></span> / <span class="privateJio"><router-link to="/signup">sign up</router-link></span> to view private jios
+
+    </div>
   </div>
 
   <div v-else>

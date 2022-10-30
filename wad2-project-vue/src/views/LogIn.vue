@@ -61,8 +61,11 @@
                             </div>
                         </div>
                       </div>
+
+                      <div class="col">
+                        <button type="button" style="background-color: rgb(255, 127, 45); color: white; padding: 1rem; font-family: worksans-semibold;" class="btn orange border border-3 mt-4 w-75" id="loginBtn" @click="signIn">Log in</button>
+                      </div>
                     
-                    <button type="button" style="background-color: rgb(255, 127, 45); color: white; padding: 1rem; font-family: worksans-semibold;" class="btn orange border border-3 mt-4 w-50" id="loginBtn" @click="signIn">Log in</button>
                   </form>
             </div>
 
@@ -71,7 +74,7 @@
         </div>
       </div>
 
-      <div class="container pt-4 mb-5">
+      <div class="container pt-4 pb-5">
         <div class="row">
             <div class="col text-center">
                 <div>Don't have an account? <router-link to='/signup' style="text-decoration: none; color: rgb(255, 127, 45); font-family: worksans-medium">Sign up</router-link></div>
@@ -109,6 +112,7 @@
     var password = document.getElementById('passwordLogin');
     var emailInvalidError = document.getElementById('emailLoginInvalid');
     var passwordInvalidError = document.getElementById('passwordLoginInvalid');
+    var loginBtn = document.getElementById('loginBtn');
       
         const auth = getAuth()
         signInWithEmailAndPassword(auth, email.value, password.value) // THIS LINE CHANGED
@@ -144,6 +148,10 @@
               emailInvalidError.innerHTML = 'You have entered an invalid email. Please try again.';
               password.classList = 'form-control';
               passwordInvalidError.innerHTML = '';
+              email.classList.add('errShake');
+              email.onanimationend = () => {
+                setTimeout(email.classList.remove('errShake', 200))
+              }
               break;
             case 'auth/user-not-found':
               errMsg.value = 'No account with that email was found';
@@ -151,6 +159,10 @@
               emailInvalidError.innerHTML = 'Account does not exist. Please try again.';
               password.classList = 'form-control';
               passwordInvalidError.innerHTML = '';
+              email.classList.add('errShake');
+              email.onanimationend = () => {
+                setTimeout(email.classList.remove('errShake', 200))
+              }
               break;
             case 'auth/wrong-password':
               errMsg.value = 'Incorrect password';
@@ -158,12 +170,20 @@
               emailInvalidError.innerHTML = '';
               password.classList = 'form-control is-invalid';
               passwordInvalidError.innerHTML = 'The password is incorrect. Please try again.';
+              password.classList.add('errShake');
+              password.onanimationend = () => {
+                setTimeout(password.classList.remove('errShake', 200))
+              }
               break;
             case 'auth/internal-error':
               email.classList = 'form-control';
               emailInvalidError.innerHTML = '';
               password.classList = 'form-control is-invalid';
               passwordInvalidError.innerHTML = 'Please insert your password.'
+              password.classList.add('errShake');
+              password.onanimationend = () => {
+                setTimeout(password.classList.remove('errShake', 200))
+              }
               break;
             default: 
               errMsg.value = 'Email or password was incorrect';
@@ -171,6 +191,10 @@
               emailInvalidError.innerHTML = 'Incorrect Email or password. Please try again.';
               password.classList = 'form-control'
               passwordInvalidError.innerHTML = '';
+              email.classList.add('errShake');
+              email.onanimationend = () => {
+                setTimeout(email.classList.remove('errShake', 200))
+              }
               break;
           }
         });
