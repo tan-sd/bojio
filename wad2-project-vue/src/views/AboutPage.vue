@@ -5,9 +5,7 @@
     <div class="row">
       <div class="col">
         <div class="about-header text-center p-3">
-          <div>
-            invite anyone, anywhere.
-          </div>
+            Invite anyone, anywhere.
         </div>
       </div>
     </div>
@@ -15,8 +13,13 @@
     <div class="row">
       <div class="col">
         <div class="about-header-text mx-auto text-center">
-            Ever wanted to go somewhere, but have no one to go with? <br><br>
-            Well, that's where we come in.
+            <div style="margin-bottom:10px">
+              Ever wanted to go somewhere, but have no one to go with?
+            </div>
+            <div>
+              That's where <span style="font-weight:bold">BOJIO</span> comes in.
+            </div>
+            
         </div>
       </div>
     </div>
@@ -46,7 +49,7 @@
 
 
     <div id="about-bojio-bg" class="p-2 mb-1 text-center reveal">
-      <div id="about-bojio" class="mx-auto p-1">
+      <div class="mx-auto p-1 about-header">
         BOJIO
       </div>
       <div id="" class="mx-auto about-header-text">
@@ -59,28 +62,32 @@
 
 
   <!-- how does it work section start -->
-  <div class="about-subheader text-center mt-2 reveal">
-    how does our platform work?
-  </div>
-  <div class="about-header-text mx-auto text-center reveal">
-    <i>the three main ways to use our platform</i>
+  <div class="reveal" style="margin-top: 15vmin">
+    
+    <div class="about-header text-center">
+      How does our platform work?
+    </div>
+
+    <div class="about-header-text mx-auto text-center">
+      <i>the three main ways to use our platform</i>
+    </div>
   </div>
 
 
   <div class="container">
 
     <!-- join any group -->
-    <div class="row reveal" style="margin-top: 3.5vmin">
-      <div class="col-12 col-sm-6 text-center my-auto" id="first-step">
+    <div class="row reveal" style="margin-top: 10vmin">
+      <div class="col-12 col-lg-6 text-center my-auto" id="first-step">
         <div class="about-step-header">Join any group</div>
-        <span class="about-step-text mx-auto">
+        <span class="about-step-text mx-auto mb-5">
             Browse through groups that are open to all (a.k.a. 'public jios'), and join those that pique your interest.
         </span>
       </div>
       
       <!-- vertical carousel -->
       <!-- <div class="col-12 col-sm-6 wrapper carousel my-auto"> -->
-        <div class='wrapper col-12 col-xl-6'>
+        <div class='wrapper col col-lg-6 text-center'>
           <div class='carousel'>
 
             <div class='carousel__item container'>
@@ -166,16 +173,31 @@
     </div>
 
     <!-- Step 2 -->
-    <div class="row pb-5 reveal" style="margin-top: 3.5vmin">
+    <div class="row pb-5 reveal" style="margin-top: 15vmin">
 
-      <div class="col-12 col-sm-6 my-auto">
-        replace with carousel of events?
-        <img src="../assets/images/about-events.png" class="about-img" alt="">
-      </div>
+      <div class="col-12 col-lg-6 d-flex justify-content-center order-lg-first order-last">
+        <!-- replace with carousel of events?
+        <img src="../assets/images/about-events.png" class="about-img" alt=""> -->
 
-      <div class="col-12 col-sm-6 text-center my-auto">
+          <div class="card-swiper">
+            <div class="card-groups">
+              <div class="card-group" data-index="0" data-status="active">
+                <div class="little-card indiv-card"></div>
+                <div class="big-card indiv-card"></div>
+                <div class="little-card indiv-card"></div>
+                <div class="big-card indiv-card"></div>
+                <div class="little-card indiv-card"></div>
+                <div class="big-card indiv-card"></div>
+                <div class="little-card indiv-card"></div>
+                <div class="big-card indiv-card"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      <div class="col-12 col-lg-6 text-center my-auto order-lg-last order-first">
         <div class="about-step-header">Filter by event</div>
-        <p class="about-step-text mx-auto text-center">
+        <p class="about-step-text mx-auto text-center mb-5">
           Want to attend a specific event with people? Filter the groups based on the event on our homepage and voila! 
         </p>
       </div>
@@ -183,16 +205,16 @@
     </div>
 
     <!-- Step 3 -->
-    <div class="row reveal" style="margin-top: 3.5vmin">
+    <div class="row reveal" style="margin-top: 15vmin">
       
-      <div class="col-12 col-sm-6 text-center my-auto">
+      <div class="col-12 col-lg-6 text-center my-auto">
         <div class="about-step-header">Start a group</div>
-        <p class="about-step-text mx-auto text-center">
+        <p class="about-step-text mx-auto text-center mb-5">
           Have an activity of your own in mind? Create a 'jio' and post it to start gathering people for that Mala run!
         </p>
       </div>
 
-      <div class="col-12 col-sm-6">
+      <div class="col-12 col-lg-6">
         <p class="about-img">
           <img src="../assets/images/about-create.png" class="about-img" alt="">
         </p>
@@ -205,7 +227,7 @@
 
   <div class="text-center reveal">
     <router-link to="/" class="nav-link">
-      <button type="button" class="btn mt-4 mb-5" id="bottom-btn">      
+      <button type="button" class="btn mt-5 mb-5" id="bottom-btn">      
         <span>Get Started</span>
       </button>
     </router-link> 

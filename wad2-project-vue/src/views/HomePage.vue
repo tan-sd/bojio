@@ -10,27 +10,30 @@
 
     {{filterchoice}}
   <!-- WORLD 3D MODEL -->
-  <div class="container about-fadeup border border-1" id="world-model">
+  <div class="container about-fadeup border border-1 mb-5" id="world-model">
     <Renderer
       ref="renderer"
       alpha antialias resize="window"
       :pointer="{ intersectRecursive: true }"
       >
 
-      <Camera :position="{ z: 4 }" />
+      <Camera :position="{ x:0, y:0, z: 70 }" />
       <Scene>
-        <HemisphereLight />
+        <!-- <AmbientLight
+          :position="{x:0, y:0, z:0}"
+          color="white"
+        /> -->
+        <AmbientLight />
         <PointLight
           color="white"
           :position="{ x: 100, y: 10000, z: 40 }"
           :intensity="0.5"
         />
         <Raycaster 
-        
         />
         <GltfModel
           ref="gltf"
-          src="/Model/singapore.gltf"
+          src="/Model/singapore.glb"
           @load="onReady"
           @progress="onProgress"
           @error="onError"
@@ -214,11 +217,11 @@ export default {
           this.clicked = true
         }
        
-        if (this.clicked === true) {
-          event.intersect.object.material.color.set(100)
-        } else {
-          event.intersect.object.material.color.set(1000)
-        }
+        // if (this.clicked === true) {
+        //   event.intersect.object.material.color.set(100)
+        // } else {
+        //   event.intersect.object.material.color.set(1000)
+        // }
 
         console.log('i am clicked '+ this.clicked);
         return
