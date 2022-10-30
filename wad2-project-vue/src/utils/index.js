@@ -1,4 +1,4 @@
-import { onMounted } from 'vue'
+import { onMounted,  onBeforeMount } from 'vue'
 import {getAuth, onAuthStateChanged, signOut, createUserWithEmailAndPassword} from 'firebase/auth';
 import { useRouter } from 'vue-router' 
 import { initializeApp } from 'firebase/app'
@@ -271,10 +271,12 @@ export function getpublic(){
 export function getdata(){
   return new Promise((resolve, reject) =>{
     uid = localStorage.getItem("uid")
+    console.log('uid inside getdata' + uid);
     const dbRef = ref(getDatabase());
     get(child(dbRef, `accounts/${uid}`)).then((snapshot) => {
       if (snapshot.exists()) {
         console.log(snapshot.val());
+        
         let fullname = snapshot.val().firstname + ' ' + snapshot.val().lastname
         if(typeof(Storage)!== 'undefined'){
           localStorage.setItem('fullname', fullname)
@@ -532,6 +534,8 @@ export function getuserid(){
         return resolve(uid)
       
       } 
+        localStorage.setItem('uid', '')
+        localStorage.setItem('fullname', '')
         console.log('cnot find');
         return reject('under reject path')
       
@@ -540,3 +544,26 @@ export function getuserid(){
 
   })
 }
+
+//to check if user is logged in or alr logged out
+// export async function checkloggedstatus(){
+//   var isLoggedIn = false
+//   uid = localStorage.getItem("uid")
+  
+//   return new Promise((resolve, reject) =>{
+//     const dbRef = ref(getDatabase());
+//     get(child(dbRef, `friends/${uid}`)).then((snapshot) => {
+//       if (snapshot.exists()) {
+//         // console.log(snapshot.val());
+//         return (resolve(snapshot.val()))
+        
+//       } else {
+      
+//         console.log("No data available");
+//         return reject
+//       }
+//     }).catch((error) => {
+//       console.error(error);
+//     });
+//   })
+// }

@@ -2,7 +2,7 @@
    
     <!-- Welcome message -->
     <!-- will be putting if person exist here but dont work yet -->
-    <div class="container" v-if="fullname.length > 0">
+    <div class="container" v-if="uid.length > 0">
       <div class="row mb-5">
         <div id = 'personname' style="display:inline; font-family: worksans-extrabold; font-size: 4vmin;"> Welcome, {{fullname}}! 👋🏼</div>
       </div>
@@ -83,9 +83,18 @@
 
     </div>
 
+
+    <span v-if="uid.length <=1">
+      <EventsButton v-if="activeTab === 'EventsButton'" :data="filterchoice"/>
+      <PublicButton v-if="activeTab === 'PublicButton'"/>
+      <PrivateButton :disabled=true />
+    </span>
+
+    <span v-else>
     <EventsButton v-if="activeTab === 'EventsButton'" :data="filterchoice"/>
     <PublicButton v-if="activeTab === 'PublicButton'"/> 
     <PrivateButton v-if="activeTab === 'PrivateButton'"/>
+    </span>
 <!--  
     <keep-alive>
     <component :is="activeTab" />
@@ -272,12 +281,12 @@ export default {
   created(){
 
     getuserid().then((value)=>{
-  
+      console.log('my value in created' + value);
       this.uid = value
       localStorage.setItem('uid', value)
       
     })
-
+    console.log(localStorage.getItem('uid'));
     getdata().then((value) =>
       { 
         this.fullname = value

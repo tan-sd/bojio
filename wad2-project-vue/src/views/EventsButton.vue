@@ -13,6 +13,12 @@
         <option v-for="value,key in sgdistrictcode" :key="value">{{key}}</option>
       </select>
      
+      <div style="float:right">
+        <button @click="clearfilter">
+          Clear filter
+        </button>
+
+      </div>
     </div>
  
     <span v-if="data != ''">
@@ -70,7 +76,6 @@
         <!-- <button id='view-more' class="btn mb-3" @click="loadMore" style="box-shadow: 0px 0px 14px -7px #f09819" >Load</button> -->
 
     <div v-else>
-      <!-- need to change the key to event id and change the event page details -->
       <div id='event-container' class="container mt-5" style="font-family: worksans-medium">
         <div class="row" id ='app'>
           <div class="col-lg-4 col-md-6 mb-5" v-for="(event, index) in filterevents.slice(0, events.length)" :key="index">
@@ -133,13 +138,6 @@
 <script>
 import sourceData from'../data.json'
 
-// const search = (e) =>{ 
-//   if(e.key == '.'){ 
-//     console.log('fullstop');
-//   }
-// }
-// console.log(sourceData);
-console.log(typeof(sourceData));
     export default {
         name: 'EventsButton',
         props:['data'],
@@ -151,7 +149,8 @@ console.log(typeof(sourceData));
             splitDate: null,
             month: null,
             date: null,
-            sgdistrictcode:{ 
+            sgdistrictcode:{
+              'all': ['72','73','77','78','75','76','79','80','01','02','03','04','05','06','07','08','14','15','16','09','10','11','12','13','17','18','19','20','21','22','23','24','25','26','27','28','29','30','58','59','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','81','51','52','53','54','55','82','56','57','60','61','62','63','64','65','66','67','68','69','70','71'], 
               'north': ['72','73','77','78','75','76','79','80'],
               'south': ['01','02','03','04','05','06','07','08','14','15','16','09','10','11','12','13','17','18','19','20','21','22','23','24','25','26','27','28','29','30','58','59'],
               'east': ['31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','81','51','52','53','54','55','82','56','57'],
@@ -163,7 +162,7 @@ console.log(typeof(sourceData));
             searchedname: '',
             usesearch: false,
             searcharray: [],
-            filterchoice: this.data
+            // filterchoice: this.data
         }
         },
         methods: {
@@ -205,6 +204,13 @@ console.log(typeof(sourceData));
               }
             }
             this.filterarray = temparray
+          },
+
+          clearfilter(){ 
+            this.usefilter = false
+            /* eslint-disable */
+            // this.data = ''
+            /* eslint-disable */
           },
 
           usemapfilter(){ 

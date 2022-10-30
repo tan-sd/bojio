@@ -152,12 +152,12 @@ onBeforeMount(()=>{
           // Store
           localStorage.setItem("uid", uid);
           console.log(' set uid already');
-          console.log(localStorage.getItem('uid'));
+          // console.log(localStorage.getItem('uid'));
       
         } else {
           document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
         }
-      console.log(uid);
+      // console.log(uid);
       // console.log(uid +'is loggedin');
       getdata()
 

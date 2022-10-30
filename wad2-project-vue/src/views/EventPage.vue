@@ -13,9 +13,9 @@
                             <!-- <p>Organised by</p> -->
                         </div>
                         <div id="event-card-buttons" class="col-12 col-md-6 text-center">
-                            <button type='button' class='btn btn-primary col-12'><a href="#About">Find Out More</a></button>
-                            <button type='button' class='btn btn-primary col-12'><a href="">Create a Jio for this event</a></button>
-                            <button type='button' class='btn btn-primary col-12'><a href="">Join a Jio for this event</a></button>
+                            <button type='button' class='btn btn-primary col-12'>Find Out More</button>
+                            <button type='button' class='btn btn-primary col-12'>Create a Jio for this event</button>
+                            <button type='button' class='btn btn-primary col-12'>Join a Jio for this event</button>
                         </div>
                     </div>
                 </div>
@@ -25,7 +25,7 @@
     <div class="container mt-3">
       {{getlat}} {{getlng}} 
         <h1>{{ name }}</h1>
-        <h1><a name="About">About</a></h1>
+        <h1>About</h1>
     </div>
 
     <div class="container">
