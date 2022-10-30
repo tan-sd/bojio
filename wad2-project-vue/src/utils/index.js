@@ -53,11 +53,18 @@ export function securityCheck(){
     email.classList = "form-control is-invalid";
     emailInvalidError.innerText = 'Please enter a valid email.'
     errorCount += 1;
+    email.classList.add('errShake')
+    email.onanimationend = () => {
+      setTimeout(email.classList.remove('errShake', 200))
+    }
   }
  
   else if(email.value.length == 0) {
     email.classList = "form-control is-invalid";
     errorCount += 1;
+    email.onanimationend = () => {
+      setTimeout(email.classList.remove('errShake', 200))
+    }
 
   } else {
     console.log('email valid');
@@ -67,6 +74,10 @@ export function securityCheck(){
   if(firstName.value.length == 0) {
     firstName.classList = "form-control is-invalid";
     errorCount += 1;
+    firstName.classList.add('errShake')
+    firstName.onanimationend = () => {
+      setTimeout(firstName.classList.remove('errShake', 200))
+    }
 
   } else {
     firstName.classList = "form-control is-valid";
@@ -75,6 +86,10 @@ export function securityCheck(){
   if(lastName.value.length == 0) {
     lastName.classList = "form-control is-invalid";
     errorCount += 1;
+    lastName.classList.add('errShake')
+    lastName.onanimationend = () => {
+      setTimeout(lastName.classList.remove('errShake', 200))
+    }
 
   } else {
     lastName.classList = "form-control is-valid";
@@ -84,6 +99,11 @@ export function securityCheck(){
     username.classList = "form-control is-invalid";
     // msg+='Please enter a valid username <br>'
     errorCount += 1;
+    username.classList.add('errShake')
+    username.onanimationend = () => {
+      setTimeout(username.classList.remove('errShake', 200))
+    }
+
   } else {
     username.classList = "form-control is-valid";
     usernameInvalidError.innerText = ''
@@ -93,10 +113,20 @@ export function securityCheck(){
     password.classList = "form-control is-invalid";
     passwordInvalidError.innerText = "Please enter your password.";
     errorCount += 1;
+    password.classList.add('errShake')
+    password.onanimationend = () => {
+      setTimeout(password.classList.remove('errShake', 200))
+    }
+
   } else if (password.value.length < 8) {
     password.classList = "form-control is-invalid";
     passwordInvalidError.innerText = "Password must be at least 8 characters.";
     errorCount += 1;
+    password.classList.add('errShake')
+    password.onanimationend = () => {
+      setTimeout(password.classList.remove('errShake', 200))
+    }
+
   } else {
     password.classList = "form-control is-valid";
     passwordInvalidError.innerText = '';
@@ -109,6 +139,15 @@ export function securityCheck(){
   } else if (password.value != confirmPassword.value) {
     password.classList = "form-control is-invalid";
     confirmPassword.classList = "form-control is-invalid";
+    password.classList.add('errShake')
+    password.onanimationend = () => {
+      setTimeout(password.classList.remove('errShake', 200))
+    }
+    confirmPassword.classList.add('errShake')
+    confirmPassword.onanimationend = () => {
+      setTimeout(confirmPassword.classList.remove('errShake', 200))
+    }
+
   } else {
     password.classList = "form-control is-valid";
     confirmPassword.classList = "form-control is-valid";

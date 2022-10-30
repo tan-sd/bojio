@@ -270,6 +270,13 @@ background-color: #eaeaea !important;
 background-color: #eaeaea !important;
 }
 
+.privateJio {
+    font-family: worksans-extrabold;
+    background: linear-gradient(90deg, #ef4136, #fbb040);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
 /* HOMEPAGE END */
 
 /* EVENT DETAILS PAGE START */
@@ -1062,3 +1069,44 @@ td {
 }
 
 /* CREATE A JIO PAGE END */
+
+.errShake {
+  -webkit-animation: errorShake 0.4s 1 linear;
+  -moz-animation: errorShake 0.4s 1 linear;
+  -o-animation: errorShake 0.4s 1 linear;
+  animation: errorShake 0.4s 1 linear;
+}
+
+@keyframes errorShake {
+  0% { transform: translate(30px); }
+  20% { transform: translate(-30px); }
+  40% { transform: translate(15px); }
+  60% { transform: translate(-15px); }
+  80% { transform: translate(8px); }
+  100% { transform: translate(0px); }
+}
+
+@-webkit-keyframes errorShake {
+  0% { -webkit-transform: translate(30px); }
+  20% { -webkit-transform: translate(-30px); }
+  40% { -webkit-transform: translate(15px); }
+  60% { -webkit-transform: translate(-15px); }
+  80% { -webkit-transform: translate(8px); }
+  100% { -webkit-transform: translate(0px); }
+}
+@-moz-keyframes errorShake {
+  0% { -moz-transform: translate(30px); }
+  20% { -moz-transform: translate(-30px); }
+  40% { -moz-transform: translate(15px); }
+  60% { -moz-transform: translate(-15px); }
+  80% { -moz-transform: translate(8px); }
+  100% { -moz-transform: translate(0px); }
+}
+@-o-keyframes errorShake {
+  0% { -o-transform: translate(30px); }
+  20% { -o-transform: translate(-30px); }
+  40% { -o-transform: translate(15px); }
+  60% { -o-transform: translate(-15px); }
+  80% { -o-transform: translate(8px); }
+  100% { -o-origin-transform: translate(0px); }
+}
