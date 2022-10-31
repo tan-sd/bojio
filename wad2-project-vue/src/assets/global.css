@@ -358,7 +358,6 @@ background-color: #eaeaea !important;
 
 /* ABOUT PAGE START */
 
-/* where anyone is invited anywhere */
 .about-fadeup{
     animation: fadeup 1s ease-out;
     transition: 1s all ease;
@@ -1069,6 +1068,23 @@ td {
 }
 
 /* CREATE A JIO PAGE END */
+/* FRIENDS PAGE START */
+
+.friends-card{
+  position:relative;
+}
+.friends-card .card-img{
+  width: 100%;
+  height: 25vw;
+  object-fit: cover;
+}
+
+.friends-card .card-img-overlay .card-title{
+  position: absolute;
+  bottom: 0%;
+}
+
+/* FRIENDS PAGE END */
 
 .errShake {
   -webkit-animation: errorShake 0.4s 1 linear;

@@ -77,7 +77,7 @@
               <!-- <a class="nav-link" href="./signup.html">Sign up</a> -->
             </li>
             <li class="nav-item pe-4">
-              <router-link to="/friendspage" class="nav-link"> Friend List </router-link> 
+              <router-link to="/friendspage" class="nav-link"> Friends </router-link> 
               <!-- <a class="nav-link" href="./signup.html">Sign up</a> -->
             </li>
             <li class="nav-item">

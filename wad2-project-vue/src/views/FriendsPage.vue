@@ -1,9 +1,9 @@
 <template>
         
         <div class="container">
-            <h1>Find a Friend Page</h1>
+            <h1>Your Friends</h1>
             <div>I am {{myuid}}</div>
-            <input type="text" name="searchfriend" v-model="searchedperson" placeholder="Search username">
+            <input type="text" name="searchfriend" v-model="searchedperson" placeholder="Find friends...">
         
 
             <button>Search</button>
@@ -20,12 +20,12 @@
             </div>
 
             <div v-else>
-                No friend requests :(
+                Currently no friend requests :(
             </div>
 
             <br><br>
 
-            my current friends are...
+            Current Friends
             <ul>
                 <li v-for="friend, key in myfriends" :key="key">
                     {{friend}}
@@ -38,16 +38,32 @@
             </div> -->
 
             <!-- need to remove my own id from this list after filtering -->
-            <div class="ui cards">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="friends-card card text-white m-5 col-3" v-for="(user, userid) in filtereddata" :key="user">
+                        <router-link :to="{ name:'individual profile', params:{ idx: userid, createdjios: user.createdjios}}">
+                            <img src="https://i.pinimg.com/originals/5a/cd/92/5acd927e66889f0ce4c6750e98ba5900.jpg" class="card-img" alt="...">
+                        </router-link>
+                        <div class="card-img-overlay">
+                        <h5 class="card-title">{{user.username}}</h5>
+
+                    </div>
+                </div>
+            </div>
+            <button @click="add(userid)" :disabled="pressed==true">Add Friend</button>
+                        </div>
+
+            <!-- <div class="ui cards">
             <div class="card ui fluid" v-for="(user, userid) in filtereddata" :key="user">
                 <div class="content">
                     <router-link :to="{ name:'individual profile', params:{ idx: userid, createdjios: user.createdjios}}">
                         <p>{{user.username}}</p>
                     </router-link>
                 </div>
+                
                 <span><button @click="add(userid)" :disabled="pressed==true">Add Friend</button></span>
             </div>
-            </div>
+            </div> -->
         
         </div> 
 </template> 
