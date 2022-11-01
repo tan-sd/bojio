@@ -1126,3 +1126,11 @@ td {
   80% { -o-transform: translate(8px); }
   100% { -o-origin-transform: translate(0px); }
 }
+
+/* START OF CREATE A JIO */
+
+.maxCount {
+  background-color: #CD5C5C;
+}
+
+/* END OF CREATE A JIO */
