@@ -17,7 +17,7 @@
       :pointer="{ intersectRecursive: true }"
       >
 
-      <Camera :position="{ x:0, y:0, z: 70 }" />
+      <Camera :position="{z: 65 }" />
       <Scene>
         <!-- <AmbientLight
           :position="{x:0, y:0, z:0}"

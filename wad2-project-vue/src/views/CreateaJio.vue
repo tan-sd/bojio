@@ -30,6 +30,7 @@
                     id="eventTitle"
                     placeholder="event title"
                     v-model="title"
+                    v-bind:class="{maxCount : titleMaxCount}"
                   />
                   <label for="eventTitle" class="text-muted">Event title</label>
                   <div id="eventTitleInvalid" class="invalid-feedback">
@@ -49,6 +50,7 @@
                     placeholder="description"
                     id="eventDescription"
                     style="height: 200px"
+                    v-bind:class="{maxCount : descriptionMaxCount}"
                   ></textarea>
                   <label for="eventDescription" class="text-muted"
                     >Event description</label
@@ -266,6 +268,7 @@
 import { remove } from "@firebase/database";
 
 export default {
+  title: 'BOJIO – Create a Jio',
   name: "App",
   mounted(){
     
@@ -279,8 +282,8 @@ export default {
       places:[],
       coords: "",
       destination: "",
-      titleLimit: 100,
-      descriptionLimit: 300,
+      titleLimit: 50,
+      descriptionLimit: 100,
       description: "",
       title: "",
       eventDateTime: new Date(), //initialise to current date before changing first
@@ -313,8 +316,6 @@ export default {
   },
 
   methods: {
-
-
     setPlace(place) {
       this.actLocation = place.name;
       this.currentLat = place.geometry.location.lat();
@@ -338,10 +339,6 @@ export default {
           } else {
             window.alert('Directions request failed due to ' + status);
           }})}
-      
-      
-      
-      
       
       var errors = 0;
       
@@ -388,7 +385,6 @@ export default {
             calculateAndDisplayRoute(directionsService, directionsDisplay, this.places[i], this.places[i+1]);
           }
             
-          
         }
         this.actArr.push({
           name: this.actTitle,
@@ -400,10 +396,7 @@ export default {
         document.GMapAutocomplete.set("place", null);
         
       }
-      
-      
-      
-      
+
     },
     remove(activity) {
       console.log("the activity is" + activity);
@@ -487,6 +480,20 @@ export default {
     },
     markersLength(){
       return this.markers.length
+    },
+    titleMaxCount() {
+      if (this.title.length > 50) {
+        return true
+      } else {
+        return false
+      }
+    },
+    descriptionMaxCount() {
+      if (this.description.length > 100) {
+        return true
+      } else {
+        return false
+      }
     }
   },
 };
