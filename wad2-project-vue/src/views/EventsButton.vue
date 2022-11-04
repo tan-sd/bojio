@@ -1,14 +1,25 @@
 <template>
 
-    <div class="container" style="display:flex; justify-content:space-between;">
+    <div class="container mt-5">
+      <div class="row w-75 mx-auto">
+        <div class="col-12 col-md-6 mb-3">
+          <input type="textbox" v-model="searchedname" class="form-control rounded-pill" id="exampleFormControlInput1" placeholder="Search..." @keydown="search()" @keyup.delete="deletesearch()">
+        </div>
 
-    <div>
-      
+        <div class="col-12 col-md-6">
+          <select v-model="selectedlocation" class="form-select" aria-label="Default select example" @click="filter">
+            <option v-for="(value, key) in sgdistrictcode" :key="value">
+              {{key}}  
+            </option>
+          </select>
+          <!-- <button class="btn" style="background-color: #f5b459" @click="clearfilter">
+          Clear filter
+        </button> -->
+        </div>
+      </div>
 
-      Search:
-      <input type="textbox" v-model="searchedname" placeholder="enter event name..." @keydown="search()" @keyup.delete="deletesearch()">
-
-      Filter by Location:
+    
+      <!-- Filter by Location:
       <select v-model="selectedlocation" placeholder="select location" @click="filter">
         <option v-for="value,key in sgdistrictcode" :key="value">{{key}}</option>
       </select>
@@ -19,7 +30,7 @@
         </button>
 
       </div>
-    </div>
+    </div> -->
  
     <span v-if="data != ''">
       {{usemapfilter()}}
@@ -35,7 +46,7 @@
       <div id='event-container' class="container mt-5" style="font-family: worksans-medium">
         <div class="row" id ='app'>
           <div class="col-lg-4 col-md-6 mb-5" v-for="(event, index) in eventsloaded.slice(0, events.length)" :key="index">
-            <router-link style="text-decoration: none; color: inherit;" :to="{ name: 'event', params: { idx: event.id }}">
+            <router-link @click="scrollToTop" style="text-decoration: none; color: inherit;" :to="{ name: 'event', params: { idx: event.id }}">
                   <div class="card" style="width:auto; height: 500px">
                     <img class="card-img-top" :src="event.image.url" alt="card image collar">
                     <div class="card-body" style="width: auto;">
@@ -150,11 +161,11 @@ import sourceData from'../data.json'
             month: null,
             date: null,
             sgdistrictcode:{
-              'all': ['72','73','77','78','75','76','79','80','01','02','03','04','05','06','07','08','14','15','16','09','10','11','12','13','17','18','19','20','21','22','23','24','25','26','27','28','29','30','58','59','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','81','51','52','53','54','55','82','56','57','60','61','62','63','64','65','66','67','68','69','70','71'], 
-              'north': ['72','73','77','78','75','76','79','80'],
-              'south': ['01','02','03','04','05','06','07','08','14','15','16','09','10','11','12','13','17','18','19','20','21','22','23','24','25','26','27','28','29','30','58','59'],
-              'east': ['31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','81','51','52','53','54','55','82','56','57'],
-              'west': ['60','61','62','63','64','65','66','67','68','69','70','71']
+              'All': ['72','73','77','78','75','76','79','80','01','02','03','04','05','06','07','08','14','15','16','09','10','11','12','13','17','18','19','20','21','22','23','24','25','26','27','28','29','30','58','59','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','81','51','52','53','54','55','82','56','57','60','61','62','63','64','65','66','67','68','69','70','71'], 
+              'North': ['72','73','77','78','75','76','79','80'],
+              'Central': ['01','02','03','04','05','06','07','08','14','15','16','09','10','11','12','13','17','18','19','20','21','22','23','24','25','26','27','28','29','30','58','59'],
+              'East': ['31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','81','51','52','53','54','55','82','56','57'],
+              'West': ['60','61','62','63','64','65','66','67','68','69','70','71']
             },
             selectedlocation: '',
             usefilter: false,
@@ -166,6 +177,9 @@ import sourceData from'../data.json'
         }
         },
         methods: {
+          scrollToTop() {
+            window.scrollTo(0,0);
+          },
           loadMore() {
           console.log(this.events);
           if (this.length >= this.events.length) {

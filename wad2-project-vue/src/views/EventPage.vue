@@ -1,4 +1,5 @@
 <template>
+  <div v-if="loading">
     <div id="event-banner-div">
         <img id="event-banner-background" v-bind:style="{ backgroundImage: 'url(' + imageurl + ')' }" alt="">
         <div class="row">
@@ -48,9 +49,48 @@
         </div>
       </div>
     </div>
+</div>
 
+<div v-else>
+  <div class="card" aria-hidden="true">
+  <div id="event-banner-div">
+        <img id="event-banner-background">
+        <div class="row">
+            <div id="event-banner-card" class="col-11 col-sm-10 col-md-8 col-lg-6">
+              <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false">
+                <title>Placeholder</title>
+                <rect width="100%" height="100%" fill="#868e96"></rect>\
+              </svg>
+                <div id="event-banner-card-body">
+                    <div class="row">
+                        <div class="col-12 col-md-6 mb-2">
+                            <p class="card-text placeholder-glow">
+                              <span class="placeholder col-12"></span>
+                            </p>
+                            <p class="card-text placeholder-glow">
+                              <span class="placeholder col-7"></span>
+                            </p>
+                            <p class="card-text placeholder-glow">
+                              <span class="placeholder col-5"></span>
+                            </p>
+                            <p class="card-text placeholder-glow">
+                              <span class="placeholder col-5"></span>
+                            </p>
+                        </div>
+                        <p class="col-12 col-md-6 text-center placeholder-glow">
+                             <span class='placeholder col-12 mb-1'></span>
+                              <span class='placeholder col-12 mb-1'></span>
+                             <span class='placeholder col-12'></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
   </template>
-
+  
 <script>
 
 import sourceData from'../data.json';
@@ -62,6 +102,7 @@ export default {
         name: 'EventsButton',
         data(){
             return {
+            loading: false,
             latitude: '',
             longitude: '',
             events: sourceData.events, 
@@ -105,6 +146,10 @@ export default {
         },
 
         methods: {
+
+          setLoading() {
+            this.loading=true
+          },
 
           displayDate(){
             const eventDate = this.date
@@ -210,7 +255,7 @@ export default {
                 ).catch( error =>{ 
                   console.log(error.message);
               
-                })
+                }).finally(() => setTimeout(this.setLoading, 500)) ;
 
         },
 

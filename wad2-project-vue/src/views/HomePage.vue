@@ -17,16 +17,15 @@
       :pointer="{ intersectRecursive: true }"
       >
 
-      <Camera :position="{z: 65 }" />
+      <Camera :position="{z: 70 }" />
       <Scene>
-        <!-- <AmbientLight
+        <AmbientLight
           :position="{x:0, y:0, z:0}"
           color="white"
-        /> -->
-        <AmbientLight />
+        />
         <PointLight
-          color="white"
-          :position="{ x: 100, y: 10000, z: 40 }"
+          color="#FFF7C2"
+          :position="{ x: 100, y: 400, z: 40 }"
           :intensity="0.5"
         />
         <Raycaster 
@@ -159,17 +158,17 @@ export default {
             activeTab : 'EventsButton',
             fullname: '',
             districtcode:{
-              'north': [25,26,27,28],
-              'south': [21,11,10,9,8,7,6,5,4,3,2,1],
-              'east': [20,19,18,17,16,15,14,13,12],
-              'west': [22,23,24]
+              'North': [25,26,27,28],
+              'Central': [21,11,10,9,8,7,6,5,4,3,2,1],
+              'East': [20,19,18,17,16,15,14,13,12],
+              'West': [22,23,24]
             },
 
             sgdistrictcode:{ 
-              'north': [72,73,77,78,75,76,79,80],
-              'south': [1,2,3,4,5,6,7,8,14,15,16,9,10,11,12,13,17,18,19,20,21,22,23,24,25,26,27,28,29,30,58,59],
-              'east': [31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,81,51,52,53,54,55,82,56,57],
-              'west': [60,61,62,63,64,65,66,67,68,69,70,71]
+              'North': [72,73,77,78,75,76,79,80],
+              'Central': [1,2,3,4,5,6,7,8,14,15,16,9,10,11,12,13,17,18,19,20,21,22,23,24,25,26,27,28,29,30,58,59],
+              'East': [31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,81,51,52,53,54,55,82,56,57],
+              'West': [60,61,62,63,64,65,66,67,68,69,70,71]
             },
             selectedlocation: '',
             usefilter: false,
@@ -202,19 +201,19 @@ export default {
         //identify location
         var location = event.intersect.object.name
         if(location =='North'){ 
-          this.filterchoice = 'north'
+          this.filterchoice = 'North'
         }
 
         if(location == 'Central'){ 
-          this.filterchoice = 'south'
+          this.filterchoice = 'Central'
         }
 
         if(location == 'East'){ 
-          this.filterchoice = 'east'
+          this.filterchoice = 'East'
         }
 
         if(location == 'West'){ 
-          this.filterchoice = 'west'
+          this.filterchoice = 'West'
         }
 
         this.count += 1

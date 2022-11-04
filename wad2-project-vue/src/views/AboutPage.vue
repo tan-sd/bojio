@@ -226,7 +226,7 @@
   <!-- how does it work section end -->
 
   <div class="text-center reveal">
-    <router-link to="/" class="nav-link">
+    <router-link to="/" @click="scrollToTop" class="nav-link">
       <button type="button" class="btn mt-5 mb-5" id="bottom-btn">      
         <span>Get Started</span>
       </button>
@@ -244,6 +244,11 @@
     <script>
     export default {
       title: 'BOJIO – About',
+      methods: {
+        scrollToTop() {
+            window.scrollTo(0,0);
+          },
+      },
       mounted() {
         const renderer = this.$refs.renderer;
         const world = this.$refs.gltf.scene;
