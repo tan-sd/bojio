@@ -30,7 +30,7 @@
                     id="eventTitle"
                     placeholder="event title"
                     v-model="title"
-                    v-bind:class="{maxCount : titleMaxCount}"
+                    v-bind:class="{ maxCount: titleMaxCount }"
                   />
                   <label for="eventTitle" class="text-muted">Event title</label>
                   <div id="eventTitleInvalid" class="invalid-feedback">
@@ -50,7 +50,7 @@
                     placeholder="description"
                     id="eventDescription"
                     style="height: 200px"
-                    v-bind:class="{maxCount : descriptionMaxCount}"
+                    v-bind:class="{ maxCount: descriptionMaxCount }"
                   ></textarea>
                   <label for="eventDescription" class="text-muted"
                     >Event description</label
@@ -221,8 +221,8 @@
                       id="loginBtn"
                       @click="
                         actArr.splice(index, 1),
-                          markers.splice(index, 1),
                           places.splice(index, 1),
+                          console.log(places),
                           remove(act.duration)
                       "
                     >
@@ -232,7 +232,34 @@
                 </tr>
               </table>
               <p>Total Duration(Mins): {{ totalDuration }}</p>
+
+              <button
+                  type="button"
+                  style="
+                    background-color: rgb(255, 127, 45);
+                    color: white;
+                    padding: 1rem;
+                    font-family: worksans-semibold;
+                  "
+                  class="btn orange border border-3 mt-4 w-50"
+                  id="addAct"
+                  @click="
+                    showMap(), document.GMapAutocomplete.set('place', null)
+                  "
+                >
+                  Finalized activity? Show on map
+                </button>
             </div>
+          </div>
+
+          <div id="floating-panel" style="margin-bottom:3px">
+            <b>Mode of Travel: </b>
+            <select id="mode" v-model="travelMode" @change="calculateAndDisplayRoute">
+              <option value="DRIVING" >Driving</option>
+              <option value="WALKING" >Walking</option>
+              <option value="BICYCLING" >Bicycling</option>
+              
+            </select>
           </div>
 
           <div class="col" id="map">
@@ -244,12 +271,6 @@
               :options="options"
               ref="map"
             >
-              <GMapMarker
-                :key="marker.id"
-                v-for="(marker) in markers"
-                :position="marker.position"
-                
-              />
             </GMapMap>
           </div>
         </div>
@@ -285,18 +306,16 @@ import { createJio } from '../utils/index'
 
 
 export default {
-  title: 'BOJIO – Create a Jio',
+  title: "BOJIO – Create a Jio",
   name: "App",
-  mounted(){
-    
-  },
+  mounted() {},
   data() {
     return {
       actError: [],
       evtError: [],
       center: { lat: 1.3421, lng: 103.8198 },
-      markers: [],
-      places:[],
+      places: [],
+      waypts: [],
       coords: "",
       destination: "",
       titleLimit: 50,
@@ -311,6 +330,7 @@ export default {
       actDuration: "",
       totalDuration: 0,
       currentPlace: null,
+      travelMode: "DRIVING",//initialise as driving first 
       autocompleteOptions: {
         componentRestrictions: {
           country: ["sg"],
@@ -326,13 +346,41 @@ export default {
         rotateControl: false,
         fullscreenControl: false,
         styles: [],
-
       },
       // currentTime:new Date().toLocaleTimeString('en-GB').slice(0, 5),
     };
   },
 
   methods: {
+    calculateAndDisplayRoute(
+      directionsService,
+      directionsDisplay,
+      start,
+      destination
+    ) {
+      var refWaypoints = this.waypts;
+      var travelMode=this.travelMode;
+      
+      console.log(travelMode)
+      
+
+      directionsService.route(
+        {
+          origin: start,
+          destination: destination,
+          waypoints: refWaypoints,
+          travelMode: travelMode,
+        },
+        function (response, status) {
+          if (status === "OK") {
+            directionsDisplay.setDirections(response);
+          } else {
+            window.alert("Directions request failed due to " + status);
+          }
+        }
+      );
+    },
+
     setPlace(place) {
       this.actLocation = place.name;
       this.currentLat = place.geometry.location.lat();
@@ -340,25 +388,9 @@ export default {
     },
     addAct() {
       
-      var directionsService = new window.google.maps.DirectionsService;
-      var directionsDisplay = new window.google.maps.DirectionsRenderer;
-      directionsDisplay.setMap(this.$refs.map.$mapObject);
-      
 
-      function calculateAndDisplayRoute(directionsService, directionsDisplay, start, destination) {
-        directionsService.route({
-          origin: start,
-          destination: destination,
-          travelMode: 'DRIVING'
-        }, function(response, status) {
-          if (status === 'OK') {
-            directionsDisplay.setDirections(response);
-          } else {
-            window.alert('Directions request failed due to ' + status);
-          }})}
-      
       var errors = 0;
-      
+
       var activityLocation = document.getElementById("activityLocation");
       var activityTitle = document.getElementById("activityTitle");
       var activityDuration = document.getElementById("activityDuration");
@@ -388,32 +420,57 @@ export default {
       }
 
       if (errors == 0) {
-        this.places.push(this.actLocation)
-        
+        this.places.push(this.actLocation);
+
         activityDuration.classList = "form-control";
         activityLocation.classList = "form-control";
         activityTitle.classList = "form-control";
-        this.markers.push({
-          position: { lat: parseFloat(this.currentLat), lng: parseFloat(this.currentLng) },
-        });
-        console.log(typeof(this.markers[0]))
-        if(this.markers.length>1){
-          for(var i=0;i<this.markers.length-1;i++){
-            calculateAndDisplayRoute(directionsService, directionsDisplay, this.places[i], this.places[i+1]);
-          }
-            
-        }
+
+        // console.log(typeof(this.markers[0]))
         this.actArr.push({
           name: this.actTitle,
           location: this.actLocation,
           duration: this.actDuration,
           description: this.description
         });
+        
         this.totalDuration += parseFloat(this.actDuration);
         this.clearForm();
         document.GMapAutocomplete.set("place", null);
-        
+
+
       }
+    },
+    //adding points to map which was intially in add and remove activity function
+    showMap(){
+      console.log(this.places);
+      var directionsService = new window.google.maps.DirectionsService();
+      var directionsDisplay = new window.google.maps.DirectionsRenderer();
+      directionsDisplay.setMap(this.$refs.map.$mapObject);
+      if (this.places.length == 2) {
+          this.calculateAndDisplayRoute(
+            directionsService,
+            directionsDisplay,
+            this.places[0],
+            this.places[1]
+          );
+        }
+        if (this.places.length > 2) {
+          // console.log(this.places)
+          for (var i = 1; i < this.places.length - 1; i++) {
+            console.log(this.places[i]);
+            this.waypts.push({
+              location: this.places[i],
+              stopover: true,
+            });
+          }
+          this.calculateAndDisplayRoute(
+            directionsService,
+            directionsDisplay,
+            this.places[0],
+            this.places[this.places.length - 1]
+          );
+        }
 
     },
     remove(activity) {
@@ -421,6 +478,37 @@ export default {
       console.log("before" + this.totalDuration);
       this.totalDuration -= parseFloat(activity);
       console.log("aft" + this.totalDuration);
+
+      var directionsService = new window.google.maps.DirectionsService();
+      var directionsDisplay = new window.google.maps.DirectionsRenderer();
+      directionsDisplay.setMap(this.$refs.map.$mapObject);
+
+      if (this.places.length == 2) {
+          this.calculateAndDisplayRoute(
+            directionsService,
+            directionsDisplay,
+            this.places[0],
+            this.places[1]
+          );
+        }
+        if (this.places.length > 2) {
+          // console.log(this.places)
+          for (var i = 1; i < this.places.length - 1; i++) {
+            console.log(this.places[i]);
+            this.waypts.push({
+              location: this.places[i],
+              stopover: true,
+            });
+          }
+          this.calculateAndDisplayRoute(
+            directionsService,
+            directionsDisplay,
+            this.places[0],
+            this.places[this.places.length - 1]
+          );
+        }
+
+
     },
     clearForm() {
       this.actDuration = "";
@@ -496,23 +584,23 @@ export default {
         this.currentYear + "-" + this.currentMonth + "-" + this.currentDate
       );
     },
-    markersLength(){
-      return this.markers.length
+    markersLength() {
+      return this.markers.length;
     },
     titleMaxCount() {
       if (this.title.length > 50) {
-        return true
+        return true;
       } else {
-        return false
+        return false;
       }
     },
     descriptionMaxCount() {
       if (this.description.length > 100) {
-        return true
+        return true;
       } else {
-        return false
+        return false;
       }
-    }
+    },
   },
 };
 </script>
