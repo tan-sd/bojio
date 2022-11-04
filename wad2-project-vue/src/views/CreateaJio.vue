@@ -24,14 +24,8 @@
             <div class="form-row">
               <div class="form-group col" style="width: auto">
                 <div class="form-floating">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="eventTitle"
-                    placeholder="event title"
-                    v-model="title"
-                    v-bind:class="{ maxCount: titleMaxCount }"
-                  />
+                  <input type="text" class="form-control" id="eventTitle" placeholder="event title" v-model="title"
+                    v-bind:class="{ maxCount: titleMaxCount }" />
                   <label for="eventTitle" class="text-muted">Event title</label>
                   <div id="eventTitleInvalid" class="invalid-feedback">
                     Please provide the event title.
@@ -44,17 +38,9 @@
 
               <div class="form-group col mt-5" style="width: auto">
                 <div class="form-floating">
-                  <textarea
-                    v-model="description"
-                    class="form-control"
-                    placeholder="description"
-                    id="eventDescription"
-                    style="height: 200px"
-                    v-bind:class="{ maxCount: descriptionMaxCount }"
-                  ></textarea>
-                  <label for="eventDescription" class="text-muted"
-                    >Event description</label
-                  >
+                  <textarea v-model="description" class="form-control" placeholder="description" id="eventDescription"
+                    style="height: 200px" v-bind:class="{ maxCount: descriptionMaxCount }"></textarea>
+                  <label for="eventDescription" class="text-muted">Event description</label>
                   <div id="eventDescriptionInvalid" class="invalid-feedback">
                     Please provide a description.
                   </div>
@@ -65,21 +51,11 @@
               </div>
             </div>
 
-            <div
-              class="register-form-field form-group col mt-5"
-              style="width: auto"
-            >
+            <div class="register-form-field form-group col mt-5" style="width: auto">
               <div class="form-floating">
-                <input
-                  type="datetime-local"
-                  class="form-control"
-                  id="eventDateTime"
-                  placeholder="eventDateTime"
-                  v-model="eventDateTime"
-                />
-                <label for="eventDateTime" class="text-muted"
-                  >Event date and time</label
-                >
+                <input type="datetime-local" class="form-control" id="eventDateTime" placeholder="eventDateTime"
+                  v-model="eventDateTime" />
+                <label for="eventDateTime" class="text-muted">Event date and time</label>
                 <div id="eventDateTimeInvalid" class="invalid-feedback"></div>
               </div>
               <!-- <div
@@ -113,16 +89,9 @@
                 Activities
               </div>
               <div class="form-floating">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="activityTitle"
-                  placeholder="activityTitle"
-                  v-model="actTitle"
-                />
-                <label for="activityTitle" class="text-muted"
-                  >Activity title</label
-                >
+                <input type="text" class="form-control" id="activityTitle" placeholder="activityTitle"
+                  v-model="actTitle" />
+                <label for="activityTitle" class="text-muted">Activity title</label>
                 <div class="invalid-feedback">
                   Please provide the activity title.
                 </div>
@@ -131,35 +100,20 @@
 
             <div class="form-group col mt-3" style="width: auto">
               <div class="form-floating">
-                <GMapAutocomplete
-                  type="text"
-                  class="form-control"
-                  id="activityLocation"
-                  placeholder="This is a placeholder"
-                  @place_changed="setPlace"
-                  :options="autocompleteOptions"
-                  :value="this.search"
-                >
+                <GMapAutocomplete type="text" class="form-control" id="activityLocation"
+                  placeholder="This is a placeholder" @place_changed="setPlace" :options="autocompleteOptions"
+                  :value="this.search">
                 </GMapAutocomplete>
-                <label for="activityLocation" class="text-muted"
-                  >Activity Location</label
-                >
+                <label for="activityLocation" class="text-muted">Activity Location</label>
                 <div class="invalid-feedback">Please provide the location.</div>
               </div>
             </div>
 
             <div class="form-group col mt-3" style="width: auto">
               <div class="form-floating">
-                <input
-                  type="number"
-                  class="form-control"
-                  id="activityDuration"
-                  placeholder="activityDuration"
-                  v-model="actDuration"
-                />
-                <label for="activityLocation" class="text-muted"
-                  >Activity Duration (mins)</label
-                >
+                <input type="number" class="form-control" id="activityDuration" placeholder="activityDuration"
+                  v-model="actDuration" />
+                <label for="activityLocation" class="text-muted">Activity Duration (mins)</label>
                 <div class="invalid-feedback">Please provide the duration.</div>
               </div>
             </div>
@@ -172,20 +126,14 @@
 
             <div class="row">
               <div class="col d-flex justify-content-center">
-                <button
-                  type="button"
-                  style="
+                <button type="button" style="
                     background-color: rgb(255, 127, 45);
                     color: white;
                     padding: 1rem;
                     font-family: worksans-semibold;
-                  "
-                  class="btn orange border border-3 mt-4 w-50"
-                  id="addAct"
-                  @click="
+                  " class="btn orange border border-3 mt-4 w-50" id="addAct" @click="
                     addAct(), document.GMapAutocomplete.set('place', null)
-                  "
-                >
+                  ">
                   Add activity
                 </button>
               </div>
@@ -214,18 +162,9 @@
                   <td>{{ act.location }}</td>
                   <td>{{ act.duration }}</td>
                   <td>
-                    <button
-                      type="button"
-                      style="background-color: rgb(255, 127, 45); color: white"
-                      class="btn orange border border-3 rounded-5"
-                      id="loginBtn"
-                      @click="
-                        actArr.splice(index, 1),
-                          places.splice(index, 1),
-                          console.log(places),
-                          remove(act.duration)
-                      "
-                    >
+                    <button type="button" style="background-color: rgb(255, 127, 45); color: white"
+                      class="btn orange border border-3 rounded-5" id="loginBtn"
+                      @click="actArr.splice(index, 1), places.splice(index, 1), removetime(act.duration), remove(act.location)">
                       Remove
                     </button>
                   </td>
@@ -233,44 +172,27 @@
               </table>
               <p>Total Duration(Mins): {{ totalDuration }}</p>
 
-              <button
-                  type="button"
-                  style="
-                    background-color: rgb(255, 127, 45);
-                    color: white;
-                    padding: 1rem;
-                    font-family: worksans-semibold;
-                  "
-                  class="btn orange border border-3 mt-4 w-50"
-                  id="addAct"
-                  @click="
-                    showMap(), document.GMapAutocomplete.set('place', null)
-                  "
-                >
-                  Finalized activity? Show on map
-                </button>
+              <button type="button"
+                style="background-color: rgb(255, 127, 45);color: white;padding: 1rem;font-family: worksans-semibold;"
+                class="btn orange border border-3 mt-4 w-50" id="addAct" @click="showMap()">
+                Finalized activity? Show on map
+              </button>
             </div>
           </div>
 
           <div id="floating-panel" style="margin-bottom:3px">
             <b>Mode of Travel: </b>
             <select id="mode" v-model="travelMode" @change="calculateAndDisplayRoute">
-              <option value="DRIVING" >Driving</option>
-              <option value="WALKING" >Walking</option>
-              <option value="BICYCLING" >Bicycling</option>
-              
+              <option value="DRIVING">Driving</option>
+              <option value="WALKING">Walking</option>
+              <option value="BICYCLING">Bicycling</option>
+
             </select>
           </div>
 
           <div class="col" id="map">
-            <GMapMap
-              :center="center"
-              :zoom="12"
-              map-type-id="roadmap"
-              style="width: 1000px; height: 400px"
-              :options="options"
-              ref="map"
-            >
+            <GMapMap :center="center" :zoom="12" map-type-id="roadmap" style="width: 1000px; height: 400px"
+              :options="options" ref="map">
             </GMapMap>
           </div>
         </div>
@@ -279,18 +201,11 @@
       <div class="container-fluid">
         <div class="row mt-5">
           <div class="col mx-auto">
-            <button
-              type="button"
-              style="
-                background-color: rgb(255, 127, 45);
+            <button type="button" style=" background-color: rgb(255, 127, 45);
                 color: white;
                 padding: 1rem;
                 font-family: worksans-semibold;
-              "
-              class="btn orange border border-3 mt-4 w-25"
-              id="loginBtn"
-              @click="createjio"
-            >
+              " class="btn orange border border-3 mt-4 w-25" id="loginBtn" @click="createjio">
               Create Jio
             </button>
           </div>
@@ -305,10 +220,13 @@ import { remove } from "@firebase/database";
 import { createJio } from '../utils/index'
 
 
+var directionsDisplay;
+var directionsService;
+
 export default {
   title: "BOJIO – Create a Jio",
   name: "App",
-  mounted() {},
+  mounted() { },
   data() {
     return {
       actError: [],
@@ -355,21 +273,35 @@ export default {
     calculateAndDisplayRoute(
       directionsService,
       directionsDisplay,
-      start,
-      destination
+      // start,
+      // destination
     ) {
-      var refWaypoints = this.waypts;
-      var travelMode=this.travelMode;
-      
-      console.log(travelMode)
-      
+      // var refWaypoints = this.waypts;
+      var refWaypoints = [];
 
+      var travelMode = this.travelMode;
+
+      console.log(travelMode)
+
+      var start = this.places[0]
+      var end = this.places[this.places.length - 1]
+
+      for (var x of this.places) {
+        refWaypoints.push({
+          location: x,
+          stopover: true,
+        });
+      }
+      console.log( refWaypoints);
+      console.log('start: ' + start);
+      console.log('end: ' + end);
       directionsService.route(
         {
           origin: start,
-          destination: destination,
+          destination: end,
           waypoints: refWaypoints,
           travelMode: travelMode,
+          optimizeWaypoints: true
         },
         function (response, status) {
           if (status === "OK") {
@@ -387,7 +319,7 @@ export default {
       this.currentLng = place.geometry.location.lng();
     },
     addAct() {
-      
+
 
       var errors = 0;
 
@@ -433,7 +365,7 @@ export default {
           duration: this.actDuration,
           description: this.description
         });
-        
+
         this.totalDuration += parseFloat(this.actDuration);
         this.clearForm();
         document.GMapAutocomplete.set("place", null);
@@ -441,72 +373,94 @@ export default {
 
       }
     },
+
     //adding points to map which was intially in add and remove activity function
-    showMap(){
+
+    showMap() {
       console.log(this.places);
-      var directionsService = new window.google.maps.DirectionsService();
-      var directionsDisplay = new window.google.maps.DirectionsRenderer();
+      
+      if (directionsDisplay != null) {
+        directionsDisplay.setMap(null);
+        directionsDisplay = null;
+      }
+      directionsService = new window.google.maps.DirectionsService();
+      directionsDisplay = new window.google.maps.DirectionsRenderer();
+
+      console.log(directionsDisplay);
+      
       directionsDisplay.setMap(this.$refs.map.$mapObject);
-      if (this.places.length == 2) {
-          this.calculateAndDisplayRoute(
-            directionsService,
-            directionsDisplay,
-            this.places[0],
-            this.places[1]
-          );
-        }
-        if (this.places.length > 2) {
-          // console.log(this.places)
-          for (var i = 1; i < this.places.length - 1; i++) {
-            console.log(this.places[i]);
-            this.waypts.push({
-              location: this.places[i],
-              stopover: true,
-            });
-          }
-          this.calculateAndDisplayRoute(
-            directionsService,
-            directionsDisplay,
-            this.places[0],
-            this.places[this.places.length - 1]
-          );
-        }
+      if (this.places.length >= 2) {
+        this.calculateAndDisplayRoute(
+          directionsService,
+          directionsDisplay,
+          // this.places[0],
+          // this.places[1]
+        );
+      }
+      // if (this.places.length > 2) {
+        // console.log(this.places)
+        // for (var i = 1; i < this.places.length - 1; i++) {
+        //   console.log(this.places[i]);
+        //   this.waypts.push({
+        //     location: this.places[i],
+        //     stopover: true,
+        //   });
+        //   console.log('inside > 2: ' + this.waypts);
+        // }
+        // this.calculateAndDisplayRoute(
+        //   directionsService,
+        //   directionsDisplay,
+          // this.places[0],
+          // this.places[this.places.length - 1]
+        // );
+
+      // }
 
     },
-    remove(activity) {
-      console.log("the activity is" + activity);
-      console.log("before" + this.totalDuration);
-      this.totalDuration -= parseFloat(activity);
-      console.log("aft" + this.totalDuration);
 
+    removetime(activity) {
+      // console.log("the activity is" + activity);
+      // console.log("before" + this.totalDuration);
+      this.totalDuration -= parseFloat(activity);
+      // console.log("aft" + this.totalDuration);
+      // console.log('in remove');
+
+    },
+
+    removeactivity(activity) {
       var directionsService = new window.google.maps.DirectionsService();
       var directionsDisplay = new window.google.maps.DirectionsRenderer();
       directionsDisplay.setMap(this.$refs.map.$mapObject);
 
+      var index = this.places.indexOf(activity)
+      this.places.splice(index, 1)
+
       if (this.places.length == 2) {
-          this.calculateAndDisplayRoute(
-            directionsService,
-            directionsDisplay,
-            this.places[0],
-            this.places[1]
-          );
+        this.calculateAndDisplayRoute(
+          directionsService,
+          directionsDisplay,
+          // this.places[0],
+          // this.places[1]
+        );
+      }
+      if (this.places.length > 2) {
+        // console.log(this.places)
+        for (var i = 1; i < this.places.length - 1; i++) {
+          console.log(i);
+          console.log(this.places[i]);
+          this.waypts.push({
+            location: this.places[i],
+            stopover: true,
+          });
         }
-        if (this.places.length > 2) {
-          // console.log(this.places)
-          for (var i = 1; i < this.places.length - 1; i++) {
-            console.log(this.places[i]);
-            this.waypts.push({
-              location: this.places[i],
-              stopover: true,
-            });
-          }
-          this.calculateAndDisplayRoute(
-            directionsService,
-            directionsDisplay,
-            this.places[0],
-            this.places[this.places.length - 1]
-          );
-        }
+        console.log(this.waypts);
+        this.calculateAndDisplayRoute(
+          directionsService,
+          directionsDisplay,
+          // this.places[0],
+          // this.places[this.places.length - 1]
+        );
+      }
 
 
     },
@@ -566,7 +520,7 @@ export default {
         eventTitle.classList = "form-control";
         eventDescription.classList = "form-control";
         eventDateTime.classList = "form-control";
-          //still in createjio, no error then add to db
+        //still in createjio, no error then add to db
         createJio(this.actArr)
       }
     },
