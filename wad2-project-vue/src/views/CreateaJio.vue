@@ -91,6 +91,21 @@
               </div> -->
             </div>
 
+            Type of Event:
+            <div class="form-check">
+              <!-- cannot make one horizontal line -->
+
+              <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="public">
+              <label class="form-check-label" for="exampleRadios1">
+                Public
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="private">
+              <label class="form-check-label" for="exampleRadios2">
+                Private
+              </label>
+            </div>
             <hr />
 
             <div class="form-group col mt-3" style="width: auto">
@@ -266,6 +281,8 @@
 
 <script>
 import { remove } from "@firebase/database";
+import { createJio } from '../utils/index'
+
 
 export default {
   title: 'BOJIO – Create a Jio',
@@ -390,6 +407,7 @@ export default {
           name: this.actTitle,
           location: this.actLocation,
           duration: this.actDuration,
+          description: this.description
         });
         this.totalDuration += parseFloat(this.actDuration);
         this.clearForm();
@@ -414,9 +432,7 @@ export default {
       var eventTitle = document.getElementById("eventTitle");
       var eventDescription = document.getElementById("eventDescription");
       var eventDateTime = document.getElementById("eventDateTime");
-      var eventDateTimeInvalid = document.getElementById(
-        "eventDateTimeInvalid"
-      );
+      var eventDateTimeInvalid = document.getElementById("eventDateTimeInvalid");
       var errors = 0;
 
       if (this.title == "") {
@@ -462,6 +478,8 @@ export default {
         eventTitle.classList = "form-control";
         eventDescription.classList = "form-control";
         eventDateTime.classList = "form-control";
+          //still in createjio, no error then add to db
+        createJio(this.actArr)
       }
     },
   },

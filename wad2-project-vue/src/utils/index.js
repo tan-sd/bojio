@@ -1,8 +1,30 @@
-import { onMounted,  onBeforeMount } from 'vue'
-import {getAuth, onAuthStateChanged, signOut, createUserWithEmailAndPassword} from 'firebase/auth';
-import { useRouter } from 'vue-router' 
-import { initializeApp } from 'firebase/app'
-import { getDatabase, ref, child, push, update, set, get, onValue, remove } from 'firebase/database'
+import {
+  onMounted,
+  onBeforeMount
+} from 'vue'
+import {
+  getAuth,
+  onAuthStateChanged,
+  signOut,
+  createUserWithEmailAndPassword
+} from 'firebase/auth';
+import {
+  useRouter
+} from 'vue-router'
+import {
+  initializeApp
+} from 'firebase/app'
+import {
+  getDatabase,
+  ref,
+  child,
+  push,
+  update,
+  set,
+  get,
+  onValue,
+  remove
+} from 'firebase/database'
 
 // import uid from '../App.vue'
 var uid;
@@ -22,20 +44,20 @@ const db = getDatabase(app);
 // const dbRef = ref(getDatabase());
 
 //validate email
-function validate_email(email){
+function validate_email(email) {
   var expression = /^[^@]+@\w+(\.\w+)+\w$/
-  if(expression.test(email) == true){
+  if (expression.test(email) == true) {
     //ok email
     return true
 
-  } else{
+  } else {
     //email invalid
     return false
   }
 }
 
-export function securityCheck(){
-  
+export function securityCheck() {
+
   var errorCount = 0;
   var email = document.getElementById('emailSignUp')
   var firstName = document.getElementById('firstName');
@@ -49,7 +71,7 @@ export function securityCheck(){
   var emailstatus = validate_email(email.value)
   var emailInvalidError = document.getElementById('emailSignUpInvalid');
 
-  if(!emailstatus){            
+  if (!emailstatus) {
     email.classList = "form-control is-invalid";
     emailInvalidError.innerText = 'Please enter a valid email.'
     errorCount += 1;
@@ -57,9 +79,7 @@ export function securityCheck(){
     email.onanimationend = () => {
       setTimeout(email.classList.remove('errShake', 200))
     }
-  }
- 
-  else if(email.value.length == 0) {
+  } else if (email.value.length == 0) {
     email.classList = "form-control is-invalid";
     errorCount += 1;
     email.onanimationend = () => {
@@ -71,7 +91,7 @@ export function securityCheck(){
     email.classList = "form-control is-valid";
   }
 
-  if(firstName.value.length == 0) {
+  if (firstName.value.length == 0) {
     firstName.classList = "form-control is-invalid";
     errorCount += 1;
     firstName.classList.add('errShake')
@@ -82,8 +102,8 @@ export function securityCheck(){
   } else {
     firstName.classList = "form-control is-valid";
   }
-  
-  if(lastName.value.length == 0) {
+
+  if (lastName.value.length == 0) {
     lastName.classList = "form-control is-invalid";
     errorCount += 1;
     lastName.classList.add('errShake')
@@ -95,7 +115,7 @@ export function securityCheck(){
     lastName.classList = "form-control is-valid";
   }
 
-  if(username.value.length < 8 ){
+  if (username.value.length < 8) {
     username.classList = "form-control is-invalid";
     // msg+='Please enter a valid username <br>'
     errorCount += 1;
@@ -109,7 +129,7 @@ export function securityCheck(){
     usernameInvalidError.innerText = ''
   }
 
-  if(password.value.length == 0) {
+  if (password.value.length == 0) {
     password.classList = "form-control is-invalid";
     passwordInvalidError.innerText = "Please enter your password.";
     errorCount += 1;
@@ -134,7 +154,7 @@ export function securityCheck(){
   }
 
   // console.log(passwordValidation);
-  if(passwordValidation == false) {
+  if (passwordValidation == false) {
     null;
   } else if (password.value != confirmPassword.value) {
     password.classList = "form-control is-invalid";
@@ -153,202 +173,202 @@ export function securityCheck(){
     confirmPassword.classList = "form-control is-valid";
   }
 
-  var db_user  = ''
+  var db_user = ''
 
   if (errorCount == 0 && emailstatus) {
     // return true
     //check if username alr exists
     var userexist = false;
-      const dbRef = ref(getDatabase());
-      get(child(dbRef, `accounts/`)).then((snapshot) => {
-        console.log(snapshot);
-        if (snapshot.exists()) {
-          console.log(snapshot.val());
-        } else {
-          console.log("No data available");
-        }
-      }).catch((error) => {
-        console.error(error);
-      });
-      console.log(userexist);
-      if(!userexist){
+    const dbRef = ref(getDatabase());
+    get(child(dbRef, `accounts/`)).then((snapshot) => {
+      console.log(snapshot);
+      if (snapshot.exists()) {
+        console.log(snapshot.val());
+      } else {
+        console.log("No data available");
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
+    console.log(userexist);
+    if (!userexist) {
 
-        //means user dont exist n its gd
-        return true
-        }
-      return false
+      //means user dont exist n its gd
+      return true
+    }
+    return false
   }
 
 }
 
 //register user
-export function register(){
+export function register() {
 
   const auth = getAuth();
   var emailInput = document.getElementById('emailSignUp');
   var emailInvalidError = document.getElementById('emailSignUpInvalid');
 
-      if(emailInput.value.length == 0) {
-        emailInput.classList = "form-control is-invalid";
-      } else {
-        emailInput.classList = "form-control is-valid";
-      }
-      
+  if (emailInput.value.length == 0) {
+    emailInput.classList = "form-control is-invalid";
+  } else {
+    emailInput.classList = "form-control is-valid";
+  }
+
   var signupBtn = document.getElementById('signupBtn')
-  signupBtn?.addEventListener('click', (e) => {
-  var firstName = document.getElementById('firstName');
-  var lastName = document.getElementById('lastName');
-  var username = document.getElementById("username");
-  // var username = document.getElementById('username');
-  console.log(firstName, lastName);
-  var email = document.getElementById("emailSignup").value;
-  var password = document.getElementById("password").value;
-  var status = securityCheck()
-  console.log(status);
-  if (status){
-    createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-        // Signed in 
-        const user = userCredential.user;
-        console.log(user);
-        console.log(user.uid);
-        set(ref(db, "accounts/" + user.uid),{
-          firstname: firstName.value,
-          lastname: lastName.value,
-          username: username.value,
-          email: email,
-          password: password,
-          events: ['no events'],
-          createdjios: ['no jios'],
-        })
-        .then(() => {
-          alert('details created successfully!')
-        })
-        .catch((error) => {
-          alert(error);
-        })
-        
-        alert("Successfully signed up!");
-        //Redirect user if you want
-    })
-    .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
+  signupBtn ?.addEventListener('click', (e) => {
+      var firstName = document.getElementById('firstName');
+      var lastName = document.getElementById('lastName');
+      var username = document.getElementById("username");
+      // var username = document.getElementById('username');
+      console.log(firstName, lastName);
+      var email = document.getElementById("emailSignup").value;
+      var password = document.getElementById("password").value;
+      var status = securityCheck()
+      console.log(status);
+      if (status) {
+        createUserWithEmailAndPassword(auth, email, password)
+          .then((userCredential) => {
+            // Signed in 
+            const user = userCredential.user;
+            console.log(user);
+            console.log(user.uid);
+            set(ref(db, "accounts/" + user.uid), {
+                firstname: firstName.value,
+                lastname: lastName.value,
+                username: username.value,
+                email: email,
+                password: password,
+                events: ['no events'],
+                createdjios: ['no jios'],
+              })
+              .then(() => {
+                alert('details created successfully!')
+              })
+              .catch((error) => {
+                alert(error);
+              })
 
-        if(errorMessage == 'Firebase: Error (auth/email-already-in-use).'){ 
-          var email = document.getElementById('email')
-          email.classList = "form-control is-invalid";
-          document.getElementById('emailInvalid').innerText = 'Email already exists.'
+            alert("Successfully signed up!");
+            //Redirect user if you want
+          })
+          .catch((error) => {
+              const errorCode = error.code;
+              const errorMessage = error.message;
 
-        }
-        // ..
-        else{
-          alert(errorMessage);
+              if (errorMessage == 'Firebase: Error (auth/email-already-in-use).') {
+                var email = document.getElementById('email')
+                email.classList = "form-control is-invalid";
+                document.getElementById('emailInvalid').innerText = 'Email already exists.'
 
-        }
-    }
-    
-    
-    );   //catch finish
-  } //if status
+              }
+              // ..
+              else {
+                alert(errorMessage);
 
-} //signup event listener
-) //signup event listener
+              }
+            }
+
+
+          ); //catch finish
+      } //if status
+
+    } //signup event listener
+  ) //signup event listener
 }
 
 
 //get public data
-export function getpublic(){
+export function getpublic() {
   console.log('this function is getthis');
-  return new Promise((resolve, reject) =>{
+  return new Promise((resolve, reject) => {
     console.log('inside promise');
     const publicevents = ref(db, 'public events/')
-    onValue(publicevents, (snapshot) =>{
+    onValue(publicevents, (snapshot) => {
       console.log('inside onvalue');
       // Object.keys(snapshot.val()).forEach((key) =>{
-        // const request = snapshot.val()[key]
-        // console.log(key, request.email);
-        const data = snapshot.val()
-        console.log("getpublic - data:" + data);
-        console.log(typeof(data));
-        console.log('going to resolve soon');
-        if(data != null){
+      // const request = snapshot.val()[key]
+      // console.log(key, request.email);
+      const data = snapshot.val()
+      console.log("getpublic - data:" + data);
+      console.log(typeof (data));
+      console.log('going to resolve soon');
+      if (data != null) {
 
-          return resolve(data)
-        }
-        return reject('not found')
-      })
+        return resolve(data)
+      }
+      return reject('not found')
+    })
+  })
+
+}
+
+export function getprivate() {
+  // console.log('this function is getthis');
+  return new Promise((resolve, reject) => {
+
+    const publicevents = ref(db, 'private events/')
+    onValue(publicevents, (snapshot) => {
+      // Object.keys(snapshot.val()).forEach((key) =>{
+      // const request = snapshot.val()[key]
+      // console.log(key, request.email);
+      const data = snapshot.val()
+      console.log(snapshot.val());
+      console.log(typeof (data));
+      if (data != null) {
+
+        return resolve(data)
+      }
+      return reject('not found')
     })
 
-  }
+  })
 
-  export function getprivate(){
-    // console.log('this function is getthis');
-    return new Promise((resolve, reject) =>{
-      
-      const publicevents = ref(db, 'private events/')
-      onValue(publicevents, (snapshot) =>{
-        // Object.keys(snapshot.val()).forEach((key) =>{
-          // const request = snapshot.val()[key]
-          // console.log(key, request.email);
-          const data = snapshot.val()
-          console.log(snapshot.val());
-          console.log(typeof(data));
-          if(data != null){
-
-            return resolve(data)
-          }
-          return reject('not found')
-        })
-    
-      })
-  
-    }
-  
+}
 
 
-export function getdata(){
-  return new Promise((resolve, reject) =>{
+
+export function getdata() {
+  return new Promise((resolve, reject) => {
     uid = localStorage.getItem("uid")
     console.log('uid inside getdata' + uid);
     const dbRef = ref(getDatabase());
     get(child(dbRef, `accounts/${uid}`)).then((snapshot) => {
       if (snapshot.exists()) {
         console.log(snapshot.val());
-        
+
         let fullname = snapshot.val().firstname + ' ' + snapshot.val().lastname
-        if(typeof(Storage)!== 'undefined'){
+        if (typeof (Storage) !== 'undefined') {
           localStorage.setItem('fullname', fullname)
           console.log(localStorage.getItem('fullname'));
         }
         console.log('line 283');
         // console.log(fullname);
-        
+
         // let personname = document.getElementById('personname')
-        
+
         // //only say hi at main page
         // if(personname){
         //     personname.innerText =  `Welcome,  ${fullname} ! 👋🏼`
         //     personname.setAttribute('style', ' display:inline; font-family: worksans-extrabold; font-size: 4vmin;')
         //     personname.setAttribute('class', '')
         //   }
-          
-          return resolve (fullname) 
-        } else {
+
+        return resolve(fullname)
+      } else {
         console.log("No data available");
         return reject
       }
     })
-    }).catch((error) => {
-      console.error(error);
-    });
+  }).catch((error) => {
+    console.error(error);
+  });
 }
 
 
 //get all users for friendspage
-export async function getusers(){
+export async function getusers() {
   uid = localStorage.getItem("uid")
-  return new Promise((resolve, reject) =>{
+  return new Promise((resolve, reject) => {
     const dbRef = ref(getDatabase());
     get(child(dbRef, `accounts/`)).then((snapshot) => {
       if (snapshot.exists()) {
@@ -356,12 +376,12 @@ export async function getusers(){
         let fullname = snapshot.val().firstname + ' ' + snapshot.val().lastname
         const allusers = snapshot.val()
         // for(const user in allusers){
-          // console.log(allusers[user].username);
+        // console.log(allusers[user].username);
         // }
         return (resolve(snapshot.val()))
-        
+
       } else {
-      
+
         console.log("No data available");
         return reject
       }
@@ -374,63 +394,83 @@ export async function getusers(){
 
 
 var eventname = ''
-var username =''
-var date =''
+var userid = ''
+var date = ''
 var type = ''
-var activities =''
+var activities = ''
 var testthis = ''
 
 // //to createjio
-export function createJio(eventname, type) {
+export function createJio(actArr) {
   const db = getDatabase();
-  
-  eventname = document.getElementById('name').value
+  console.log('inside function createjio');
+  eventname = document.getElementById('eventTitle').value
 
-  if (typeof(Storage) !== "undefined") {
-    username = localStorage.getItem('fullname')}
-  else{
-    username = 'nousername'
+  // console.log(localStorage.getItem('username'));
+  // var userid;
+  var username;
+  if (typeof (Storage) !== "undefined") {
+    userid = localStorage.getItem('uid')
+
+    ////////////////
+
+    const dbRef = ref(getDatabase());
+    get(child(dbRef, `accounts/${userid}`)).then((snapshot) => {
+      if (snapshot.exists()) {
+
+        var val = snapshot.val()
+        console.log(val);
+
+        date = document.getElementById('eventDateTime').value
+        type = document.querySelector('input[name="exampleRadios"]:checked').value;
+    
+        const jioData = {
+          // creator: username,
+          eventname: eventname,
+          userid: userid,
+          username: val.username,
+          date: date,
+          type: type,
+          activities: actArr,
+          fullname: val.firstname + ' ' + val.lastname,
+        };
+    
+        // Get a key for a new Post.
+        const newKey = push(child(ref(db), 'events')).key;
+    
+        const updates = {};
+    
+        updates[`${type} events/${newKey}`] = jioData;
+    
+        updates['/createdjios/' + uid + '/' + newKey] = jioData;
+    
+        //add under createdjios which is under username account
+        updates[`accounts/${uid}/createdjios/${newKey}`] = jioData;
+    
+        console.log(updates);
+        return update(ref(db), updates);
+        // somehow the return gives undefined now...
+
+      } else {
+
+        console.log("No data available");
+
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
+
+
+    //////////////
+    // var username = getusername(userid)().then((username)=>{
+
+    //   console.log(username);
+    // })
+
+  } else {
+    userid = 'uid not found'
   }
 
-  date = document.getElementById('date').value
-  type = document.querySelector('input[name="exampleRadios"]:checked').value;
-
-  const jioData = {
-    // creator: username,
-    eventname: eventname,
-    username: username,
-    date: date,
-    type: type,
-    activities: [1,2,3],
-  };
-
-  // Get a key for a new Post.
-  const newKey = push(child(ref(db), 'events')).key;
-
-  // Write the new post's data simultaneously in the posts list and the user's post list.
-  const updates = {};
-
-  //to separate public n private events
-  // privateevents 
-  //        -jio data
-
-
-  updates[`${type} events/${newKey}`] = jioData;
-
-  // accounts
-
-  // eventsgoing
-              
-  // createdjios
-              
-  updates['/createdjios/' + uid + '/' + newKey] = jioData;
-
-
-  //add under createdjios which is under username account
-  updates[`accounts/${uid}/createdjios/${newKey}`] = jioData;
-
-  console.log(updates);
-  return update(ref(db), updates);
 }
 
 
@@ -445,7 +485,7 @@ export function createJio(eventname, type) {
 //   if (snapshot.exists()) {
 
 //     localStorage.setItem('privatejios', JSON.stringify(snapshot.val()))
-   
+
 //   } else {
 //     console.log("No data available");
 //   }
@@ -459,18 +499,18 @@ export function createJio(eventname, type) {
 // // var publicjios = document.getElementById('public')
 // // publicjios.addEventListener('click', getpublic)
 
-export function getpublic2(){
+export function getpublic2() {
   console.log("getpublic2")
   const dbRef = ref(getDatabase());
   get(child(dbRef, `public events/`)).then((snapshot) => {
     console.log("getpublic2 - then")
     if (snapshot.exists()) {
       console.log("getpublic2 - snapshotexists")
-  
+
       // console.log(snapshot.val());
       localStorage.setItem('publicjios', JSON.stringify(snapshot.val()))
-      console.log("snapshot.val():"+snapshot.val());
-      return(snapshot.val())
+      console.log("snapshot.val():" + snapshot.val());
+      return (snapshot.val())
       // localStorage.setItem('publicjios', JSON.stringify(snapshot.val())
     } else {
       console.log("No data available");
@@ -478,7 +518,7 @@ export function getpublic2(){
   }).catch((error) => {
     console.error(error);
   });
-  }
+}
 
 //when i wan to add friends
 export function createfriendrequest(receiver) {
@@ -490,7 +530,7 @@ export function createfriendrequest(receiver) {
   const updates = {};
 
   updates[`/friendrequest/${uid}/${receiver}`] = 'pending'
-              
+
   // updates['/friendrequest/' + uid + '/' ] = 'pending'
   console.log(updates);
   console.log('end of create friend req function');
@@ -498,18 +538,18 @@ export function createfriendrequest(receiver) {
 }
 
 //get all friend requests
-export async function getfriendrequests(){
+export async function getfriendrequests() {
   uid = localStorage.getItem("uid")
   console.log('loading getfriend req n check if uid avail' + uid);
-  return new Promise((resolve, reject) =>{
+  return new Promise((resolve, reject) => {
     const dbRef = ref(getDatabase());
     get(child(dbRef, `friendrequest/`)).then((snapshot) => {
       if (snapshot.exists()) {
         // console.log(snapshot.val());
         return (resolve(snapshot.val()))
-        
+
       } else {
-      
+
         console.log("No data available");
         return reject
       }
@@ -532,7 +572,7 @@ export function makefriends(sender) {
 
   updates[`/friends/${uid}/${sender}`] = 'friends'
   updates[`/friends/${sender}/${uid}`] = 'friends'
-              
+
   console.log(updates)
   console.log('end of make friend req function')
   remove(ref(db, `friendrequest/${sender}/${uid}`))
@@ -540,18 +580,18 @@ export function makefriends(sender) {
 }
 
 //display all my friends
-export async function displayfriends(){
+export async function displayfriends() {
   uid = localStorage.getItem("uid")
   // console.log('loading getfriend req n check if uid avail' + uid);
-  return new Promise((resolve, reject) =>{
+  return new Promise((resolve, reject) => {
     const dbRef = ref(getDatabase());
     get(child(dbRef, `friends/${uid}`)).then((snapshot) => {
       if (snapshot.exists()) {
         // console.log(snapshot.val());
         return (resolve(snapshot.val()))
-        
+
       } else {
-      
+
         console.log("No data available");
         return reject
       }
@@ -562,42 +602,42 @@ export async function displayfriends(){
 }
 
 //get userid to say hi
-export function getuserid(){
+export function getuserid() {
   const auth = getAuth();
   let isLoggedIn = false
-  return new Promise((resolve, reject) =>{
-    onAuthStateChanged(auth, (user)=>{ 
-      if(user) {
+  return new Promise((resolve, reject) => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
         console.log(user);
         uid = user.uid
         return resolve(uid)
-      
-      } 
-        localStorage.setItem('uid', '')
-        localStorage.setItem('fullname', '')
-        console.log('cnot find');
-        return reject('under reject path')
-      
-    
+
+      }
+      localStorage.setItem('uid', '')
+      localStorage.setItem('fullname', '')
+      console.log('cnot find');
+      return reject('under reject path')
+
+
     })
 
   })
 }
 
 //get users for private jio button
-export async function getusername(personuid){
+export async function getusername(personuid) {
   // uid = localStorage.getItem("uid")
-  return new Promise((resolve, reject) =>{
+  return new Promise((resolve, reject) => {
     const dbRef = ref(getDatabase());
     get(child(dbRef, `accounts/${personuid}`)).then((snapshot) => {
       if (snapshot.exists()) {
         // console.log(snapshot.val());
-        
+
         // }
         return (resolve(snapshot.val().username))
-        
+
       } else {
-      
+
         console.log("No data available");
         return reject
       }

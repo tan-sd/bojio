@@ -22,11 +22,27 @@
             <br><br><br><br>
           </div>
 
+        
         <div v-else class="col-md-4 mb-5" v-for="(event, index) in privateevents" :key="index">
+      
           <div class="card" style="width:auto">
             <!-- <img class="card-img-top" :src="event.image.url" alt="card image collar"> -->
             <div class="card-body" style="width: auto;">
               <div class="card-title pt-4"> {{ event.eventname }}</div>
+              <div class="card-content">
+                created by {{event.username}}
+              </div>
+              
+                <div>Activities:</div>
+                <div v-for="key in event.activities" :key="key">
+                  <div>Name: {{key.name}}</div>
+                  <div>Location: {{key.location}}</div>
+                  <div>Date: {{event.date}}</div>
+
+                  <br>
+                  <!-- Eventinfo: {{key.description}} -->
+                  <!-- now not a key yet js added in createjio -->
+                </div>
 
             </div>
           </div>
@@ -97,35 +113,59 @@ export default {
 
   created() {
     var friendsjios = {}
-    var myfriends = this.myfriends
+    var count = 0
+    // var friendsuids = []
+    // var myfriends = this.myfriends
+    // console.log(myfriends);
     // get my friends out first
     displayfriends().then((value) => {
       this.hasfriends = true
 
-      for (let personuid in value) {
-        // console.log(personuid);
-        getusername(personuid).then((value) => {
-          let username = value
-          myfriends.push(username)
+      const myfriends = Object.keys(value) 
+      console.log(myfriends);
+
+      // console.log(value);
+      // for (let personuid in value) {
+      //   console.log(' in priv button my fren is ' + personuid);
+      //   friendsuids.push(personuid)
+      // }
+        // getusername(personuid).then((value) => {
+
+          // let username = value
+          // myfriends.push(username)
 
           //then i check if the these friends got any private events created
 
           getprivate().then((value) => {
             // value will get an object with keys thats the event unique id
             const keys = Object.keys(value) 
+            // console.log(keys);
+            console.log(value);
             // keys is a list with the event unique ids
             for(let i in value){ 
               let data = value[i]
-              console.log(i);
-              let individual_username = data.username
-              console.log(individual_username);
+              // console.log(i);
+              let userid = data.userid
+              // console.log(userid);
               console.log(myfriends);
-              // if current person is my friend and i has not add the activity in
-              if((myfriends.includes(individual_username)) && !(Object.prototype.hasOwnProperty.call(friendsjios,data)) ){
-                console.log(individual_username);
-                friendsjios[i] = data
-                console.log(friendsjios);
+              if(myfriends.includes(userid)){
+                console.log(userid + 'is my friend');
+                //then want to get event details
+                friendsjios[count] = data
+                count ++;
               }
+              
+              // let individual_username = data.username
+              // console.log(individual_username);
+              // console.log(myfriends);
+              //my friends is array of usernames
+              
+              // if current person is my friend and i has not add the activity in
+              // if((myfriends.includes(individual_username)) && !(Object.prototype.hasOwnProperty.call(friendsjios,data)) ){
+              //   console.log(individual_username);
+              //   friendsjios[i] = data
+              //   console.log(friendsjios);
+              // }
 
             }
             console.log(friendsjios);
@@ -137,8 +177,8 @@ export default {
               console.log('error');
             })
 
-        })
-      }
+        // })
+      
 
     })
   }
