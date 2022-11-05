@@ -1,47 +1,11 @@
 <template>
   <div v-if="loading">
     <div id="event-banner-div">
-<<<<<<< Updated upstream
       <img
         id="event-banner-background"
         v-bind:style="{ backgroundImage: 'url(' + imageurl + ')' }"
         alt=""
       />
-=======
-        <img id="event-banner-background" v-bind:style="{ backgroundImage: 'url(' + imageurl + ')' }" alt="">
-        <div class="row">
-            <div id="event-banner-card" class="col-11 col-sm-10 col-md-8 col-lg-6">
-                <img id="event-banner-card-image" class='card-img' :src=imageurl  alt=''>
-                <div id="event-banner-card-body">
-                    <div class="row">
-                        <div class="col-12 col-md-6 mb-2">
-                            <h5>{{ name }}</h5>
-                            <p><i class="bi bi-calendar2-week-fill eventDate" style="margin-right: 10px;"></i>{{displayDate()}}, {{convertTime()}}</p>
-                            <p><i class="bi bi-geo-alt-fill eventVenue" style="margin-right: 10px;"></i>{{getVenue()}}</p>
-                            <!-- <p>Organised by</p> -->
-                        </div>
-                        <div id="event-card-buttons" class="col-12 col-md-6 text-center">
-                            <button type='button' class='btn btn-primary col-12'>Find Out More</button>
-                            <button type='button' class='btn btn-primary col-12'>Create a Jio for this event</button>
-                            <button type='button' class='btn btn-primary col-12'>Join a Jio for this event</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="container mt-3">
-      {{getlat}} {{getlng}} 
-        <h1>{{ name }}</h1>
-        <!-- to populate using convertToHTML -->
-        <div id="event-about-section" v-html="description"></div>
-        
-        
-
-    </div>
-
-    <div class="container">
->>>>>>> Stashed changes
       <div class="row">
         <div id="event-banner-card" class="col-11 col-sm-10 col-md-8 col-lg-6">
           <img
@@ -71,9 +35,10 @@
                 <!-- <p>Organised by</p> -->
               </div>
               <div id="event-card-buttons" class="col-12 col-md-6 text-center">
-                <button type="button" class="btn btn-primary col-12">
-                  Find Out More
+                <a href="#event-details-map"><button type="button" class="btn btn-primary col-12" @click="loadMap()">
+                  Show Route to Event
                 </button>
+                </a>
                 <button type="button" class="btn btn-primary col-12">
                   Create a Jio for this event
                 </button>
@@ -89,18 +54,15 @@
     <div class="container mt-3">
       {{ getlat }} {{ getlng }}
       <h1>{{ name }}</h1>
-      <h1>About</h1>
+      <div id="event-about-section" v-html="description"></div>
+      
     </div>
-    <button type="button"
-                style="background-color: rgb(255, 127, 45);color: white;padding: 1rem;font-family: worksans-semibold;"
-                class="btn orange border border-3 mt-4 w-50" id="addAct" @click="loadMap()">
-                Show route to event
-              </button>
 
-    <div class="container">
+
+    <div class="container" id="event-details-map">
       <div class="row">
         <div
-          class="col d-flex align-item-center justify-content-center mx-auto"
+          class="col d-flex justify-content-center"
         >
           <GMapMap
             :center="center"
@@ -212,11 +174,6 @@ export default {
             lat: this.latitude,
             lng: this.longitude,
           },
-
-          styleText(){
-            console.log(document.getElementById('event-about-section'));
-            return ''
-          }
         },
       ],
       options: {
@@ -262,7 +219,6 @@ export default {
       var start = this.ownLoc
       var end = this.center
 
-<<<<<<< Updated upstream
       // for (var i=1;i<this.places.length-1;i++) {
       //   refWaypoints.push({
       //     location: this.places[i],
@@ -301,63 +257,11 @@ export default {
           // this.places[1]
         )
     },
-=======
-            return ''
-          },
-
-          getlng(){ 
-            var obj = this.center
-            obj.lng= this.longitude
-
-            var array = this.markers
-            array[0].position.lng = this.longitude
-            
-            return ''
-          }          
-
-          
-        },
-        
-        created() {
-          this.getId()
-          var url = this.url
-          //use description
-                axios.get(url)
-                .then(response => { 
-                  // console.log(response);
-                  // this.description = response.data.description.text
-                  // this.eventName = response.data.name.html,
-                  this.name = response.data.name.text    
-                  this.imageurl = response.data.logo.original.url
-                  this.eventdate = response.data.start.local
-                  this.venueID = response.data.venue_id,
-                  this.organizerID = response.data.organizer_id,
-                  this.venueURL = `https://www.eventbriteapi.com/v3/venues/` + this.venueID + `/?token=PRFPTWCYQ4TUG6MWF7GF`,
-                  this.organizerURL = `https://www.eventbriteapi.com/v3/organizers/` + this.organizerID + `/?token=PRFPTWCYQ4TUG6MWF7GF`,
-                  // const eventdate = this.eventdate
-                  this.date = this.eventdate.split('T')[0]
-                  this.time = this.eventdate.split('T')[1]
-
-                    axios.get(this.venueURL)
-                    .then(response => (
-                      // console.log(response.data),
-                      this.venueName = response.data.name,
-                      this.latitude = parseFloat(response.data.latitude),
-                      this.longitude = parseFloat(response.data.longitude)
-                      // console.log(this.longitude)
-                    )),
-                    
-                    axios.get(this.descriptionURL)
-                    .then(response => 
-                      this.description = response.data.description
-                    ),
->>>>>>> Stashed changes
 
     setLoading() {
       this.loading = true;
     },
 
-<<<<<<< Updated upstream
     displayDate() {
       const eventDate = this.date;
       let fullDate = eventDate.split("-");
@@ -390,16 +294,6 @@ export default {
         (Number(time[0]) || 12) + ":" + time[1] + " AM"
       );
     },
-=======
-                }
-                  
-                ).catch( error =>{ 
-                  // console.log(error.message);
-              
-                }).finally(() => setTimeout(this.setLoading, 500)) ;
-
-        }
->>>>>>> Stashed changes
 
     getVenue() {
       return this.venueName;
