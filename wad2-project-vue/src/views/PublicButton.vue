@@ -53,21 +53,21 @@ export default {
 
     },
 
-    firebaseevents() {
-      getpublic().then((value) =>{ 
-          console.log('inside this');
-          console.log(value);
-          this.publicevents = value
-          // console.log("created - " + this.publicevents);
-          // console.log(typeof(value));
-          // console.log('end of .then');
-        })
-        .catch((message)=> {
-          console.log(message);
-          console.log('error');
-        })
+    // firebaseevents() {
+    //   getpublic().then((value) =>{ 
+    //       console.log('inside this');
+    //       console.log(value);
+    //       this.publicevents = value
+    //       // console.log("created - " + this.publicevents);
+    //       // console.log(typeof(value));
+    //       // console.log('end of .then');
+    //     })
+    //     .catch((message)=> {
+    //       console.log(message);
+    //       console.log('error');
+    //     })
 
-    }
+    // }
 
     // outerfunction(){ 
 
@@ -103,22 +103,23 @@ export default {
     },
   },
 
-  // created() {
+  created() {
   //   console.log('inside created');
     // this.publicevents = getpublic2();
     // console.log("this.publicevents: " + this.publicevents);
   
-    // getpublic().then((value) =>{ 
-    //       console.log('inside this');
-    //       this.publicevents = value
-    //       // console.log("created - " + this.publicevents);
-    //       // console.log(typeof(value));
-    //       // console.log('end of .then');
-    //     })
-    //     .catch((message)=> {
-    //       console.log(message);
-    //       console.log('error');
-    //     })
+    getpublic().then((value) =>{ 
+          console.log('inside this');
+          console.log(value);
+          this.publicevents = value
+          console.log("created - " + this.publicevents);
+          console.log(typeof(value));
+          console.log('end of .then');
+        })
+        .catch((message)=> {
+          console.log(message);
+          console.log('error');
+        })
 
     // this.firebaseevents()
     // console.log("getpublic2")
@@ -139,13 +140,13 @@ export default {
     // }).catch((error) => {
     //   console.error(error);
     // });
-  // },
+  },
 
-  mounted() { 
-    console.log('inside mounted');
-    this.firebaseevents()
-    console.log('end of mounted');
-  }
+  // mounted() { 
+  //   console.log('inside mounted');
+  //   this.firebaseevents()
+  //   console.log('end of mounted');
+  // }
 }
 
 
@@ -165,6 +166,20 @@ export default {
           <div class="card-body" style="width: auto;">
             <div class="card-title pt-4"> {{event.eventname}}</div>
 
+            <div class="card-content">
+                created by {{event.username}}
+            </div>
+              
+            <div>Activities:</div>
+                <div v-for="key in event.activities" :key="key">
+                  <div>Name: {{key.name}}</div>
+                  <div>Location: {{key.location}}</div>
+                  <div>Date: {{event.date}}</div>
+
+                  <br>
+                  <!-- Eventinfo: {{key.description}} -->
+
+            </div>
           </div>
         </div>
 
