@@ -135,6 +135,8 @@ export default {
             const allusers = this.allusers
             //object with userid as keys
     
+            console.log('in get names');
+            console.log(allusers);
             var usernames = {}
             for(const user in allusers){ 
                 //user is the key
@@ -172,7 +174,8 @@ export default {
             this.creatorid = this.event.userid
 
             displaypplgoing(this.creatorid,this.eventId).then((value)=>{
-                console.log(value);
+                this.peoplegoing = value
+                this.getnames()            
             })
             
         })
