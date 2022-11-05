@@ -286,9 +286,9 @@ export default {
       var start = this.places[0]
       var end = this.places[this.places.length - 1]
 
-      for (var x of this.places) {
+      for (var i=1;i<this.places.length-1;i++) {
         refWaypoints.push({
-          location: x,
+          location: this.places[i],
           stopover: true,
         });
       }
