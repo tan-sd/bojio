@@ -354,6 +354,17 @@ background-color: #eaeaea !important;
     text-decoration-line: none;
 }
 
+#event-about-section > div:first-of-type {
+    font-style: italic;
+}
+
+#event-about-section img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
 
 /* EVENT DETAILS PAGE END */
 

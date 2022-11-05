@@ -1,71 +1,63 @@
 <template>
         
         <div class="container">
-            <h1>Your Friends</h1>
-            <div>I am {{myuid}}</div>
-            <input type="text" name="searchfriend" v-model="searchedperson" placeholder="Find friends...">
-        
-
-            <button>Search</button>
 
             <!-- display friend requests here first -->
-            <br><br>
+            <h1>Your Friends</h1>
             <div v-if="!norequests">
-                friend req here
                 {{requests}}
                 <div v-for="request, index in requests" :key="request">
                     <div>{{request}} id: {{index}}</div>
                     <button @click="accept(request, index)">Accept request</button>
                 </div>
             </div>
-
-            <div v-else>
-                Currently no friend requests :(
-            </div>
-
-            <br><br>
-
-            Current Friends
-            <ul>
-                <li v-for="friend, key in myfriends" :key="key">
-                    {{friend}}
-                </li>
-            </ul>
-<!--             
-            <div class="ui icon input" style="width: 100%">
-            <input type="text" placeholder="Search..." />
-            <i class="search icon"></i>
-            </div> -->
-
-            <!-- need to remove my own id from this list after filtering -->
-            <div class="container-fluid">
+            
+            <div v-if="Object.keys(myFriends).length != 0 " class="container ">
+                <h3 class="">Current Friends</h3>
                 <div class="row">
-                    <div class="friends-card card text-white m-5 col-3" v-for="(user, userid) in filtereddata" :key="user">
-                        <router-link :to="{ name:'individual profile', params:{ idx: userid, createdjios: user.createdjios}}">
-                            <img src="https://i.pinimg.com/originals/5a/cd/92/5acd927e66889f0ce4c6750e98ba5900.jpg" class="card-img" alt="...">
-                        </router-link>
-                        <div class="card-img-overlay">
-                        <h5 class="card-title">{{user.username}}</h5>
-
+                    <div class="friends-card card text-white m-2 col-lg-3 col-sm-6 col-12" v-for="friend, key in myFriends" :key="key">
+                            <img src="../assets/images/defaultperson.jpg" class="card-img" alt="...">
+                        <div class="card-img-overlay p-0">
+                            <h5 class="card-title text-dark">{{friend}}</h5>
+                        </div>
                     </div>
                 </div>
             </div>
-            <button @click="add(userid)" :disabled="pressed==true">Add Friend</button>
-                        </div>
 
-            <!-- <div class="ui cards">
-            <div class="card ui fluid" v-for="(user, userid) in filtereddata" :key="user">
-                <div class="content">
-                    <router-link :to="{ name:'individual profile', params:{ idx: userid, createdjios: user.createdjios}}">
-                        <p>{{user.username}}</p>
-                    </router-link>
-                </div>
-                
-                <span><button @click="add(userid)" :disabled="pressed==true">Add Friend</button></span>
+       
+            <div class="row">
+                <span class="input-group mb-3 w-25 col-3">
+                    <input type="text" class="form-control" name="searchfriend" placeholder="Start typing to find a user..." v-model="searched">
+                </span>
             </div>
-            </div> -->
         
-        </div> 
+            <div class="container-fluid text-center mx-auto">
+
+                <div class="row">
+        
+                    <div class="friends-card card text-white col-12" v-for="(user,userid) in filtereddata" :key="userid">
+                        <router-link :to="{ name:'individual profile', params:{ idx: userid, createdjios: user.createdjios}}">
+                            {{user}}
+                        </router-link>
+                        <img src="../assets/images/defaultperson.jpg" class="card-img" alt="...">
+                        <div class="card-img-overlay p-0">
+                            <h5 class="card-title text-dark">
+                                {{idx}}
+                                
+                                {{user.firstname}}
+                                <button @click="add(userid)" :disabled="pressed==true">Add Friend</button>
+                            </h5>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>       
+
+        
 </template> 
 
 <script>
@@ -91,21 +83,19 @@ export default{
     data(){
         return{
             myuid: '',
-            searchedperson:'',
+            searched:'',
             allusers: [],
             pressed: false,
             allrequests: '',
             requests: '',
             norequests: false,
-            myfriends: '',
+            myFriends: '',
             // cannot disable button
         }
     },
 
     methods:{ 
         add(user){ 
-            console.log(localStorage.getItem('uid'));
-            console.log('hi i am receiver ' + user);
             createfriendrequest(user)
             // this.pressed = true
             //need to disable specific button after clicking
@@ -120,64 +110,46 @@ export default{
 
             for (const sender in friendrequests){ 
                 //get sender id
-                console.log(sender);
                 for (const receiver in friendrequests[sender]){ 
-                    console.log(' this is receiver:' + receiver)
 
-                    // if im the person tat received, get all the req sent to me
+                    // if im the person that received, get all the req sent to me
                     if(receiver == userid ){ 
-                        console.log('here')
                         temparray.push(sender)
                     }
                 }
             } //finish for loop
 
-            console.log(temparray);
             if(temparray.length == 0){ 
-                console.log('no friend requests');
                 this.norequests = true
                 
             }else{ 
                 //make request as an object
                 // {userid: username}
-                console.log('there is at least 1 request');
                 this.requests = temparray
                 //find usernames of the users
                 const allusers = this.allusers
-                console.log(allusers);
                 var usernames = {}
                 for(const user in allusers){ 
+
                     //user is the key
                     console.log(user);
                     if(temparray.includes(user)){
                 
                         const username = allusers[user]['username']
                         usernames[user] = username
-                        // usernames.push(username)
-                        console.log(username);
                     }
                 }
-                console.log(usernames);
                 this.requests = usernames
-                console.log(this.requests);
             }
 
         },
 
         //accept request
         accept(user, userid){ 
-            console.log('retrieve friend id:' + userid);
-            console.log(user);
-            console.log(this.requests);
-            console.log(this.requests[userid]);
             delete this.requests[userid]
-            
-            console.log(this.requests)
-            
             makefriends(userid)
             var objectlen = Object.keys(this.requests).length
             if(objectlen === 0){
-                console.log('now empty object');
                 this.norequests = true
             }
             else{ 
@@ -186,70 +158,49 @@ export default{
         },
 
         getfriendnames(){ 
-            var friendsobj = this.myfriends
+            var friendsobj = this.myFriends
             var temparray = []
 
             for( const personid in friendsobj ){ 
-                console.log(personid);
                 temparray.push(personid)
             }
             // find usernames of the users
             const allusers = this.allusers
-            console.log(allusers);
             var usernames = {}
             for(const user in allusers){ 
                 //user is the key
-                console.log(user);
                 if(temparray.includes(user)){
             
                     const username = allusers[user]['username']
                     usernames[user] = username
                     // usernames.push(username)
-                    console.log(username);
                 }
             }
-            // console.log(usernames);
             this.myfriends = usernames
         }
     },
 
     computed: {
         filtereddata(){ 
-                //     return (this.allusers.value.filter((user) => { 
-                //         return( user.username.toLowerCase().indexOf(this.searchedperson.toLowerCase()) != -1
-                //         )
-                //     }))
-                // return this.allusers.filter(
-                //     (search) =>this.allusers.length
-                //     ? Object.keys(this.allusers[0])
-                //     .some(key => '' + search[key]).toLowerCase().includes(this.searchedperson)
-                //     : true
-                // )
-                // return Object.entries(this.allusers)     
-                //     .filter(item => item.username == this.searchedperson)
-                // return this.allusers
             var currentlist = this.allusers
             var temparray = []
-            
-            console.log(currentlist);
+
             //user gives the key 
-            //currentlist[user] gives the user details
-            for(const user in currentlist){
-                const person = currentlist[user]
-                const jios = currentlist[user]['createdjios']
-                // console.log(jios);
-                const username = currentlist[user].username
-                if(username.includes(this.searchedperson)){
-                    // console.log(user)
+            for(let user in currentlist){
+                let person = currentlist[user]
+                var firstname = person.firstname
+                console.log(this.searched);
+                if(firstname.includes(this.searched)){
                     temparray.push(currentlist[user])
                 }
             }
 
-            if(this.searchedperson == ''){
+            if(this.searched == ''){
                 temparray = currentlist
             }
 
             return temparray
+            
         },
 
     },
@@ -260,8 +211,8 @@ export default{
             getusers().then(
                 (value) => 
                 {
-                    const temparray = []
                     this.allusers = value
+                    // const temparray = []
                     // for(const user in value){
                         // console.log(user);
                         // temparray.push(user)
@@ -277,7 +228,6 @@ export default{
             getfriendrequests().then(
                 (value) =>
                 { 
-                    console.log(value);
                     this.allrequests = value
                     this.checkfriendrequest()
                 }
@@ -287,8 +237,7 @@ export default{
             displayfriends().then(
                 (value) =>
                 { 
-                    console.log(value);
-                    this.myfriends = value
+                    this.myFriends = value
                     this.getfriendnames()
                 }
 
