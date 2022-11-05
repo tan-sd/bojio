@@ -319,7 +319,16 @@ export default {
       this.currentLng = place.geometry.location.lng();
     },
     addAct() {
+      if (directionsDisplay != null) {
+        directionsDisplay.setMap(null);
+        directionsDisplay = null;
+      }
+      directionsService = new window.google.maps.DirectionsService();
+      directionsDisplay = new window.google.maps.DirectionsRenderer();
 
+      console.log(directionsDisplay);
+      
+      directionsDisplay.setMap(this.$refs.map.$mapObject);
 
       var errors = 0;
 
@@ -370,6 +379,15 @@ export default {
         this.clearForm();
         document.GMapAutocomplete.set("place", null);
 
+        if (this.places.length >= 2) {
+        this.calculateAndDisplayRoute(
+          directionsService,
+          directionsDisplay,
+          // this.places[0],
+          // this.places[1]
+        );
+      }
+
 
       }
     },
@@ -379,24 +397,8 @@ export default {
     showMap() {
       console.log(this.places);
       
-      if (directionsDisplay != null) {
-        directionsDisplay.setMap(null);
-        directionsDisplay = null;
-      }
-      directionsService = new window.google.maps.DirectionsService();
-      directionsDisplay = new window.google.maps.DirectionsRenderer();
-
-      console.log(directionsDisplay);
       
-      directionsDisplay.setMap(this.$refs.map.$mapObject);
-      if (this.places.length >= 2) {
-        this.calculateAndDisplayRoute(
-          directionsService,
-          directionsDisplay,
-          // this.places[0],
-          // this.places[1]
-        );
-      }
+      
       // if (this.places.length > 2) {
         // console.log(this.places)
         // for (var i = 1; i < this.places.length - 1; i++) {
