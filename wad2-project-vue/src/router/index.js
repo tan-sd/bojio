@@ -48,6 +48,11 @@ const routes =[
     path: "/friendspage/:idx",
     name: 'individual profile',
     component: () => import ("../views/FriendProfile.vue"),
+  },
+  {
+    path: "/jiopage/:idx",
+    name: 'eachjioevent',
+    component: () => import ("../views/JioPage.vue"),
   }
 ]
 

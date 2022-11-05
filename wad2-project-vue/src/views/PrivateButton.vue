@@ -22,9 +22,8 @@
             <br><br><br><br>
           </div>
 
-        
-        <div v-else class="col-md-4 mb-5" v-for="(event, index) in privateevents" :key="index">
-      
+          <div v-else class="col-md-4 mb-5" v-for="(event, index) in privateevents" :key="index">
+          <router-link @click="scrollToTop" style="text-decoration: none; color: inherit;" :to="{ name: 'eachjioevent', params: { idx: index }}">
           <div class="card" style="width:auto">
             <!-- <img class="card-img-top" :src="event.image.url" alt="card image collar"> -->
             <div class="card-body" style="width: auto;">
@@ -46,7 +45,7 @@
 
             </div>
           </div>
-
+          </router-link>
         </div>
       </div>
       <!-- <button id='view-more' class="btn mb-3" @click="loadMore" style="box-shadow: 0px 0px 14px -7px #f09819" >Load</button> -->
@@ -113,7 +112,7 @@ export default {
 
   created() {
     var friendsjios = {}
-    var count = 0
+    // var count = 0
     // var friendsuids = []
     // var myfriends = this.myfriends
     // console.log(myfriends);
@@ -151,8 +150,9 @@ export default {
               if(myfriends.includes(userid)){
                 console.log(userid + 'is my friend');
                 //then want to get event details
-                friendsjios[count] = data
-                count ++;
+                friendsjios[i] = data
+                //cnot use count, must use i so can access eventid aft tat
+                // count ++;
               }
               
               // let individual_username = data.username

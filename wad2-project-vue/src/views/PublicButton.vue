@@ -161,6 +161,8 @@ export default {
     <div class="row" id='app'>
 
       <div class="col-md-4 mb-5" v-for="(event, index) in publicevents" :key="index">
+        <router-link @click="scrollToTop" style="text-decoration: none; color: inherit;" :to="{ name: 'eachjioevent', params: { idx: index }}">
+
         <div class="card" style="width:auto">
           <!-- <img class="card-img-top" :src="event.image.url" alt="card image collar"> -->
           <div class="card-body" style="width: auto;">
@@ -168,7 +170,7 @@ export default {
 
             <div class="card-content">
                 created by {{event.username}}
-            </div>
+              </div>
               
             <div>Activities:</div>
                 <div v-for="key in event.activities" :key="key">
@@ -182,6 +184,7 @@ export default {
             </div>
           </div>
         </div>
+        </router-link>
 
       </div>
     </div>
