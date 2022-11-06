@@ -190,7 +190,7 @@ export default{
                 let person = currentlist[user]
                 var firstname = person.firstname
                 console.log(this.searched);
-                if(firstname.includes(this.searched)){
+                if(firstname.toLowerCase().includes(this.searched.toLowerCase())){
                     temparray.push(currentlist[user])
                 }
             }

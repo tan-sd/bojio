@@ -1,5 +1,8 @@
 <template>
-  <div v-if="loading">
+  <div v-if="loading" class="event-whole-page">
+    <a id="event-scroll-top" href="#event-banner-background">
+        scroll to top
+    </a>
     <div id="event-banner-div">
       <img
         id="event-banner-background"
@@ -52,15 +55,26 @@
       </div>
     </div>
     <div id="event-about-background"></div>
-    <div class="container mt-3">
+    <div class="container mt-5">
       {{ getlat }} {{ getlng }}
 
-      <h1>{{ name }}</h1> <!-- TITLE OF ABOUT SECTION HERE -->
+       <!-- TITLE OF ABOUT SECTION HERE -->
       <!-- {{description}} -->
       <div class="row">
-        <div id="event-about-section" class="col-6" v-html="displayDescription"></div>
-        <div class="col-6">
-        <div class="container" id="event-details-map">
+        
+        
+        <div class="col-12 col-md-6">
+          <h1>{{ name }}</h1>
+          <!-- description from data -->
+          <div id="event-about-section" v-html="description"></div>
+        </div>
+
+        <!-- map -->
+        <div class="col-12 col-md-6" id="event-right-column">
+        
+        <h2>Event Location</h2>
+          
+        <div class="container p-0" id="event-details-map">
           <div class="col d-flex">
             <GMapMap
               :center="center"
@@ -314,6 +328,11 @@ export default {
       this.url = `https://www.eventbriteapi.com/v3/events/${eventId}/?token=PRFPTWCYQ4TUG6MWF7GF`;
       this.descriptionURL = `https://www.eventbriteapi.com/v3/events/${eventId}/description/?token=PRFPTWCYQ4TUG6MWF7GF`;
     },
+
+    checkDOM(){
+      console.log(document.getElementsByTagName('div')[10])
+      console.log(document.getElementById('event-banner-card-body'))
+    }
   },
 
   computed: {
@@ -341,21 +360,7 @@ export default {
       return "";
     },
 
-    displayDescription(){
-      return (
-        `<style>  
-          #event-about-section p {
-            width: 100%;
-            font-size: 15px;
-          }
-        
-        </style>` + 
-        `
-        ${this.description}
-        `
 
-      );
-    }
   },
 
   created() {
@@ -415,5 +420,9 @@ export default {
       })
       .finally(() => setTimeout(this.setLoading, 500));
   },
+
+  mounted(){
+    this.checkDOM()
+  }
 };
 </script>
