@@ -280,6 +280,29 @@ background-color: #eaeaea !important;
 /* HOMEPAGE END */
 
 /* EVENT DETAILS PAGE START */
+#event-whole-page{
+  position:relative;
+}
+
+/* scroll to top button */
+#event-scroll-top{
+  position:fixed;
+  right: 5%;
+  bottom: 5%;
+  background-color: rgb(255, 127, 45);
+  opacity: 50%;
+  color:white;
+  font-family: worksans-medium;
+  text-decoration-line: none;
+  padding: 10px;
+  border-radius: 10px;
+  z-index: 1;
+}
+
+#event-scroll-top:hover{
+  opacity: 100%;
+}
+
 #event-banner-div{
     position: relative;
     overflow: hidden;
@@ -313,7 +336,7 @@ background-color: #eaeaea !important;
 }
 #event-banner-card-image{
     border-radius:10px 10px 0px 0px; 
-    max-height:300px;
+    max-height: 300px;
 }
 #event-banner-card-body{
     color:black;
@@ -339,6 +362,7 @@ background-color: #eaeaea !important;
 #event-card-buttons button{
     height:40px;
     margin: 5px;
+    padding: 0px;
     text-align: center;
     transition: 0.5s;
     background-size: 200% auto;
@@ -352,11 +376,6 @@ background-color: #eaeaea !important;
     -webkit-user-select: none;
     touch-action: manipulation; 
     text-decoration-line: none;
-}
-
-#event-about-background{
-  height: 100px;
-  background-color:rgb(255, 163, 106)
 }
 
 #event-about-section > div:first-child {
