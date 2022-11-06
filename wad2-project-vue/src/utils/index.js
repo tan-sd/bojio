@@ -646,3 +646,79 @@ export async function getusername(personuid) {
     });
   })
 }
+
+
+//get jio details for individual jio
+export async function getjiodetails(creatorid,eventid) {
+  console.log(creatorid);
+  uid = localStorage.getItem("uid")
+  return new Promise((resolve, reject) => {
+    const dbRef = ref(getDatabase());
+    get(child(dbRef, `createdjios/${creatorid}/${eventid}/peoplegoing`)).then((snapshot) => {
+
+      console.log(snapshot);
+      if (snapshot.exists()) {
+        console.log(snapshot.val());
+     
+        return (resolve(snapshot.val()))
+
+      } else {
+
+        console.log("No data available");
+        return reject('empty')
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
+  })
+}
+
+//wnt to join jio after clicking
+export function createjiolist(creatorid,eventid) {
+  const db = getDatabase();
+  console.log(creatorid);
+  uid = localStorage.getItem("uid")
+  //my own uid
+  // const uid = localStorage.getItem("uid")
+  // console.log('my own uid is' + uid);
+  const updates = {};
+
+  updates[`/createdjios/${creatorid}/${eventid}/peoplegoing`] = [`${uid}`]
+
+  // updates['/friendrequest/' + uid + '/' ] = 'pending'
+  console.log(updates);
+  console.log('end of createjiolist function');
+  return update(ref(db), updates);
+}
+
+//wnt to join jio after clicking
+export function replacejiolist(creatorid,eventid,peoplegoing) {
+  const db = getDatabase();
+
+  const updates = {};
+
+  updates[`/createdjios/${creatorid}/${eventid}/peoplegoing`] = peoplegoing
+
+  console.log(updates);
+  console.log('end of createjiolist function');
+  return update(ref(db), updates);
+}
+
+//display all my friends
+export async function displaypplgoing(creatorid,eventid) {
+  // uid = localStorage.getItem("uid")
+  return new Promise((resolve, reject) => {
+    const dbRef = ref(getDatabase());
+    get(child(dbRef, `createdjios/${creatorid}/${eventid}/peoplegoing`)).then((snapshot) => {
+      if (snapshot.exists()) {
+        return (resolve(snapshot.val()))
+
+      } else {
+        console.log("No data available");
+        return reject
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
+  })
+}

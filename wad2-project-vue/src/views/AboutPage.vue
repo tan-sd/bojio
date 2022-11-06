@@ -91,80 +91,21 @@
         <div class='wrapper col col-lg-6 text-center'>
           <div class='carousel'>
 
-            <div class='carousel__item container'>
+            <div v-for="item in objects" :key="item" class='carousel__item container'>
               <div class='carousel__item-body row'>
                 <div class='carousel__item-image-div col-4'>
-                  <img class='image' src='https://play-lh.googleusercontent.com/CWzqShf8hi-AhV9dUjzsqk2URzdIv8Vk2LmxBzf-Hc8T-oGkLVXe6pMpcXv36ofpvtc'>
+                  <img class='image' :src='item.image'>
                 </div>
                 <div class='carousel__item-words col-8'>
-                  <p class='title'>Dua Lipa Concert</p>
-                  <p class='body'>24 October 2022<br> 8pm to 12am</p>
+                  <p class='title'>{{item.title}}</p>
+                  <p class='body'>{{item.date}}<br> {{item.time}}</p>
                   <p class='carousel__fake-button text-center my-auto'>
                     Create a Jio
                   </p>
                 </div>
               </div>
             </div>
-
-            <div class='carousel__item container'>
-              <div class='carousel__item-body row'>
-                <div class='carousel__item-image-div col-4'>
-                  <img class='image' src='https://play-lh.googleusercontent.com/CWzqShf8hi-AhV9dUjzsqk2URzdIv8Vk2LmxBzf-Hc8T-oGkLVXe6pMpcXv36ofpvtc'>
-                </div>
-                <div class='carousel__item-words col-8'>
-                  <p class='title'>Dua Lipa Concert</p>
-                  <p class='body'>24 October 2022<br> 8pm to 12am</p>
-                  <p class='carousel__fake-button text-center my-auto'>
-                    Join a Jio
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div class='carousel__item container'>
-              <div class='carousel__item-body row'>
-                <div class='carousel__item-image-div col-4'>
-                  <img class='image' src='https://play-lh.googleusercontent.com/CWzqShf8hi-AhV9dUjzsqk2URzdIv8Vk2LmxBzf-Hc8T-oGkLVXe6pMpcXv36ofpvtc'>
-                </div>
-                <div class='carousel__item-words col-8'>
-                  <p class='title'>Dua Lipa Concert</p>
-                  <p class='body'>24 October 2022<br> 8pm to 12am</p>
-                  <p class='carousel__fake-button text-center my-auto'>
-                    Find Out More
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div class='carousel__item container'>
-              <div class='carousel__item-body row'>
-                <div class='carousel__item-image-div col-4'>
-                  <img class='image' src='https://play-lh.googleusercontent.com/CWzqShf8hi-AhV9dUjzsqk2URzdIv8Vk2LmxBzf-Hc8T-oGkLVXe6pMpcXv36ofpvtc'>
-                </div>
-                <div class='carousel__item-words col-8'>
-                  <p class='title'>Dua Lipa Concert</p>
-                  <p class='body'>24 October 2022<br> 8pm to 12am</p>
-                  <p class='carousel__fake-button text-center my-auto'>
-                    Create a Jio
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div class='carousel__item container'>
-              <div class='carousel__item-body row'>
-                <div class='carousel__item-image-div col-4'>
-                  <img class='image' src='https://play-lh.googleusercontent.com/CWzqShf8hi-AhV9dUjzsqk2URzdIv8Vk2LmxBzf-Hc8T-oGkLVXe6pMpcXv36ofpvtc'>
-                </div>
-                <div class='carousel__item-words col-8'>
-                  <p class='title'>Dua Lipa Concert</p>
-                  <p class='body'>24 October 2022<br> 8pm to 12am</p>
-                  <p class='carousel__fake-button text-center my-auto'>
-                    Create a Jio
-                  </p>
-                </div>
-              </div>
-            </div>
+<!--  -->
 
           </div>
         </div>
@@ -245,6 +186,49 @@
     <script>
     export default {
       title: 'BOJIO – About',
+
+      data(){
+          return {
+            objects : [
+              {
+                title:'Dua Lipa Concert',
+                image: '',
+                date: '28 November 2022',
+                time: '8pm to 11pm'
+                
+              },
+
+              {
+                title:'Picnic @Changi Beach',
+                image: '',
+                date: '15 November 2022',
+                time: '4pm to 7pm'
+              },
+
+              {
+                title:'Fly Kite @Marina Barrage',
+                image: '',
+                date: '10 November 2022',
+                time: '10am to 12pm'
+              },
+
+              {
+                title:'Standup Comedy @Robertson Quay',
+                image: '',
+                date: '8 December 2022',
+                time: '8pm to 10pm'
+              },
+
+              {
+                title:'Paintball Session',
+                image: '',
+                date: '11 December 2022',
+                time: '1pm to 3pm'
+              }
+            ]
+          }
+
+      },
       methods: {
         scrollToTop() {
             window.scrollTo(0,0);

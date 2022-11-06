@@ -35,9 +35,10 @@
                 <!-- <p>Organised by</p> -->
               </div>
               <div id="event-card-buttons" class="col-12 col-md-6 text-center">
-                <button type="button" class="btn btn-primary col-12">
-                  Find Out More
+                <a href="#event-details-map"><button type="button" class="btn btn-primary col-12" @click="loadMap()">
+                  Show Route to Event
                 </button>
+                </a>
                 <button type="button" class="btn btn-primary col-12">
                   Create a Jio for this event
                 </button>
@@ -50,39 +51,41 @@
         </div>
       </div>
     </div>
+    <div id="event-about-background"></div>
     <div class="container mt-3">
       {{ getlat }} {{ getlng }}
-      <h1>{{ name }}</h1>
-      <h1>About</h1>
-    </div>
-    <button type="button"
-                style="background-color: rgb(255, 127, 45);color: white;padding: 1rem;font-family: worksans-semibold;"
-                class="btn orange border border-3 mt-4 w-50" id="addAct" @click="loadMap()">
-                Show route to event
-              </button>
 
-    <div class="container">
+      <h1>{{ name }}</h1> <!-- TITLE OF ABOUT SECTION HERE -->
+      <!-- {{description}} -->
       <div class="row">
-        <div
-          class="col d-flex align-item-center justify-content-center mx-auto"
-        >
-          <GMapMap
-            :center="center"
-            :zoom="16"
-            map-type-id="roadmap"
-            style="width: 80vmin; height: 50vmin"
-            :options="options"
-            ref="map"
-          >
-            <GMapMarker
-              :key="marker.id"
-              v-for="marker in markers"
-              :position="marker.position"
-            />
-          </GMapMap>
+        <div id="event-about-section" class="col-6" v-html="displayDescription"></div>
+        <div class="col-6">
+        <div class="container" id="event-details-map">
+          <div class="col d-flex">
+            <GMapMap
+              :center="center"
+              :zoom="16"
+              map-type-id="roadmap"
+              style="width: 80vmin; height: 50vmin"
+              :options="options"
+              ref="map"
+            >
+              <GMapMarker
+                :key="marker.id"
+                v-for="marker in markers"
+                :position="marker.position"
+              />
+            </GMapMap>
+          </div>
         </div>
       </div>
     </div>
+
+      
+    </div>
+
+
+    
   </div>
 
   <div v-else>
@@ -337,6 +340,22 @@ export default {
 
       return "";
     },
+
+    displayDescription(){
+      return (
+        `<style>  
+          #event-about-section p {
+            width: 100%;
+            font-size: 15px;
+          }
+        
+        </style>` + 
+        `
+        ${this.description}
+        `
+
+      );
+    }
   },
 
   created() {

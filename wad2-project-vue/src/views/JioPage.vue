@@ -5,6 +5,7 @@
             {{event.eventname}}
         </h2>
 
+        {{event.userid}}
         <div>Description: {{event.activities[0].description}}</div>
 
         <div>Date: {{event.date}}</div>
@@ -27,14 +28,25 @@
                 
             </div>
 
-            <button type='button' class='btn btn-primary col-6'>Join Jio +</button>
+            <button type='button' class='btn btn-primary col-6' @click="joinjio(event.userid)">Join Jio +</button>
+            <p style="color:red">{{errormsg}}</p>
 
+            <div>
+                People going are:
+                <ul>
+                    <li v-for="person in names" :key="person">
+                        {{person}}
+                    </li>
+                </ul>
+
+            </div>
     </div>
 
 </template>
 
 <script>
-import { getprivate, getpublic } from '../utils/index.js'
+import { TroisJSVuePlugin } from 'troisjs'
+import { getusers, getprivate, getpublic, getjiodetails, createjiolist, replacejiolist, displaypplgoing } from '../utils/index.js'
 
 
 export default { 
@@ -44,7 +56,12 @@ export default {
         
         return{
             eventId:'',
-            event: ''
+            event: '',
+            errormsg:'',
+            creatorid: '',
+            peoplegoing: '',
+            allusers:'',
+            names:''
         }
 
     },
@@ -54,45 +71,137 @@ export default {
             this.eventId = this.$route.params.idx
             var eventId = this.$route.params.idx
         },
-    },
 
-    // computed:{ 
-    //     get(){ 
-    //         return this.$route.params.idx
-    //       }
-    // },
+        joinjio(creatorid){ 
+            //check if key is empty, if empty then use create jiolist
+            //aft tat both will call func to get the value with key=peoplegoing 
+            //var array = value
+            // array.push(myown uid)
+            //call another function to put array as the new value
+
+            var pplgoing = []
+            getjiodetails(creatorid,this.eventId).then((value)=>{
+                //means theres alr people going
+                // console.log(value);
+               
+            }).catch((value)=>{
+                console.log(value);
+                if(value == 'empty'){
+                    //then i js add this person in
+                    createjiolist(creatorid,this.eventId).then((value)=>{
+                        // js continue;
+                       
+                    })
+                }
+            })
+
+            //now confirm peoplegoing got some value, ill put this as pplgoing
+            getjiodetails(creatorid,this.eventId).then((value)=>{
+                //means theres alr people going
+                // console.log(value);
+                pplgoing = value
+
+                if(pplgoing.length > 10){
+                console.log('hit the max, cannot be more than 10 please pay premium');
+            }
+
+
+                if(pplgoing.length >= 1  && !pplgoing.includes(uid)){
+                    this.errormsg = ('u alr in the party');
+                }
+                else{
+                    //means i hvn push the person in so here push
+
+                    // console.log('added');
+                    var uid = localStorage.getItem("uid")
+                    pplgoing.push(uid)
+                    replacejiolist(creatorid,this.eventId,pplgoing)
+                }
+
+               
+            }).catch((value)=>{
+                console.log(value);
+                
+            })
+
+            
+
+        },
+
+        getnames(){ 
+            var uidarray = this.peoplegoing
+   
+            // find usernames of the users
+            const allusers = this.allusers
+            //object with userid as keys
+    
+            console.log('in get names');
+            console.log(allusers);
+            var usernames = {}
+            for(const user in allusers){ 
+                //user is the key
+                if(uidarray.includes(user)){
+            
+                    const username = allusers[user]['username']
+                    usernames[user] = username
+ 
+                }
+            }
+            this.names = usernames
+        }
+    },
 
     created(){ 
         this.getId()
         //get public events
+        getusers().then(
+                (value) => 
+                {
+                    this.allusers = value
+                }
+               
+            ).then((value) => console.log('finish loading')),
 
         getpublic().then((value) =>{ 
-   
-            const publickeys = Object.keys(value) 
+            
+            const publickeys = Object.keys(value)
+
             if(publickeys.includes(this.eventId)){
                 console.log('in get public');
                 this.event = value[this.eventId]
             }
-     
+
+            this.creatorid = this.event.userid
+
+            displaypplgoing(this.creatorid,this.eventId).then((value)=>{
+                this.peoplegoing = value
+                this.getnames()            
+            })
+            
         })
         .catch((message)=> {
-          console.log(message);
-          console.log('error');
+            console.log(message);
+            console.log('error');
         })
-
-
+        
         //get private events 
-
+        
         getprivate().then((value) => {
-
+            
             const privatekeys = Object.keys(value) 
             if(privatekeys.includes(this.eventId)){
-                console.log('in get private');
                 this.event = value[this.eventId]
+                this.creatorid = this.event.userid
+
+                displaypplgoing(this.creatorid,this.eventId).then((value)=>{
+                    this.peoplegoing = value
+                    this.getnames()
+                })
             }
-
-
+            
+            
         })
+        
     }
 
 
