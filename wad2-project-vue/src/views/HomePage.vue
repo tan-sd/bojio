@@ -11,7 +11,7 @@
     {{filterchoice}}
   
   <!-- WORLD 3D MODEL -->
-  <div class="container-fluid mx-auto about-fadeup island border border-1">
+  <div class="container-fluid mx-auto about-fadeup island">
     <Renderer
       ref="renderer"
       alpha antialias orbit-ctrl
@@ -356,7 +356,7 @@ export default {
       if (Math.floor(loaded / total * 100) === 100) {
         this.loadingProcess = Math.floor(loaded / total * 100);
         console.log(`Island is loaded at: ${this.loadingProcess}%`);
-        Animations.animateCamera(camera, orbitCtrl, { x: 0, y: 30, z: 140 }, { x: 20, y: 0, z: 0 }, 4000, () => {
+        Animations.animateCamera(camera, orbitCtrl, { x: 0, y: 40, z: 140 }, { x: 10, y: 0, z: 50 }, 4000, () => {
           this.sceneReady = true;
         });
       } else {
@@ -368,7 +368,7 @@ export default {
 
     
     const loader = new GLTFLoader(manager);
-    loader.load('Model/island.glb', mesh => {
+    loader.load('Model/finalised_map.glb', mesh => {
       mesh.scene.traverse(child => {
         if (child.isMesh) {
           child.material.metalness = .4;
