@@ -51,36 +51,41 @@
         </div>
       </div>
     </div>
+    <div id="event-about-background"></div>
     <div class="container mt-3">
       {{ getlat }} {{ getlng }}
-      <h1>{{ name }}</h1>
-      <div id="event-about-section" v-html="description"></div>
+
+      <h1>{{ name }}</h1> <!-- TITLE OF ABOUT SECTION HERE -->
+      <!-- {{description}} -->
+      <div class="row">
+        <div id="event-about-section" class="col-6" v-html="displayDescription"></div>
+        <div class="col-6">
+        <div class="container" id="event-details-map">
+          <div class="col d-flex">
+            <GMapMap
+              :center="center"
+              :zoom="16"
+              map-type-id="roadmap"
+              style="width: 80vmin; height: 50vmin"
+              :options="options"
+              ref="map"
+            >
+              <GMapMarker
+                :key="marker.id"
+                v-for="marker in markers"
+                :position="marker.position"
+              />
+            </GMapMap>
+          </div>
+        </div>
+      </div>
+    </div>
+
       
     </div>
 
 
-    <div class="container" id="event-details-map">
-      <div class="row">
-        <div
-          class="col d-flex justify-content-center"
-        >
-          <GMapMap
-            :center="center"
-            :zoom="16"
-            map-type-id="roadmap"
-            style="width: 80vmin; height: 50vmin"
-            :options="options"
-            ref="map"
-          >
-            <GMapMarker
-              :key="marker.id"
-              v-for="marker in markers"
-              :position="marker.position"
-            />
-          </GMapMap>
-        </div>
-      </div>
-    </div>
+    
   </div>
 
   <div v-else>
@@ -335,6 +340,22 @@ export default {
 
       return "";
     },
+
+    displayDescription(){
+      return (
+        `<style>  
+          #event-about-section p {
+            width: 100%;
+            font-size: 15px;
+          }
+        
+        </style>` + 
+        `
+        ${this.description}
+        `
+
+      );
+    }
   },
 
   created() {

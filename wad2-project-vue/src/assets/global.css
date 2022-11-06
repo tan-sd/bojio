@@ -354,7 +354,12 @@ background-color: #eaeaea !important;
     text-decoration-line: none;
 }
 
-#event-about-section > div:first-of-type {
+#event-about-background{
+  height: 100px;
+  background-color:rgb(255, 163, 106)
+}
+
+#event-about-section > div:first-child {
     font-style: italic;
 }
 
