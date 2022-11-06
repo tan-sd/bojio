@@ -26,7 +26,8 @@
   </div>
 
   <!-- WORLD 3D MODEL -->
-  <div class="container about-fadeup" id="world-model">
+
+  <div class="container about-fadeup world-model">
     <Renderer ref="renderer" alpha antialias orbit-ctrl resize="window">
       <Camera :position="{ z: 5 }" />
       <Scene>

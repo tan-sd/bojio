@@ -9,54 +9,79 @@
     </div> 
 
     {{filterchoice}}
+  
   <!-- WORLD 3D MODEL -->
-  <div class="container about-fadeup border border-1 mb-5" id="world-model">
+  <div class="container-fluid mx-auto about-fadeup island border border-1">
     <Renderer
       ref="renderer"
-      alpha antialias resize="window"
-      :pointer="{ intersectRecursive: true }"
-      >
-
-      <Camera :position="{z: 70 }" />
-      <Scene>
+      alpha antialias orbit-ctrl
+      resize="window">
+      <Camera
+        ref="camera"
+        :fov="55"
+        :position="{x:0, y:600, z:1600 }" />
+      <Scene
+        ref="scene">
         <AmbientLight
-          :position="{x:0, y:0, z:0}"
           color="white"
+          :intensity=".8"
         />
-        <PointLight
-          color="#FFF7C2"
-          :position="{ x: 100, y: 400, z: 40 }"
-          :intensity="0.5"
+        <DirectionalLight
+          ref="dirLight"
+          color="white"
+          :position="{ x: -1, y: 1.75, z: 1 }"
+          :intensity="1"
         />
-        <Raycaster 
-        />
-        <GltfModel
+        <!-- <GltfModel
           ref="gltf"
-          src="/Model/singapore.glb"
+          src="/Model/island.glb"
           @load="onReady"
           @progress="onProgress"
           @error="onError"
-          @pointerEnter="onPointerEvent"
-          @click="onPointerLeave"
+        /> -->
 
-          
+        <!-- <Plane
+          :scale="{x: 10000, y: 10000}"
+          ref="sea"
           >
-          <!-- @pointerOver="onPointerOver" -->
-          <!-- @pointerEnter = 'onPointerEvent' -->
-      
-          <!-- @mouseLeave = 'onPointerLeave'
-          @pointerOver ='onPointerLeave'
-          @pointerDown="onPointerLeave"
-          @pointerOut="onPointerLeave"
-          @pointerCancel="onPointerLeave"
-          @pointerLeave="onPointerLeave" -->
-          <!-- @pointerOver="onPointerEvent" -->
-        </GltfModel>
+            <BasicMaterial>
+              <Texture
+                ref="waterTexture"
+                src="Model/waternormals.jpg"
+                
+          />
+            </BasicMaterial>
+        </Plane> -->
       </Scene>
     </Renderer>
-  </div>
 
-    <div class="container">
+      <div class="point point-0">
+        <div class="label label-0">West
+          <div class="text">Click to filter!</div>
+        </div>
+      </div>
+
+      <div class="point point-1">
+        <div class="label label-0">North
+          <div class="text">Click to filter!</div>
+        </div>
+      </div>
+
+      <div class="point point-2">
+        <div class="label label-0">South
+          <div class="text">Click to filter!</div>
+        </div>
+      </div>
+
+      <div class="point point-3">
+        <div class="label label-0">East
+          <div class="text">Click to filter!</div>
+        </div>
+      </div>
+        
+    </div>
+
+    <div class="container mt-5">
         <div class="row d-flex align-content-center justify-content-center">
         <div class="col-sm-3 col-4 d-flex align-content-center justify-content-center">
           <button @click="activeTab = 'EventsButton'" class="btn" id="events">EVENTS</button>
@@ -136,6 +161,13 @@
 <script>
 //  const socket = new WebSocket('ws://localhost:8080')
 // console.log(socket)
+import * as THREE from 'three'
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { Sky } from 'three/examples/jsm/objects/Sky'
+import { Water } from 'three/examples/jsm/objects/Water'
+import { TWEEN } from "three/examples/jsm/libs/tween.module.min";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import Animations from '@/assets/animation'
 import sourceData from '../data.json'
 import EventsButton from './EventsButton.vue'
 import PublicButton from './PublicButton.vue'
@@ -151,6 +183,8 @@ export default {
 },
     data(){
         return {
+            sceneReady: false,
+            loadingProcess: 0,
             events: sourceData.events,
             length: 9, 
             uid: localStorage.getItem("uid"),
@@ -269,12 +303,170 @@ export default {
   },
 
   mounted() {
+
+    const clock = new THREE.Clock();
+    const raycaster = new THREE.Raycaster()
+    const sizes = {
+      width: window.innerWidth,
+      height: window.innerHeight
+    }
+
+    const renderer = this.$refs.renderer.renderer;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+
+    const scene = this.$refs.scene.scene;
+    const sky = new Sky();
+    sky.scale.setScalar(2000);
+    scene.add(sky);
+    const skyUniforms = sky.material.uniforms;
+    skyUniforms['turbidity'].value = 20;
+    skyUniforms['rayleigh'].value = 2;
+    skyUniforms['mieCoefficient'].value = 0.005;
+    skyUniforms['mieDirectionalG'].value = 0.8;
+    const sun = new THREE.Vector3();
+    const pmremGenerator = new THREE.PMREMGenerator(renderer);
+    const phi = THREE.MathUtils.degToRad(88);
+    const theta = THREE.MathUtils.degToRad(180);
+    sun.setFromSphericalCoords(1, phi, theta);
+    sky.material.uniforms['sunPosition'].value.copy(sun);
+    scene.environment = pmremGenerator.fromScene(sky).texture;
+
+    const waterGeometry = new THREE.PlaneGeometry(5000, 5000);
+    const water = new Water(waterGeometry, {
+      textureWidth: 512,
+      textureHeight: 512,
+      waterNormals: new THREE.TextureLoader().load('Model/waternormals.jpg',  texture => {
+        texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+      }),
+      sunDirection: new THREE.Vector3(),
+      sunColor: 0xffffff,
+      waterColor: 0x0072ff,
+      distortionScale: 4,
+      fog: scene.fog !== undefined
+    });
+    water.material.uniforms['sunDirection'].value.copy(sun).normalize();
+    water.rotation.x = - Math.PI / 2;
+    scene.add(water)
+
+    const camera = this.$refs.camera.camera;
+    console.log(camera)
+
+    const manager = new THREE.LoadingManager();
+    manager.onProgress = async(url, loaded, total) => {
+      if (Math.floor(loaded / total * 100) === 100) {
+        this.loadingProcess = Math.floor(loaded / total * 100);
+        console.log(`Island is loaded at: ${this.loadingProcess}%`);
+        Animations.animateCamera(camera, orbitCtrl, { x: 0, y: 40, z: 140 }, { x: 0, y: 0, z: 0 }, 4000, () => {
+          this.sceneReady = true;
+        });
+      } else {
+        this.loadingProcess = Math.floor(loaded / total * 100);
+        console.log(`Island is last loaded at: ${this.loadingProcess}%`);
+        this.sceneReady = false;
+      }
+    };
+
+    
+    const loader = new GLTFLoader(manager);
+    loader.load('Model/island.glb', mesh => {
+      mesh.scene.traverse(child => {
+        if (child.isMesh) {
+          child.material.metalness = .4;
+          child.material.roughness = .6;
+        }
+      })
+      mesh.scene.position.set(0, -2, 0);
+      mesh.scene.scale.set(33, 33, 33);
+      scene.add(mesh.scene);
+    })
+
+    const dirLight = this.$refs.dirLight.light;
+    dirLight.color.setHSL(.1, 1, .95);
+    dirLight.position.multiplyScalar(30);
+    const orbitCtrl = this.$refs.renderer.three.cameraCtrl
+    // orbitCtrl.enableZoom = false;
+    orbitCtrl.target.set(0, 0, 0);
+    orbitCtrl.enableDamping = true;
+    orbitCtrl.enablePan = false;
+    orbitCtrl.maxPolarAngle = 1.5;
+    orbitCtrl.minDistance = 50;
+    orbitCtrl.maxDistance = 1200;
         // const renderer = this.$refs.renderer;
         // const world = this.$refs.gltf.scene;
         // console.log(world)
         // const orbitCtrl = this.$refs.renderer.three.cameraCtrl
         // orbitCtrl.enableZoom = false;
+
+    const points = [
+      {
+        position: new THREE.Vector3(10, 46, 0),
+        element: document.querySelector('.point-0')
       },
+      {
+        position: new THREE.Vector3(-10, 8, 24),
+        element: document.querySelector('.point-1')
+      },
+      {
+        position: new THREE.Vector3(30, 10, 70),
+        element: document.querySelector('.point-2')
+      },
+      {
+        position: new THREE.Vector3(-100, 50, -300),
+        element: document.querySelector('.point-3')
+      },
+    ];
+
+    document.querySelectorAll('.point').forEach(item => {
+      item.addEventListener('click', event => {
+        let className = event.target.classList[event.target.classList.length - 1];
+        switch(className) {
+          case 'label-0':
+            // Animations.animateCamera(camera, orbitCtrl, { x: -15, y: 80, z: 60 }, { x: 0, y: 0, z: 0 }, 1600, () => {});
+            this.filterchoice = 'West'
+            break;
+          // ...
+        }
+      }, false);
+    });
+
+    const animate = () => {
+      requestAnimationFrame(animate);
+      water.material.uniforms['time'].value += 1.0 / 60.0;
+      orbitCtrl && orbitCtrl.update();
+      const delta = clock.getDelta();
+      this.mixers && this.mixers.forEach(item => {
+        item.update(delta);
+    });
+
+    const timer = Date.now() * 0.0005;
+    TWEEN && TWEEN.update();
+    camera && (camera.position.y += Math.sin(timer) * .05);
+
+    if (this.sceneReady == true) {
+      for (const point of points) {
+        const screenPosition = point.position.clone();
+        screenPosition.project(camera);
+        raycaster.setFromCamera(screenPosition, camera);
+        const intersects = raycaster.intersectObjects(scene.children, true);
+        if (intersects.length === 0) {
+          point.element.classList.add('visible');
+          // console.log(point.element)
+        } else {
+          // console.log(point.element)
+          const intersectionDistance = intersects[0].distance;
+          const pointDistance = point.position.distanceTo(camera.position);
+          intersectionDistance < pointDistance ? point.element.classList.remove('visible') :  point.element.classList.add('visible');
+          // console.log(point)
+        }
+          const translateX = screenPosition.x * sizes.width * 0.5;
+          const translateY = - screenPosition.y * sizes.height * 0.5;
+          point.element.style.transform = `translateX(${translateX}px) translateY(${translateY}px)`;
+        }
+    }
+      renderer.render(scene, camera);
+    }
+    animate()
+  },
 
   created(){
 
