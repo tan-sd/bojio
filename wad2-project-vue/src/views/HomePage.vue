@@ -4,7 +4,7 @@
     <!-- will be putting if person exist here but dont work yet -->
     <div class="container" v-if="uid.length > 0">
       <div class="row mb-5">
-        <div id = 'personname' style="display:inline; font-family: worksans-extrabold; font-size: 4vmin;"> Welcome, {{fullname}}! 👋🏼</div>
+        <div id = 'personname' style="font-family: worksans-extrabold; font-size: 4vmin;"> Welcome, {{fullname}}! 👋🏼</div>
       </div>
     </div> 
 
@@ -397,6 +397,7 @@ export default {
     dirLight.color.setHSL(.1, 1, .95);
     dirLight.position.multiplyScalar(30);
     const orbitCtrl = this.$refs.renderer.three.cameraCtrl
+    orbitCtrl.enableZoom = false;
     // orbitCtrl.enableZoom = false;
     orbitCtrl.target.set(0, 0, 0);
     orbitCtrl.enableDamping = true;
@@ -412,23 +413,23 @@ export default {
 
     const points = [
       {
-        position: new THREE.Vector3(20, 30, 0),
+        position: new THREE.Vector3(20, 95, 0),
         element: document.querySelector('.point-0')
       },
       {
-        position: new THREE.Vector3(-10, 20, 50),
+        position: new THREE.Vector3(-10, 55, 50),
         element: document.querySelector('.point-1')
       },
       {
-        position: new THREE.Vector3(30, 20, 60),
+        position: new THREE.Vector3(30, 55, 60),
         element: document.querySelector('.point-2')
       },
       {
-        position: new THREE.Vector3(-20, 30, 24),
+        position: new THREE.Vector3(-20, 65, 24),
         element: document.querySelector('.point-3')
       },
       {
-      position: new THREE.Vector3(-30, 15, 60),
+      position: new THREE.Vector3(-30, 50, 60),
         element: document.querySelector('.point-4')
       },
     ];
