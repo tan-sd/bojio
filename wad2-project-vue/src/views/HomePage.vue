@@ -10,8 +10,8 @@
 
     {{filterchoice}}
   
-  <!-- SINGAPORE ISLAND -->
-  <div class="mx-auto about-fadeup island">
+  <!-- WORLD 3D MODEL -->
+  <div class="container-fluid mx-auto about-fadeup island">
     <Renderer
       ref="renderer"
       alpha antialias orbit-ctrl
@@ -40,37 +40,26 @@
     </Renderer>
 
       <div class="point point-0">
-        <div class="label label-0">
-          <span>Central</span>
-          <div class="text">Click to filter Central location.</div>
+        <div class="label label-0">West
+          <div class="text">Click to filter!</div>
         </div>
       </div>
 
       <div class="point point-1">
-        <div class="label label-0">
-          <span>North</span>
-          <div class="text">Click to filter North location.</div>
+        <div class="label label-0">North
+          <div class="text">Click to filter!</div>
         </div>
       </div>
 
       <div class="point point-2">
-        <div class="label label-0">
-          <span>East</span>
-          <div class="text">Click to filter East location.</div>
+        <div class="label label-0">South
+          <div class="text">Click to filter!</div>
         </div>
       </div>
 
       <div class="point point-3">
-        <div class="label label-0">
-          <span>West</span>
-          <div class="text">Click to filter West location.</div>
-        </div>
-      </div>
-
-      <div class="point point-4">
-        <div class="label label-0">
-          <span>Reset</span>
-          <div class="text">Click to reset filter.</div>
+        <div class="label label-0">East
+          <div class="text">Click to filter!</div>
         </div>
       </div>
         
@@ -227,33 +216,33 @@ export default {
         // event.intersect.object.material.color.set(event.over ? 500 : 1000)
 
       },
-      onPointerLeave(event) {
+      // onPointerLeave(event) {
 
-        //identify location
-        var location = event.intersect.object.name
-        if(location =='North'){ 
-          this.filterchoice = 'North'
-        }
+      //   //identify location
+      //   var location = event.intersect.object.name
+      //   if(location =='North'){ 
+      //     this.filterchoice = 'North'
+      //   }
 
-        if(location == 'Central'){ 
-          this.filterchoice = 'Central'
-        }
+      //   if(location == 'Central'){ 
+      //     this.filterchoice = 'Central'
+      //   }
 
-        if(location == 'East'){ 
-          this.filterchoice = 'East'
-        }
+      //   if(location == 'East'){ 
+      //     this.filterchoice = 'East'
+      //   }
 
-        if(location == 'West'){ 
-          this.filterchoice = 'West'
-        }
+      //   if(location == 'West'){ 
+      //     this.filterchoice = 'West'
+      //   }
 
-        this.count += 1
-        if(this.count % 4 == 0){ 
-          this.clicked = false
-        }else{ 
+      //   this.count += 1
+      //   if(this.count % 4 == 0){ 
+      //     this.clicked = false
+      //   }else{ 
         
-          this.clicked = true
-        }
+      //     this.clicked = true
+      //   }
        
         // if (this.clicked === true) {
         //   event.intersect.object.material.color.set(100)
@@ -261,9 +250,9 @@ export default {
         //   event.intersect.object.material.color.set(1000)
         // }
 
-        console.log('i am clicked '+ this.clicked);
-        return
-      },
+      //   console.log('i am clicked '+ this.clicked);
+      //   return
+      // },
       filter() {
         // console.log(this.events);
         //   if (this.length >= this.events.length) {
@@ -436,12 +425,24 @@ export default {
     document.querySelectorAll('.point').forEach(item => {
       item.addEventListener('click', event => {
         let className = event.target.classList[event.target.classList.length - 1];
+        console.log(className);
         switch(className) {
-          case 'label-0':
+          case 'label-west':
             // Animations.animateCamera(camera, orbitCtrl, { x: -15, y: 80, z: 60 }, { x: 0, y: 0, z: 0 }, 1600, () => {});
             this.filterchoice = 'West'
             break;
-          // ...
+          
+          case 'label-north':
+            this.filterchoice = 'North'
+            break;
+
+          case 'label-south':
+            this.filterchoice = 'Central'
+            break
+
+          case 'label-east':
+            this.filterchoice = 'East'
+            break
         }
       }, false);
     });
