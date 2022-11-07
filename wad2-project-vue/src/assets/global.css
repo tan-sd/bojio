@@ -779,7 +779,7 @@ margin-bottom: auto;
 }
 
 .banner-header-form {
-    font-family: worksans-semibold;
+    font-family: worksans-extrabold;
     font-size: 4rem;
     line-height: 1;
     padding: 0.5rem;
@@ -1169,6 +1169,10 @@ td {
 
 /* CREATE A JIO PAGE END */
 /* FRIENDS PAGE START */
+
+.routerLink {
+  text-decoration: none;
+}
 
 .friends-card{
   position:relative;

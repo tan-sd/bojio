@@ -36,7 +36,8 @@
                 <div v-for="key in event.activities" :key="key">
                   <div>Name: {{key.name}}</div>
                   <div>Location: {{key.location}}</div>
-                  <div>Date: {{event.date}}</div>
+                  <div>Date: {{event.date.split('T')[0]}}</div>
+                  <div>Start time: {{event.date.split('T')[1]}}</div>
 
                   <br>
                   <!-- Eventinfo: {{key.description}} -->
