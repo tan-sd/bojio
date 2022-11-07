@@ -66,6 +66,7 @@
                 Enter a valid date and time for the event.
               </div> -->
             </div>
+            
 
             Type of Event:
             <div class="form-check">
@@ -164,7 +165,7 @@
                   <td>
                     <button type="button" style="background-color: rgb(255, 127, 45); color: white"
                       class="btn orange border border-3 rounded-5" id="loginBtn"
-                      @click="actArr.splice(index, 1), places.splice(index, 1), removetime(act.duration), remove(act.location)">
+                      @click="actArr.splice(index, 1), removetime(act.duration), remove(act.location)">
                       Remove
                     </button>
                   </td>
@@ -172,28 +173,17 @@
               </table>
               <p>Total Duration(Mins): {{ totalDuration }}</p>
 
-              <button type="button"
-                style="background-color: rgb(255, 127, 45);color: white;padding: 1rem;font-family: worksans-semibold;"
-                class="btn orange border border-3 mt-4 w-50" id="addAct" @click="showMap()">
-                Finalized activity? Show on map
-              </button>
             </div>
           </div>
 
-          <div id="floating-panel" style="margin-bottom:3px">
-            <b>Mode of Travel: </b>
-            <select id="mode" v-model="travelMode" @change="calculateAndDisplayRoute">
-              <option value="DRIVING">Driving</option>
-              <option value="WALKING">Walking</option>
-              <option value="BICYCLING">Bicycling</option>
-
-            </select>
-          </div>
-
           <div class="col" id="map">
+            
             <GMapMap :center="center" :zoom="12" map-type-id="roadmap" style="width: 1000px; height: 400px"
               :options="options" ref="map">
+              
             </GMapMap>
+            
+          
           </div>
         </div>
       </div>
@@ -234,6 +224,7 @@ export default {
       center: { lat: 1.3421, lng: 103.8198 },
       places: [],
       waypts: [],
+      
       coords: "",
       destination: "",
       titleLimit: 50,
@@ -319,10 +310,11 @@ export default {
       this.currentLng = place.geometry.location.lng();
     },
     addAct() {
+      //reset map
       if (directionsDisplay != null) {
         directionsDisplay.setMap(null);
         directionsDisplay = null;
-      }
+        }
       directionsService = new window.google.maps.DirectionsService();
       directionsDisplay = new window.google.maps.DirectionsRenderer();
 
@@ -362,64 +354,41 @@ export default {
 
       if (errors == 0) {
         this.places.push(this.actLocation);
-
-        activityDuration.classList = "form-control";
-        activityLocation.classList = "form-control";
-        activityTitle.classList = "form-control";
-
-        // console.log(typeof(this.markers[0]))
-        this.actArr.push({
-          name: this.actTitle,
-          location: this.actLocation,
-          duration: this.actDuration,
-          description: this.description
-        });
-
-        this.totalDuration += parseFloat(this.actDuration);
-        this.clearForm();
-        document.GMapAutocomplete.set("place", null);
-
-        if (this.places.length >= 2) {
+        console.log(this.places)
+        
+        
+        if (this.places.length >= 1) {
         this.calculateAndDisplayRoute(
           directionsService,
           directionsDisplay,
           // this.places[0],
           // this.places[1]
         );
+        // console.log(typeof(this.markers[0]))
       }
+      // console.log(this.places)
 
+      this.actArr.push({
+        name: this.actTitle,
+        location: this.actLocation,
+        duration: this.actDuration,
+        description: this.description
+      });
+
+        this.totalDuration += parseFloat(this.actDuration);
+        console.log(this.places)
+        activityDuration.classList = "form-control";
+        activityLocation.classList = "form-control";
+        activityTitle.classList = "form-control";
+        this.clearForm();
+        document.GMapAutocomplete.set("place", null);
 
       }
     },
 
     //adding points to map which was intially in add and remove activity function
 
-    showMap() {
-      console.log(this.places);
-      
-      
-      
-      // if (this.places.length > 2) {
-        // console.log(this.places)
-        // for (var i = 1; i < this.places.length - 1; i++) {
-        //   console.log(this.places[i]);
-        //   this.waypts.push({
-        //     location: this.places[i],
-        //     stopover: true,
-        //   });
-        //   console.log('inside > 2: ' + this.waypts);
-        // }
-        // this.calculateAndDisplayRoute(
-        //   directionsService,
-        //   directionsDisplay,
-          // this.places[0],
-          // this.places[this.places.length - 1]
-        // );
-
-      // }
-
-    },
-
+  
     removetime(activity) {
       // console.log("the activity is" + activity);
       // console.log("before" + this.totalDuration);
@@ -429,14 +398,21 @@ export default {
 
     },
 
-    removeactivity(activity) {
-      var directionsService = new window.google.maps.DirectionsService();
-      var directionsDisplay = new window.google.maps.DirectionsRenderer();
+    remove(location) {
+      if (directionsDisplay != null) {
+        directionsDisplay.setMap(null);
+        directionsDisplay = null;
+        }
+      directionsService = new window.google.maps.DirectionsService();
+      directionsDisplay = new window.google.maps.DirectionsRenderer();
+
+      console.log(directionsDisplay);
+      
       directionsDisplay.setMap(this.$refs.map.$mapObject);
-
-      var index = this.places.indexOf(activity)
+      console.log(this.places)
+      var index = this.places.indexOf(location)
       this.places.splice(index, 1)
-
+      console.log(this.places)
       if (this.places.length == 2) {
         this.calculateAndDisplayRoute(
           directionsService,
@@ -445,6 +421,25 @@ export default {
           // this.places[1]
         );
       }
+
+      if (this.places.length == 2) {
+        // console.log(this.places)
+        // for (var i = 1; i < this.places.length - 1; i++) {
+        //   console.log(i);
+        //   console.log(this.places[i]);
+        //   this.waypts.push({
+        //     location: this.places[i],
+        //     stopover: true,
+        //   });
+        // }
+        this.calculateAndDisplayRoute(
+          directionsService,
+          directionsDisplay,
+          // this.places[0],
+          // this.places[this.places.length - 1]
+        );
+      }
+
       if (this.places.length > 2) {
         // console.log(this.places)
         for (var i = 1; i < this.places.length - 1; i++) {
@@ -463,8 +458,6 @@ export default {
           // this.places[this.places.length - 1]
         );
       }
-
-
     },
     clearForm() {
       this.actDuration = "";

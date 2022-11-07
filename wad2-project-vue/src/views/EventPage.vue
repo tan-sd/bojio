@@ -57,6 +57,12 @@
     <div id="event-about-background"></div>
     <div class="container mt-5">
       {{ getlat }} {{ getlng }}
+      <h1>{{ name }}</h1>
+      <h1>About</h1>
+      <a :href="route">How to get there</a>
+    </div>
+    
+    
 
        <!-- TITLE OF ABOUT SECTION HERE -->
       <!-- {{description}} -->
@@ -96,7 +102,7 @@
     </div>
 
       
-    </div>
+    
 
 
     
@@ -185,7 +191,8 @@ export default {
       eventName: "",
       date: "",
       time: "",
-      ownLoc:"",
+      ownLat: "",
+      ownLng: "",
       center: { lat: this.latitude, lng: this.longitude },
       markers: [
         {
@@ -214,11 +221,9 @@ export default {
     userLocation() {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          var lat=position.coords.latitude;
-          var lng=position.coords.longitude;
-        
-          this.ownLoc= {lat,lng}
-          console.log(this.ownLoc)
+          this.ownLat=position.coords.latitude;
+          this.ownLng=position.coords.longitude;
+          console.log(this.ownLat, this.ownLng);
         },
         (error) => {
           console.log(error.message);
@@ -359,8 +364,10 @@ export default {
 
       return "";
     },
-
-
+    route(){
+      return "https://maps.google.com?saddr="+this.ownLat+ ","+ this.ownLng +"&daddr=" + this.center.lat+ ","+ this.center.lng +
+      "&mode=driving"
+    }
   },
 
   created() {
