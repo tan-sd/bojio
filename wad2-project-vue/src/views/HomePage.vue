@@ -10,8 +10,8 @@
 
     {{filterchoice}}
   
-  <!-- WORLD 3D MODEL -->
-  <div class="container-fluid mx-auto about-fadeup island">
+  <!-- SINGAPORE ISLAND -->
+  <div class="mx-auto about-fadeup island">
     <Renderer
       ref="renderer"
       alpha antialias orbit-ctrl
@@ -40,26 +40,37 @@
     </Renderer>
 
       <div class="point point-0">
-        <div class="label label-0">West
-          <div class="text">Click to filter!</div>
+        <div class="label label-central">
+          <span>Central</span>
+          <div class="text">Click to filter Central location.</div>
         </div>
       </div>
 
       <div class="point point-1">
-        <div class="label label-0">North
-          <div class="text">Click to filter!</div>
+        <div class="label label-north">
+          <span>North</span>
+          <div class="text">Click to filter North location.</div>
         </div>
       </div>
 
       <div class="point point-2">
-        <div class="label label-0">South
-          <div class="text">Click to filter!</div>
+        <div class="label label-east">
+          <span>East</span>
+          <div class="text">Click to filter East location.</div>
         </div>
       </div>
 
       <div class="point point-3">
-        <div class="label label-0">East
-          <div class="text">Click to filter!</div>
+        <div class="label label-west">
+          <span>West</span>
+          <div class="text">Click to filter West location.</div>
+        </div>
+      </div>
+
+      <div class="point point-4">
+        <div class="label label-reset">
+          <span>Reset</span>
+          <div class="text">Click to reset filter.</div>
         </div>
       </div>
         
@@ -401,23 +412,23 @@ export default {
 
     const points = [
       {
-        position: new THREE.Vector3(20, 50, 0),
+        position: new THREE.Vector3(20, 60, 0),
         element: document.querySelector('.point-0')
       },
       {
-        position: new THREE.Vector3(-10, 20, 50),
+        position: new THREE.Vector3(-10, 30, 50),
         element: document.querySelector('.point-1')
       },
       {
-        position: new THREE.Vector3(30, 20, 60),
+        position: new THREE.Vector3(30, 30, 60),
         element: document.querySelector('.point-2')
       },
       {
-        position: new THREE.Vector3(-20, 30, 24),
+        position: new THREE.Vector3(-20, 40, 24),
         element: document.querySelector('.point-3')
       },
       {
-      position: new THREE.Vector3(-30, 20, 60),
+      position: new THREE.Vector3(-30, 30, 60),
         element: document.querySelector('.point-4')
       },
     ];
@@ -436,7 +447,7 @@ export default {
             this.filterchoice = 'North'
             break;
 
-          case 'label-south':
+          case 'label-central':
             this.filterchoice = 'Central'
             break
 
