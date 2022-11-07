@@ -10,8 +10,8 @@
 
     {{filterchoice}}
   
-  <!-- WORLD 3D MODEL -->
-  <div class="container-fluid mx-auto about-fadeup island">
+  <!-- SINGAPORE ISLAND -->
+  <div class="mx-auto about-fadeup island">
     <Renderer
       ref="renderer"
       alpha antialias orbit-ctrl
@@ -32,52 +32,48 @@
           :position="{ x: -1, y: 1.75, z: 1 }"
           :intensity="1"
         />
-        <!-- <GltfModel
-          ref="gltf"
-          src="/Model/island.glb"
-          @load="onReady"
-          @progress="onProgress"
-          @error="onError"
-        /> -->
 
-        <!-- <Plane
-          :scale="{x: 10000, y: 10000}"
-          ref="sea"
-          >
-            <BasicMaterial>
-              <Texture
-                ref="waterTexture"
-                src="Model/waternormals.jpg"
-                
-          />
-            </BasicMaterial>
-        </Plane> -->
+        <PointLight
+          ref="pointLight"
+        ></PointLight>
       </Scene>
     </Renderer>
 
       <div class="point point-0">
-        <div class="label label-0">West
-          <div class="text">Click to filter!</div>
+        <div class="label label-0">
+          <span>Central</span>
+          <div class="text">Click to filter Central location.</div>
         </div>
       </div>
 
       <div class="point point-1">
-        <div class="label label-0">North
-          <div class="text">Click to filter!</div>
+        <div class="label label-0">
+          <span>North</span>
+          <div class="text">Click to filter North location.</div>
         </div>
       </div>
 
       <div class="point point-2">
-        <div class="label label-0">South
-          <div class="text">Click to filter!</div>
+        <div class="label label-0">
+          <span>East</span>
+          <div class="text">Click to filter East location.</div>
         </div>
       </div>
 
       <div class="point point-3">
-        <div class="label label-0">East
-          <div class="text">Click to filter!</div>
+        <div class="label label-0">
+          <span>West</span>
+          <div class="text">Click to filter West location.</div>
         </div>
       </div>
+
+      <div class="point point-4">
+        <div class="label label-0">
+          <span>Reset</span>
+          <div class="text">Click to reset filter.</div>
+        </div>
+      </div>
+        
         
     </div>
 
@@ -167,6 +163,7 @@ import { Sky } from 'three/examples/jsm/objects/Sky'
 import { Water } from 'three/examples/jsm/objects/Water'
 import { TWEEN } from "three/examples/jsm/libs/tween.module.min";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import { Lensflare, LensflareElement } from 'three/examples/jsm/objects/Lensflare.js';
 import Animations from '@/assets/animation'
 import sourceData from '../data.json'
 import EventsButton from './EventsButton.vue'
@@ -316,7 +313,7 @@ export default {
 
     const scene = this.$refs.scene.scene;
     const sky = new Sky();
-    sky.scale.setScalar(2000);
+    sky.scale.setScalar(10000);
     scene.add(sky);
     const skyUniforms = sky.material.uniforms;
     skyUniforms['turbidity'].value = 20;
@@ -331,7 +328,23 @@ export default {
     sky.material.uniforms['sunPosition'].value.copy(sun);
     scene.environment = pmremGenerator.fromScene(sky).texture;
 
-    const waterGeometry = new THREE.PlaneGeometry(5000, 5000);
+    const pointLight = this.$refs.pointLight.light
+    pointLight.color.setHSL(.995, .5, .9);
+    pointLight.position.set(0, 45, -2000);
+    const textureLoader = new THREE.TextureLoader();
+    const textureFlare0 = textureLoader.load('Model/lensflare0.png');
+    const textureFlare1 = textureLoader.load('Model/lensflare1.png');
+    
+    const lensflare = new Lensflare();
+    lensflare.addElement(new LensflareElement( textureFlare0, 600, 0, pointLight.color));
+    lensflare.addElement(new LensflareElement( textureFlare1, 60, .6));
+    lensflare.addElement(new LensflareElement( textureFlare1, 70, .7));
+    lensflare.addElement(new LensflareElement( textureFlare1, 120, .9));
+    lensflare.addElement(new LensflareElement( textureFlare1, 70, 1));
+    pointLight.add(lensflare);
+    scene.add(pointLight);
+
+    const waterGeometry = new THREE.PlaneGeometry(10000, 10000);
     const water = new Water(waterGeometry, {
       textureWidth: 512,
       textureHeight: 512,
@@ -356,7 +369,7 @@ export default {
       if (Math.floor(loaded / total * 100) === 100) {
         this.loadingProcess = Math.floor(loaded / total * 100);
         console.log(`Island is loaded at: ${this.loadingProcess}%`);
-        Animations.animateCamera(camera, orbitCtrl, { x: 0, y: 40, z: 140 }, { x: 10, y: 0, z: 50 }, 4000, () => {
+        Animations.animateCamera(camera, orbitCtrl, { x: 0, y: 40, z: 140 }, { x: 5, y: -10, z: 0 }, 4000, () => {
           this.sceneReady = true;
         });
       } else {
@@ -368,7 +381,7 @@ export default {
 
     
     const loader = new GLTFLoader(manager);
-    loader.load('Model/finalised_map.glb', mesh => {
+    loader.load('Model/finalised_map.gltf', mesh => {
       mesh.scene.traverse(child => {
         if (child.isMesh) {
           child.material.metalness = .4;
@@ -399,20 +412,24 @@ export default {
 
     const points = [
       {
-        position: new THREE.Vector3(10, 46, 0),
+        position: new THREE.Vector3(20, 50, 0),
         element: document.querySelector('.point-0')
       },
       {
-        position: new THREE.Vector3(-10, 8, 24),
+        position: new THREE.Vector3(-10, 20, 50),
         element: document.querySelector('.point-1')
       },
       {
-        position: new THREE.Vector3(30, 10, 70),
+        position: new THREE.Vector3(30, 20, 60),
         element: document.querySelector('.point-2')
       },
       {
-        position: new THREE.Vector3(-100, 50, -300),
+        position: new THREE.Vector3(-20, 30, 24),
         element: document.querySelector('.point-3')
+      },
+      {
+      position: new THREE.Vector3(-30, 20, 60),
+        element: document.querySelector('.point-4')
       },
     ];
 
