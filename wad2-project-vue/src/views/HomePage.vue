@@ -412,23 +412,23 @@ export default {
 
     const points = [
       {
-        position: new THREE.Vector3(20, 60, 0),
+        position: new THREE.Vector3(20, 30, 0),
         element: document.querySelector('.point-0')
       },
       {
-        position: new THREE.Vector3(-10, 30, 50),
+        position: new THREE.Vector3(-10, 20, 50),
         element: document.querySelector('.point-1')
       },
       {
-        position: new THREE.Vector3(30, 30, 60),
+        position: new THREE.Vector3(30, 20, 60),
         element: document.querySelector('.point-2')
       },
       {
-        position: new THREE.Vector3(-20, 40, 24),
+        position: new THREE.Vector3(-20, 30, 24),
         element: document.querySelector('.point-3')
       },
       {
-      position: new THREE.Vector3(-30, 30, 60),
+      position: new THREE.Vector3(-30, 15, 60),
         element: document.querySelector('.point-4')
       },
     ];
