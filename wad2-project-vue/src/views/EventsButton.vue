@@ -1,11 +1,15 @@
+
 <template>
+
 
     <div class="container mt-5">
       <div class="row w-75 mx-auto">
         <div class="col-12 col-md-6 mb-3">
-          <input type="textbox" v-model="searchedname" class="form-control rounded-pill" id="exampleFormControlInput1" placeholder="Search..." @keydown="search()" @keyup.delete="deletesearch()">
+          <input type="textbox" v-model="searchedname" class="form-control rounded-pill" id="exampleFormControlInput1" placeholder="Search..." @keyup="search()" @keyup.delete="deletesearch()">
         </div>
 
+      <!-- Search:
+      <input type="textbox" v-model="searchedname" placeholder="enter event name..." @keydown="search()" @keyup.delete="deletesearch()"> -->
         <div class="col-12 col-md-6">
           <select v-model="selectedlocation" class="form-select" aria-label="Default select example" @click="filter">
             <option v-for="(value, key) in sgdistrictcode" :key="value">
@@ -17,7 +21,6 @@
         </button> -->
         </div>
       </div>
-
     
       <!-- Filter by Location:
       <select v-model="selectedlocation" placeholder="select location" @click="filter">
@@ -30,6 +33,7 @@
         </button>
 
       </div>
+    </div>
     </div> -->
  
     <span v-if="data != ''">
@@ -41,8 +45,14 @@
     <!-- if use map -->
 
 
+    chosenlocation: {{selectedlocation}}
+    use filter: {{usefilter}}
+    use search: {{usesearch}}
+
+    <!-- {{events}} -->
     <!-- if no filters used  -->
     <div v-if="!usefilter">
+      no filter
       <div id='event-container' class="container mt-5" style="font-family: worksans-medium">
         <div class="row" id ='app'>
           <div class="col-lg-4 col-md-6 mb-5" v-for="(event, index) in eventsloaded.slice(0, events.length)" :key="index">
@@ -87,6 +97,7 @@
         <!-- <button id='view-more' class="btn mb-3" @click="loadMore" style="box-shadow: 0px 0px 14px -7px #f09819" >Load</button> -->
 
     <div v-else>
+      v-else means got filter
       <div id='event-container' class="container mt-5" style="font-family: worksans-medium">
         <div class="row" id ='app'>
           <div class="col-lg-4 col-md-6 mb-5" v-for="(event, index) in filterevents.slice(0, events.length)" :key="index">
@@ -161,6 +172,7 @@ import sourceData from'../data.json'
             month: null,
             date: null,
             sgdistrictcode:{
+          
               'All': ['72','73','77','78','75','76','79','80','01','02','03','04','05','06','07','08','14','15','16','09','10','11','12','13','17','18','19','20','21','22','23','24','25','26','27','28','29','30','58','59','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','81','51','52','53','54','55','82','56','57','60','61','62','63','64','65','66','67','68','69','70','71'], 
               'North': ['72','73','77','78','75','76','79','80'],
               'Central': ['01','02','03','04','05','06','07','08','14','15','16','09','10','11','12','13','17','18','19','20','21','22','23','24','25','26','27','28','29','30','58','59'],
@@ -196,35 +208,78 @@ import sourceData from'../data.json'
           },
 
           filter(){ 
+            console.log('start of filter function');
             var chosenlocation = this.selectedlocation
-            // console.log(chosenlocation);
-            var temparray = []
-            if(chosenlocation != ''){ 
-              this.usefilter = true
-              // console.log(chosenlocation);
-              const allpostalcodes = this.sgdistrictcode[chosenlocation]
-              // console.log(allpostalcodes);
-              //loop through events. if events postal code inside this all postal codes, i add
-              const events = this.events
-              for(const event of events){ 
-                // console.log(event);
-                var postalcode = event['primary_venue']['address']['postal_code']
-                if(postalcode != null){
-                  postalcode = postalcode.substring(0,2)
-                  if(Object.values(allpostalcodes).indexOf(postalcode) > -1){ 
-                    temparray.push(event)
+
+            var temparray;
+            var postalcode;
+            var allpostalcodes;
+
+            if(!this.usesearch){
+              //if never use search go normal way, just filter from main events
+              temparray = []
+              if(chosenlocation != ''){ 
+                this.usefilter = true
+                // console.log(chosenlocation);
+                const allpostalcodes = this.sgdistrictcode[chosenlocation]
+                // console.log(allpostalcodes);
+                //loop through events. if events postal code inside this all postal codes, i add
+                const events = this.events
+                for(const event of events){ 
+                  // console.log(event);
+                  postalcode = event['primary_venue']['address']['postal_code']
+                  if(postalcode != null){
+                    postalcode = postalcode.substring(0,2)
+                    if(Object.values(allpostalcodes).indexOf(postalcode) > -1){ 
+                      temparray.push(event)
+                    }
                   }
                 }
               }
+
+
             }
+            else{
+
+              temparray = []
+              if(chosenlocation != ''){ 
+                this.usefilter = true
+                // console.log(chosenlocation);
+                allpostalcodes = this.sgdistrictcode[chosenlocation]
+                // console.log(allpostalcodes);
+                //loop through events. if events postal code inside this all postal codes, i add
+                const events = this.searcharray
+                // console.log(events);
+                for(const event of events){ 
+                  // console.log(event);
+                  postalcode = event['primary_venue']['address']['postal_code']
+                  if(postalcode != null){
+                    postalcode = postalcode.substring(0,2)
+                    // console.log(postalcode);
+                    if(Object.values(allpostalcodes).indexOf(postalcode) > -1){ 
+                      temparray.push(event)
+                    }
+                  }
+                }
+              }
+              this.latestarray = temparray
+
+            }
+            
+           
+
+            if( chosenlocation == 'All'){
+              this.usefilter = false
+            }
+
             this.filterarray = temparray
+            // console.log(this.filterarray);
+            // console.log('end of filter func');
           },
 
           clearfilter(){ 
             this.usefilter = false
-            /* eslint-disable */
-            // this.data = ''
-            /* eslint-disable */
+          
           },
 
           usemapfilter(){ 
@@ -236,6 +291,7 @@ import sourceData from'../data.json'
 
           search(){ 
             // console.log($e.key);
+            console.log('start of search func');
             var search = this.searchedname
             if(search.length > 0){ 
               this.usesearch = true
@@ -257,6 +313,8 @@ import sourceData from'../data.json'
             }
             this.searcharray = temparray
             console.log(temparray);
+
+            console.log('end of search func');
           },
 
           deletesearch(){ 
@@ -293,7 +351,6 @@ import sourceData from'../data.json'
           }
 
         },
-
         computed: {
           eventsloaded() {
             if(this.usesearch){
@@ -307,8 +364,8 @@ import sourceData from'../data.json'
             this.allevents = this.filterarray
             if(this.usesearch){ 
               // if use search, take searcharray
-              this.search()
-              return this.searcharray
+              // this.search()
+              return this.latestarray
             }
             // else take filter array
             return this.filterarray

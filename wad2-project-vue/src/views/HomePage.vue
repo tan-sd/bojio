@@ -41,35 +41,36 @@
 
       <div class="point point-0">
         <div class="label label-central">
-          <span>Central</span>
+          <!-- <span>Central</span> --> Central
           <div class="text">Click to filter Central location.</div>
         </div>
       </div>
 
       <div class="point point-1">
         <div class="label label-north">
-          <span>North</span>
+          <!-- <span>North</span> --> North
           <div class="text">Click to filter North location.</div>
         </div>
       </div>
 
       <div class="point point-2">
         <div class="label label-east">
-          <span>East</span>
+          <!-- <span>East</span> --> East
           <div class="text">Click to filter East location.</div>
         </div>
       </div>
 
       <div class="point point-3">
         <div class="label label-west">
-          <span>West</span>
+          <!-- <span>West</span> --> West
           <div class="text">Click to filter West location.</div>
         </div>
       </div>
 
       <div class="point point-4">
         <div class="label label-reset">
-          <span>Reset</span>
+          <!-- <span>Reset</span>
+           --> Reset
           <div class="text">Click to reset filter.</div>
         </div>
       </div>
@@ -455,6 +456,11 @@ export default {
           case 'label-east':
             this.filterchoice = 'East'
             break
+
+          case 'label-reset':
+            this.filterchoice = 'All'
+            break
+
         }
       }, false);
     });
