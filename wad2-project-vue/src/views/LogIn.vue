@@ -6,14 +6,16 @@
             Login
           </div>
         </div>
-      </div>
 
-      <div class="container-fluid text-center pt-1">
         <div class="row">
             <div class="banner-text-form col">
                 Never miss an event.
             </div>
         </div>
+    </div>
+
+    <div class="container-fluid text-center pt-1" v-if="authStatus">
+      Aiyo! You must be logged in to begin creating jios!
     </div>
 
     <div class="container-fluid">
@@ -81,6 +83,7 @@
             </div>
         </div>
       </div>
+      
 <!-- 
     <h1>Login to Your Account</h1>
     <p><input type="text" placeholder="Email" v-model="email" /></p>
@@ -92,7 +95,21 @@
   <script>
     export default {
       title: 'BOJIO – Login',
+
+      data() {
+        return {
+          isAuth : true
+        }
+      },
+
+      computed: {
+        authStatus() {
+        // console.log(typeof this.$route.query.status)
+          return this.$route.query.status == 'notAuth' ?  true : false
+        }
+      }
     }
+
   </script>
 
   <script setup>

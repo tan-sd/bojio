@@ -5,7 +5,6 @@ import { async, getDefaultEmulatorHost } from "@firebase/util";
 // import Vuex from 'vuex';
 import { createRouter, createWebHistory } from "vue-router";
 import { getAuth,onAuthStateChanged, createUserWithEmailAndPassword } from 'firebase/auth'
-import HomePage from '../views/HomePage.vue'
 
 const routes =[
   {
@@ -106,8 +105,7 @@ router.beforeEach(async (to,from,next) => {
     if(await getCurrentUser()){ 
       next();
     } else{ 
-      alert(' You dont have access! Please login')
-      next('/login');
+      next('/login?status=notAuth');
     }
   } else{ 
     next();

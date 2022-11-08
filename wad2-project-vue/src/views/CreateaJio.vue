@@ -1,6 +1,5 @@
 <template>
   <main class="securepage">
-    <!-- <h1>Secure Page</h1> -->
 
     <div class="container-fluid text-center mt-2">
       <p class="login-msg"></p>
