@@ -36,9 +36,9 @@
     </div>
     </div> -->
  
-    <span v-if="data != ''">
+    <!-- <span v-if="data != ''"> -->
       {{usemapfilter()}}
-    </span>
+    <!-- </span> -->
 
     </div>
 
@@ -185,6 +185,7 @@ import sourceData from'../data.json'
             searchedname: '',
             usesearch: false,
             searcharray: [],
+            maplocation: ''
             // filterchoice: this.data
         }
         },
@@ -210,6 +211,10 @@ import sourceData from'../data.json'
           filter(){ 
             console.log('start of filter function');
             var chosenlocation = this.selectedlocation
+
+            // if(this.maplocation != ''){
+            //   chosenlocation = this.maplocation
+            // }
 
             var temparray;
             var postalcode;
@@ -320,18 +325,41 @@ import sourceData from'../data.json'
           deletesearch(){ 
             console.log('in delete search');
             var search = this.searchedname
-            var allevents = sourceData.events
-            var temparray = []
 
-            for(const event of allevents){ 
-              // console.log(event);
-              const eventname = event['name'].toLowerCase()
-              // console.log(eventname);
-              if(eventname.includes(search.toLowerCase())){ 
-                temparray.push(event)
+            // if(this.usesearch & this.usefilter){
+
+            //   console.log('in delete, use filter and search');
+            //   allevents = this.latestarray
+            //   temparray = []
+  
+            //   for(const event of allevents){ 
+            //     // console.log(event);
+            //     const eventname = event['name'].toLowerCase()
+            //     // console.log(eventname);
+            //     if(eventname.includes(search.toLowerCase())){ 
+            //       temparray.push(event)
+            //     }
+            //   }
+            //   this.searcharray = temparray
+
+            // }
+            if(search != ''){
+              console.log('in delete, use search');
+
+              var allevents = sourceData.events
+              var temparray = []
+  
+              for(const event of allevents){ 
+                // console.log(event);
+                const eventname = event['name'].toLowerCase()
+                // console.log(eventname);
+                if(eventname.includes(search.toLowerCase())){ 
+                  temparray.push(event)
+                }
               }
+              this.searcharray = temparray
+
             }
-            this.searcharray = temparray
 
           },
 
@@ -362,12 +390,15 @@ import sourceData from'../data.json'
 
           filterevents(){ 
             this.allevents = this.filterarray
-            if(this.usesearch){ 
+            if(this.usesearch && this.filterarray){ 
               // if use search, take searcharray
-              // this.search()
+              this.filter()
+              console.log(this.latestarray);
               return this.latestarray
             }
             // else take filter array
+            this.filter()
+            console.log(this.filterarray);
             return this.filterarray
           }
           },
