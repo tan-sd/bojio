@@ -1,5 +1,4 @@
 <template>
-        
         <div class="container">
             <!-- display friend requests here first -->
             <div class="banner-header-form d-flex justify-content-center">Your Friends</div>
@@ -186,15 +185,18 @@ export default{
 
             //user gives the key 
             for(let user in currentlist){
+                //user is the person uid
                 let person = currentlist[user]
+                //person is an object with the person acc details
                 var firstname = person.firstname
-                console.log(this.searched);
+                // this.searched will give input in search bar
                 if(firstname.toLowerCase().includes(this.searched.toLowerCase())){
                     temparray.push(currentlist[user])
                 }
             }
 
             if(this.searched == ''){
+                // when search not used i get everyone 
                 temparray = currentlist
             }
 
@@ -210,16 +212,14 @@ export default{
             getusers().then(
                 (value) => 
                 {
+           
+                    var uid = localStorage.getItem('uid')
+                    
+                    //remove current user from being displayed
+                    delete value[uid]
+                    
                     this.allusers = value
-                    // const temparray = []
-                    // for(const user in value){
-                        // console.log(user);
-                        // temparray.push(user)
-                        // console.log(value[user].username);
-                        // temparray.push(value[user].username)
-                    // }
-                    // console.log(temparray);
-                    // this.allusers = temparray
+                
                 }
                
             ).then((value) => console.log('finish loading')),
