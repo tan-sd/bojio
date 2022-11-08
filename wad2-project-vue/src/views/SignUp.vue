@@ -88,6 +88,25 @@
                           </div>
                         </div>  
                       </div>
+
+                      <div class="register-form-field form-group col mt-3" style="width: auto">
+                        <label for="interestAreas" class="text-muted">Areas of interest</label>
+                        <select class="form-select" aria-label="Default select example" v-model="interestAreas" id="interestAreas">
+                          
+                          <option value="Entertainment">Entertainment </option>
+                          <option value="Fitness and Wellness">Fitness and Wellness</option>
+                          <option value="Food and Drinks">Food and Drinks</option>
+                          <option value="Hobbies and Activities">Hobbies and Activities</option>
+                          <option value="Shopping and Fashion">Shopping and Fashion</option>
+                          <option value="Sports and Outdoor Activities">Sports and Outdoor Activities</option>
+                          <option value="Technology">Technology</option>
+                          
+                        </select>
+                        <div class="invalid-feedback">
+                          Please provide an area of interest
+                        </div>
+                        
+                      </div>
                       
                       <div class="col">
                         <button type="button" style="background-color: rgb(255, 127, 45); color: white; padding: 1rem; font-family: worksans-semibold;" class="btn orange border border-3 mt-4 w-75" id="signupBtn" @click="register">Create account</button>
@@ -174,6 +193,7 @@
       var passwordInput = document.getElementById('passwordInput');
       var confirmPasswordInput = document.getElementById('confirmPasswordInput');
       var passwordInvalidError = document.getElementById('passwordInvalid');
+      var interestAreas= document.getElementById('interestAreas')
       console.log(status);
 
       // if(emailInput.value.length == 0) {
