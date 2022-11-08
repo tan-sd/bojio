@@ -11,11 +11,17 @@
       <!-- Search:
       <input type="textbox" v-model="searchedname" placeholder="enter event name..." @keydown="search()" @keyup.delete="deletesearch()"> -->
         <div class="col-12 col-md-6">
-          <select v-model="selectedlocation" class="form-select" aria-label="Default select example" @click="filter">
+          <span v-if="selectedlocation == '' || selectedlocation =='All' ">
+            All events displayed
+          </span>
+          <span v-else>
+            You have selected {{selectedlocation}} events
+          </span>
+          <!-- <select v-model="selectedlocation" class="form-select" aria-label="Default select example" @click="filter">
             <option v-for="(value, key) in sgdistrictcode" :key="value">
               {{key}}  
             </option>
-          </select>
+          </select> -->
           <!-- <button class="btn" style="background-color: #f5b459" @click="clearfilter">
           Clear filter
         </button> -->
@@ -45,14 +51,13 @@
     <!-- if use map -->
 
 
-    chosenlocation: {{selectedlocation}}
+    <!-- chosenlocation: {{selectedlocation}}
     use filter: {{usefilter}}
-    use search: {{usesearch}}
+    use search: {{usesearch}} -->
 
     <!-- {{events}} -->
     <!-- if no filters used  -->
     <div v-if="!usefilter">
-      no filter
       <div id='event-container' class="container mt-5" style="font-family: worksans-medium">
         <div class="row" id ='app'>
           <div class="col-lg-4 col-md-6 mb-5" v-for="(event, index) in eventsloaded.slice(0, events.length)" :key="index">
@@ -97,7 +102,6 @@
         <!-- <button id='view-more' class="btn mb-3" @click="loadMore" style="box-shadow: 0px 0px 14px -7px #f09819" >Load</button> -->
 
     <div v-else>
-      v-else means got filter
       <div id='event-container' class="container mt-5" style="font-family: worksans-medium">
         <div class="row" id ='app'>
           <div class="col-lg-4 col-md-6 mb-5" v-for="(event, index) in filterevents.slice(0, events.length)" :key="index">

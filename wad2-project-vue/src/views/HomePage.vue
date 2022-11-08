@@ -8,7 +8,6 @@
       </div>
     </div> 
 
-    {{filterchoice}}
   
   <!-- SINGAPORE ISLAND -->
   <div class="mx-auto about-fadeup island">
