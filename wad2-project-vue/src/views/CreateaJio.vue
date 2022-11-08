@@ -5,7 +5,6 @@
       <p class="login-msg"></p>
       <div class="row">
         <div class="banner-header-form col">Create a Jio</div>
-
         <div class="row">
           <div class="banner-text-form col">
             Make any occasion unforgettable!
@@ -214,8 +213,6 @@ var directionsService;
 
 export default {
   title: "BOJIO – Create a Jio",
-  name: "App",
-  mounted() { },
   data() {
     return {
       actError: [],
@@ -549,6 +546,15 @@ export default {
         return false;
       }
     },
+
   },
+
+  mounted() {
+        // autofill fields if came from an event details page
+        if(this.$route.params.idx){
+          this.title = this.$route.params.idx
+        }
+
+  }
 };
 </script>

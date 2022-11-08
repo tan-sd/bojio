@@ -16,41 +16,7 @@
             :src="imageurl"
             alt=""
           />
-          <div id="event-banner-card-body">
-            <div class="row">
-              <div class="col-12 col-md-6 mb-2">
-                <h5>{{ name }}</h5>
-                <p>
-                  <i
-                    class="bi bi-calendar2-week-fill eventDate"
-                    style="margin-right: 10px"
-                  ></i
-                  >{{ displayDate() }}, {{ convertTime() }}
-                </p>
-                <p>
-                  <i
-                    class="bi bi-geo-alt-fill eventVenue"
-                    style="margin-right: 10px"
-                  ></i
-                  >{{ getVenue() }}
-                </p>
-                <!-- <p>Organised by</p> -->
-              </div>
-              <div id="event-card-buttons" class="col-12 col-md-6 text-center">
-                <a :href="route" target="_blank"><button type="button" class="btn btn-primary col-12" @click="loadMap()">
-                  How To Get There  
-                </button>
-                </a>
-                <button type="button" class="btn btn-primary col-12">
-                  Create a Jio for this event
-                </button>
-                <button type="button" class="btn btn-primary col-12">
-                  Join a Jio for this event
-                </button>
-                
-              </div>
-            </div>
-          </div>
+          
         </div>
       </div>
     </div>
@@ -59,57 +25,71 @@
         scroll to top
       </a>
 
-    <div class="container mt-5">
+    <div class="container-fluid">
       {{ getlat }} {{ getlng }}
-      <h1>{{ name }}</h1>
+      <div id="event-header-details" class="text-center">{{ name }}</div>
        <!-- TITLE OF ABOUT SECTION HERE -->
       
-      <div class="row">
+      <div class="row mx-auto">
         
         
         <div class="col-12 col-xl-6 order-xl-first order-last">
           <!-- description from data -->
-          <h2>About</h2>
+          <div class="event-details-subheading">About</div>
           <div id="event-about-section" v-html="description"></div>
         </div>
 
         <!-- map -->
         <div class="col-12 col-xl-6 order-xl-last order-first" id="event-right-column">
-        
-        <h2 class="orange-text">Event Location</h2>
+      
           
-        <div class="container p-0 mb-3" id="event-details-map">
-          <div class="col d-flex">
-            <GMapMap
-              :center="center"
-              :zoom="16"
-              map-type-id="roadmap"
-              style="width: 80vmin; height: 50vmin"
-              :options="options"
-              ref="map"
-            >
-              <GMapMarker
-                :key="marker.id"
-                v-for="marker in markers"
-                :position="marker.position"
-              />
-            </GMapMap>
+          <div class="container mb-3">
+
+            <div class="col text-center">
+              <GMapMap
+                :center="center"
+                :zoom="16"
+                map-type-id="roadmap"
+                style="width: 80vmin; height: 50vmin"
+                :options="options"
+                ref="map"
+              >
+                <GMapMarker
+                  :key="marker.id"
+                  v-for="marker in markers"
+                  :position="marker.position"
+                />
+              </GMapMap>
+
           </div>
+          <div id="event-card-buttons" class="text-center row">
+
+            <div class="col-12 col-md-4 mx-auto">
+              <a :href="route" target="_blank" id="event-route" class="col-12">
+                  <span id="howToGetThere">How To Get There</span>  
+              </a>
+            </div>
+            <div class="col-12 col-md-4 mx-auto">
+              <button type="button" class="btn btn-primary col-12">
+                  Create a Jio
+                </button>
+            </div>
+            <div class="col-12 col-md-4 mx-auto">
+              <button type="button" class="btn btn-primary col-12">
+                  Join a Jio
+                </button>
+            </div>
+
+
+                
+                
+                
+              </div>
         </div>
       </div>
     </div>
 
-
-
     </div>
-    
-    
-
-      
-
-      
-    
-
 
     
   </div>

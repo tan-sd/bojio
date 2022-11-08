@@ -29,6 +29,15 @@ const routes =[
   },
   {
     path: "/createajio",
+    name: 'createajio',
+    component: () => import("../views/CreateaJio.vue"),
+    meta:{ 
+      requiresAuth: true,
+    }
+  },
+  {
+    path: "/createajio/:idx",
+    name: 'createajioParams', 
     component: () => import("../views/CreateaJio.vue"),
     meta:{ 
       requiresAuth: true,

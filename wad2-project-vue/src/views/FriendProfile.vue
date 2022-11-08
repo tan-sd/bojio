@@ -1,22 +1,29 @@
 <template>
     <div class="container">
-        hi this is friend profile
+        <div v-for="(user,userid) in filtereddata" :key="userid">
+            {{user.firstname}}
+        </div>
+
+        {{friendname}}
+
         
         user id: {{friendid}}
         createdjios: {{jios}}
         <div>this is created jios too but show null{{ allusers[$route.params.createdjios]}}</div>
+        <hr>
+        
         
         My Events:
         <span>{{ allusers[$route.params.idx].createdjios }}</span>
-        <br>
-    
+        <hr>
         First Name:
         <span>{{ allusers[$route.params.idx].firstname }}</span>
-        <br>
+        <hr>
         UserName:
         <span>{{ allusers[$route.params.idx].username }}</span>
-        <br>
+        <hr>
         Want to display out the events below
+        <button @click="check">check</button>
     </div>
 
 </template>
@@ -38,7 +45,14 @@ export default{
         }
     },
 
+    methods : {
+        check(){
+            console.log(this.friendid);
+            return ''
+        },  
+    },
     computed: {
+
         filtereddata(){ 
             var currentlist = this.allusers
             var temparray = []
@@ -70,6 +84,10 @@ export default{
         jios(){
             console.log(this.$route.params.idx.createdjios);
             return this.$route.params.idx.createdjios
+        },
+
+        friendname(){
+            return this.$route.params
         }
     },
 

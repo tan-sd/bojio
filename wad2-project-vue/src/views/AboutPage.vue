@@ -185,6 +185,7 @@
     
     <script>
     export default {
+      name: 'aboutpage',
       title: 'BOJIO – About',
 
       data(){

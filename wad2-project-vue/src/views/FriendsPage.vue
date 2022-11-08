@@ -12,7 +12,7 @@
             </div>
         </div>
             
-        <div v-if="Object.keys(myFriends).length != 0 " class="container ">
+        <div v-if="Object.keys(myFriends).length == 0 " class="container ">
             <div class="mb-3 d-flex justify-content-center" style="font-family:worksans-medium; font-size:1.5rem">Current Friends</div>
             <div class="row">
                 <div class="friends-card card text-white m-2 col-lg-3 col-sm-6 col-12" v-for="friend, key in myFriends" :key="key">

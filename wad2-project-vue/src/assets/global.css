@@ -332,11 +332,11 @@ background-color: #eaeaea !important;
     z-index:1;
     margin:0;
     border-radius:10%;
-    max-width: 600px;
+    max-width: 900px;
 }
 #event-banner-card-image{
-    border-radius:10px 10px 0px 0px; 
-    max-height: 300px;
+    border-radius:10px; 
+    max-height: 450px;
 }
 #event-banner-card-body{
     color:black;
@@ -353,10 +353,6 @@ background-color: #eaeaea !important;
 #event-banner-card-body a{
     color: white;
     text-decoration: none;
-}
-#event-card-buttons{
-    margin-top:auto;
-    margin-bottom: auto;
 }
 
 #event-card-buttons button{
@@ -376,6 +372,44 @@ background-color: #eaeaea !important;
     -webkit-user-select: none;
     touch-action: manipulation; 
     text-decoration-line: none;
+}
+
+#event-route{
+  position:relative;
+  height:40px;
+  margin: 5px;
+  padding: 0px;
+  text-align: center;
+  transition: 0.5s;
+  background-size: 200% auto;
+  border-radius: 10px;
+  display: block;
+  border: 0px;
+  box-shadow: 0px 0px 14px -7px #f09819;
+  background-image: linear-gradient(45deg, #FF512F 0%, #F09819  51%, #FF512F  100%);
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation; 
+  text-decoration-line: none;
+}
+
+#howToGetThere{
+  position: absolute;
+  color: white;
+  top:50%;
+  width: 100%;
+  transform:translate(-50%,-50%)
+}
+
+#event-header-details{
+  font-size: 2.5rem;
+  margin-top: 20px;
+}
+
+.event-details-subheading{
+  font-size: 2rem;
+  margin-top: 20px;
 }
 
 #event-details-map{
