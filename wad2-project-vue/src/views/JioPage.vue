@@ -8,7 +8,8 @@
         {{event.userid}}
         <div>Description: {{event.activities[0].description}}</div>
 
-        <div>Date: {{event.date}}</div>
+        <div>Date: {{event.date.split('T')[0]}}</div>
+        <div>Time start: {{event.date.split('T')[1]}}</div>
 
         <div>Activity/Activities</div>
      
@@ -45,7 +46,6 @@
 </template>
 
 <script>
-import { TroisJSVuePlugin } from 'troisjs'
 import { getusers, getprivate, getpublic, getjiodetails, createjiolist, replacejiolist, displaypplgoing } from '../utils/index.js'
 
 

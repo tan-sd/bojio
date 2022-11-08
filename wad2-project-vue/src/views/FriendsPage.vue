@@ -1,9 +1,8 @@
 <template>
         
         <div class="container">
-
             <!-- display friend requests here first -->
-            <h1>Your Friends</h1>
+            <div class="banner-header-form d-flex justify-content-center">Your Friends</div>
             <div v-if="!norequests">
                 {{requests}}
                 <div v-for="request, index in requests" :key="request">
@@ -11,53 +10,53 @@
                     <button @click="accept(request, index)">Accept request</button>
                 </div>
             </div>
+        </div>
             
-            <div v-if="Object.keys(myFriends).length != 0 " class="container ">
-                <h3 class="">Current Friends</h3>
-                <div class="row">
-                    <div class="friends-card card text-white m-2 col-lg-3 col-sm-6 col-12" v-for="friend, key in myFriends" :key="key">
-                            <img src="../assets/images/defaultperson.jpg" class="card-img" alt="...">
-                        <div class="card-img-overlay p-0">
-                            <h5 class="card-title text-dark">{{friend}}</h5>
-                        </div>
+        <div v-if="Object.keys(myFriends).length != 0 " class="container ">
+            <div class="mb-3 d-flex justify-content-center" style="font-family:worksans-medium; font-size:1.5rem">Current Friends</div>
+            <div class="row">
+                <div class="friends-card card text-white m-2 col-lg-3 col-sm-6 col-12" v-for="friend, key in myFriends" :key="key">
+                    <img src="../assets/images/defaultperson.jpg" class="card-img" alt="...">
+                    <div class="card-img-overlay p-0">
+                        <h5 class="card-title text-dark">{{friend}}</h5>
                     </div>
                 </div>
             </div>
 
        
             <div class="row">
-                <span class="input-group mb-3 w-25 col-3">
-                    <input type="text" class="form-control" name="searchfriend" placeholder="Start typing to find a user..." v-model="searched">
-                </span>
+                
             </div>
-        
-            <div class="container-fluid text-center mx-auto">
-
+            
+            <div class="mb-3 d-flex justify-content-center" style="font-family:worksans-medium; font-size:1.5rem">Discover new friends</div>
+            <span class="input-group mb-3 w-25 col-3 mx-auto mb-5">
+                <input type="text" class="form-control" name="searchfriend" placeholder="Start typing to find a user..." v-model="searched">
+            </span>
+            <div class="container-fluid text-center">
+                
                 <div class="row">
-        
-                    <div class="friends-card card text-white col-12" v-for="(user,userid) in filtereddata" :key="userid">
-                        <router-link :to="{ name:'individual profile', params:{ idx: userid, createdjios: user.createdjios}}">
-                            {{user}}
+                    <div class="col-lg-4 col-md-6 mb-5 d-flex justify-content-center" v-for="(user,userid) in filtereddata" :key="userid">
+                        <router-link class="routerLink" :to="{ name:'individual profile', params:{idx: userid, createdjios: user.createdjios}}">
+                            <div class="card" style="width: 16rem; border-color: rgb(255, 127, 45);">
+                                <img class="card-img-top" src="../assets/images/defaultperson.jpg" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title" style="color:black">{{user.firstname}}</h5>
+                                    <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+                                    <button type="button" style="background-color: rgb(255, 127, 45); color: white; padding: 1rem; font-family: worksans-semibold;" @click="add(userid)" :disabled="pressed==true" class="btn orange border border-3 mt-4 w-75">Add Friend</button>
+                                </div>
+                            </div>
                         </router-link>
-                        <img src="../assets/images/defaultperson.jpg" class="card-img" alt="...">
-                        <div class="card-img-overlay p-0">
-                            <h5 class="card-title text-dark">
-                                {{idx}}
-                                
-                                {{user.firstname}}
-                                <button @click="add(userid)" :disabled="pressed==true">Add Friend</button>
-                            </h5>
-                        </div>
                     </div>
-
+                            <!-- <div class="d-flex">
+                                <img src="../assets/images/defaultperson.jpg" class="card-img rounded-pill border border-1" style="height: 50px; width:auto" alt="...">
+                                <h5>
+                                    {{user.firstname}}
+                                    <button @click="add(userid)" :disabled="pressed==true">Add Friend</button>
+                                </h5>
+                            </div>     -->
                 </div>
-
-            </div>
-
-
-        </div>       
-
-        
+            </div>    
+        </div> 
 </template> 
 
 <script>
