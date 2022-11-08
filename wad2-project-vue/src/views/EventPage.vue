@@ -1,9 +1,8 @@
 <template>
   <div v-if="loading" class="event-whole-page">
-    <a id="event-scroll-top" href="#event-banner-background">
-        scroll to top
-    </a>
+
     <div id="event-banner-div">
+
       <img
         id="event-banner-background"
         v-bind:style="{ backgroundImage: 'url(' + imageurl + ')' }"
@@ -38,8 +37,8 @@
                 <!-- <p>Organised by</p> -->
               </div>
               <div id="event-card-buttons" class="col-12 col-md-6 text-center">
-                <a href="#event-details-map"><button type="button" class="btn btn-primary col-12" @click="loadMap()">
-                  Show Route to Event
+                <a :href="route" target="_blank"><button type="button" class="btn btn-primary col-12" @click="loadMap()">
+                  How To Get There  
                 </button>
                 </a>
                 <button type="button" class="btn btn-primary col-12">
@@ -48,39 +47,38 @@
                 <button type="button" class="btn btn-primary col-12">
                   Join a Jio for this event
                 </button>
+                
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div id="event-about-background"></div>
+
+    <a id="event-scroll-top" href="#event-banner-background">
+        scroll to top
+      </a>
+
     <div class="container mt-5">
       {{ getlat }} {{ getlng }}
       <h1>{{ name }}</h1>
-      <h1>About</h1>
-      <a :href="route">How to get there</a>
-    </div>
-    
-    
-
        <!-- TITLE OF ABOUT SECTION HERE -->
-      <!-- {{description}} -->
+      
       <div class="row">
         
         
-        <div class="col-12 col-md-6">
-          <h1>{{ name }}</h1>
+        <div class="col-12 col-xl-6 order-xl-first order-last">
           <!-- description from data -->
+          <h2>About</h2>
           <div id="event-about-section" v-html="description"></div>
         </div>
 
         <!-- map -->
-        <div class="col-12 col-md-6" id="event-right-column">
+        <div class="col-12 col-xl-6 order-xl-last order-first" id="event-right-column">
         
-        <h2>Event Location</h2>
+        <h2 class="orange-text">Event Location</h2>
           
-        <div class="container p-0" id="event-details-map">
+        <div class="container p-0 mb-3" id="event-details-map">
           <div class="col d-flex">
             <GMapMap
               :center="center"
@@ -100,6 +98,14 @@
         </div>
       </div>
     </div>
+
+
+
+    </div>
+    
+    
+
+      
 
       
     
@@ -168,6 +174,7 @@ import { variableDeclarator } from "@babel/types";
 
 export default {
   name: "EventsButton",
+  title: "BOJIO - Event Details",
   data() {
     return {
       loading: false,
