@@ -12,10 +12,16 @@
                 Never miss an event.
             </div>
         </div>
-    </div>
+    
 
-    <div class="container-fluid text-center pt-1" v-if="authStatus">
-      Aiyo! You must be logged in to begin creating jios!
+    <div class="container-fluid text-center" v-if="authStatus">
+      <div class="row mt-3">
+        <div class="col-8 p-3 mx-auto" style="color: red; width:400px; font-family: worksans-semibold">
+          <span>You must be logged in to begin creating Jios.</span>
+        </div>
+      </div>
+    </div>
+      
     </div>
 
     <div class="container-fluid">
@@ -104,7 +110,6 @@
 
       computed: {
         authStatus() {
-        // console.log(typeof this.$route.query.status)
           return this.$route.query.status == 'notAuth' ?  true : false
         }
       }
