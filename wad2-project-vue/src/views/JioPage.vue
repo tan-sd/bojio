@@ -7,73 +7,104 @@
         </div>
     </div>
 
-    <a id="event-scroll-top" href="#goToTop">
+    <!-- scroll to top button -->
+    <!-- <a id="event-scroll-top" href="#goToTop">
         scroll to top
-    </a>
+    </a> -->
 
     <div class="container">
-        <div class="event-header-details text-center">
-            {{ event.eventname }}
+        <div class="text-center">
+            <span class="event-header-details ">{{ event.eventname }}</span>
         </div>
+        
 
-        <div class="row mx-auto">
-            <div class="col-12 col-xl-6 mt-5 order-xl-first order-last">
-                <div class="row mx-auto">
-                    <div class="" style="font-family:worksans-semibold">Details</div>
-                    <div class="mt-2"><i class="bi bi-person-circle" style="margin-right: 10px"></i>{{event.username}}</div>
-                    <div class="mt-2"><i class="bi bi-calendar2-week-fill eventDate" style="margin-right: 10px"></i>{{ displayDate() }}, {{ convertTime() }}</div>
-                    <div class="mt-2"><i class="bi bi-geo-alt-fill eventVenue" style="margin-right: 10px"></i>{{ getVenue() }}</div>
+        <div class="row mx-auto px-5">
+        <div class="col-12 col-xl-6 mt-5 order-xl-first order-last" style="font-size:15px;background-color: ;">
+
+            <div class="row mx-auto">
+                <div class="public-section-header" >About</div>
+                <div class="public-section-text" style="font-style:italic">{{event.activities[0].description}}</div>
+            </div>
+
+            <!-- creator -->
+            <div class="row mx-auto my-3">
+                <div class="public-section-header mb-1">Creator</div>
+                <div>
+                    <router-link class="routerLink" :to="{name:'individual profile', params:{idx: event.userid}}">
+                        <div class="card border-0 friend-bar ps-3 " style="width: 13rem; height: 3.5rem;">
+                                <div class="row">
+                                    <div class="col-3 p-2">
+                                        <div class="rounded-circle text-center" style="padding:3px 6px; font-size:20px; background: linear-gradient(90deg, #ef4136, #fbb040); color:white;">
+                                            <span>{{event.username[0].toUpperCase()}}</span>
+                                        </div>   
+                                    </div>
+                                    <div class="col-9 my-auto p-0">
+                                        <span class="float-start p-0" style="color:black; font-size:15px">{{event.username}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                    </router-link>
                 </div>
+            </div>
 
-        <div class="row mx-auto">
-            <div class="mt-5" style="font-family:worksans-semibold">About</div>
-            <div class='mb-5' id="event-about-section">{{event.activities[0].description}}</div>
-        </div>
+            <div class="row mx-auto my-3">
+                <div class="public-section-header">Category</div>
+                <div class="public-section-text" >{{event.category}}</div>
+            </div> 
 
-        <div class="row mx-auto">
-            <div class="mt-5" style="font-family:worksans-semibold">Category</div>
-            <div class='mb-5' id="event-about-section">{{event.category}}</div>
-        </div>
+            <div class="row mx-auto my-3">
+                <div class='public-section-header'>Number of slots filled:</div>
+                <div class="public-section-text">{{peoplegoing.length}} / {{event.maxnumber}}</div>
+            </div>
 
-        <div class="row mx-auto">
-            <div class="mt-5" style="font-family:worksans-semibold">Number of slots filled:</div>
-            <div class='mb-5' id="event-about-section">{{peoplegoing.length}} / {{event.maxnumber}}</div>
-        </div>
-
-        <div>
-                Participants (INSERT COUNT) {{peoplegoing.length}}
-                <ul>
-                    <li v-for="value, index in names" :key="index">
-                        {{value}}  key is :{{index}}
-                    </li>
-                </ul>
+            <!-- participants -->
+            <div class="row mx-auto my-3">
+                <span class="public-section-header">Participants</span>
+                <div v-for="username,userid in names" :key="userid" class="my-2">
+                    <router-link class="routerLink" :to="{name:'individual profile', params:{idx: userid}}">
+                            <div class="card border-0 friend-bar ps-3 " style="width: 13rem; height: 3.5rem;">
+                                <div class="row">
+                                    <div class="col-3 p-2">
+                                        <div class="rounded-circle text-center" style="padding:3px 6px; font-size:20px; background: linear-gradient(90deg, #ef4136, #fbb040); color:white;">
+                                            <span>{{username[0].toUpperCase()}}</span>
+                                        </div>   
+                                    </div>
+                                    <div class="col-9 my-auto p-0">
+                                        <span class="float-start p-0" style="color:black; font-size:15px">{{username}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                    </router-link>
+                </div>
 
             </div>
     
-        <div class="row mx-auto">
-            <div>Activity/Activities</div>
-     
-            <div v-for="act , index in event.activities" :key="index">
-                Activity {{index + 1}}
-                <table>
-                    <tr>
-                        <td>name:</td> <td>{{act.name}}</td>
-                    </tr>
-                        <td>location:</td> <td>{{act.location}}</td>
+            <div class="row mx-auto">
+                <div class="public-section-header">Activities</div>
+        
+                <div v-for="act , index in event.activities" :key="index" class="my-3">
+                    <div class='card' style='width: 18rem;'>                      
+                        <div class='card-body'>
+                            <h5 class='card-title public-section-text'>{{act.name}}</h5>
+                            <div class="mt-2"><i class="bi bi-calendar2-week-fill eventDate" style="margin-right: 10px"></i>{{ act.location }}</div>
+                            <div class="mt-2"><i class="bi bi-clock-fill eventDate" style="margin-right: 10px"></i>{{ act.duration }} minutes</div>
+                        </div>
+                    </div> <!-- card -->
                     
-                    <tr>
-                        <td>duration(min):</td> <td>{{act.duration}}</td>
-                    </tr>
-                </table>
-                <br>
+                </div>
             </div>
         </div>
-        </div>
                 <!-- map -->
-                <div class="col-12 col-xl-6 mt-5 order-xl-last order-first" id="event-right-column">
+    <div class="col-12 col-xl-6 mt-5 order-xl-last order-first" id="event-right-column">
       
           
-      <div class="container mb-3">
+      <div class="container mb-3 border card p-4">
+
+        <div class="row mb-3">
+            <div class="public-section-header">Details</div>
+            <div class="mt-2 public-section-text'"><i class="bi bi-calendar2-week-fill eventDate" style="margin-right: 10px"></i>{{ displayDate() }}, {{ convertTime() }}</div>
+            <div class="mt-2 public-section-text'"><i class="bi bi-geo-alt-fill eventDate" style="margin-right: 10px"></i>{{ getVenue() }}</div>
+        </div>
 
         <div class="col text-center">
           <GMapMap
@@ -91,20 +122,22 @@
             />
           </GMapMap>
 
-      </div>
-      <div id="event-card-buttons" class="text-center row mt-3">
+        </div>
 
-        <div class="col-12 col-md-6 mx-auto">
-          <a :href="route" target="_blank" id="event-route" class="col-12">
-              <span id="howToGetThere">How To Get There</span>  
-          </a>
-        </div>
-        <div class="col-12 col-md-6 mx-auto">
-          <button type="button" class="btn btn-primary col-12" @click="joinjio(event.userid)">
-              Join Jio +
-            </button>
-            <p style="color:red">{{errormsg}}</p>
-        </div>
+
+        <div id="event-card-buttons" class="text-center row mt-3">
+
+            <div class="col-12 col-md-6 mx-auto">
+            <a :href="route" target="_blank" id="event-route" class="col-12">
+                <span id="howToGetThere">How To Get There</span>  
+            </a>
+            </div>
+            <div class="col-12 col-md-6 mx-auto">
+            <button type="button" class="btn btn-primary col-12" @click="joinjio(event.userid)">
+                Join Jio +
+                </button>
+                <p style="color:red">{{errormsg}}</p>
+            </div>
       </div>
     </div>
   </div>
@@ -152,7 +185,6 @@
                         {{person}}
                     </li>
                 </ul>
-
             </div> -->
 
 </template>

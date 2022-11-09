@@ -84,12 +84,13 @@
             
             <div class="mb-3 d-flex justify-content-center" style="font-family:worksans-medium; font-size:1.5rem">Discover new friends</div>
             <span class="input-group mb-3 w-25 col-3 mx-auto mb-5">
-                <input type="text" class="form-control" name="searchfriend" placeholder="Find a user..." v-model="searched">
+                <input type="text" class="form-control" name="searchfriend" placeholder="Find a user..." v-model="searchedusers">
             </span>
             <div class="container-fluid text-center">
                 
                 <div class="row">
                     <div class="col-xl-4 col-md-6 mb-5 d-flex justify-content-center" v-for="(user,userid) in filtereddata" :key="userid">
+                        
                         <router-link class="routerLink" :to="{name:'individual profile', params:{idx: userid}}">
                             <div class="card border-0 friend-bar p-2 ps-3" style="width: 20rem; height: 5rem;">
                                 <div class="row">
@@ -267,13 +268,15 @@ export default{
         },
         filtereddata() { 
             var currentlist = this.allusers;
+            console.log(this.allusers);
             var temparray = [];
             //user gives the key 
             for (let user in currentlist) {
                 //user is the person uid
                 let person = currentlist[user];
+                console.log(person);
                 var username = person.username;
-                if (username.toLowerCase().includes(this.searchusers.toLowerCase())) {
+                if (username.toLowerCase().includes(this.searchedusers.toLowerCase())) {
                     temparray.push(currentlist[user]);
                 }
             }
