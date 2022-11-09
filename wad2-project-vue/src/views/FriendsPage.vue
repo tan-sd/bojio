@@ -64,7 +64,7 @@
                     </div>
                 </div>
             </div>    
-        </div> 
+        
 </template> 
 
 <script>
@@ -163,6 +163,7 @@ export default{
             }
         },
 
+        // using after retreive user id, from this object change into user name. returns an objects with mulitple user names key== userid, value== username
         getfriendnames(){ 
             var friendsobj = this.myFriends
             console.log(this.myFriends)

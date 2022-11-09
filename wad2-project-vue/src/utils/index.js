@@ -28,7 +28,7 @@ import {
   remove
 } from 'firebase/database'
 
-import Filter from 'bad-words'
+// import Filter from 'bad-words'
 import { getFirestore } from "firebase/firestore";
 
 
