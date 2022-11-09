@@ -305,6 +305,11 @@ background-color: #eaeaea !important;
   top: 100px;
 }
 
+.create-map-container {
+  position: sticky;
+  top: 50px;
+}
+
 .event-banner-card-image{
     border-radius:10px; 
     height: 35vmin;

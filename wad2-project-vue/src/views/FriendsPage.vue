@@ -16,7 +16,7 @@
             <div class="mb-3 d-flex justify-content-center" style="font-family:worksans-medium; font-size:1.5rem">Current Friends</div>
             <div class="row">
                 <div class="input-group mb-3 w-25 mx-auto mb-5">
-                    <input type="text" class="form-control" name="searchfriend" placeholder="Find a friend..." v-model="searchedfriends">
+                    <input type="text" class="form-control" name="searchfriend" placeholder="Find a friend..." v-model="searchedZ">
                     {{ filterfriends }}
                 </div>
             </div>
@@ -84,7 +84,7 @@
             
             <div class="mb-3 d-flex justify-content-center" style="font-family:worksans-medium; font-size:1.5rem">Discover new friends</div>
             <span class="input-group mb-3 w-25 col-3 mx-auto mb-5">
-                <input type="text" class="form-control" name="searchfriend" placeholder="Find a user..." v-model="searchedusers">
+                <input type="text" class="form-control" name="searchfriend" placeholder="Find a user..." v-model="searched">
             </span>
             <div class="container-fluid text-center">
                 
@@ -275,7 +275,7 @@ export default{
                 //user is the person uid
                 let person = currentlist[user];
                 var username = person.username;
-                if (username.toLowerCase().includes(this.searchedusers.toLowerCase())) {
+                if (username.toLowerCase().includes(this.searchusers.toLowerCase())) {
                     temparray.push(currentlist[user]);
                 }
             }

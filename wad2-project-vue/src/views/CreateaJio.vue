@@ -16,7 +16,7 @@
     <div class="container-fluid p-5">
       <div class="row">
           <!-- form section -->
-          <div class="col-6 d-flex justify-content-center">
+          <div class="col-12 d-flex justify-content-center">
             <form class="register-form">
               <div class="mb-3 text-center ">Event Details</div>
               <div class="form-row">
@@ -86,7 +86,7 @@
                   <div class="form-floating">
                     <input type="number" class="form-control" id="maxLimit" placeholder="maximum Limit" v-model="maxLimit"
                     />
-                    <label for="maxLimit" class="text-muted">Maximum Limit</label>
+                    <label for="maxLimit" class="text-muted">Jio capacity</label>
                     <div id="eventTitleInvalid" class="invalid-feedback">
                       Please provide a limit to the number of people going
                     </div>
@@ -96,7 +96,7 @@
               <div class="form-group col" style="width: auto">
             
                 <select class="form-select" aria-label="Default select example" v-model="category" id="category">
-                  <option value="">Event Category </option>
+                  <option value="">Jio category </option>
                   <option value="Entertainment">Entertainment </option>
                   <option value="Fitness and Wellness">Fitness and Wellness</option>
                   <option value="Food and Drinks">Food and Drinks</option>
@@ -112,99 +112,123 @@
             
               </div>
             </div>
-              <div class="form-group col mt-3" style="width: auto">
-                <div class="mb-3" style="font-family: worksans-medium">
-                  Activities
-                </div>
-                <div class="form-floating">
-                  <input type="text" class="form-control" id="activityTitle" placeholder="activityTitle"
-                    v-model="actTitle" />
-                  <label for="activityTitle" class="text-muted">Activity title</label>
-                  <div class="invalid-feedback">
-                    Please provide the activity title.
-                  </div>
-                </div>
-              </div>
-              <div class="form-group col mt-3" style="width: auto">
-                <div class="form-floating">
-                  <GMapAutocomplete type="text" class="form-control" id="activityLocation"
-                    placeholder="This is a placeholder" @place_changed="setPlace" :options="autocompleteOptions"
-                    :value="this.search">
-                  </GMapAutocomplete>
-                  <label for="activityLocation" class="text-muted">Activity Location</label>
-                  <div class="invalid-feedback">Please provide the location.</div>
-                </div>
-              </div>
-              <div class="form-group col mt-3" style="width: auto">
-                <div class="form-floating">
-                  <input type="number" class="form-control" id="activityDuration" placeholder="activityDuration"
-                    v-model="actDuration" />
-                  <label for="activityLocation" class="text-muted">Activity Duration (mins)</label>
-                  <div class="invalid-feedback">Please provide the duration.</div>
-                </div>
-              </div>
-              <!-- <div v-if="this.actError.length > 0">
-                <h5 style="color: red">error</h5>
-                <div v-for="err in this.actError" :key="err.id">
-                  <p>{{ err }}</p>
-                </div>
-              </div> -->
-              <div class="row">
-                <div class="col d-flex justify-content-center">
-                  <button type="button" style="
-                      background-color: rgb(255, 127, 45);
-                      color: white;
-                      padding: 1rem;
-                      font-family: worksans-semibold;
-                      " class="btn orange border border-3 mt-4 w-50" id="addAct" @click="
-                      addAct(), document.GMapAutocomplete.set('place', null)
-                    ">
-                    Add activity
-                  </button>
-                </div>
-              </div>
-            </form>
+        </form>
+        </div>
+      </div>
+
+      <div class="row mt-5">
+        <div class="col-6">
+          <div class="create-map-container">
+          <div class="mb-3" style="font-family: worksans-semibold">
+          Activities
           </div>
-          <!-- map & activities table -->
-          <div class="col-6">
-            <div class="row"> <!-- map -->
+
+          <div class="form-floating">
+            <input type="text" class="form-control" id="activityTitle" placeholder="activityTitle"
+            v-model="actTitle" />
+            <label for="activityTitle" class="text-muted">
+              Activity title
+            </label>
+            <div class="invalid-feedback">
+              Please provide the activity title
+            </div>
+          </div>
+
+          <div class="form-group mt-3" style="width: auto">
+              <div class="form-floating">
+                <GMapAutocomplete type="text" class="form-control" id="activityLocation"
+                placeholder="This is a placeholder" @place_changed="setPlace" :options="autocompleteOptions"
+                :value="this.search">
+                </GMapAutocomplete>
+                <label for="activityLocation" class="text-muted">Activity location</label>
+                <div class="invalid-feedback">
+                  Please provide the location.
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group mt-3" style="width: auto">
+            <div class="form-floating">
+              <input type="number" class="form-control" id="activityDuration" placeholder="activityDuration"
+              v-model="actDuration" />
+              <label for="activityLocation" class="text-muted">
+                Activity duration (mins)
+              </label>
+              <div class="invalid-feedback">
+                Please provide the duration.
+              </div>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-center">
+              <button type="button" style="background-color: rgb(255, 127, 45); color: white; padding: 1rem; font-family: worksans-semibold;" class="btn orange border border-3 mt-4 w-50" id="addAct" @click="addAct(), document.GMapAutocomplete.set('place', null)">
+                Add activity
+              </button>
+            </div>
+        </div>
+        </div>
+
+        <div class="col-6">
+          <div class="text-center mb-4" style="font-family: worksans-semibold">Overview</div>
+          <div class="row"> <!-- map -->
               <GMapMap :center="center" :zoom="11" map-type-id="roadmap" style="width: 100%; height: 400px"
               :options="options" ref="map">
               </GMapMap>
             </div>
+
             <div class="row mt-5"> <!-- event details -->
               <div v-if="actArr.length == 0">
-                <h2 class="text-center mb-4">Preview</h2>
-                <h3>{{title}}</h3>
-                <div>Activity Table</div>
-                    <div>No activities yet. Add an activity in the form! </div>
-                </div>
+                <div>{{title}}</div>
+                    <!-- <div class="text-center border border-1" style="height:200px">No activities yet. Add an activity in the form!</div> -->
+                    <div class="card border-0 friend-bar p-2 ps-4 mx-auto" style="width: 30rem; height:5rem">
+                      <div class="row my-auto">
+                        <div class="col-2">
+                          <div class="rounded-circle" style="padding:7px 15px; font-size:30px; background: radial-gradient(circle at 18.7% 37.8%, rgb(250, 250, 250) 0%, rgb(225, 234, 238) 90%); color:white; width:50px; height: 50px;">
+                          </div>   
+                        </div>
+                        
+                        <div class="col-10 my-auto">
+                          <span class="float-start" style="color:black;">No activities yet. <br>Add an activity in the form!</span>
+                        </div>
+                      </div>
+                  </div>
+              </div>
 
               <div v-else>
-                <table>
-                  <tr>
-                    <th>#</th>
-                    <th>Name</th>
-                    <th>Location</th>
-                    <th>Activity(Mins)</th>
-                    <th></th>
-                  </tr>
-                  <tr v-for="(act, index) in this.actArr" :key="act">
-                    <th>{{ index + 1 }}</th>
-                    <td>{{ act.name }}</td>
-                    <td>{{ act.location }}</td>
-                    <td>{{ act.duration }}</td>
-                    <td>
-                      <button type="button" style="background-color: rgb(255, 127, 45); color: white"
-                        class="btn orange border border-3 rounded-5" id="loginBtn"
-                        @click="actArr.splice(index, 1), removetime(act.duration), remove(act.location)">
-                        Remove
-                      </button>
-                    </td>
-                  </tr>
-                </table>
                 <div v-for="(act, index) in this.actArr" :key="act">
-                  <div class='card mx-auto'>
+                  <div class="card border-0 friend-bar p-2 ps-4 mx-auto mt-3" style="width: 30rem; height: 6rem;">
+                      <div class="row my-auto">
+                        <div class="col-2 my-auto">
+                          <div class="rounded-circle" style="padding:7px 15px; font-size:25px; background: linear-gradient(90deg, #ac72ff, #23d2ff); color:white;">
+                            <span class="d-flex justify-content-center">{{index+1}}</span>
+                          </div>   
+                        </div>
+                        
+                        <div class="col-10 my-auto">
+                          <div style="cursor: pointer; width: 25px; height: 25px; background: linear-gradient(90deg, #ef4136, #fbb040);" @click="actArr.splice(index, 1), removetime(act.duration), remove(act.location)" class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
+                            <span style="color:white; position: relative; left: -1px; top: -10px">x</span>
+                          </div>
+                          
+                          <div class="row">
+                            <div style="font-family: worksans-semibold">{{act.name}}</div>
+                            <div style="font-size: 0.9rem; color: grey;">{{act.location}}</div>
+                            <div style="font-size: 0.9rem; color: grey;">{{act.duration}} minutes</div>
+                          </div>
+                        </div>
+
+                        <!-- <div class="col-3 my-auto">
+                          <div class="row">
+                            <button type="button" style="background-color: rgb(255, 127, 45); color: white"
+                            class="btn orange border border-3 rounded-5" id="loginBtn"
+                            >
+                            X
+                          </button>
+                          </div>
+                        </div> -->
+                      </div>
+                  </div>
+
+                  <!-- <div class='card mx-auto'>
                       <div class='card-body'>
                           <h5 class='card-title'>{{act.name}}</h5>
                           <p class='card-text'>{{act.location}}</p>
@@ -215,19 +239,22 @@
                             Remove
                           </button>
                       </div>
-                  </div> <!-- card -->
+                  </div> -->
                 </div>
                 
-                <p>Total Duration(Mins): {{ totalDuration }}</p>
-                <button type="button" style=" background-color: rgb(255, 127, 45); color: white; padding: 1rem; font-family: worksans-semibold;" class="btn orange border border-3 mt-4 w-25" id="loginBtn" @click="createjio">
-                  Create Jio
-                </button>
+                <!-- <p>Total Duration(Mins): {{ totalDuration }}</p> -->
               </div>
-              
             </div>
-          </div>
-        
+        </div>
+
+        <div class="row mt-5">
+          <button type="button" style=" background-color: rgb(255, 127, 45); color: white; padding: 1rem; font-family: worksans-semibold;" class="btn orange border border-3 mt-4 w-25" id="loginBtn" @click="createjio">
+            Create Jio
+          </button>
+        </div>
+
       </div>
+
     </div>
   </main>
 </template>
