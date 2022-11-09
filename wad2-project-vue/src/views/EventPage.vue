@@ -88,8 +88,12 @@
             </div>
             <div class="col-12 col-md-4 mx-auto">
               <button type="button" class="btn btn-primary col-12">
-                  Create a Jio
+                  <router-link class="routerLink" :to="{ name:'createajioParams', params:{idx: this.name}}"> 
+                    Create a Jio
+                  </router-link>
                 </button>
+
+              
             </div>
             <div class="col-12 col-md-4 mx-auto">
               <button type="button" class="btn btn-primary col-12">
