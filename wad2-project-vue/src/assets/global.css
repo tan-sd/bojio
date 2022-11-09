@@ -89,7 +89,6 @@ nav .navbar-nav a {
 }
 
 .eventDate {
-    font-family: worksans-semibold;
     color: rgb(255, 127, 45);
 }
 
@@ -1268,3 +1267,17 @@ td {
 }
 
 /* END OF CREATE A JIO */
+
+/* START OF PUBLIC JIO DETAILS */
+
+.public-section-header{
+  font-family:worksans-semibold;
+
+}
+
+.public-section-text{
+  font-family:worksans-medium;
+ 
+}
+
+/* END OF PUBLIC JIO DETAILS */
