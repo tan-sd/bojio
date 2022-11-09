@@ -62,14 +62,14 @@
         <div class="row" id ='app'>
           <div class="col-lg-4 col-md-6 mb-5" v-for="(event, index) in eventsloaded.slice(0, events.length)" :key="index">
             <router-link @click="scrollToTop" style="text-decoration: none; color: inherit;" :to="{ name: 'event', params: { idx: event.id }}">
-                  <div class="card" style="width:auto; height: 500px">
+                  <div class="card event-card" style="width:auto; height: 500px">
                     <img class="card-img-top" :src="event.image.url" alt="card image collar">
                     <div class="card-body" style="width: auto;">
                       <div class="card-title pt-1 eventTitle">{{ event.name }}</div>
                       <div class="card-text">
                         <div class="eventDate"><i class="bi bi-calendar2-week-fill" style="margin-right: 10px"></i>{{convertDate(event.start_date)}}, {{convert24(event.start_time)}}</div>
                         <div class="eventVenue mt-2"><i class="bi bi-geo-alt-fill" style="margin-right: 10px"></i>{{event.primary_venue.name}}</div>
-                        <div class="eventOrganizer mt-2">{{event.primary_organizer.name}}</div>
+                        <div class="eventOrganizer mt-2"><i class="bi bi-briefcase-fill" style="margin-right: 10px"></i>{{event.primary_organizer.name}}</div>
                       </div>
                       <div class="tagContainer mt-3">
                                 <div class="" v-for="tag of event.tags.slice(0,2)" :key="tag">
