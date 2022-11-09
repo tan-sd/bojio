@@ -12,7 +12,7 @@
             </div>
         </div>
             
-        <div v-if="Object.keys(myFriends).length == 0 " class="container ">
+        <div v-if="Object.keys(myFriends).length != 0 " class="container ">
             <div class="mb-3 d-flex justify-content-center" style="font-family:worksans-medium; font-size:1.5rem">Current Friends</div>
             <div class="row">
                 <div class="friends-card card text-white m-2 col-lg-3 col-sm-6 col-12" v-for="friend, key in myFriends" :key="key">
@@ -37,13 +37,25 @@
                 <div class="row">
                     <div class="col-lg-4 col-md-6 mb-5 d-flex justify-content-center" v-for="(user,userid) in filtereddata" :key="userid">
                         <router-link class="routerLink" :to="{ name:'individual profile', params:{idx: userid, createdjios: user.createdjios}}">
-                            <div class="card" style="width: 16rem; border-color: rgb(255, 127, 45);">
-                                <img class="card-img-top" src="../assets/images/defaultperson.jpg" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title" style="color:black">{{user.firstname}}</h5>
-                                    <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-                                    <button type="button" style="background-color: rgb(255, 127, 45); color: white; padding: 1rem; font-family: worksans-semibold;" @click="add(userid)" :disabled="pressed==true" class="btn orange border border-3 mt-4 w-75">Add Friend</button>
+                            <div class="card border-0 friend-bar p-2 ps-3" style="width: 20rem; height: 5rem;">
+                                <div class="row">
+                                    <div class="col-3">
+                                    <div class="rounded-circle" style="padding:7px 15px; font-size:30px; background: linear-gradient(90deg, #ef4136, #fbb040); color:white;">
+                                        <span>{{user.username[0].toUpperCase()}}</span>
+                                    </div>   
+                                    <!-- <img class="rounded-circle border border-1" src="../assets/images/defaultperson.jpg" style="height: 60px; width:60px; display: inline;"> -->
+                                    </div>
+                                    <div class="col-9 my-auto">
+                                        <span class="float-start" style="color:black;">{{user.username}}</span>
+                                    </div>
                                 </div>
+                                    <!-- <img class="rounded-circle border border-1" src="../assets/images/defaultperson.jpg" style="height: 60px; width:60px; display: inline;">
+                                    <span style="color:black; display: inline;">{{user.firstname}}</span> -->
+                                <!-- <div class="card-body">
+                                    
+                                </div> -->
+                                    <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+                                    <!-- <button type="button" style="background-color: rgb(255, 127, 45); color: white; padding: 1rem; font-family: worksans-semibold;" @click="add(userid)" :disabled="pressed==true" class="btn orange border border-3 mt-4 w-75">Add Friend</button> -->
                             </div>
                         </router-link>
                     </div>
@@ -187,9 +199,9 @@ export default{
             //user gives the key 
             for(let user in currentlist){
                 let person = currentlist[user]
-                var firstname = person.firstname
+                var username = person.username
                 console.log(this.searched);
-                if(firstname.toLowerCase().includes(this.searched.toLowerCase())){
+                if(username.toLowerCase().includes(this.searched.toLowerCase())){
                     temparray.push(currentlist[user])
                 }
             }
@@ -197,11 +209,8 @@ export default{
             if(this.searched == ''){
                 temparray = currentlist
             }
-
             return temparray
-            
         },
-
     },
 
     created() {
