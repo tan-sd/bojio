@@ -1,46 +1,65 @@
 <template>
   <div v-if="loading" class="event-whole-page">
 
-    <div id="event-banner-div">
-
-      <img
-        id="event-banner-background"
-        v-bind:style="{ backgroundImage: 'url(' + imageurl + ')' }"
-        alt=""
-      />
+    <div class="container">
       <div class="row">
-        <div id="event-banner-card" class="col-11 col-sm-10 col-md-8 col-lg-6">
-          <img
-            id="event-banner-card-image"
-            class="card-img"
-            :src="imageurl"
-            alt=""
-          />
-          
+        <div class="col d-flex justify-content-center">
+          <img class="event-banner-card-image" id="goToTop" :src="imageurl"/>
         </div>
       </div>
     </div>
 
-    <a id="event-scroll-top" href="#event-banner-background">
+    <a id="event-scroll-top" href="#goToTop">
         scroll to top
       </a>
 
-    <div class="container-fluid">
+    <div class="container">
       {{ getlat }} {{ getlng }}
-      <div id="event-header-details" class="text-center">{{ name }}</div>
+      <div class="event-header-details text-center">{{ name }}</div>
+
+      <!-- <div class="col-12 col-md-6 mb-2">
+                <h5>{{ name }}</h5>
+                <p>
+                  <i
+                    class="bi bi-calendar2-week-fill eventDate"
+                    style="margin-right: 10px"
+                  ></i
+                  >{{ displayDate() }}, {{ convertTime() }}
+                </p>
+                <p>
+                  <i
+                    class="bi bi-geo-alt-fill eventVenue"
+                    style="margin-right: 10px"
+                  ></i
+                  >{{ getVenue() }}
+                </p>
+              </div> -->
+
        <!-- TITLE OF ABOUT SECTION HERE -->
       
       <div class="row mx-auto">
         
-        
-        <div class="col-12 col-xl-6 order-xl-first order-last">
+        <div class="col-12 col-xl-6 mt-5 order-xl-first order-last">
           <!-- description from data -->
-          <div class="event-details-subheading">About</div>
-          <div id="event-about-section" v-html="description"></div>
+
+          <div class="row mx-auto">
+            <div class="" style="font-family:worksans-semibold">Details</div>
+            <div class="mt-2"><i class="bi bi-calendar2-week-fill eventDate" style="margin-right: 10px"></i>{{ displayDate() }}, {{ convertTime() }}</div>
+            <div class="mt-2"><i class="bi bi-geo-alt-fill eventVenue" style="margin-right: 10px"></i>{{ getVenue() }}</div>
+            <div class="mt-2"><i class="bi bi-briefcase-fill" style="margin-right: 10px"></i>{{organizerName}}</div>
+          </div>
+
+          <div class="row mx-auto">
+
+            <div class="mt-5" style="font-family:worksans-semibold">About</div>
+            <div class='mb-5' id="event-about-section" v-html="description"></div>
+
+          </div>
+          
         </div>
 
         <!-- map -->
-        <div class="col-12 col-xl-6 order-xl-last order-first" id="event-right-column">
+        <div class="col-12 col-xl-6 mt-5 order-xl-last order-first" id="event-right-column">
       
           
           <div class="container mb-3">
@@ -50,7 +69,7 @@
                 :center="center"
                 :zoom="16"
                 map-type-id="roadmap"
-                style="width: 80vmin; height: 50vmin"
+                style="width: 85; height: 40vmin"
                 :options="options"
                 ref="map"
               >
@@ -62,7 +81,7 @@
               </GMapMap>
 
           </div>
-          <div id="event-card-buttons" class="text-center row">
+          <div id="event-card-buttons" class="text-center row mt-3">
 
             <div class="col-12 col-md-4 mx-auto">
               <a :href="route" target="_blank" id="event-route" class="col-12">
@@ -79,12 +98,7 @@
                   Join a Jio
                 </button>
             </div>
-
-
-                
-                
-                
-              </div>
+          </div>
         </div>
       </div>
     </div>
@@ -95,14 +109,9 @@
   </div>
 
   <div v-else>
-    <div class="card" aria-hidden="true">
-      <div id="event-banner-div">
-        <img id="event-banner-background" />
+    <div>
         <div class="row">
-          <div
-            id="event-banner-card"
-            class="col-11 col-sm-10 col-md-8 col-lg-6"
-          >
+          <div class="col-11 col-sm-10 col-md-8 col-lg-6 mx-auto">
             <svg
               class="bd-placeholder-img card-img-top"
               width="100%"
@@ -113,7 +122,6 @@
               preserveAspectRatio="xMidYMid slice"
               focusable="false"
             >
-              <title>Placeholder</title>
               <rect width="100%" height="100%" fill="#868e96"></rect>
             </svg>
             <div id="event-banner-card-body">
@@ -141,7 +149,6 @@
             </div>
           </div>
         </div>
-      </div>
     </div>
   </div>
 </template>
