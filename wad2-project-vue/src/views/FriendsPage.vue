@@ -52,6 +52,9 @@
                     Add some friends below!
                     <hr class="w-50 mx-auto">
                 </div> -->
+                    
+                </div>
+                
 
                 <!-- if have friends -->
                 <!-- <div v-else class="col-lg-4 col-md-6 mb-5 d-flex justify-content-center" v-for="friend, key in myFriends" :key="key">
@@ -124,7 +127,7 @@
                             </div>     -->
                 </div>
             </div>    
-        </div> 
+        
 </template> 
 
 <script>
@@ -223,6 +226,7 @@ export default{
             }
         },
 
+        // using after retreive user id, from this object change into user name. returns an objects with mulitple user names key== userid, value== username
         getfriendnames(){ 
             var friendsobj = this.myFriends
             console.log(this.myFriends)

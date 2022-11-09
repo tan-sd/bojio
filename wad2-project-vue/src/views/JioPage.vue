@@ -76,133 +76,94 @@
                             </div>
                     </router-link>
                 </div>
-
             </div>
     
-            <div class="row mx-auto">
-                <div class="public-section-header">Activities</div>
-        
-                <div v-for="act , index in event.activities" :key="index" class="my-3">
-                    <div class='card' style='width: 18rem;'>                      
-                        <div class='card-body'>
-                            <h5 class='card-title public-section-text'>{{act.name}}</h5>
-                            <div class="mt-2"><i class="bi bi-calendar2-week-fill eventDate" style="margin-right: 10px"></i>{{ act.location }}</div>
-                            <div class="mt-2"><i class="bi bi-clock-fill eventDate" style="margin-right: 10px"></i>{{ act.duration }} minutes</div>
-                        </div>
-                    </div> <!-- card -->
-                    
+    <div class="row mx-auto">
+        <div class="public-section-header">Activities</div>
+
+        <div v-for="act , index in event.activities" :key="index" class="my-3">
+            <div class='card' style='width: 18rem;'>                      
+                <div class='card-body'>
+                    <h5 class='card-title public-section-text'>{{act.name}}</h5>
+                    <div class="mt-2"><i class="bi bi-calendar2-week-fill eventDate" style="margin-right: 10px"></i>{{ act.location }}</div>
+                    <div class="mt-2"><i class="bi bi-clock-fill eventDate" style="margin-right: 10px"></i>{{ act.duration }} minutes</div>
                 </div>
-            </div>
+            </div> <!-- card -->
+            
         </div>
-                <!-- map -->
-    <div class="col-12 col-xl-6 mt-5 order-xl-last order-first" id="event-right-column">
-      
-          
-      <div class="container mb-3 border card p-4">
+    </div>
+</div>
+        <!-- map -->
+<div class="col-12 col-xl-6 mt-5 order-xl-last order-first" style="position:relative" id="">
 
-        <div class="row mb-3">
-            <div class="public-section-header">Details</div>
-            <div class="mt-2 public-section-text'"><i class="bi bi-calendar2-week-fill eventDate" style="margin-right: 10px"></i>{{ displayDate() }}, {{ convertTime() }}</div>
-            <div class="mt-2 public-section-text'"><i class="bi bi-geo-alt-fill eventDate" style="margin-right: 10px"></i>{{ getVenue() }}</div>
+  
+<div class="container mb-3 border card p-4 create-map-container">
+
+<div class="row mb-3">
+    <div class="public-section-header">Details</div>
+    <div class="mt-2 public-section-text'"><i class="bi bi-calendar2-week-fill eventDate" style="margin-right: 10px"></i>{{ displayDate() }}, {{ convertTime() }}</div>
+    <div class="mt-2 public-section-text'"><i class="bi bi-geo-alt-fill eventDate" style="margin-right: 10px"></i>{{ getVenue() }}</div>
+</div>
+
+<div class="col text-center">
+  <GMapMap
+    :center="center"
+    :zoom="12"
+    map-type-id="roadmap"
+    style="width: 85; height: 40vmin"
+    :options="options"
+    ref="map"
+  >
+    <!-- <GMapMarker
+      :key="marker.id"
+      v-for="marker in markers"
+      :position="marker.position"
+    /> -->
+  </GMapMap>
+</div>
+<div id="event-card-buttons" class="text-center row mt-3">
+
+    <div class="col-12 col-md-6 mx-auto">
+    <a :href="routeLink" target="_blank" id="event-route" class="col-12">
+        <span id="howToGetThere">How To Get There</span>  
+    </a>
+    </div>
+    <!-- need another section for max -->
+    <div class="col-12 col-md-6 mx-auto">
+        <div v-if="myuid == event.userid || peoplegoing.includes(myuid)">
+            <button style="background-image: none; background-color:rgba(220,53,69,255); border:none;" type="button" class="btn btn-primary col-12" >
+                Leave this event
+            </button>
         </div>
-
-        <div class="col text-center">
-          <GMapMap
-            :center="center"
-            :zoom="16"
-            map-type-id="roadmap"
-            style="width: 85; height: 40vmin"
-            :options="options"
-            ref="map"
-          >
-            <GMapMarker
-              :key="marker.id"
-              v-for="marker in markers"
-              :position="marker.position"
-            />
-          </GMapMap>
-
+        <div v-else-if="peoplegoing.length == event.maxnumber">
+            <button type="button" class="btn btn-primary col-12" disabled>
+                No Slots Left
+            </button>
         </div>
-
-
-        <div id="event-card-buttons" class="text-center row mt-3">
-
-            <div class="col-12 col-md-6 mx-auto">
-            <a :href="route" target="_blank" id="event-route" class="col-12">
-                <span id="howToGetThere">How To Get There</span>  
-            </a>
-            </div>
-            <div class="col-12 col-md-6 mx-auto">
-                <div v-if="myuid == event.userid || peoplegoing.includes(myuid)">
-                    <button  type="button" class="btn btn-primary col-12" disabled>
-                        Joined
-                    </button>
-                </div>
-                <div v-else>
-                    {{myuid}}
-                    {{peoplegoing}}
-                    <button type="button" class="btn btn-primary col-12" @click="joinjio(event.userid)">
-                        Join Jio +
-                    </button>
-                </div>
-                <p style="color:red">{{errormsg}}</p>
-            </div>
-      </div>
+        <div v-else>
+            <button type="button" class="btn btn-primary col-12" @click="joinjio(event.userid)">
+                Join Jio +
+            </button>
+        </div>
     </div>
-  </div>
-        
-    </div>
-    </div>
+</div>
+</div>
+</div>
 
-    <!-- {{event}}
-
-        <h1>Welcome to {{event.username}}'s JIO!</h1>
-        <h2>
-            {{event.eventname}}
-        </h2>
-
-        {{event.userid}}
-        <div>Description: {{event.activities[0].description}}</div>
-
-        <div>Date: {{event.date.split('T')[0]}}</div>
-        <div>Time start: {{event.date.split('T')[1]}}</div>
-
-        <div>Activity/Activities</div>
-     
-            <div v-for="act , index in event.activities" :key="index">
-                Activity {{index + 1}}
-                <table>
-                    <tr>
-                        <td>name:</td> <td>{{act.name}}</td>
-                    </tr>
-                        <td>location:</td> <td>{{act.location}}</td>
-                    
-                    <tr>
-                        <td>duration(min):</td> <td>{{act.duration}}</td>
-                    </tr>
-                </table>
-                <br>
-            </div>
-
-            <button type='button' class='btn btn-primary col-6' @click="joinjio(event.userid)">Join Jio +</button>
-            <p style="color:red">{{errormsg}}</p>
-
-            <div>
-                Participants (INSERT COUNT)
-                <ul>
-                    <li v-for="person in names" :key="person">
-                        {{person}}
-                    </li>
-                </ul>
-            </div> -->
+</div>
+</div>
 
 </template>
 
 <script>
+
+
 import { getusers, getprivate, getpublic, getjiodetails, createjiolist, replacejiolist, displaypplgoing } from '../utils/index.js'
 
 
+
 export default { 
+    
     name :'jio details for both public and private',
 
     data(){
@@ -216,6 +177,20 @@ export default {
             allusers:'',
             names:'',
             myuid:'',
+            ownLat:'',
+            ownLng:'',
+            routeLink:'',
+            locations:[],
+            center: { lat: 1.3421, lng: 103.8198 },
+            options: {
+                zoomControl: false,
+                mapTypeControl: false,
+                scaleControl: false,
+                streetViewControl: false,
+                rotateControl: false,
+                fullscreenControl: false,
+                styles: [],
+            },
         }
 
     },
@@ -378,8 +353,30 @@ export default {
         },
 
         getVenue() {
+            
             return this.event.activities[0].location;
         },
+
+        userLocation() {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                this.ownLat=position.coords.latitude;
+                this.ownLng=position.coords.longitude;
+                this.routeLink+=this.ownLat+","+this.ownLng+"/"
+                },
+                (error) => {
+                console.log(error.message);
+                }
+            );
+            },
+        allLocations(){
+
+            console.log(this.event)
+            for(var i=0;i<this.event.activities.length;i++){
+                this.locations.push(this.event.activities[i].location);
+            }
+            return this.locations;
+            }
     },
 
     computed:{
@@ -392,68 +389,170 @@ export default {
         }
 
     },
-
-    created(){ 
-        this.getId()
-        //get public events
-        getusers().then(
-                (value) => 
-                {
-                    this.allusers = value
-                }
-               
-            ).then((value) => console.log('finish loading')),
-
-        getpublic().then((value) =>{ 
+    // tempRoute(){
+    //     var ans=""
+    //     navigator.geolocation.getCurrentPosition(
             
-            const publickeys = Object.keys(value)
+    //         (position) => {
+    //         this.ownLat=position.coords.latitude;
+    //         this.ownLng=position.coords.longitude;
+    //         ans= 'https://www.google.com/maps/dir/'+this.ownLat+","+this.ownLng+"/"
 
-            if(publickeys.includes(this.eventId)){
-                console.log('in get public');
-                this.event = value[this.eventId]
-            }
-
-            this.creatorid = this.event.userid
-
-            displaypplgoing(this.creatorid,this.eventId).then((value)=>{
-                this.peoplegoing = value
-                this.getnames()            
-            })
+    //         console.log(ans)
+    //         this.routeLink = ans
+    //         return ans
+    //         },
+    //         (error) => {
+    //         ans= error.message;
+    //         },
+    //         // console.log(ans)
             
-        })
-        .catch((message)=> {
-            console.log(message);
-            console.log('error');
-        })
-        
-        //get private events 
-        
-        getprivate().then((value) => {
-            
-            const privatekeys = Object.keys(value) 
-            if(privatekeys.includes(this.eventId)){
-                this.event = value[this.eventId]
-                this.creatorid = this.event.userid
+    //     );
+    //     return ''
+    // }
 
-                displaypplgoing(this.creatorid,this.eventId).then((value)=>{
-                    this.peoplegoing = value
-                    this.getnames()
-                })
-            }
-            
-            
-        })
-        
-    },
-
+ 
     mounted(){
         var myuid = localStorage.getItem('uid')
         this.myuid = myuid
-    }
+    },
+    created(){ 
+        
+        // console.log(this.locations);
+        // this.routeLink=this.tempRoute
+        
+       
 
+                    
+        
+        this.getId()
+        //get public events
+        getusers().then(
+            (value) => 
+            {
+                this.allusers = value
+            }
+            
+            ).then((value) => console.log('finish loading')),
+            
+            getpublic().then((value) =>{ 
+                
+                const publickeys = Object.keys(value)
+                var ans = ''
+                
+                if(publickeys.includes(this.eventId)){
+                    
+                    console.log('in get public');
+                    this.event = value[this.eventId]
+                    // console.log(this.event)
+                    /////start
 
-}
+                    navigator.geolocation.getCurrentPosition(
+                
+                    (position) => {
+                    this.ownLat=position.coords.latitude;
+                    this.ownLng=position.coords.longitude;
+                     ans= 'https://www.google.com/maps/dir/'+this.ownLat+","+this.ownLng+"/"
 
+            
+                    this.routeLink = ans
+
+                    this.allLocations();
+                    console.log(this.routeLink)
+                    // console.log(this.locations)
+                    for(var loc of this.locations){
+                        this.routeLink+=loc+"/"
+                        console.log(this.routeLink)
+                    }
+                
+                    },
+                    (error) => {
+                    ans= error.message;
+                    },
+                    
+                    
+                    );
+
+                    ///end
+                   
+                    
+                    
+                    
+                }
+                
+                
+                this.creatorid = this.event.userid
+                
+                displaypplgoing(this.creatorid,this.eventId).then((value)=>{
+                    this.peoplegoing = value
+                    this.getnames()       
+     
+                })
+                
+            })
+            .catch((message)=> {
+                console.log(message);
+                console.log('error');
+            })
+            
+            //get private events 
+            getprivate().then((value) => {
+                
+                const privatekeys = Object.keys(value) 
+                var ans=""
+                if(privatekeys.includes(this.eventId)){
+                    this.event = value[this.eventId]
+                    console.log(this.event)
+                    navigator.geolocation.getCurrentPosition(
+                
+                    (position) => {
+                    this.ownLat=position.coords.latitude;
+                    this.ownLng=position.coords.longitude;
+                    ans= 'https://www.google.com/maps/dir/'+this.ownLat+","+this.ownLng+"/"
+    
+            
+                    this.routeLink = ans
+    
+                    this.allLocations();
+                    console.log(this.routeLink)
+                    // console.log(this.locations)
+                    for(var loc of this.locations){
+                        this.routeLink+=loc+"/"
+                        console.log(this.routeLink)
+                    }
+                
+                    },
+                    (error) => {
+                    ans= error.message;
+                    },
+                    
+                    
+                    );
+    
+                    this.creatorid = this.event.userid
+                    
+                    displaypplgoing(this.creatorid,this.eventId).then((value)=>{
+                        this.peoplegoing = value
+                        this.getnames()
+                    })
+                }
+                
+                
+            })
+            
+        },
+        
+    
+
+   
+
+            
+            
+        }
+        
+        
+    
+    
 </script>
 
 <style lang="scss" scoped>
