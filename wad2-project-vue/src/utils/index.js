@@ -1,6 +1,8 @@
 import {
   onMounted,
-  onBeforeMount
+  onBeforeMount,
+  onUnmounted,
+  computed
 } from 'vue'
 import {
   getAuth,
@@ -26,6 +28,10 @@ import {
   remove
 } from 'firebase/database'
 
+import Filter from 'bad-words'
+import { getFirestore } from "firebase/firestore";
+
+
 // import uid from '../App.vue'
 var uid;
 const firebaseConfig = {
@@ -38,8 +44,58 @@ const firebaseConfig = {
   appId: "1:168248515824:web:bfcb3221af409131e07635"
 };
 
+// Initialize Cloud Firestore and get a reference to the service
+// const auth = firebase.auth()
+
+// export function useAuth() {
+//   const user = ref(null)
+//   const unsubscribe = auth.onAuthStateChanged(_user => (user.value = _user))
+//   onUnmounted(unsubscribe)
+//   const isLogin = computed(() => user.value !== null)
+
+//   // const signIn = async () => {
+//   //   const googleProvider = new firebase.auth.GoogleAuthProvider()
+//   //   await auth.signInWithPopup(googleProvider)
+//   // }
+//   const signOut = () => auth.signOut()
+
+//   return { user, isLogin, signOut }
+// }
+
+// const firestore = firebase.firestore()
+// const messagesCollection = messagesCollection.orderBy('createdAt', 'desc').limit(100)
+// const messagesQuery = messagesCollection.orderBy('createdAt', 'desc').limit(100)
+// const filter = new Filter()
+
+// export function useChat() {
+//   const messages = ref([])
+//   const unsubscribe = messagesQuery.onSnapshot(snapshot => {
+//     messages.value = snapshot.docs
+//       .map(doc => ({ id: doc.id, ...doc.data() }))
+//       .reverse()
+//   })
+//   onUnmounted(unsubscribe)
+
+//   const { user, isLogin } = useAuth()
+//   const sendMessage = text => {
+//     if (!isLogin.value) return
+//     const { uid, displayName } = user.value
+//     messagesCollection.add({
+//       userName: displayName,
+//       userId: uid,
+//       // userPhotoURL: photoURL,
+//       text: filter.clean(text),
+//       createdAt: firebase.firestore.FieldValue.serverTimestamp()
+//     })
+//   }
+
+//   return { messages, sendMessage }
+// }
+
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
+const firestoredb = getFirestore(app);
+
 // console.log(db);
 // const dbRef = ref(getDatabase());
 
@@ -283,6 +339,7 @@ export function getpublic() {
   return new Promise((resolve, reject) => {
     console.log('inside promise');
     const publicevents = ref(db, 'public events/')
+    console.log(publicevents);
     onValue(publicevents, (snapshot) => {
       console.log('inside onvalue');
       // Object.keys(snapshot.val()).forEach((key) =>{
@@ -293,9 +350,10 @@ export function getpublic() {
       console.log(typeof (data));
       console.log('going to resolve soon');
       if (data != null) {
-
+        console.log('data not null');
         return resolve(data)
       }
+      console.log('at reject');
       return reject('not found')
     })
   })
@@ -393,18 +451,22 @@ export async function getusers() {
 
 
 
-var eventname = ''
-var userid = ''
-var date = ''
-var type = ''
-var activities = ''
-var testthis = ''
+var eventname;
+var userid;
+var date;
+var type;
+var activities;
+var testthis;
+var maxLimit;
+var category;
 
 // //to createjio
 export function createJio(actArr) {
   const db = getDatabase();
   console.log('inside function createjio');
   eventname = document.getElementById('eventTitle').value
+  maxLimit= parseInt(document.getElementById("maxLimit").value);
+  category = document.getElementById("category").value
 
   // console.log(localStorage.getItem('username'));
   // var userid;
@@ -424,6 +486,7 @@ export function createJio(actArr) {
         date = document.getElementById('eventDateTime').value
         type = document.querySelector('input[name="exampleRadios"]:checked').value;
     
+        //description is inside actArr so dont need extra key
         const jioData = {
           // creator: username,
           eventname: eventname,
@@ -433,6 +496,8 @@ export function createJio(actArr) {
           type: type,
           activities: actArr,
           fullname: val.firstname + ' ' + val.lastname,
+          category: category,
+          maxnumber: maxLimit
         };
     
         // Get a key for a new Post.
