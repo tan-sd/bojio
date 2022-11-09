@@ -300,6 +300,11 @@ background-color: #eaeaea !important;
   opacity: 100%;
 }
 
+.event-map-container {
+  position: sticky;
+  top: 100px;
+}
+
 /* #event-banner-div{
     position: relative;
     overflow: hidden;
@@ -359,6 +364,10 @@ background-color: #eaeaea !important;
 
 .event-card:hover {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.event-right-column {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 #event-card-buttons button{

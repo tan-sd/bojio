@@ -39,19 +39,11 @@
       
       <div class="row mx-auto">
         
-        <div class="col-12 col-xl-6 mt-5 order-xl-first order-last">
+        <div class="col-12 col-xl-7 mt-5 order-xl-first order-last">
           <!-- description from data -->
-
-          <div class="row mx-auto">
-            <div class="" style="font-family:worksans-semibold">Details</div>
-            <div class="mt-2"><i class="bi bi-calendar2-week-fill eventDate" style="margin-right: 10px"></i>{{ displayDate() }}, {{ convertTime() }}</div>
-            <div class="mt-2"><i class="bi bi-geo-alt-fill eventVenue" style="margin-right: 10px"></i>{{ getVenue() }}</div>
-            <div class="mt-2"><i class="bi bi-briefcase-fill" style="margin-right: 10px"></i>{{organizerName}}</div>
-          </div>
-
           <div class="row mx-auto">
 
-            <div class="mt-5" style="font-family:worksans-semibold">About</div>
+            <div style="font-family:worksans-semibold">About</div>
             <div class='mb-5' id="event-about-section" v-html="description"></div>
 
           </div>
@@ -59,10 +51,16 @@
         </div>
 
         <!-- map -->
-        <div class="col-12 col-xl-6 mt-5 order-xl-last order-first" id="event-right-column">
-      
-          
-          <div class="container mb-3">
+        <div class="col-12 col-xl-5 mt-5 order-xl-last order-first">
+          <div class="p-3 event-right-column event-map-container">
+          <div class="row mx-auto">
+            <div class="mt-2" style="font-family:worksans-semibold">Details</div>
+            <div class="mt-2"><i class="bi bi-calendar2-week-fill eventDate" style="margin-right: 10px"></i>{{ displayDate() }}, {{ convertTime() }}</div>
+            <div class="mt-2"><i class="bi bi-geo-alt-fill eventVenue" style="margin-right: 10px"></i>{{ getVenue() }}</div>
+            <div class="mt-2"><i class="bi bi-briefcase-fill" style="margin-right: 10px"></i>{{organizerName}}</div>
+          </div>
+
+          <div class="container mb-3 mt-4">
 
             <div class="col text-center">
               <GMapMap
@@ -85,7 +83,7 @@
 
             <div class="col-12 col-md-4 mx-auto">
               <a :href="route" target="_blank" id="event-route" class="col-12">
-                  <span id="howToGetThere">How To Get There</span>  
+                  <span id="howToGetThere">Directions</span>  
               </a>
             </div>
             <div class="col-12 col-md-4 mx-auto">
@@ -101,6 +99,7 @@
           </div>
         </div>
       </div>
+    </div>
     </div>
 
     </div>
