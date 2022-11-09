@@ -40,10 +40,16 @@
             <div class='mb-5' id="event-about-section">{{peoplegoing.length}} / {{event.maxnumber}}</div>
         </div>
 
-        <!-- error to fix: the people going does not update immediately even when use computed -->
-        <!-- ppl: {{numberofppl}}    
-            {{numberofppl.length}}
-            {{peoplegoing}} -->
+        <div>
+                Participants (INSERT COUNT) {{peoplegoing.length}}
+                <ul>
+                    <li v-for="value, index in names" :key="index">
+                        {{value}}  key is :{{index}}
+                    </li>
+                </ul>
+
+            </div>
+    
         <div class="row mx-auto">
             <div>Activity/Activities</div>
      
