@@ -422,7 +422,7 @@ export default {
   },
 
   mounted(){
-    this.checkDOM()
+    this.checkDOM() 
   }
 };
 </script>
