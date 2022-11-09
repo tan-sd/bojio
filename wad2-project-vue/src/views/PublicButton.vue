@@ -35,7 +35,7 @@ export default {
 
   data() {
     return {
-      publicevents: 'hi',
+      publicevents: '',
       length: 1
 
     }
@@ -54,11 +54,13 @@ export default {
     },
 
     convert24(time) {
+      console.log(time);
               time = time.split(':');
               return time[0] >= 12 && (time[0]-12 || 12) + ':' + time[1] + ' PM' || (Number(time[0]) || 12) + ':' + time[1] + ' AM';
     },
 
     convertDate(fullDate) {
+      console.log(fullDate);
           fullDate = fullDate.split('-');
           var months = ['','Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
           var days = ['Sun','Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -173,7 +175,7 @@ export default {
 <template>
   <div id='event-container' class="container mt-5" style="font-family: worksans-medium">
     <div class="row" id='app'>
-      <div class="col-lg-4 col-md-6 mb-5" v-for="(event, index) in publicevents" :key="index">
+      <div class="col-lg-4 col-md-6 mb-5" v-for="(event, index) in eventsloaded" :key="index">
         <router-link @click="scrollToTop" style="text-decoration: none; color: inherit;" :to="{ name: 'eachjioevent', params: { idx: index }}">
           <div class="card event-card" style="width:auto; height:500px">
             <img class="card-img-top" src="../../../wallpaper1.jpg" alt="card image collar">

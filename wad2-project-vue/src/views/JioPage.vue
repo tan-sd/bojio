@@ -31,6 +31,20 @@
         </div>
 
         <div class="row mx-auto">
+            <div class="mt-5" style="font-family:worksans-semibold">Category</div>
+            <div class='mb-5' id="event-about-section">{{event.category}}</div>
+        </div>
+
+        <div class="row mx-auto">
+            <div class="mt-5" style="font-family:worksans-semibold">Number of slots filled:</div>
+            <div class='mb-5' id="event-about-section">{{peoplegoing.length}} / {{event.maxnumber}}</div>
+        </div>
+
+        <!-- error to fix: the people going does not update immediately even when use computed -->
+        <!-- ppl: {{numberofppl}}    
+            {{numberofppl.length}}
+            {{peoplegoing}} -->
+        <div class="row mx-auto">
             <div>Activity/Activities</div>
      
             <div v-for="act , index in event.activities" :key="index">
@@ -162,6 +176,7 @@ export default {
         getId() { 
             this.eventId = this.$route.params.idx
             var eventId = this.$route.params.idx
+          
         },
 
         joinjio(creatorid) { 
@@ -171,43 +186,91 @@ export default {
             // array.push(myown uid)
             //call another function to put array as the new value
 
+            var myuid = localStorage.getItem('uid')
+            console.log(this.event.userid);
             var pplgoing = []
             getjiodetails(creatorid,this.eventId).then((value)=>{
                 //means theres alr people going
-                // console.log(value);
-               
-            }).catch((value)=>{
                 console.log(value);
-                if(value == 'empty'){
-                    //then i js add this person in
-                    createjiolist(creatorid,this.eventId).then((value)=>{
-                        // js continue;
-                    })
-                }
-            })
-            //now confirm peoplegoing got some value, ill put this as pplgoing
-            getjiodetails(creatorid,this.eventId).then((value)=>{
-                //means theres alr people going
-                // console.log(value);
-                pplgoing = value
-
-                if(pplgoing.length > 10){
-                console.log('hit the max, cannot be more than 10 please pay premium');
-            }
-                if(pplgoing.length >= 1  && !pplgoing.includes(uid)){
-                    this.errormsg = ('u alr in the party');
-                }
-                else{
-                    //means i hvn push the person in so here push
-
-                    // console.log('added');
-                    var uid = localStorage.getItem("uid")
-                    pplgoing.push(uid)
-                    replacejiolist(creatorid,this.eventId,pplgoing)
-                }
-            }).catch((value)=>{
-                console.log(value);  
-            })
+               
+                if(myuid != creatorid){
+                    
+                    console.log('i am not the creator but i wan to join');
+                    //enter here when empty is not returned from the promise
+                    //and im not the creator
+                    getjiodetails(creatorid,this.eventId).then((value)=>{
+                        //means theres alr people going cuz not empty
+                        console.log(value);
+                        pplgoing = value
+                            //replace this 10 with maxlimit 
+                            if(pplgoing.length >= this.event.maxnumber){
+                                this.errormsg = ('hit the max sorry!');
+                            }
+                            else if(pplgoing.length >= 1  &&  pplgoing.includes(myuid)){
+                                console.log(' u alr inside ');
+                                this.errormsg = ('u alr in the party');
+                            }
+                            else{
+                                console.log('going to add u');
+                                console.log(pplgoing);
+                                console.log(myuid);
+                                var uid = localStorage.getItem("uid")
+                                pplgoing.push(uid)
+                                replacejiolist(creatorid,this.eventId,pplgoing)
+                                this.peoplegoing = pplgoing
+                            }
+                        }).catch((value)=>{
+                            console.log(value);  
+                        })
+                    }
+                    else{
+                        console.log('i wont add to the key and wont add to peoplegoing array');
+                    }
+                }).catch((value)=>{
+                    console.log(value);
+                    // i wan to check if the creator is me if yes then idw to add
+                    if(value == 'empty' && myuid != creatorid ){
+                        //then i js add this person in
+                        createjiolist(creatorid,this.eventId).then((value)=>{
+                            // js continue;
+                            // create list w my uid if no one has joined
+    
+                            //now confirm peoplegoing got some value, ill put this as pplgoing
+                            getjiodetails(creatorid,this.eventId).then((value)=>{
+                                //means theres alr people going
+                                
+                                //this will give the current array of ppl going
+                                pplgoing = value
+                                //replace this 10 with maxlimit 
+                                if(pplgoing.length >= this.event.maxnumber){
+                                    this.errormsg = ('hit the max sorry!');
+                                }
+                                else if(pplgoing.length > 1  && pplgoing.includes(myuid)){
+                                    // means i alr prev joined before
+                                    // need to be more than 1 because if prev no one inside then length is alr 1 
+                                    console.log(' just added u in so array length 1 if js added so need > 1');
+                                    this.errormsg = ('u alr in the party');
+                                }
+                            
+                                else if(!pplgoing.includes(myuid)){
+                                    // in else statement:
+                                    // ppl going is 1 n its me 
+                                    //means i hvn push the person in so here push
+                
+                                    // console.log('added');
+                                    var uid = localStorage.getItem("uid")
+                                    pplgoing.push(uid)
+                                    replacejiolist(creatorid,this.eventId,pplgoing)
+                                    this.peoplegoing = pplgoing
+                                    //here means can push person in
+                                }
+                            }).catch((value)=>{
+                                console.log(value);  
+                            })
+                        })
+                    }
+                })
+                
         },
 
         getnames(){ 
@@ -268,6 +331,17 @@ export default {
         getVenue() {
             return this.event.activities[0].location;
         },
+    },
+
+    computed:{
+        eventloaded(){
+            return this.event
+        },
+
+        numberofppl(){
+            return this.peoplegoing
+        }
+
     },
 
     created(){ 
