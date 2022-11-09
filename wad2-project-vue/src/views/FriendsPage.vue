@@ -17,18 +17,18 @@
             <div class="row">
                 <div class="input-group mb-3 w-25 mx-auto mb-5">
                     <input type="text" class="form-control" name="searchfriend" placeholder="Find a friend..." v-model="searchedfriends">
-                    {{ filterfriends }}
+                    
                 </div>
             </div>
 
             <div class="row">
-                <div class="col-xl-4 col-md-6 mb-5 d-flex justify-content-center" v-for="friend, key in myFriends" :key="key">
+                <div class="col-xl-4 col-md-6 mb-5 d-flex justify-content-center" v-for="friend, key in filterfriends" :key="key">
                     <router-link class="routerLink" :to="{name:'individual profile', params:{idx: key}}">
                         <div class="card border-0 friend-bar p-2 ps-3" style="width: 20rem; height: 5rem;">
                             <div class="row">
                                 <div class="col-3">
                                     <div class="rounded-circle" style="padding:7px 15px; font-size:30px; background: linear-gradient(90deg, #ef4136, #fbb040); color:white;">
-                                        <span>{{friend[0].toUpperCase()}}</span>
+                                        <span>{{friend[0].toUpperCase()}}</span> 
                                     </div>   
                                 </div>
                                 <div class="col-9 my-auto">
@@ -248,7 +248,6 @@ export default{
         filterfriends() {
             var friendList = [];
             var temparray = [];
-            console.log(this.allusers);
             for (let user in this.myFriends) {
                 friendList.push(this.myFriends[user]);
             }
@@ -264,8 +263,7 @@ export default{
                 temparray = friendList;
             }
 
-            console.log(temparray)
-            return ''
+            return temparray
         },
         filtereddata() { 
             var currentlist = this.allusers;
