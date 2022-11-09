@@ -25,7 +25,7 @@
                 <div v-if="Object.keys(myFriends).length == 0" class="text-center">
                     It seems like you haven't added anyone. <br>
                     Add some friends below!
-                    <hr>
+                    <hr class="w-50 mx-auto">
                 </div>
 
                 <!-- if have friends -->
@@ -52,6 +52,7 @@
                                     <!-- <button type="button" style="background-color: rgb(255, 127, 45); color: white; padding: 1rem; font-family: worksans-semibold;" @click="add(userid)" :disabled="pressed==true" class="btn orange border border-3 mt-4 w-75">Add Friend</button> -->
                             </div>
                         </router-link>
+                        <hr class="w-50 mx-auto">
                     </div>
             </div>
 
@@ -67,7 +68,7 @@
             <div class="container-fluid text-center">
                 
                 <div class="row">
-                    <div class="col-lg-4 col-md-6 mb-5 d-flex justify-content-center" v-for="(user,userid) in filtereddata" :key="userid">
+                    <div class="col-xl-4 col-md-6 mb-5 d-flex justify-content-center" v-for="(user,userid) in filtereddata" :key="userid">
                         <router-link class="routerLink" :to="{ name:'individual profile', params:{idx: userid, createdjios: user.createdjios}}">
                             <div class="card border-0 friend-bar p-2 ps-3" style="width: 20rem; height: 5rem;">
                                 <div class="row">
