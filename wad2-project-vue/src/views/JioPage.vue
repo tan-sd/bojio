@@ -133,9 +133,18 @@
             </a>
             </div>
             <div class="col-12 col-md-6 mx-auto">
-            <button type="button" class="btn btn-primary col-12" @click="joinjio(event.userid)">
-                Join Jio +
-                </button>
+                <div v-if="myuid == event.userid || peoplegoing.includes(myuid)">
+                    <button  type="button" class="btn btn-primary col-12" disabled>
+                        Joined
+                    </button>
+                </div>
+                <div v-else>
+                    {{myuid}}
+                    {{peoplegoing}}
+                    <button type="button" class="btn btn-primary col-12" @click="joinjio(event.userid)">
+                        Join Jio +
+                    </button>
+                </div>
                 <p style="color:red">{{errormsg}}</p>
             </div>
       </div>
@@ -205,7 +214,8 @@ export default {
             creatorid: '',
             peoplegoing: '',
             allusers:'',
-            names:''
+            names:'',
+            myuid:'',
         }
 
     },
@@ -225,6 +235,7 @@ export default {
             //call another function to put array as the new value
 
             var myuid = localStorage.getItem('uid')
+
             console.log(this.event.userid);
             var pplgoing = []
             getjiodetails(creatorid,this.eventId).then((value)=>{
@@ -433,6 +444,11 @@ export default {
             
         })
         
+    },
+
+    mounted(){
+        var myuid = localStorage.getItem('uid')
+        this.myuid = myuid
     }
 
 

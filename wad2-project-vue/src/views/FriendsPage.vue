@@ -20,9 +20,9 @@
                     
                 </div>
             </div>
-
             <div class="row">
                 <div class="col-xl-4 col-md-6 mb-5 d-flex justify-content-center" v-for="friend, key in filterfriends" :key="key">
+                    
                     <router-link class="routerLink" :to="{name:'individual profile', params:{idx: key}}">
                         <div class="card border-0 friend-bar p-2 ps-3" style="width: 20rem; height: 5rem;">
                             <div class="row">
@@ -89,6 +89,7 @@
             <div class="container-fluid text-center">
                 
                 <div class="row">
+                   
                     <div class="col-xl-4 col-md-6 mb-5 d-flex justify-content-center" v-for="(user,userid) in filtereddata" :key="userid">
                         
                         <router-link class="routerLink" :to="{name:'individual profile', params:{idx: userid}}">
