@@ -49,6 +49,7 @@
               </div>
             </div>
 
+            <div class="form-row">
             <div class="register-form-field form-group col mt-5" style="width: auto">
               <div class="form-floating">
                 <input type="datetime-local" class="form-control" id="eventDateTime" placeholder="eventDateTime"
@@ -64,12 +65,12 @@
                 Enter a valid date and time for the event.
               </div> -->
             </div>
+          </div>
             
-
+          <div class="form-row mt-3">
             Type of Event:
             <div class="form-check">
               <!-- cannot make one horizontal line -->
-
               <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="public">
               <label class="form-check-label" for="exampleRadios1">
                 Public
@@ -81,6 +82,42 @@
                 Private
               </label>
             </div>
+          </div>
+
+          <div class="row mt-3">
+            <div class="form-group col" style="width: auto">
+                <div class="form-floating">
+                  <input type="number" class="form-control" id="maxLimit" placeholder="maximum Limit" v-model="maxLimit"
+                  />
+                  <label for="maxLimit" class="text-muted">Maximum Limit</label>
+                  <div id="eventTitleInvalid" class="invalid-feedback">
+                    Please provide a limit to the number of people going
+                  </div>
+                </div>
+                
+            </div>
+            <div class="form-group col" style="width: auto">
+              
+              <select class="form-select" aria-label="Default select example" v-model="category" id="category">
+                <option value="">Event Category </option>
+                <option value="Entertainment">Entertainment </option>
+                <option value="Fitness and Wellness">Fitness and Wellness</option>
+                <option value="Food and Drinks">Food and Drinks</option>
+                <option value="Hobbies and Activities">Hobbies and Activities</option>
+                <option value="Shopping and Fashion">Shopping and Fashion</option>
+                <option value="Sports and Outdoor Activities">Sports and Outdoor Activities</option>
+                <option value="Technology">Technology</option>
+                
+              </select>
+              <div class="invalid-feedback">
+                Please provide a category for the event
+              </div>
+              
+            </div>
+
+          </div>
+          
+
             <hr />
 
             <div class="form-group col mt-3" style="width: auto">
@@ -130,7 +167,7 @@
                     color: white;
                     padding: 1rem;
                     font-family: worksans-semibold;
-                  " class="btn orange border border-3 mt-4 w-50" id="addAct" @click="
+                    " class="btn orange border border-3 mt-4 w-50" id="addAct" @click="
                     addAct(), document.GMapAutocomplete.set('place', null)
                   ">
                   Add activity
@@ -220,13 +257,14 @@ export default {
       center: { lat: 1.3421, lng: 103.8198 },
       places: [],
       waypts: [],
-      
+      maxLimit:"",
       coords: "",
       destination: "",
       titleLimit: 50,
       descriptionLimit: 100,
       description: "",
       title: "",
+      category:"",
       eventDateTime: new Date(), //initialise to current date before changing first
       currentDateTime: new Date(),
       actArr: [],
@@ -409,7 +447,7 @@ export default {
       var index = this.places.indexOf(location)
       this.places.splice(index, 1)
       console.log(this.places)
-      if (this.places.length == 2) {
+      if (this.places.length >= 1) {
         this.calculateAndDisplayRoute(
           directionsService,
           directionsDisplay,
@@ -466,6 +504,8 @@ export default {
       var eventDescription = document.getElementById("eventDescription");
       var eventDateTime = document.getElementById("eventDateTime");
       var eventDateTimeInvalid = document.getElementById("eventDateTimeInvalid");
+      var maxLimit= document.getElementById("maxLimit");
+      var category = document.getElementById("category");
       var errors = 0;
 
       if (this.title == "") {
@@ -503,6 +543,22 @@ export default {
       } else {
         // [FILLUP].classList = ('form-control is-valid')
         // [FILLUP].innerHTML = ''
+      }
+
+      if (this.maxLimit == "") {
+        maxLimit.classList = "form-control is-invalid";
+        // this.evtError.push("Event has no title");
+        errors += 1;
+      } else {
+        maxLimit.classList = "form-control is-valid";
+      }
+
+      if (this.category == "") {
+        category.classList = "form-control is-invalid";
+        // this.evtError.push("Event has no title");
+        errors += 1;
+      } else {
+        category.classList = "form-control is-valid";
       }
 
       console.log(this.evtError);
