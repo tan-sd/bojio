@@ -2,18 +2,43 @@
         <div class="container">
             <!-- display friend requests here first -->
             <div class="banner-header-form d-flex justify-content-center">Your Friends</div>
-            <div v-if="!norequests">
+            <div v-if="norequests">
                 {{requests}}
+                {{ username }}
                 <div v-for="request, index in requests" :key="request">
                     <div>{{request}} id: {{index}}</div>
                     <button @click="accept(request, index)">Accept request</button>
                 </div>
             </div>
         </div>
-        <!-- v-if="Object.keys(myFriends).length == 0 " -->
-        <div  class="container ">
+
+        <div class="container ">
             <div class="mb-3 d-flex justify-content-center" style="font-family:worksans-medium; font-size:1.5rem">Current Friends</div>
             <div class="row">
+                <div class="input-group mb-3 w-25 mx-auto mb-5">
+                    <input type="text" class="form-control" name="searchfriend" placeholder="Find a friend..." v-model="searchedfriends">
+                    {{ filterfriends }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xl-4 col-md-6 mb-5 d-flex justify-content-center" v-for="friend, key in myFriends" :key="key">
+                    <router-link class="routerLink" :to="{name:'individual profile', params:{idx: key}}">
+                        <div class="card border-0 friend-bar p-2 ps-3" style="width: 20rem; height: 5rem;">
+                            <div class="row">
+                                <div class="col-3">
+                                    <div class="rounded-circle" style="padding:7px 15px; font-size:30px; background: linear-gradient(90deg, #ef4136, #fbb040); color:white;">
+                                        <span>{{friend[0].toUpperCase()}}</span>
+                                    </div>   
+                                </div>
+                                <div class="col-9 my-auto">
+                                    <span class="float-start" style="color:black;">{{friend}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </router-link>
+                </div>
+            </div>
                 <!-- <div class="friends-card card text-white m-2 col-lg-3 col-sm-6 col-12" v-for="friend, key in myFriends" :key="key">
                     <img src="../assets/images/defaultperson.jpg" class="card-img" alt="...">
                     <div class="card-img-overlay p-0">
@@ -22,54 +47,50 @@
                 </div> -->
 
                 <!-- if no friends -->
-                <div v-if="Object.keys(myFriends).length == 0" class="text-center">
+                <!-- <div v-if="Object.keys(myFriends).length == 0" class="text-center">
                     It seems like you haven't added anyone. <br>
                     Add some friends below!
                     <hr class="w-50 mx-auto">
-                </div>
+                </div> -->
 
                 <!-- if have friends -->
-                <div v-else class="col-lg-4 col-md-6 mb-5 d-flex justify-content-center" v-for="friend, key in myFriends" :key="key">
-                        <router-link class="routerLink" :to="{ name:'individual profile', params:{idx: userid, createdjios: user.createdjios}}">
+                <!-- <div v-else class="col-lg-4 col-md-6 mb-5 d-flex justify-content-center" v-for="friend, key in myFriends" :key="key">
+                        <router-link class="routerLink" :to="{name:'individual profile', params:{idx: key}}">
+                            <div class="{{key}}"></div>
                             <div class="card border-0 friend-bar p-2 ps-3" style="width: 20rem; height: 5rem;">
                                 <div class="row">
                                     <div class="col-3">
                                     <div class="rounded-circle" style="padding:7px 15px; font-size:30px; background: linear-gradient(90deg, #ef4136, #fbb040); color:white;">
                                         <span>{{user.username[0].toUpperCase()}}</span>
                                     </div>   
-                                    <!-- <img class="rounded-circle border border-1" src="../assets/images/defaultperson.jpg" style="height: 60px; width:60px; display: inline;"> -->
                                     </div>
                                     <div class="col-9 my-auto">
                                         <span class="float-start" style="color:black;">{{user.username}}</span>
                                     </div>
                                 </div>
-                                    <!-- <img class="rounded-circle border border-1" src="../assets/images/defaultperson.jpg" style="height: 60px; width:60px; display: inline;">
+                                   
+                            </div>
+                        </router-link>
+                        <hr class="w-50 mx-auto">
+                    </div> -->
+
+             <!-- <img class="rounded-circle border border-1" src="../assets/images/defaultperson.jpg" style="height: 60px; width:60px; display: inline;">
                                     <span style="color:black; display: inline;">{{user.firstname}}</span> -->
                                 <!-- <div class="card-body">
                                     
                                 </div> -->
                                     <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
                                     <!-- <button type="button" style="background-color: rgb(255, 127, 45); color: white; padding: 1rem; font-family: worksans-semibold;" @click="add(userid)" :disabled="pressed==true" class="btn orange border border-3 mt-4 w-75">Add Friend</button> -->
-                            </div>
-                        </router-link>
-                        <hr class="w-50 mx-auto">
-                    </div>
-            </div>
-
-       
-            <div class="row">
-                
-            </div>
             
             <div class="mb-3 d-flex justify-content-center" style="font-family:worksans-medium; font-size:1.5rem">Discover new friends</div>
             <span class="input-group mb-3 w-25 col-3 mx-auto mb-5">
-                <input type="text" class="form-control" name="searchfriend" placeholder="Start typing to find a user..." v-model="searched">
+                <input type="text" class="form-control" name="searchfriend" placeholder="Find a user..." v-model="searchedusers">
             </span>
             <div class="container-fluid text-center">
                 
                 <div class="row">
                     <div class="col-xl-4 col-md-6 mb-5 d-flex justify-content-center" v-for="(user,userid) in filtereddata" :key="userid">
-                        <router-link class="routerLink" :to="{ name:'individual profile', params:{idx: userid, createdjios: user.createdjios}}">
+                        <router-link class="routerLink" :to="{name:'individual profile', params:{idx: userid}}">
                             <div class="card border-0 friend-bar p-2 ps-3" style="width: 20rem; height: 5rem;">
                                 <div class="row">
                                     <div class="col-3">
@@ -127,7 +148,8 @@ export default{
     data(){
         return{
             myuid: '',
-            searched:'',
+            searchedfriends:'',
+            searchedusers:'',
             allusers: [],
             pressed: false,
             allrequests: '',
@@ -143,7 +165,6 @@ export default{
             createfriendrequest(user)
             // this.pressed = true
             //need to disable specific button after clicking
-
         },
 
         checkfriendrequest(){ 
@@ -166,7 +187,7 @@ export default{
             if(temparray.length == 0){ 
                 this.norequests = true
                 
-            }else{ 
+            } else { 
                 //make request as an object
                 // {userid: username}
                 this.requests = temparray
@@ -185,7 +206,6 @@ export default{
                 }
                 this.requests = usernames
             }
-
         },
 
         //accept request
@@ -203,6 +223,7 @@ export default{
 
         getfriendnames(){ 
             var friendsobj = this.myFriends
+            console.log(this.myFriends)
             var temparray = []
 
             for( const personid in friendsobj ){ 
@@ -211,84 +232,93 @@ export default{
             // find usernames of the users
             const allusers = this.allusers
             var usernames = {}
-            for(const user in allusers){ 
+            for(const user in allusers){
                 //user is the key
                 if(temparray.includes(user)){
-            
                     const username = allusers[user]['username']
                     usernames[user] = username
                     // usernames.push(username)
                 }
             }
-            this.myfriends = usernames
+            this.myFriends = usernames
         }
     },
 
     computed: {
-        filtereddata(){ 
-            var currentlist = this.allusers
-            var temparray = []
+        filterfriends() {
+            var friendList = [];
+            var temparray = [];
+            console.log(this.allusers);
+            for (let user in this.myFriends) {
+                friendList.push(this.myFriends[user]);
+            }
 
+            for (let user in friendList) {
+                let friend = friendList[user];
+                if (friend.toLowerCase().includes(this.searchedfriends.toLowerCase())) {
+                    temparray.push(friendList[user]);
+                }
+            }
+            
+            if (this.searchedfriends == '') {
+                temparray = friendList;
+            }
+
+            console.log(temparray)
+            return ''
+        },
+        filtereddata() { 
+            var currentlist = this.allusers;
+            var temparray = [];
             //user gives the key 
-            for(let user in currentlist){
+            for (let user in currentlist) {
                 //user is the person uid
-                let person = currentlist[user]
-                var username = person.username
-                console.log(this.searched);
-                if(username.toLowerCase().includes(this.searched.toLowerCase())){
-                    temparray.push(currentlist[user])
+                let person = currentlist[user];
+                var username = person.username;
+                if (username.toLowerCase().includes(this.searchedusers.toLowerCase())) {
+                    temparray.push(currentlist[user]);
                 }
             }
 
-            if(this.searched == ''){
+            if(this.searchedusers == '') {
                 // when search not used i get everyone 
-                temparray = currentlist
+                temparray = currentlist;
             }
-            return temparray
+            console.log(temparray)
+            return temparray;
         },
     },
 
     created() {
-        
-            // console.log('hi');
-            getusers().then(
-                (value) => 
-                {
-           
-                    var uid = localStorage.getItem('uid')
-                    
-                    //remove current user from being displayed
-                    delete value[uid]
-                    
-                    this.allusers = value
+        getusers().then(
+            (value) => 
+            {
+                var uid = localStorage.getItem('uid')
                 
-                }
-               
-            ).then((value) => console.log('finish loading')),
-
-            getfriendrequests().then(
-                (value) =>
-                { 
-                    this.allrequests = value
-                    this.checkfriendrequest()
-                }
-
-            )
-
-            displayfriends().then(
-                (value) =>
-                { 
-                    this.myFriends = value
-                    this.getfriendnames()
-                }
-
-            )
-
+                //remove current user from being displayed
+                delete value[uid]
+                
+                this.allusers = value
+            }
             
+        ).then((value) => console.log('finish loading')),
 
-        
+        getfriendrequests().then(
+            (value) =>
+            { 
+                this.allrequests = value
+                this.checkfriendrequest()
+            }
+        )
+
+        displayfriends().then(
+            (value) =>
+            { 
+                this.myFriends = value
+                this.getfriendnames()
+            }
+        )
     }
-    
 }
 
 </script>
