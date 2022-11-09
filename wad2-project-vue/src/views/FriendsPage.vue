@@ -19,6 +19,7 @@
                     <input type="text" class="form-control" name="searchfriend" placeholder="Find a friend..." v-model="searchedfriends">
                 </div>
             </div>
+        </div>
 
             <div class="row">
                 <div class="col-xl-4 col-md-6 mb-5 d-flex justify-content-center" v-for="key, friend in filterfriends" :key="key">
@@ -191,17 +192,23 @@ export default{
         filterfriends() {
             // console.log(this.myFriends)
             var friendList = {};
-            var temparray = [];
+            var temparray = {};
             for (let user in this.myFriends) {
                 var username = this.myFriends[user]
                 console.log(user)
                 friendList[username] = user;
             }
-            
+            for (let friend in friendList) {
+                if (friend.toLowerCase().includes(this.searchedfriends.toLowerCase())) {
+                    temparray[friend] = friendList[friend]
+                    console.log(temparray)
+                }
+            }
             if (this.searchedfriends == '') {
                 temparray = friendList;
             }
-            return friendList
+            console.log(temparray)
+            return temparray
         },
         filtereddata() { 
             var currentlist = this.allusers;
