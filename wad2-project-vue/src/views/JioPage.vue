@@ -1,5 +1,99 @@
 <template>
-    <div>
+    <div class="container">
+        <div class="row">
+            <div class="col d-flex justify-content-center">
+                <img class="event-banner-card-image" id="goToTop" src="../../../wallpaper1.jpg" alt="">
+            </div>
+        </div>
+    </div>
+
+    <a id="event-scroll-top" href="#goToTop">
+        scroll to top
+    </a>
+
+    <div class="container">
+        <div class="event-header-details text-center">
+            {{ event.eventname }}
+        </div>
+
+        <div class="row mx-auto">
+            <div class="col-12 col-xl-6 mt-5 order-xl-first order-last">
+                <div class="row mx-auto">
+                    <div class="" style="font-family:worksans-semibold">Details</div>
+                    <div class="mt-2"><i class="bi bi-person-circle" style="margin-right: 10px"></i>{{event.username}}</div>
+                    <div class="mt-2"><i class="bi bi-calendar2-week-fill eventDate" style="margin-right: 10px"></i>{{ displayDate() }}, {{ convertTime() }}</div>
+                    <div class="mt-2"><i class="bi bi-geo-alt-fill eventVenue" style="margin-right: 10px"></i>{{ getVenue() }}</div>
+                </div>
+
+        <div class="row mx-auto">
+            <div class="mt-5" style="font-family:worksans-semibold">About</div>
+            <div class='mb-5' id="event-about-section">{{event.activities[0].description}}</div>
+        </div>
+
+        <div class="row mx-auto">
+            <div>Activity/Activities</div>
+     
+            <div v-for="act , index in event.activities" :key="index">
+                Activity {{index + 1}}
+                <table>
+                    <tr>
+                        <td>name:</td> <td>{{act.name}}</td>
+                    </tr>
+                        <td>location:</td> <td>{{act.location}}</td>
+                    
+                    <tr>
+                        <td>duration(min):</td> <td>{{act.duration}}</td>
+                    </tr>
+                </table>
+                <br>
+            </div>
+        </div>
+        </div>
+                <!-- map -->
+                <div class="col-12 col-xl-6 mt-5 order-xl-last order-first" id="event-right-column">
+      
+          
+      <div class="container mb-3">
+
+        <div class="col text-center">
+          <GMapMap
+            :center="center"
+            :zoom="16"
+            map-type-id="roadmap"
+            style="width: 85; height: 40vmin"
+            :options="options"
+            ref="map"
+          >
+            <GMapMarker
+              :key="marker.id"
+              v-for="marker in markers"
+              :position="marker.position"
+            />
+          </GMapMap>
+
+      </div>
+      <div id="event-card-buttons" class="text-center row mt-3">
+
+        <div class="col-12 col-md-6 mx-auto">
+          <a :href="route" target="_blank" id="event-route" class="col-12">
+              <span id="howToGetThere">How To Get There</span>  
+          </a>
+        </div>
+        <div class="col-12 col-md-6 mx-auto">
+          <button type="button" class="btn btn-primary col-12" @click="joinjio(event.userid)">
+              Join Jio +
+            </button>
+            <p style="color:red">{{errormsg}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+        
+    </div>
+    </div>
+
+    <!-- {{event}}
+
         <h1>Welcome to {{event.username}}'s JIO!</h1>
         <h2>
             {{event.eventname}}
@@ -26,22 +120,20 @@
                     </tr>
                 </table>
                 <br>
-                
             </div>
 
             <button type='button' class='btn btn-primary col-6' @click="joinjio(event.userid)">Join Jio +</button>
             <p style="color:red">{{errormsg}}</p>
 
             <div>
-                People going are:
+                Participants (INSERT COUNT)
                 <ul>
                     <li v-for="person in names" :key="person">
                         {{person}}
                     </li>
                 </ul>
 
-            </div>
-    </div>
+            </div> -->
 
 </template>
 
@@ -67,12 +159,12 @@ export default {
     },
 
     methods:{
-        getId(){ 
+        getId() { 
             this.eventId = this.$route.params.idx
             var eventId = this.$route.params.idx
         },
 
-        joinjio(creatorid){ 
+        joinjio(creatorid) { 
             //check if key is empty, if empty then use create jiolist
             //aft tat both will call func to get the value with key=peoplegoing 
             //var array = value
@@ -90,11 +182,9 @@ export default {
                     //then i js add this person in
                     createjiolist(creatorid,this.eventId).then((value)=>{
                         // js continue;
-                       
                     })
                 }
             })
-
             //now confirm peoplegoing got some value, ill put this as pplgoing
             getjiodetails(creatorid,this.eventId).then((value)=>{
                 //means theres alr people going
@@ -104,8 +194,6 @@ export default {
                 if(pplgoing.length > 10){
                 console.log('hit the max, cannot be more than 10 please pay premium');
             }
-
-
                 if(pplgoing.length >= 1  && !pplgoing.includes(uid)){
                     this.errormsg = ('u alr in the party');
                 }
@@ -117,15 +205,9 @@ export default {
                     pplgoing.push(uid)
                     replacejiolist(creatorid,this.eventId,pplgoing)
                 }
-
-               
             }).catch((value)=>{
-                console.log(value);
-                
+                console.log(value);  
             })
-
-            
-
         },
 
         getnames(){ 
@@ -148,7 +230,44 @@ export default {
                 }
             }
             this.names = usernames
-        }
+        },
+
+        displayDate() {
+            const eventDate = this.event.date.split('T')[0];
+            let fullDate = eventDate.split("-");
+            let months = [
+                "",
+                "Jan",
+                "Feb",
+                "Mar",
+                "Apr",
+                "May",
+                "Jun",
+                "Jul",
+                "Aug",
+                "Sep",
+                "Oct",
+                "Nov",
+                "Dec",
+            ];
+            let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+            let eventD = new Date(fullDate);
+            const date = eventD.getDay();
+            return days[date] + ", " + months[parseInt(fullDate[1])] + " " + fullDate[2];
+        },
+
+        convertTime() {
+            let time = this.event.date.split('T')[1];
+            time = time.split(":");
+            return (
+                (time[0] >= 12 && (time[0] - 12 || 12) + ":" + time[1] + " PM") ||
+                (Number(time[0]) || 12) + ":" + time[1] + " AM"
+            );
+        },
+
+        getVenue() {
+            return this.event.activities[0].location;
+        },
     },
 
     created(){ 
