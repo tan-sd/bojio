@@ -18,7 +18,7 @@
           <!-- form section -->
           <div class="col-12 d-flex justify-content-center">
             <form class="register-form">
-              <div class="mb-3 text-center ">Event Details</div>
+              <div class="mb-3 text-center" style="font-family: worksans-semibold">Event Details</div>
               <div class="form-row">
                 <div class="form-group col" style="width: auto">
                   <div class="form-floating">
@@ -116,8 +116,8 @@
         </div>
       </div>
 
-      <div class="row mt-5">
-        <div class="col-6">
+      <div class="row">
+        <div class="col-12 col-lg-5 mt-5">
           <div class="create-map-container">
           <div class="mb-3" style="font-family: worksans-semibold">
           Activities
@@ -168,8 +168,8 @@
         </div>
         </div>
 
-        <div class="col-6">
-          <div class="text-center mb-4" style="font-family: worksans-semibold">Overview</div>
+        <div class="col-12 col-lg-7">
+          <div class="text-center mb-4 mt-5" style="font-family: worksans-semibold">Overview</div>
           <div class="row"> <!-- map -->
               <GMapMap :center="center" :zoom="11" map-type-id="roadmap" style="width: 100%; height: 400px"
               :options="options" ref="map">
@@ -188,7 +188,11 @@
                         </div>
                         
                         <div class="col-10 my-auto">
-                          <span class="float-start" style="color:black;">No activities yet. <br>Add an activity in the form!</span>
+                          <span class="float-start" style="color:black;">
+                            <span style="font-family: worksans-semibold">No activities yet</span>
+                            <br>
+                            <span style="font-size: 0.9rem; color: grey;">Add an activity in the form!</span>
+                          </span>
                         </div>
                       </div>
                   </div>

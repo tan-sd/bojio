@@ -17,18 +17,17 @@
             <div class="row">
                 <div class="input-group mb-3 w-25 mx-auto mb-5">
                     <input type="text" class="form-control" name="searchfriend" placeholder="Find a friend..." v-model="searchedfriends">
-                    
                 </div>
             </div>
+
             <div class="row">
-                <div class="col-xl-4 col-md-6 mb-5 d-flex justify-content-center" v-for="friend, key in filterfriends" :key="key">
-                    
+                <div class="col-xl-4 col-md-6 mb-5 d-flex justify-content-center" v-for="key, friend in filterfriends" :key="key">
                     <router-link class="routerLink" :to="{name:'individual profile', params:{idx: key}}">
                         <div class="card border-0 friend-bar p-2 ps-3" style="width: 20rem; height: 5rem;">
                             <div class="row">
                                 <div class="col-3">
                                     <div class="rounded-circle" style="padding:7px 15px; font-size:30px; background: linear-gradient(90deg, #ef4136, #fbb040); color:white;">
-                                        <span>{{friend[0].toUpperCase()}}</span> 
+                                        <span class="d-flex justify-content-center">{{friend[0].toUpperCase()}}</span> 
                                     </div>   
                                 </div>
                                 <div class="col-9 my-auto">
@@ -39,59 +38,15 @@
                     </router-link>
                 </div>
             </div>
-                <!-- <div class="friends-card card text-white m-2 col-lg-3 col-sm-6 col-12" v-for="friend, key in myFriends" :key="key">
-                    <img src="../assets/images/defaultperson.jpg" class="card-img" alt="...">
-                    <div class="card-img-overlay p-0">
-                        <h5 class="card-title text-dark">{{friend}}</h5>
-                    </div>
-                </div> -->
-
-                <!-- if no friends -->
-                <!-- <div v-if="Object.keys(myFriends).length == 0" class="text-center">
-                    It seems like you haven't added anyone. <br>
-                    Add some friends below!
-                    <hr class="w-50 mx-auto">
-                </div> -->
-
-                <!-- if have friends -->
-                <!-- <div v-else class="col-lg-4 col-md-6 mb-5 d-flex justify-content-center" v-for="friend, key in myFriends" :key="key">
-                        <router-link class="routerLink" :to="{name:'individual profile', params:{idx: key}}">
-                            <div class="{{key}}"></div>
-                            <div class="card border-0 friend-bar p-2 ps-3" style="width: 20rem; height: 5rem;">
-                                <div class="row">
-                                    <div class="col-3">
-                                    <div class="rounded-circle" style="padding:7px 15px; font-size:30px; background: linear-gradient(90deg, #ef4136, #fbb040); color:white;">
-                                        <span>{{user.username[0].toUpperCase()}}</span>
-                                    </div>   
-                                    </div>
-                                    <div class="col-9 my-auto">
-                                        <span class="float-start" style="color:black;">{{user.username}}</span>
-                                    </div>
-                                </div>
-                                   
-                            </div>
-                        </router-link>
-                        <hr class="w-50 mx-auto">
-                    </div> -->
-
-             <!-- <img class="rounded-circle border border-1" src="../assets/images/defaultperson.jpg" style="height: 60px; width:60px; display: inline;">
-                                    <span style="color:black; display: inline;">{{user.firstname}}</span> -->
-                                <!-- <div class="card-body">
-                                    
-                                </div> -->
-                                    <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-                                    <!-- <button type="button" style="background-color: rgb(255, 127, 45); color: white; padding: 1rem; font-family: worksans-semibold;" @click="add(userid)" :disabled="pressed==true" class="btn orange border border-3 mt-4 w-75">Add Friend</button> -->
             
             <div class="mb-3 d-flex justify-content-center" style="font-family:worksans-medium; font-size:1.5rem">Discover new friends</div>
             <span class="input-group mb-3 w-25 col-3 mx-auto mb-5">
                 <input type="text" class="form-control" name="searchfriend" placeholder="Find a user..." v-model="searchedusers">
             </span>
+
             <div class="container-fluid text-center">
-                
                 <div class="row">
-                   
                     <div class="col-xl-4 col-md-6 mb-5 d-flex justify-content-center" v-for="(user,userid) in filtereddata" :key="userid">
-                        
                         <router-link class="routerLink" :to="{name:'individual profile', params:{idx: userid}}">
                             <div class="card border-0 friend-bar p-2 ps-3" style="width: 20rem; height: 5rem;">
                                 <div class="row">
@@ -99,29 +54,14 @@
                                     <div class="rounded-circle" style="padding:7px 15px; font-size:30px; background: linear-gradient(90deg, #ef4136, #fbb040); color:white;">
                                         <span>{{user.username[0].toUpperCase()}}</span>
                                     </div>   
-                                    <!-- <img class="rounded-circle border border-1" src="../assets/images/defaultperson.jpg" style="height: 60px; width:60px; display: inline;"> -->
                                     </div>
                                     <div class="col-9 my-auto">
                                         <span class="float-start" style="color:black;">{{user.username}}</span>
                                     </div>
                                 </div>
-                                    <!-- <img class="rounded-circle border border-1" src="../assets/images/defaultperson.jpg" style="height: 60px; width:60px; display: inline;">
-                                    <span style="color:black; display: inline;">{{user.firstname}}</span> -->
-                                <!-- <div class="card-body">
-                                    
-                                </div> -->
-                                    <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-                                    <!-- <button type="button" style="background-color: rgb(255, 127, 45); color: white; padding: 1rem; font-family: worksans-semibold;" @click="add(userid)" :disabled="pressed==true" class="btn orange border border-3 mt-4 w-75">Add Friend</button> -->
                             </div>
                         </router-link>
                     </div>
-                            <!-- <div class="d-flex">
-                                <img src="../assets/images/defaultperson.jpg" class="card-img rounded-pill border border-1" style="height: 50px; width:auto" alt="...">
-                                <h5>
-                                    {{user.firstname}}
-                                    <button @click="add(userid)" :disabled="pressed==true">Add Friend</button>
-                                </h5>
-                            </div>     -->
                 </div>
             </div>    
         </div> 
@@ -199,7 +139,7 @@ export default{
                 for(const user in allusers){ 
 
                     //user is the key
-                    console.log(user);
+                    // console.log(user);
                     if(temparray.includes(user)){
                 
                         const username = allusers[user]['username']
@@ -219,7 +159,7 @@ export default{
                 this.norequests = true
             }
             else{ 
-                console.log(objectlen);
+                // console.log(objectlen);
             }
         },
 
@@ -248,24 +188,19 @@ export default{
 
     computed: {
         filterfriends() {
-            var friendList = [];
+            // console.log(this.myFriends)
+            var friendList = {};
             var temparray = [];
             for (let user in this.myFriends) {
-                friendList.push(this.myFriends[user]);
-            }
-
-            for (let user in friendList) {
-                let friend = friendList[user];
-                if (friend.toLowerCase().includes(this.searchedfriends.toLowerCase())) {
-                    temparray.push(friendList[user]);
-                }
+                var username = this.myFriends[user]
+                console.log(user)
+                friendList[username] = user;
             }
             
             if (this.searchedfriends == '') {
                 temparray = friendList;
             }
-
-            return temparray
+            return friendList
         },
         filtereddata() { 
             var currentlist = this.allusers;
