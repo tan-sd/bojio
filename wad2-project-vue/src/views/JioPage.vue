@@ -132,6 +132,7 @@
     /> -->
   </GMapMap>
 </div>
+
 <div id="event-card-buttons" class="text-center row mt-3">
 
     <div class="col-12 col-md-6 mx-auto">
@@ -179,7 +180,8 @@
 
 import { getusers, getprivate, getpublic, getjiodetails, createjiolist, replacejiolist, displaypplgoing } from '../utils/index.js'
 
-
+var directionsDisplay;
+var directionsService;
 
 export default { 
     
@@ -188,6 +190,7 @@ export default {
     data(){
         
         return{
+            
             eventId:'',
             event: '',
             errormsg:'',
@@ -215,6 +218,69 @@ export default {
     },
 
     methods:{
+    calculateAndDisplayRoute(
+      directionsService,
+      directionsDisplay,
+      // start,
+      // destination
+    ) {
+      // var refWaypoints = this.waypts;
+      var refWaypoints = [];
+
+      var start = this.locations[0]
+      var end = this.locations[this.locations.length - 1]
+
+      
+      for (var i=1;i<this.locations.length-1;i++) {
+        refWaypoints.push({
+          location: this.locations[i],
+          stopover: true,
+        });
+      }
+      
+      console.log( refWaypoints);
+      console.log('start: ' + start);
+      console.log('end: ' + end);
+      directionsService.route(
+        {
+          origin: start,
+          destination: end,
+          waypoints: refWaypoints,
+          travelMode: "DRIVING",
+          optimizeWaypoints: true
+        },
+        function (response, status) {
+          if (status === "OK") {
+            directionsDisplay.setDirections(response);
+          } else {
+            window.alert("Directions request failed due to " + status);
+          }
+        }
+      );
+    },
+
+    showRoute(){
+        if (directionsDisplay != null) {
+        directionsDisplay.setMap(null);
+        directionsDisplay = null;
+        }
+        directionsService = new window.google.maps.DirectionsService();
+        directionsDisplay = new window.google.maps.DirectionsRenderer();
+        directionsDisplay.setMap(this.$refs.map.$mapObject);
+        
+        if (this.locations.length >= 1) {
+        this.calculateAndDisplayRoute(
+          directionsService,
+          directionsDisplay,
+          // this.places[0],
+          // this.places[1]
+        );
+        // console.log(typeof(this.markers[0]))
+      }
+
+    },
+        
+
         getId() { 
             this.eventId = this.$route.params.idx
             var eventId = this.$route.params.idx
@@ -449,7 +515,50 @@ export default {
         // console.log(this.locations);
         // this.routeLink=this.tempRoute
         
-       
+    //     calculateAndDisplayRoute(
+    //   directionsService,
+    //   directionsDisplay,
+    //   // start,
+    //   // destination
+    // ) {
+    //   // var refWaypoints = this.waypts;
+    //   var refWaypoints = [];
+
+    //   var travelMode = this.travelMode;
+
+    //   console.log(travelMode)
+
+    //   var start = this.places[0]
+    //   var end = this.places[this.places.length - 1]
+
+      
+    //   for (var i=1;i<this.places.length-1;i++) {
+    //     refWaypoints.push({
+    //       location: this.places[i],
+    //       stopover: true,
+    //     });
+    //   }
+      
+    //   console.log( refWaypoints);
+    //   console.log('start: ' + start);
+    //   console.log('end: ' + end);
+    //   directionsService.route(
+    //     {
+    //       origin: start,
+    //       destination: end,
+    //       waypoints: refWaypoints,
+    //       travelMode: travelMode,
+    //       optimizeWaypoints: true
+    //     },
+    //     function (response, status) {
+    //       if (status === "OK") {
+    //         directionsDisplay.setDirections(response);
+    //       } else {
+    //         window.alert("Directions request failed due to " + status);
+    //       }
+    //     }
+    //   );
+    // },
 
                     
         
@@ -480,7 +589,7 @@ export default {
                     (position) => {
                     this.ownLat=position.coords.latitude;
                     this.ownLng=position.coords.longitude;
-                     ans= 'https://www.google.com/maps/dir/'+this.ownLat+","+this.ownLng+"/"
+                    ans= 'https://www.google.com/maps/dir/'+this.ownLat+","+this.ownLng+"/"
 
             
                     this.routeLink = ans
@@ -492,6 +601,7 @@ export default {
                         this.routeLink+=loc+"/"
                         console.log(this.routeLink)
                     }
+                    this.showRoute();
                 
                     },
                     (error) => {
@@ -548,6 +658,7 @@ export default {
                         this.routeLink+=loc+"/"
                         console.log(this.routeLink)
                     }
+                    this.showRoute();
                 
                     },
                     (error) => {
