@@ -787,3 +787,92 @@ export async function displaypplgoing(creatorid,eventid) {
     });
   })
 }
+
+//create message for this event
+export function createMessage(eventid, message) {
+  const db = getDatabase();
+  console.log('inside function createMessage')
+ 
+  // if (typeof (Storage) !== "undefined") {
+    userid = localStorage.getItem('uid')
+    var name = localStorage.getItem('fullname')
+    ////////////////
+    const dbRef = ref(getDatabase());
+    get(child(dbRef, `messages/${eventid}`)).then((snapshot) => {
+      if (snapshot.exists()) {
+
+        var val = snapshot.val()
+        console.log(val);
+
+        const jioData = {
+          username: name,
+          content: message.content,
+        };
+    
+        // Get a key for a new message
+        const newKey = push(child(ref(db), 'messages')).key;
+    
+        const updates = {};
+    
+        updates[`messages/${eventid}/${newKey}`] = jioData;
+    
+        console.log(updates);
+        return update(ref(db), updates);
+
+      } else {
+
+        console.log("No data available");
+        const newKey = push(child(ref(db), 'messages')).key;
+
+        set(ref(db, 'messages/' + eventid +'/'+ newKey), {
+          username: message.username,
+          content: message.content,
+        })
+        .then(() => {
+          // Data saved successfully!
+          console.log('message added');
+        })
+        .catch((error) => {
+          // The write failed...
+          console.log('fail');
+        });
+
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
+
+  // } 
+  // else {
+  //   userid = 'uid not found'
+  // }
+
+}
+
+//check current messages for this event
+export function getmessage(eventid) {
+  console.log('this function is getmessage');
+  return new Promise((resolve, reject) => {
+    console.log('inside promise');
+    var messages = ref(db, `messages/${eventid}`)
+
+    onValue(messages, (snapshot) => {
+      console.log('inside onvalue');
+
+      const data = snapshot.val()
+
+      if (data != null) {
+        console.log('inside js file getmessage');
+        console.log(data);
+
+        return resolve(data)
+      }
+      console.log('at reject');
+      return reject('not found')
+    })
+  })
+
+}
+
+// let x = ref(db, `messages`)  
+// export default x 
