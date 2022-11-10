@@ -47,6 +47,20 @@
                   {{ checkDescription }} / {{ descriptionLimit }}
                 </div>
               </div>
+              <div class="input-group">
+                <input type="file" class="form-control" @change="onFileChange" accept="image/*" id="imgUpload" style="display: none"/>
+              </div>
+              <div @click="imgUpload" id="imgPreview" class="row mt-4 mx-auto card" style="cursor: pointer; width: 400px; height: 250px;">
+                <div id="preview" class="d-flex justify-content-center align-items-center my-auto">
+                  <img style="width: 80%;" v-if="imgUrl" :src="imgUrl">
+                  <div v-else>
+                    <div class="d-flex justify-content-center align-items-center">
+                      <h1><i class="bi bi-card-image mx-auto"></i></h1>
+                    </div>
+                    <div>Upload a banner photo</div>
+                  </div>
+                </div>
+              </div>
               <div class="form-row">
               <div class="register-form-field form-group col mt-5" style="width: auto">
                 <div class="form-floating">
@@ -267,7 +281,6 @@
 import { remove } from "@firebase/database";
 import { createJio } from '../utils/index'
 
-
 var directionsDisplay;
 var directionsService;
 
@@ -275,6 +288,8 @@ export default {
   title: "BOJIO – Create a Jio",
   data() {
     return {
+      imgUrl: null,
+      image: 'no-image',
       actError: [],
       evtError: [],
       center: { lat: 1.3421, lng: 103.8198 },
@@ -318,6 +333,17 @@ export default {
   },
 
   methods: {
+    imgUpload() {
+      var imgUpload = document.getElementById('imgUpload');
+      imgUpload.click()
+    },
+    onFileChange(e) {
+      const file = e.target.files[0]
+      this.imgUrl = URL.createObjectURL(file);
+
+      const files = e.target.files;
+      this.image = files[0]
+    }, 
     calculateAndDisplayRoute(
       directionsService,
       directionsDisplay,
