@@ -214,6 +214,9 @@
 import { getusers, getprivate, getpublic, getjiodetails, createjiolist, replacejiolist, displaypplgoing, createMessage, getmessage } from '../utils/index.js'
 import { reactive, onMounted, ref, getCurrentInstance, computed } from 'vue';
 
+var directionsDisplay;
+var directionsService;
+
 export default { 
     
     name :'jio details for both public and private',
