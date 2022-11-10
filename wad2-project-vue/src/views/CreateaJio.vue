@@ -195,7 +195,7 @@
                           </span>
                         </div>
                       </div>
-                  </div>
+                    </div>
               </div>
 
               <div v-else>
@@ -360,7 +360,7 @@ export default {
             window.alert("Directions request failed due to " + status);
           }
         }
-      );
+      ); 
     },
 
     setPlace(place) {
