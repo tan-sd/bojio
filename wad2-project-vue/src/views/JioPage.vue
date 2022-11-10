@@ -13,96 +13,107 @@
     </a> -->
 
     <div class="container">
-        <div class="text-center">
+        <div class="text-center mb-3">
             <span class="event-header-details ">{{ event.eventname }}</span>
         </div>
         
 
         <div class="row mx-auto px-5">
-        <div class="col-12 col-xl-6 mt-5 order-xl-first order-last" style="font-size:15px;background-color: ;">
 
-            <div class="row mx-auto">
-                <div class="public-section-header" >About</div>
-                <div class="public-section-text" style="font-style:italic">{{event.activities[0].description}}</div>
-            </div>
-
-            <!-- creator -->
-            <div class="row mx-auto my-3">
-                <div class="public-section-header mb-1">Creator</div>
-                <div>
-                    <router-link class="routerLink" :to="{name:'individual profile', params:{idx: event.userid}}">
-                        <div class="card border-0 friend-bar ps-3 " style="width: 13rem; height: 3.5rem;">
-                                <div class="row">
-                                    <div class="col-3 p-2">
-                                        <div class="rounded-circle text-center" style="padding:3px 6px; font-size:20px; background: linear-gradient(90deg, #ef4136, #fbb040); color:white;">
-                                            <span>{{event.username[0].toUpperCase()}}</span>
-                                        </div>   
-                                    </div>
-                                    <div class="col-9 my-auto p-0">
-                                        <span class="float-start p-0" style="color:black; font-size:15px">{{event.username}}</span>
-                                    </div>
-                                </div>
-                            </div>
-                    </router-link>
+        <div class="col-12 col-xl-6 order-xl-first order-last" style="font-size:15px;background-color: ;">
+            
+            <div class="card public-about-container p-4 mb-3">
+                <div >
+                    <div class="public-header mb-2">About</div>
+                    <div class="public-text">"{{event.activities[0].description}}"</div>
                 </div>
-            </div>
-
-            <div class="row mx-auto my-3">
-                <div class="public-section-header">Category</div>
-                <div class="public-section-text" >{{event.category}}</div>
-            </div> 
-
-            <div class="row mx-auto my-3">
-                <div class='public-section-header'>Number of slots filled:</div>
-                <div class="public-section-text">{{peoplegoing.length}} / {{event.maxnumber}}</div>
-            </div>
-
-            <!-- participants -->
-            <div class="row mx-auto my-3">
-                <span class="public-section-header">Participants</span>
-                <div v-for="username,userid in names" :key="userid" class="my-2">
-                    <router-link class="routerLink" :to="{name:'individual profile', params:{idx: userid}}">
+                <!-- creator -->
+                <div class="my-3">
+                    <div class="public-header mb-1">Creator</div>
+                    <div>
+                        <router-link class="routerLink" :to="{name:'individual profile', params:{idx: event.userid}}">
                             <div class="card border-0 friend-bar ps-3 " style="width: 13rem; height: 3.5rem;">
-                                <div class="row">
-                                    <div class="col-3 p-2">
-                                        <div class="rounded-circle text-center" style="padding:3px 6px; font-size:20px; background: linear-gradient(90deg, #ef4136, #fbb040); color:white;">
-                                            <span>{{username[0].toUpperCase()}}</span>
-                                        </div>   
-                                    </div>
-                                    <div class="col-9 my-auto p-0">
-                                        <span class="float-start p-0" style="color:black; font-size:15px">{{username}}</span>
+                                    <div class="row">
+                                        <div class="col-3 p-2">
+                                            <div class="rounded-circle text-center" style="padding:3px 6px; font-size:20px; background: linear-gradient(90deg, #ef4136, #fbb040); color:white;">
+                                                <span>{{event.username[0].toUpperCase()}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-9 my-auto p-0">
+                                            <span class="float-start p-0" style="color:black; font-size:15px">{{event.username}}</span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                    </router-link>
+                        </router-link>
+                    </div>
+                </div>
+                <div class=" my-3">
+                    <div class="public-header">Category</div>
+                    <div class="public-text" >{{event.category}}</div>
+                </div>
+                <div class=" my-3">
+                    <div class='public-header'>Number of slots filled:</div>
+                    <div class="public-text">{{peoplegoing.length}} / {{event.maxnumber}}</div>
+                </div>
+                <!-- participants -->
+                <div class=" my-3">
+                    <span class="public-header">Participants</span>
+                    <div v-for="username,userid in names" :key="userid" class="my-2">
+                        <router-link class="routerLink" :to="{name:'individual profile', params:{idx: userid}}">
+                                <div class="card border-0 friend-bar ps-3 " style="width: 13rem; height: 3.5rem;">
+                                    <div class="row">
+                                        <div class="col-3 p-2">
+                                            <div class="rounded-circle text-center" style="padding:3px 6px; font-size:20px; background: linear-gradient(90deg, #ef4136, #fbb040); color:white;">
+                                                <span>{{username[0].toUpperCase()}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-9 my-auto p-0">
+                                            <span class="float-start p-0" style="color:black; font-size:15px">{{username}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                        </router-link>
+                    </div>
                 </div>
             </div>
     
     <div class="row mx-auto">
-        <div class="public-section-header">Activities</div>
-
-        <div v-for="act , index in event.activities" :key="index" class="my-3">
-            <div class='card' style='width: 18rem;'>                      
-                <div class='card-body'>
-                    <h5 class='card-title public-section-text'>{{act.name}}</h5>
-                    <div class="mt-2"><i class="bi bi-calendar2-week-fill eventDate" style="margin-right: 10px"></i>{{ act.location }}</div>
-                    <div class="mt-2"><i class="bi bi-clock-fill eventDate" style="margin-right: 10px"></i>{{ act.duration }} minutes</div>
-                </div>
-            </div> <!-- card -->
+        <div class="">
+            <div class="public-header">Activities</div>
+            <div v-for="act , index in event.activities" :key="index" class="my-2">
+                <div class="card border-0 public-activity-bar p-2 ps-4 mx-auto" style="width: 90%; padding:20px;">
+                    <div class="row my-auto">
+                        <div class="col-2 my-auto">
+                            <div class="rounded-circle" style="padding:7px 15px; font-size:25px; background: linear-gradient(90deg, #ac72ff, #23d2ff); color:white;">
+                            <span class="d-flex justify-content-center">{{index+1}}</span>
+                            </div>
+                        </div>
             
+                        <div class="col-10 my-auto">
+            
+                            <div class="row">
+                                <div style="font-family: worksans-semibold">{{act.name}}</div>
+                                <div style="font-size: 0.9rem; color: grey;">{{act.location}}</div>
+                                <div style="font-size: 0.9rem; color: grey;">{{act.duration}} minutes</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+            </div>
         </div>
     </div>
 </div>
         <!-- map -->
-<div class="col-12 col-xl-6 mt-5 order-xl-last order-first" style="position:relative" id="">
+<div class="col-12 col-xl-6 order-xl-last order-first" style="position:relative" id="">
 
   
-<div class="container mb-3 border card p-4 create-map-container">
+<div class="container border card p-4 public-map-container mb-5">
 
 <div class="row mb-3">
-    <div class="public-section-header">Details</div>
-    <div class="mt-2 public-section-text'"><i class="bi bi-calendar2-week-fill eventDate" style="margin-right: 10px"></i>{{ displayDate() }}, {{ convertTime() }}</div>
-    <div class="mt-2 public-section-text'"><i class="bi bi-geo-alt-fill eventDate" style="margin-right: 10px"></i>{{ getVenue() }}</div>
+    <div class="public-header">Details</div>
+    <div class="mt-2 public-text'"><i class="bi bi-calendar2-week-fill eventDate" style="margin-right: 10px"></i>{{ displayDate() }}, {{ convertTime() }}</div>
+    <div class="mt-2 public-text'"><i class="bi bi-geo-alt-fill eventDate" style="margin-right: 10px"></i>{{ getVenue() }}</div>
 </div>
 
 <div class="col text-center">
@@ -128,16 +139,21 @@
         <span id="howToGetThere">How To Get There</span>  
     </a>
     </div>
-    <!-- need another section for max -->
+    
     <div class="col-12 col-md-6 mx-auto">
-        <div v-if="myuid == event.userid || peoplegoing.includes(myuid)">
-            <button style="background-image: none; background-color:rgba(220,53,69,255); border:none;" type="button" class="btn btn-primary col-12" >
+        <div v-if="myuid == event.userid">
+            <button type="button" class="btn btn-primary col-12" @click="deleteJio(eventId)">
+                Delete this jio 
+            </button>
+        </div>
+        <div v-else-if="peoplegoing.includes(myuid)">
+            <button style="background-image: none; background-color:rgba(220,53,69,255); border:none;" type="button" class="btn btn-primary col-12" @click="leaveJio(myuid)">
                 Leave this event
             </button>
         </div>
         <div v-else-if="peoplegoing.length == event.maxnumber">
             <button type="button" class="btn btn-primary col-12" disabled>
-                No Slots Left
+                No slots left
             </button>
         </div>
         <div v-else>
@@ -152,6 +168,9 @@
 
 </div>
 </div>
+
+{{peoplegoing}}
+{{myuid}}
 
 </template>
 
@@ -211,10 +230,12 @@ export default {
 
             var myuid = localStorage.getItem('uid')
 
-            console.log(this.event.userid);
             var pplgoing = []
+
             getjiodetails(creatorid,this.eventId).then((value)=>{
                 //means theres alr people going
+                console.log(creatorid);
+                console.log(this.eventId);
                 console.log(value);
                
                 if(myuid != creatorid){
@@ -224,7 +245,9 @@ export default {
                     //and im not the creator
                     getjiodetails(creatorid,this.eventId).then((value)=>{
                         //means theres alr people going cuz not empty
-                        console.log(value);
+                        // console.log(creatorid);
+                        // console.log(this.eventId);
+                        // console.log(value);
                         pplgoing = value
                             //replace this 10 with maxlimit 
                             if(pplgoing.length >= this.event.maxnumber){
@@ -295,6 +318,11 @@ export default {
                     }
                 })
                 
+        },
+
+        leavejio(myuid){    
+            var index = this.peoplegoing.findIndex(myuid)
+            this.peoplegoing.splice(index,1)
         },
 
         getnames(){ 
