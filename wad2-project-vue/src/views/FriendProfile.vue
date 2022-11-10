@@ -1,11 +1,36 @@
 <template>
+
     <div class="container">
-        <div v-for="(user,userid) in filtereddata" :key="userid">
+        <!-- <div v-for="(user,userid) in filtereddata" :key="userid">
             {{user.firstname}}
+        </div> -->
+
+        <!-- name -->
+        <!-- <div class="row">
+            <div class="col-3">
+                <div class="rounded-circle" id="profile-circle">
+                    <span class="" id="profile-letter">{{allusers[$route.params.idx].firstname[0].toUpperCase()}}</span>
+                </div>
+            </div>
+            <div class="col-9">
+                <span id="profile-name">{{ allusers[$route.params.idx].firstname + ' ' + allusers[$route.params.idx].lastname }}</span>
+                <br>
+                <span id="profile-usernmae  ">{{ allusers[$route.params.idx].username }}</span>
+
+            </div>
+        </div> -->
+
+        <div>
+            <div class="rounded-circle" id="profile-circle">
+                <span class="" id="profile-letter">{{allusers[$route.params.idx].firstname[0].toUpperCase()}}</span>
+            </div>
+            <div>
+                <span id="profile-name">{{ allusers[$route.params.idx].firstname + ' ' + allusers[$route.params.idx].lastname }}</span>
+                <br>
+                <span id="profile-usernmae  ">{{ allusers[$route.params.idx].username }}</span>
+            </div>
         </div>
-
-        {{friendname}}
-
+       
         
         user id: {{friendid}}
         createdjios: {{jios}}
@@ -14,7 +39,7 @@
         
         
         My Events:
-        <span>{{ allusers[$route.params.idx].createdjios }}</span>
+        {{ allusers[$route.params.idx].createdjios }}
         <hr>
         First Name:
         <span>{{ allusers[$route.params.idx].firstname }}</span>
@@ -84,10 +109,6 @@ export default{
         jios(){
             console.log(this.$route.params.idx.createdjios);
             return this.$route.params.idx.createdjios
-        },
-
-        friendname(){
-            return this.$route.params
         }
     },
 
