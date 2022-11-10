@@ -304,11 +304,6 @@ background-color: #eaeaea !important;
   top: 100px;
 }
 
-.create-map-container {
-  position: sticky;
-  top: 50px;
-}
-
 .event-banner-card-image{
     border-radius:10px; 
     height: 35vmin;
@@ -871,6 +866,11 @@ td {
     border: 1px solid;
 }
 
+.create-map-container {
+  position: sticky;
+  top: 50px;
+}
+
 /* #content{
         
     background-image: url(wallpaper4.jpg);
@@ -1202,22 +1202,7 @@ td {
 }
 
 /* CREATE A JIO PAGE END */
-/* FRIENDS PAGE START */
 
-.routerLink {
-  text-decoration: none;
-}
-
-.friend-bar {
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-.friend-bar:hover {
-  box-shadow: 0 8px 14px rgba(0, 0, 0, 0.2);
-}
-
-
-/* FRIENDS PAGE END */
 
 .errShake {
   -webkit-animation: errorShake 0.4s 1 linear;
@@ -1269,15 +1254,45 @@ td {
 /* END OF CREATE A JIO */
 
 /* START OF PUBLIC JIO DETAILS */
+.public-about-container{
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
 
-.public-section-header{
+.public-header{
   font-family:worksans-semibold;
 
 }
 
-.public-section-text{
+.public-text{
   font-family:worksans-medium;
  
 }
 
+.public-activity-bar {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.public-map-container {
+  position: sticky;
+  top: 50px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
 /* END OF PUBLIC JIO DETAILS */
+
+/* FRIENDS PAGE START */
+
+.routerLink {
+  text-decoration: none;
+}
+
+.friend-bar {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.friend-bar:hover {
+  box-shadow: 0 8px 14px rgba(0, 0, 0, 0.2);
+}
+
+
+/* FRIENDS PAGE END */
