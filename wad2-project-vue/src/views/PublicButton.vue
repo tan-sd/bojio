@@ -4,30 +4,6 @@ import { onMounted } from 'vue';
 import { getpublic, getpublic2, snapshotToArray } from '../utils/index.js'
 import {getAuth, onAuthStateChanged, signOut, createUserWithEmailAndPassword} from 'firebase/auth';
 import { useRouter } from 'vue-router' 
-// import { initializeApp } from 'firebase/app'
-// import { getDatabase, ref, child, push, update, set, get, onValue } from 'firebase/database'
-// const firebaseConfig = {
-//   apiKey: "AIzaSyDC4kZ-Ec-jP7dnlFEmvD5rW9bOIXRyT3Q",
-//   authDomain: "wad2-project-d8ba0.firebaseapp.com",
-//   databaseURL: "https://wad2-project-d8ba0-default-rtdb.asia-southeast1.firebasedatabase.app",
-//   projectId: "wad2-project-d8ba0",
-//   storageBucket: "wad2-project-d8ba0.appspot.com",
-//   messagingSenderId: "168248515824",
-//   appId: "1:168248515824:web:bfcb3221af409131e07635"
-// };
-
-// const app = initializeApp(firebaseConfig);
-// const db = getDatabase(app);
-
-// var events = getthis()
-// getthis().then((value) =>{ 
-//           // console.log(value);
-//           eventsfromdb = value
-//           console.log(value);
-//           console.log(typeof(value));
-//         }).catch((message)=>{
-//           console.log('error');
-//         })
 
 export default {
   name: 'PublicButton',
@@ -36,7 +12,11 @@ export default {
   data() {
     return {
       publicevents: '',
-      length: 1
+      length: 1,
+      categories:['Business and Industry', 'Education','Entertainment', 'Fitness and Wellness','Food and Drinks', 'Hobbies and Activities', 'Others', 'Shopping and Fashion', 'Sports and Outdoor Activities','Select All'],
+      selectedcategory:'',
+      allevents: '',
+      filterarray : []
 
     }
   },
@@ -69,6 +49,22 @@ export default {
           return days[date] + ', ' + months[parseInt(fullDate[1], 10)] + ' ' + fullDate[2];
 
     },
+
+    filter(){
+      var category = this.selectedcategory
+      var temparray = []
+      const events = this.publicevents
+      console.log(typeof(events));
+      for(const event in events){
+        console.log(event);
+        const eventcat = events[event]['category']
+        if(eventcat == category){
+          temparray.push(events[event])
+        }
+      }
+      this.filterarray = temparray   
+      console.log(temparray);      
+    }
 
     // firebaseevents() {
     //   getpublic().then((value) =>{ 
@@ -118,12 +114,16 @@ export default {
       // console.log('hi');
       return this.publicevents;
     },
+
+    filterevents(){
+      // this.allevents = this.filterarray
+      this.filter()
+      console.log(this.filterarray);
+      return this.filterarray
+    }
   },
 
   created() {
-  //   console.log('inside created');
-    // this.publicevents = getpublic2();
-    // console.log("this.publicevents: " + this.publicevents);
   
     getpublic().then((value) =>{ 
           console.log('inside this');
@@ -175,36 +175,72 @@ export default {
 <template>
   <div id='event-container' class="container mt-5" style="font-family: worksans-medium">
     <div class="row" id='app'>
-      <div class="col-lg-4 col-md-6 mb-5" v-for="(event, index) in eventsloaded" :key="index">
-        <router-link @click="scrollToTop" style="text-decoration: none; color: inherit;" :to="{ name: 'eachjioevent', params: { idx: index }}">
-          <div class="card event-card" style="width:auto; height:500px">
-            <img class="card-img-top" src="../../../wallpaper1.jpg" alt="card image collar">
-            <div class="card-body" style="width: auto;">
-              <div class="card-title pt-1 eventTitle"> {{event.eventname}}</div>
-              <div class="card-text">
-                <div class="eventCreator" style="margin-right: 10px"><i class="bi bi-person-circle" style="margin-right: 10px"></i>{{event.username}}</div>
-                <div class="eventDate mt-2"><i class="bi bi-calendar2-week-fill" style="margin-right: 10px"></i>{{convertDate(event.date.split('T')[0])}}, {{convert24(event.date.split('T')[1])}}</div>
-                <div class="eventVenue mt-2"><i class="bi bi-geo-alt-fill" style="margin-right: 10px"></i>{{event.activities[0].location}}</div>
-              </div>
-            <!-- <div class="card-content">
-                created by {{event.username}}
-              </div>
-              
-            <div>Activities:</div>
-                <div v-for="key in event.activities" :key="key">
-                  <div>Name: {{key.name}}</div>
-                  <div>Location: {{key.location}}</div>
-                  <div>Date: {{event.date.split('T')}}</div>
 
-                  <br>
-                  Eventinfo: {{key.description}}
+      selected: {{selectedcategory}}
+          <select v-model="selectedcategory" placeholder="select category" @click="filter">
+          <option v-for="value in categories" :key="value"> {{value}}</option>
+          </select>
+    
+      <div v-if="selectedcategory == '' || selectedcategory== 'Select All'">
 
-            </div> -->
+        <div class="col-lg-4 col-md-6 mb-5" v-for="(event, index) in eventsloaded" :key="index">
+          <router-link @click="scrollToTop" style="text-decoration: none; color: inherit;" :to="{ name: 'eachjioevent', params: { idx: index }}">
+            <div class="card event-card" style="width:auto; height:500px">
+              <img class="card-img-top" src="../../../wallpaper1.jpg" alt="card image collar">
+              <div class="card-body" style="width: auto;">
+                <div class="card-title pt-1 eventTitle"> {{event.eventname}}</div>
+                <div class="card-text">
+                  <div class="eventCreator" style="margin-right: 10px"><i class="bi bi-person-circle" style="margin-right: 10px"></i>{{event.username}}</div>
+                  <div class="eventDate mt-2"><i class="bi bi-calendar2-week-fill" style="margin-right: 10px"></i>{{convertDate(event.date.split('T')[0])}}, {{convert24(event.date.split('T')[1])}}</div>
+                  <div class="eventVenue mt-2"><i class="bi bi-geo-alt-fill" style="margin-right: 10px"></i>{{event.activities[0].location}}</div>
+                </div>
+              <!-- <div class="card-content">
+                  created by {{event.username}}
+                </div>
+        
+              <div>Activities:</div>
+                  <div v-for="key in event.activities" :key="key">
+                    <div>Name: {{key.name}}</div>
+                    <div>Location: {{key.location}}</div>
+                    <div>Date: {{event.date.split('T')}}</div>
+                    <br>
+                    Eventinfo: {{key.description}}
+              </div> -->
+            </div>
+          </div>
+          </router-link>
+        </div>
+      </div>
+
+
+      <div v-else>
+
+        <!-- if got at least 1 event -->
+        <div v-if="filterevents.length > 0">
+          <div class="col-lg-4 col-md-6 mb-5" v-for="(event, index) in filterevents" :key="index">
+            <router-link @click="scrollToTop" style="text-decoration: none; color: inherit;" :to="{ name: 'eachjioevent', params: { idx: index }}">
+              <div class="card event-card" style="width:auto; height:500px">
+                <img class="card-img-top" src="../../../wallpaper1.jpg" alt="card image collar">
+                <div class="card-body" style="width: auto;">
+                  <div class="card-title pt-1 eventTitle"> {{event.eventname}}</div>
+                  <div class="card-text">
+                    <div class="eventCreator" style="margin-right: 10px"><i class="bi bi-person-circle" style="margin-right: 10px"></i>{{event.username}}</div>
+                    <div class="eventDate mt-2"><i class="bi bi-calendar2-week-fill" style="margin-right: 10px"></i>{{convertDate(event.date.split('T')[0])}}, {{convert24(event.date.split('T')[1])}}</div>
+                    <div class="eventVenue mt-2"><i class="bi bi-geo-alt-fill" style="margin-right: 10px"></i>{{event.activities[0].location}}</div>
+                  </div>
+              </div>
+            </div>
+            </router-link>
           </div>
         </div>
-        </router-link>
+
+        <div v-else>
+          no events to see :(
+        </div>
+
 
       </div>
+
     </div>
     <!-- <button id='view-more' class="btn mb-3" @click="loadMore" style="box-shadow: 0px 0px 14px -7px #f09819" >Load</button> -->
   </div>
