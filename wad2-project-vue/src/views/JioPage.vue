@@ -103,6 +103,38 @@
             </div>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-6 w-100">
+            <div class="" v-if="creatorid == myuid || peoplegoing.includes(myuid)">
+                Show Chat
+                <div class="view chat">
+                    <header>
+                        <h1>Welcome, {{state.username}}</h1>
+                    </header>
+
+                    <div class="chat-box">
+                        <!-- message -->
+                        <!-- {{ state.messages }}
+                        {{ allmessages }} -->
+                        <div class="" v-for="message in allmessages" :key="message.key" :class="(message.username == state.username ? 'message current-user' : 'message')">
+                            <div class="message-inner">
+                                <div class="username">{{ message.username }}</div>
+                                <div class="content">{{ message.content }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <footer>
+                        <form @submit.prevent="SendMessage">
+                            <input type="text" v-model="inputMessage" placeholder="Write a message...">
+                            <input type="submit" value="Send">
+                        </form>
+                    </footer>
+                </div>
+            </div>
+        </div>
+        <div class="col-6"></div>
+    </div>
 </div>
         <!-- map -->
 <div class="col-12 col-xl-6 order-xl-last order-first" style="position:relative" id="">
@@ -176,10 +208,8 @@
 
 <script>
 
-
-import { getusers, getprivate, getpublic, getjiodetails, createjiolist, replacejiolist, displaypplgoing } from '../utils/index.js'
-
-
+import { getusers, getprivate, getpublic, getjiodetails, createjiolist, replacejiolist, displaypplgoing, createMessage, getmessage } from '../utils/index.js'
+import { reactive, onMounted, ref, getCurrentInstance, computed } from 'vue';
 
 export default { 
     
@@ -210,6 +240,11 @@ export default {
                 fullscreenControl: false,
                 styles: [],
             },
+            state: {
+                username: '',
+                messages: []
+            },
+            inputMessage: '',
         }
 
     },
@@ -404,7 +439,40 @@ export default {
                 this.locations.push(this.event.activities[i].location);
             }
             return this.locations;
+        },
+        SendMessage() {
+            if (this.inputMessage === "" || this.inputMessage === null) {
+                return;
             }
+
+            const message = {
+                username: this.state.username,
+                content: this.inputMessage
+            }
+
+            createMessage(this.eventId, message)
+            console.log('sendMessage function, finish create message');
+            this.inputMessage = "";
+        },
+        getupdatedmessage() {
+
+        var messages = []
+        getmessage(this.eventId)
+            .then((value) =>
+                Object.keys(value).forEach(key => {
+                    messages.push({
+                        id: key,
+                        username: value[key].username,
+                        content: value[key].content
+                    })
+        })
+
+            )
+        console.log('sendMessage function, finish get message');
+
+        console.log(messages);
+        this.state.messages = messages
+        }
     },
 
     computed:{
@@ -414,6 +482,13 @@ export default {
 
         numberofppl(){
             return this.peoplegoing
+        },
+
+        allmessages() {
+            this.getupdatedmessage()
+
+            console.log(this.state.messages);
+            return this.state.messages
         }
 
     },
@@ -449,9 +524,8 @@ export default {
         // console.log(this.locations);
         // this.routeLink=this.tempRoute
         
-       
-
-                    
+        var name = localStorage.getItem('fullname')
+        this.state.username = name      
         
         this.getId()
         //get public events
@@ -567,7 +641,23 @@ export default {
                 
                 
             })
-            
+            var messages = []
+        //to get all msg from firebase
+        getmessage(this.eventId)
+            .then((value) =>
+
+                Object.keys(value).forEach(key => {
+                    messages.push({
+                        id: key,
+                        username: value[key].username,
+                        content: value[key].content
+                    })
+                }),
+
+                this.state.messages = messages
+            )
+        console.log(this.state.messages);
+        console.log('here is to display events on create');
         },
         
     
@@ -583,6 +673,149 @@ export default {
     
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
+
+.view {
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #ea526f;
+}
+
+input[type="text"] {
+    appearance: none;
+    border: none;
+    outline: none;
+    background: none;
+    display: block;
+    width: 100%;
+    padding: 10px 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    color: #333;
+    font-size: 18px;
+    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+    background-color: #F3F3F3;
+    transition: 0.4s;
+
+}
+
+input[type="submit"] {
+    appearance: none;
+    border: none;
+    outline: none;
+    background: none;
+    display: block;
+    width: 100%;
+    padding: 10px 15px;
+    background-color: #ea526f;
+    border-radius: 8px;
+    color: #FFF;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.chat {
+    flex-direction: column;
+}
+
+.chat .header {
+    position: relative;
+    display: block;
+    width: 100%;
+    padding: 50px 30px 10px;
+}
+
+.chat .chat-box {
+    border-radius: 24px 24px 0px 0px;
+    background-color: #FFF;
+    box-shadow: 0px 0px 12px rgba(100, 100, 100, 0.2);
+    flex: 1 1 100%;
+    padding: 30px;
+}
+
+.chat-box .message {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.chatbox .message .messsage-inner .username {
+    color: #888;
+    font-size: 16px;
+    margin-bottom: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.chatbox .message .message-inner .content {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #F3F3F3;
+    border-radius: 999px;
+    color: #333;
+    font-size: 18px;
+    line-height: 1.2em;
+    text-align: left;
+}
+
+.message .current-user {
+    margin-top: 50px;
+    justify-content: flex-end;
+    text-align: right;
+}
+
+.current-user .message-inner {
+    max-width: 75%;
+}
+
+.current-user .message-inner .content {
+    color: #FFF;
+    font-weight: 600;
+    background-color: #ea526f;
+}
+
+footer {
+    position: sticky;
+    bottom: 0px;
+    background-color: #FFF;
+    padding: 30px;
+    box-shadow: 0px 0px 12px rgba(100, 100, 100, 0.2);
+}
+
+footer form {
+    display: flex;
+}
+
+footer form input[type="text"] {
+    flex: 1 1 100%;
+    appearance: none;
+    border: none;
+    outline: none;
+    background: none;
+    display: block;
+    width: 100%;
+    padding: 10px 15px;
+    border-radius: 8px 0px 0px 8px;
+    color: #333;
+    font-size: 18px;
+    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+    background-color: #F3F3F3;
+    transition: 0.4s;
+
+}
+
+footer form input[type="submit"] {
+    appearance: none;
+    border: none;
+    outline: none;
+    background: none;
+    display: block;
+    padding: 10px 15px;
+    border-radius: 0px 8px 8px 0px;
+    background-color: #ea526f;
+    color: #FFF;
+    font-size: 18px;
+    font-weight: 700;
+}
 
 </style>
