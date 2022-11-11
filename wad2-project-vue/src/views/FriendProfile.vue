@@ -43,7 +43,7 @@
             <template v-for="jioObj,jioId in friendObj.createdjios" :key="jioObj"> -->
             <template v-for="jioObj in friendObj.createdjios" :key="jioObj">
                 <!-- <router-link :to="{ name: 'eachjioevent', params: { idx: jioId }}"> -->
-                    <div v-if="ifPublic(jioObj)" class="profile-event-card card col-12 mx-auto p-3" @mouseover="viewDetails = true" @mouseout="viewDetails = null">
+                    <div v-if="ifPublic(jioObj)" class="profile-event-card card border-0  col-12 mx-auto p-3" @mouseover="viewDetails = true" @mouseout="viewDetails = null">
                         <!-- <img class="card-img-top" src="../../../wallpaper1.jpg" alt=""> --> 
                         <div class="profile-event-title">{{jioObj.eventname}}</div>
                         <div class="profile-event-location">Starts @ {{jioObj.activities[0].location}}</div>
@@ -65,7 +65,8 @@
         <div class="row">
 
             <!-- check if user is logged in, if not, show lock symbol -->
-            <div v-if="!authStatus" class="text-center p-5 card bg-secondary text-light">
+            {{$route.query.status}}
+            <div v-if="!authStatus" class="text-center p-5 card border-0 bg-secondary text-light">
                 <i class="profile-lock-icon bi bi-lock-fill"></i>
                 You are not logged in.
                 <div class="d-inline">
@@ -83,7 +84,7 @@
             <!-- check if user is a friend, show private jios -->
             <div v-else-if="friendId in myFriends">
                 <template v-for="jioObj in friendObj.createdjios" :key=jioObj>
-                    <div v-if="!ifPublic(jioObj)" class="profile-event-card card col-12 mx-auto p-3">
+                    <div v-if="!ifPublic(jioObj)" class="profile-event-card card border-0 col-12 mx-auto p-3">
                         <!-- <img class="card-img-top" src="../../../wallpaper1.jpg" alt=""> -->
                         <div class="profile-event-title">{{jioObj.eventname}}</div>
                         <div class="profile-event-location">Starts @ {{jioObj.activities[0].location}}</div>
@@ -188,5 +189,11 @@ export default{
     },
     
 }
+
+</script>
+
+<script setup>
+import { getAuth } from 'firebase/auth'
+const auth = getAuth
 
 </script>
