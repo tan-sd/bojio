@@ -173,8 +173,8 @@
         <span id="howToGetThere">How To Get There</span>  
     </a>
     </div>
-    {{peoplegoing}}
-    {{event}}
+    <!-- {{peoplegoing}}
+    {{event}} -->
     <div class="col-12 col-md-6 mx-auto">
         <div v-if="myuid == event.userid">
             <button type="button" class="btn btn-primary col-12" @click="deleteJio(eventId)">

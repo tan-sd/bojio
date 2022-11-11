@@ -185,6 +185,8 @@ export default {
                 <div class="eventCreator" style="margin-right: 10px"><i class="bi bi-person-circle" style="margin-right: 10px"></i>{{event.username}}</div>
                 <div class="eventDate mt-2"><i class="bi bi-calendar2-week-fill" style="margin-right: 10px"></i>{{convertDate(event.date.split('T')[0])}}, {{convert24(event.date.split('T')[1])}}</div>
                 <div class="eventVenue mt-2"><i class="bi bi-geo-alt-fill" style="margin-right: 10px"></i>{{event.activities[0].location}}</div>
+                <div class="badge text-bg-secondary mt-3">{{event.category}}</div>
+                <div class="">{{event.maxnumber}}</div>
               </div>
             <!-- <div class="card-content">
                 created by {{event.username}}

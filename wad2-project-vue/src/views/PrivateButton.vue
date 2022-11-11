@@ -24,28 +24,19 @@
 
           <div v-else class="col-md-4 mb-5" v-for="(event, index) in privateevents" :key="index">
           <router-link @click="scrollToTop" style="text-decoration: none; color: inherit;" :to="{ name: 'eachjioevent', params: { idx: index }}">
-          <div class="card" style="width:auto">
-            <!-- <img class="card-img-top" :src="event.image.url" alt="card image collar"> -->
+          <div class="card event-card" style="width:auto; height:500px">
+            <img class="card-img-top" src="../../../wallpaper1.jpg" alt="card image collar">
             <div class="card-body" style="width: auto;">
-              <div class="card-title pt-4"> {{ event.eventname }}</div>
-              <div class="card-content">
-                created by {{event.username}}
+              <div class="card-title pt-1 eventTitle"> {{ event.eventname }}</div>
+              <div class="card-text">
+                <div class="eventCreator" style="margin-right: 10px"><i class="bi bi-person-circle" style="margin-right: 10px"></i>{{event.username}}</div>
+                <div class="eventDate mt-2"><i class="bi bi-calendar2-week-fill" style="margin-right:10px"></i>{{convertDate(event.date.split('T')[0])}}, {{convert24(event.date.split('T')[1])}}</div>
+                <div class="eventVenue mt-2"><i class="bi bi-geo-alt-fill" style="margin-right: 10px"></i>{{event.activities[0].location}}</div>
+                <!-- <div class="badge text-bg-secondary mt-3">{{event.category}}</div>
+                <div class="">{{event.maxnumber}}</div> -->
               </div>
-              
-                <div>Activities:</div>
-                <div v-for="key in event.activities" :key="key">
-                  <div>Name: {{key.name}}</div>
-                  <div>Location: {{key.location}}</div>
-                  <!-- <div>Date: {{event.date.split('T')[0]}}</div>
-                  <div>Start time: {{event.date.split('T')[1]}}</div> -->
-
-                  <br>
-                  <!-- Eventinfo: {{key.description}} -->
-                  <!-- now not a key yet js added in createjio -->
-                </div>
-
             </div>
-          </div>
+            </div>
           </router-link>
         </div>
       </div>
@@ -100,7 +91,24 @@ export default {
       console.log('this clicked');
       // this.modalVisible = false
       // this.showmodal = false
-    }
+    },
+
+    convert24(time) {
+      console.log(time);
+              time = time.split(':');
+              return time[0] >= 12 && (time[0]-12 || 12) + ':' + time[1] + ' PM' || (Number(time[0]) || 12) + ':' + time[1] + ' AM';
+    },
+
+    convertDate(fullDate) {
+      console.log(fullDate);
+          fullDate = fullDate.split('-');
+          var months = ['','Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+          var days = ['Sun','Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+          var eventD = new Date(fullDate);
+          const date = eventD.getDay() 
+          return days[date] + ', ' + months[parseInt(fullDate[1], 10)] + ' ' + fullDate[2];
+
+    },
 
   },
 
