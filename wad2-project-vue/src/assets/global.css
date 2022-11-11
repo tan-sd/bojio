@@ -275,6 +275,20 @@ background-color: #eaeaea !important;
 
 /* HOMEPAGE END */
 
+/* LOGIN/SIGNUP PAGE START */
+
+.login-signup-button{
+  background: linear-gradient(90deg, #ef4136, #fbb040);
+  color: white; 
+  padding: 1rem; 
+  font-family: worksans-semibold;
+  margin-top: 64px;
+  width: 75%;
+}
+
+/* LOGIN/SIGNUP PAGE END */
+
+
 /* EVENT DETAILS PAGE START */
 #event-whole-page{
   position:relative;

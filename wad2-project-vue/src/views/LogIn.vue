@@ -44,7 +44,7 @@
 
                         <div class="form-group col" style="width: auto;">
                           <div class="form-floating">
-                          <input type="text" class="form-control" id="emailLogin" placeholder="email" v-model="email">
+                          <input type="text" class="form-control" id="emailLogin" placeholder="email" v-model="email" @keyup.enter="signIn">
                             <label for="emailLogin" class="text-muted">email</label>
                             <div id="emailLoginInvalid" class="invalid-feedback">
                             </div>
@@ -53,7 +53,7 @@
 
                         <div class="form-group col pt-3">
                           <div class="form-floating">
-                          <input type="password" class="form-control" id="passwordLogin" placeholder='password' v-model="password" >
+                          <input type="password" class="form-control" id="passwordLogin" placeholder='password' v-model="password" @keyup.enter="signIn">
                             <label for="usernameLogin" class="text-muted">password</label>
                             <div id="passwordLoginInvalid" class="invalid-feedback">
                             </div>
@@ -71,7 +71,7 @@
                       </div>
 
                       <div class="col">
-                        <button type="button" style="background-color: rgb(255, 127, 45); color: white; padding: 1rem; font-family: worksans-semibold;" class="btn orange border border-3 mt-4 w-75" id="loginBtn" @click="signIn">Log in</button>
+                        <button type="button" style="background-color: rgb(255, 127, 45); color: white; padding: 1rem; font-family: worksans-semibold;" class="btn login-signup-button" id="loginBtn" @click="signIn">Log in</button>
                       </div>
                     
                   </form>

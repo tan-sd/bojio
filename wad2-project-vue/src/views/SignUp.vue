@@ -28,7 +28,7 @@
                     <div class="col-md-6 mt-3">
                       <div class="register-form-field form-group col" style="width: auto;">
                         <div class="form-floating">
-                          <input type="text" class="form-control" id="firstName" placeholder="First name">
+                          <input type="text" class="form-control" id="firstName" placeholder="First name" @keyup.enter="register">
                           <label for="firstName" class="text-muted">first name</label>
                           <div id="firstNameInvalid" class="invalid-feedback">
                             Enter a first name.
@@ -40,7 +40,7 @@
                     <div class="col-md-6 mt-3">
                       <div class="register-form-field form-group col" style="width: auto;">
                         <div class="form-floating">
-                          <input type="text" class="form-control" id="lastName" placeholder="Last name">
+                          <input type="text" class="form-control" id="lastName" placeholder="Last name" @keyup.enter="register">
                           <label for="lastName" class="text-muted">last name</label>
                           <div id="firstNameInvalid" class="invalid-feedback">
                             Enter a last name.
@@ -50,7 +50,7 @@
                     </div>
                     </div>
 
-                      <div class="register-form-field form-group col mt-3" style="width: auto">
+                      <div class="register-form-field form-group col mt-3" style="width: auto" @keyup.enter="register">
                         <div class="form-floating">
                           <input type="text" class="form-control" id="username" placeholder="Username" required>
                           <label for="username" class="text-muted">username</label>
@@ -60,7 +60,7 @@
                         </div>
                       </div>
 
-                      <div class="register-form-field form-group col mt-3" style="width: auto">
+                      <div class="register-form-field form-group col mt-3" style="width: auto" @keyup.enter="register">
                         <div class="form-floating">
                           <input type="text" class="form-control" id="emailSignUp" placeholder="Email" v-model="email" required>
                           <label for="email" class="text-muted">email</label>
@@ -70,7 +70,7 @@
                         </div>
                       </div>
 
-                      <div class="register-form-field form-group col mt-3" style="width: auto">
+                      <div class="register-form-field form-group col mt-3" style="width: auto" @keyup.enter="register">
                         <div class="form-floating">
                           <input type="password" class="form-control" id="passwordInput" placeholder="Password" v-model="password" required>
                           <label for="password" class="text-muted">password</label>
@@ -79,7 +79,7 @@
                         </div>
                       </div>
 
-                      <div class="register-form-field form-group col mt-3" style="width: auto">
+                      <div class="register-form-field form-group col mt-3" style="width: auto" @keyup.enter="register">
                         <div class="form-floating">
                           <input type="password" class="form-control" id="confirmPasswordInput" placeholder="Confirm password" required>
                           <label for="confirmPassword" class="text-muted">confirm password</label>
@@ -89,10 +89,10 @@
                         </div>  
                       </div>
 
-                      <div class="register-form-field form-group col mt-3" style="width: auto">
-                        <label for="interestAreas" class="text-muted">Areas of interest</label>
+                      <div class="register-form-field form-group col mt-3 text-center" style="width: auto">
+                        <label for="interestAreas" class="text-muted mb-2">Areas of interest</label>
+
                         <select class="form-select" aria-label="Default select example" v-model="interestAreas" id="interestAreas">
-                          
                           <option value="Entertainment">Entertainment </option>
                           <option value="Fitness and Wellness">Fitness and Wellness</option>
                           <option value="Food and Drinks">Food and Drinks</option>
@@ -100,8 +100,8 @@
                           <option value="Shopping and Fashion">Shopping and Fashion</option>
                           <option value="Sports and Outdoor Activities">Sports and Outdoor Activities</option>
                           <option value="Technology">Technology</option>
-                          
                         </select>
+
                         <div class="invalid-feedback">
                           Please provide an area of interest
                         </div>
@@ -109,7 +109,7 @@
                       </div>
                       
                       <div class="col">
-                        <button type="button" style="background-color: rgb(255, 127, 45); color: white; padding: 1rem; font-family: worksans-semibold;" class="btn orange border border-3 mt-4 w-75" id="signupBtn" @click="register">Create account</button>
+                        <button type="button" class="btn login-signup-button" id="signupBtn" @click="register">Create account</button>
                       </div>
                   </div>
                     
