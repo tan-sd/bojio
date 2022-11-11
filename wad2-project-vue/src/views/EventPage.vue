@@ -82,7 +82,7 @@
           <div id="event-card-buttons" class="text-center row mt-3">
 
             <div class="col-12 col-md-4 mx-auto">
-              <a :href="route" target="_blank" id="event-route" class="col-12">
+              <a :href="routeLink" target="_blank" id="event-route" class="col-12">
                   <span id="howToGetThere">Directions</span>  
               </a>
             </div>
@@ -191,6 +191,7 @@ export default {
       time: "",
       ownLat: "",
       ownLng: "",
+      routeLink:"",
       center: { lat: this.latitude, lng: this.longitude },
       markers: [
         {
@@ -215,7 +216,6 @@ export default {
 
   methods: {
     
-
     userLocation() {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -228,6 +228,8 @@ export default {
         }
       );
     },
+    
+    
 
     calculateAndDisplayRoute(
       directionsService,
@@ -362,10 +364,7 @@ export default {
 
       return "";
     },
-    route(){
-      return "https://maps.google.com?saddr="+this.ownLat+ ","+ this.ownLng +"&daddr=" + this.center.lat+ ","+ this.center.lng +
-      "&mode=driving"
-    }
+    
   },
 
   created() {
@@ -373,6 +372,7 @@ export default {
     this.userLocation()
     // this.calculateAndDisplayRoute()
     // this.loadMap()
+
     
     
     this.getId();
@@ -410,7 +410,9 @@ export default {
               (this.venueName = response.data.name),
               (this.latitude = parseFloat(response.data.latitude)),
               (this.longitude = parseFloat(response.data.longitude)),
-              console.log(this.longitude)
+              console.log(this.longitude),
+              this.userLocation(),
+              this.routeLink="https://www.google.com/maps/dir/"+this.ownLat+ ","+ this.ownLng +"/" + this.latitude+ ","+ this.longitude
             )
           ),
           axios
