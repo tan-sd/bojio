@@ -468,11 +468,10 @@ background-color: #eaeaea !important;
 .point {
   position: absolute;
   left: 50%;
+  top: 50%;
   z-index: 10;
-
-
 }
-
+/* 
 .label {
       position: absolute;
       top: -16px;
@@ -489,17 +488,29 @@ background-color: #eaeaea !important;
       cursor: help;
       transform: scale(0, 0);
       transition: transform 0.3s;
-}
+} */
 
-.label span {
+.label {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+      top: 600px;
+      left: -16px;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(90deg, #ef4136, #fbb040);
+      border: 2px solid white;
+      color: #ffffff;
+      font-family: worksans-semibold;
+      text-align: center;
+      line-height: 50px;
+      font-size: 12px;
+      cursor: help;
+      transform: scale(0, 0);
+      transition: transform 0.3s;
 }
 
 .text {
-      margin-top: 60px;
+      margin-top: 30px;
       position: absolute;
       width: 200px;
       padding: 10px;
