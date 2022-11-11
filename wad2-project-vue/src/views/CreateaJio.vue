@@ -175,7 +175,7 @@
           </div>
 
           <div class="d-flex justify-content-center">
-              <button type="button" style="background-color: rgb(255, 127, 45); color: white; padding: 1rem; font-family: worksans-semibold;" class="btn orange border border-3 mt-4 w-50" id="addAct" @click="addAct(), document.GMapAutocomplete.set('place', null)">
+              <button type="button" class="btn login-signup-button w-50" id="addAct" @click="addAct(), document.GMapAutocomplete.set('place', null)">
                 Add activity
               </button>
             </div>
@@ -193,19 +193,18 @@
             <div class="row mt-5"> <!-- event details -->
               <div v-if="actArr.length == 0">
                 <div>{{title}}</div>
-                    <!-- <div class="text-center border border-1" style="height:200px">No activities yet. Add an activity in the form!</div> -->
-                    <div class="card border-0 friend-bar p-2 ps-4 mx-auto" style="width: 30rem; height:5rem">
+                    <div class="card border-0 friend-bar p-2 ps-4 mx-auto" style="max-width: 30rem; height:5rem">
                       <div class="row my-auto">
-                        <div class="col-2">
+                        <div class="col-3 col-md-2">
                           <div class="rounded-circle" style="padding:7px 15px; font-size:30px; background: radial-gradient(circle at 18.7% 37.8%, rgb(250, 250, 250) 0%, rgb(225, 234, 238) 90%); color:white; width:50px; height: 50px;">
                           </div>   
                         </div>
                         
-                        <div class="col-10 my-auto">
+                        <div class="col-9 col-md-10 my-auto">
                           <span class="float-start" style="color:black;">
                             <span style="font-family: worksans-semibold">No activities yet</span>
                             <br>
-                            <span style="font-size: 0.9rem; color: grey;">Add an activity in the form!</span>
+                            <span style="font-size: 0.9rem; color: grey;">Add an activity!</span>
                           </span>
                         </div>
                       </div>
@@ -266,8 +265,8 @@
         </div>
 
         <div class="row mt-5">
-          <button type="button" style=" background-color: rgb(255, 127, 45); color: white; padding: 1rem; font-family: worksans-semibold;" class="btn orange border border-3 mt-4 w-25" id="loginBtn" @click="createjio">
-            Create Jio
+          <button type="button" style="min-width:10rem" class="btn login-signup-button mt-4 w-25" id="loginBtn" @click="createjio">
+            Create Jio!
           </button>
         </div>
 

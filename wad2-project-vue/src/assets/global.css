@@ -277,6 +277,7 @@ background-color: #eaeaea !important;
 
 /* LOGIN/SIGNUP PAGE START */
 
+/* also used for create a jio buttons */
 .login-signup-button{
   background: linear-gradient(90deg, #ef4136, #fbb040);
   color: white; 
@@ -284,6 +285,12 @@ background-color: #eaeaea !important;
   font-family: worksans-semibold;
   margin-top: 64px;
   width: 75%;
+  border: solid 2px linear-gradient(90deg, #ef4136, #fbb040);
+}
+
+.login-signup-button:hover{
+  color:white;
+  border: solid 2px lightgrey
 }
 
 /* LOGIN/SIGNUP PAGE END */
