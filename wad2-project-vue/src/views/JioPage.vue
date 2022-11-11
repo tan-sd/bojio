@@ -173,13 +173,15 @@
         <span id="howToGetThere">How To Get There</span>  
     </a>
     </div>
-    <!-- {{peoplegoing}}
-    {{event}} -->
+    {{peoplegoing}}
+    {{event}}
     <div class="col-12 col-md-6 mx-auto">
         <div v-if="myuid == event.userid">
-            <button type="button" class="btn btn-primary col-12" @click="deleteJio(eventId)">
-                Delete this jio 
+            
+            <button type="button" class="btn btn-primary col-12" @click="deleteJio(eventId); ">
+                <router-link to="/" style="text-decoration:none">Delete this jio</router-link>
             </button>
+            
         </div>
         <div v-else-if="peoplegoing.includes(myuid)">
             <button style="background-image: none; background-color:rgba(220,53,69,255); border:none;" type="button" class="btn btn-primary col-12" @click="leaveJio(myuid)">
@@ -213,6 +215,7 @@
 
 import { getusers, getprivate, getpublic, getjiodetails, createjiolist, replacejiolist, displaypplgoing, createMessage, getmessage } from '../utils/index.js'
 import { reactive, onMounted, ref, getCurrentInstance, computed } from 'vue';
+import { deleteprivatejio, deletepublicjio } from '../utils/index'
 
 var directionsDisplay;
 var directionsService;
@@ -542,6 +545,16 @@ export default {
 
         console.log(messages);
         this.state.messages = messages
+        },
+        deleteJio(eventId){
+            let userid=this.event.userid
+            
+            if(this.event.type=="public"){
+                deletepublicjio(eventId, userid)
+            }
+            else{
+                deleteprivatejio(eventId, userid)
+            }
         }
     },
 

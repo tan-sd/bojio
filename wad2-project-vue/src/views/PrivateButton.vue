@@ -1,10 +1,14 @@
 
 <template>
-  <div v-if="uid.length <= 1" class=" h1 container text-center" >
+  <div v-if="uid.length <= 1" class=" h1 container text-center">
     <br><br>
     <!-- <Modal v-if="showmodal" v-on:closepopup="close()" ></Modal> -->
     <div style="padding-bottom: 10vmin; font-size: 4vmin; font-family: worksans-medium;">
-      Please <span class="privateJio"><router-link to="/login">login</router-link></span> / <span class="privateJio"><router-link to="/signup">sign up</router-link></span> to view private jios
+      Please <span class="privateJio">
+        <router-link to="/login">login</router-link>
+      </span> / <span class="privateJio">
+        <router-link to="/signup">sign up</router-link>
+      </span> to view private jios
 
     </div>
   </div>
@@ -14,31 +18,43 @@
       <div class="row" id='app'>
 
         <div v-if="!hasfriends">
-            Try adding friends and jio them out!
-            <br><br><br><br>
-          </div>
-          <div v-if="Object.keys(privateevents).length == 0">
-            Your friends never create any jios leh. Why don't you create a jio?
-            <br><br><br><br>
-          </div>
+          Try adding friends and jio them out!
+          <br><br><br><br>
+        </div>
+        <div v-if="Object.keys(privateevents).length == 0">
+          Your friends never create any jios leh. Why don't you create a jio?
+          <br><br><br><br>
+        </div>
 
           <div v-else class="col-md-4 mb-5" v-for="(event, index) in privateevents" :key="index">
           <router-link @click="scrollToTop" style="text-decoration: none; color: inherit;" :to="{ name: 'eachjioevent', params: { idx: index }}">
-          <div class="card event-card" style="width:auto; height:500px">
-            <img class="card-img-top" src="../../../wallpaper1.jpg" alt="card image collar">
+          <div class="card" style="width:auto">
+            <!-- <img class="card-img-top" :src="event.image.url" alt="card image collar"> -->
             <div class="card-body" style="width: auto;">
-              <div class="card-title pt-1 eventTitle"> {{ event.eventname }}</div>
-              <div class="card-text">
-                <div class="eventCreator" style="margin-right: 10px"><i class="bi bi-person-circle" style="margin-right: 10px"></i>{{event.username}}</div>
-                <div class="eventDate mt-2"><i class="bi bi-calendar2-week-fill" style="margin-right:10px"></i>{{convertDate(event.date.split('T')[0])}}, {{convert24(event.date.split('T')[1])}}</div>
-                <div class="eventVenue mt-2"><i class="bi bi-geo-alt-fill" style="margin-right: 10px"></i>{{event.activities[0].location}}</div>
-                <!-- <div class="badge text-bg-secondary mt-3">{{event.category}}</div>
-                <div class="">{{event.maxnumber}}</div> -->
+              <div class="card-title pt-4"> {{ event.eventname }}</div>
+              <div class="card-content">
+                created by {{event.username}}
               </div>
+              
+                <div>Activities:</div>
+                <div v-for="key in event.activities" :key="key">
+                  <div>Name: {{key.name}}</div>
+                  <div>Location: {{key.location}}</div>
+                  <!-- <div>Date: {{event.date.split('T')[0]}}</div>
+                  <div>Start time: {{event.date.split('T')[1]}}</div> -->
+
+                  <br>
+                  <!-- Eventinfo: {{key.description}} -->
+                  <!-- now not a key yet js added in createjio -->
+                </div>
+
             </div>
-            </div>
+          </div>
           </router-link>
         </div>
+        <!-- end of display event  -->
+
+
       </div>
       <!-- <button id='view-more' class="btn mb-3" @click="loadMore" style="box-shadow: 0px 0px 14px -7px #f09819" >Load</button> -->
     </div>
@@ -50,7 +66,7 @@
 import { onMounted } from 'vue';
 import { getprivate, snapshotToArray, getusername, displayfriends } from '../utils/index.js'
 // import Modal from './Modal.vue'
-import {ref} from 'vue'
+import { ref } from 'vue'
 
 export default {
   name: 'PrivateButton',
@@ -70,8 +86,10 @@ export default {
       uid: localStorage.getItem("uid"),
       myfriends: [],
       hasfriends: false,
-      // modalVisible: true,
-      // showmodal: true
+      categories: ['Business and Industry', 'Education', 'Entertainment', 'Fitness and Wellness', 'Food and Drinks', 'Hobbies and Activities', 'Others', 'Shopping and Fashion', 'Sports and Outdoor Activities', 'Select All'],
+      selectedcategory: '',
+      allevents: '',
+      filterarray: []
 
     }
   },
@@ -87,28 +105,11 @@ export default {
       console.log(this.length);
 
     },
-    close(){ 
+    close() {
       console.log('this clicked');
       // this.modalVisible = false
       // this.showmodal = false
-    },
-
-    convert24(time) {
-      console.log(time);
-              time = time.split(':');
-              return time[0] >= 12 && (time[0]-12 || 12) + ':' + time[1] + ' PM' || (Number(time[0]) || 12) + ':' + time[1] + ' AM';
-    },
-
-    convertDate(fullDate) {
-      console.log(fullDate);
-          fullDate = fullDate.split('-');
-          var months = ['','Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-          var days = ['Sun','Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-          var eventD = new Date(fullDate);
-          const date = eventD.getDay() 
-          return days[date] + ', ' + months[parseInt(fullDate[1], 10)] + ' ' + fullDate[2];
-
-    },
+    }
 
   },
 
@@ -117,6 +118,13 @@ export default {
       // console.log('hi');
       return this.privateevents;
     },
+
+    filterevents(){
+      // this.allevents = this.filterarray
+      this.filter()
+      console.log(this.filterarray);
+      return this.filterarray
+    }
   },
 
   created() {
@@ -129,7 +137,7 @@ export default {
     displayfriends().then((value) => {
       this.hasfriends = true
 
-      const myfriends = Object.keys(value) 
+      const myfriends = Object.keys(value)
       console.log(myfriends);
 
       // console.log(value);
@@ -137,57 +145,57 @@ export default {
       //   console.log(' in priv button my fren is ' + personuid);
       //   friendsuids.push(personuid)
       // }
-        // getusername(personuid).then((value) => {
+      // getusername(personuid).then((value) => {
 
-          // let username = value
-          // myfriends.push(username)
+      // let username = value
+      // myfriends.push(username)
 
-          //then i check if the these friends got any private events created
+      //then i check if the these friends got any private events created
 
-          getprivate().then((value) => {
-            // value will get an object with keys thats the event unique id
-            const keys = Object.keys(value) 
-            // console.log(keys);
-            console.log(value);
-            // keys is a list with the event unique ids
-            for(let i in value){ 
-              let data = value[i]
-              // console.log(i);
-              let userid = data.userid
-              // console.log(userid);
-              console.log(myfriends);
-              if(myfriends.includes(userid)){
-                console.log(userid + 'is my friend');
-                //then want to get event details
-                friendsjios[i] = data
-                //cnot use count, must use i so can access eventid aft tat
-                // count ++;
-              }
-              
-              // let individual_username = data.username
-              // console.log(individual_username);
-              // console.log(myfriends);
-              //my friends is array of usernames
-              
-              // if current person is my friend and i has not add the activity in
-              // if((myfriends.includes(individual_username)) && !(Object.prototype.hasOwnProperty.call(friendsjios,data)) ){
-              //   console.log(individual_username);
-              //   friendsjios[i] = data
-              //   console.log(friendsjios);
-              // }
+      getprivate().then((value) => {
+        // value will get an object with keys thats the event unique id
+        const keys = Object.keys(value)
+        // console.log(keys);
+        console.log(value);
+        // keys is a list with the event unique ids
+        for (let i in value) {
+          let data = value[i]
+          // console.log(i);
+          let userid = data.userid
+          // console.log(userid);
+          console.log(myfriends);
+          if (myfriends.includes(userid)) {
+            console.log(userid + 'is my friend');
+            //then want to get event details
+            friendsjios[i] = data
+            //cnot use count, must use i so can access eventid aft tat
+            // count ++;
+          }
 
-            }
-            console.log(friendsjios);
-            this.privateevents = friendsjios
-            this.myfriends = myfriends
+          // let individual_username = data.username
+          // console.log(individual_username);
+          // console.log(myfriends);
+          //my friends is array of usernames
 
-          })
-            .catch((message) => {
-              console.log('error');
-            })
+          // if current person is my friend and i has not add the activity in
+          // if((myfriends.includes(individual_username)) && !(Object.prototype.hasOwnProperty.call(friendsjios,data)) ){
+          //   console.log(individual_username);
+          //   friendsjios[i] = data
+          //   console.log(friendsjios);
+          // }
 
-        // })
-      
+        }
+        console.log(friendsjios);
+        this.privateevents = friendsjios
+        this.myfriends = myfriends
+
+      })
+        .catch((message) => {
+          console.log('error');
+        })
+
+      // })
+
 
     })
   }

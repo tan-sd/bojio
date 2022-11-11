@@ -275,6 +275,27 @@ background-color: #eaeaea !important;
 
 /* HOMEPAGE END */
 
+/* LOGIN/SIGNUP PAGE START */
+
+/* also used for create a jio buttons */
+.login-signup-button{
+  background: linear-gradient(90deg, #ef4136, #fbb040);
+  color: white; 
+  padding: 1rem; 
+  font-family: worksans-semibold;
+  margin-top: 64px;
+  width: 75%;
+  border: solid 2px linear-gradient(90deg, #ef4136, #fbb040);
+}
+
+.login-signup-button:hover{
+  color:white;
+  border: solid 2px lightgrey
+}
+
+/* LOGIN/SIGNUP PAGE END */
+
+
 /* EVENT DETAILS PAGE START */
 #event-whole-page{
   position:relative;
@@ -882,19 +903,21 @@ td {
   top: 50px;
 }
 
-/* #content{
-        
-    background-image: url(wallpaper4.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    height:100%;
-    transition:10s;
-    
-    animation: change 30s infinite ease-in-out;
+/* 
+#content{
+  background-image: url(wallpaper4.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  height:100%;
+  transition:10s;
+  
+  animation: change 30s infinite ease-in-out;
+} */
 
-    
-    
-  } */
+.public-activity-bar {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
   #info{
     background-color:white;
     width:600px;
@@ -1308,28 +1331,62 @@ td {
 /* FRIENDS PAGE END */
 
 /* FRIENDS PROFILE */
-
-#profile-circle{
-  height:200px;
-  width:200px;
-  background: linear-gradient(90deg, #ef4136, #fbb040); 
-  color:white; 
+.profile-outer-card{
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-#profile-letter{
-  font-size:100px; 
-  margin: 0;
-  position: relative;
-  left: 60px;
-  top: 25px;
+.profile-circle{
+  background: linear-gradient(90deg, #ef4136, #fbb040);
+  color: white;
+  width: 12rem; 
+  height: 12rem;
+  border-radius: 50%;
+  font-size: 6rem;
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
 }
 
-#profile-name{
-  font-size: 50px;
+.profile-name{
+  font-size: 2.5rem;
 }
 
-#profile-username{
-  color: lightgrey
+.profile-username{
+  color: grey;
+  font-family: worksans-medium;
+  font-size: 1.25rem;
+  margin-left: 5px
+}
+
+.profile-public-header{
+  font-family: worksans-semibold;
+  font-size: 1.25rem;
+
+}
+
+.profile-event-card{
+  margin: 5px;
+  width: 15rem; 
+  height: 20rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.profile-event-card:hover{
+  box-shadow: 0 8px 14px rgba(0, 0, 0, 0.2);
+}
+
+.profile-event-title{
+  font-size: 1rem;
+  font-family: worksans-semibold;
+}
+
+.profile-event-location{
+  font-size: 0.85rem;
+  color:grey;
+}
+
+.profile-lock-icon{
+  font-size: 2.5rem
 }
 
 /* FRIENDS PROFILE END */

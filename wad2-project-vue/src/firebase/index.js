@@ -21,3 +21,4 @@ const user = auth.currentUser;
 const auth = getAuth();
 
 export {auth}
+export {app}
