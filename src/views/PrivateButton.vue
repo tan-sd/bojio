@@ -12,33 +12,46 @@
         </div>
     </div>
 
-    <div v-if="uid.length <= 1" class="h1 container text-center">
-        <br /><br />
+    <div v-if="uid.length <= 1" class="container text-center">
         <!-- <Modal v-if="showmodal" v-on:closepopup="close()" ></Modal> -->
-        <div style=" padding-bottom: 10vmin; font-size: 4vmin; font-family: worksans-medium;">
-            Please
+        <div class="row" style="height: 400px; font-family: worksans-extrabold;">
+            <div class="col my-auto">
+                <h1><i class="bi bi-stars"></i></h1>
+                Please
             <span class="privateJio">
                 <router-link to="/login">login</router-link>
             </span>
-            /
+            or
             <span class="privateJio">
                 <router-link to="/signup">sign up</router-link>
             </span>
             to view private jios
+            </div>
         </div>
+        <!-- style="font-size: 4vmin; font-family: worksans-medium;"> -->
     </div>
 
     <div v-else>
         <div id="event-container" class="container mt-5" style="font-family: worksans-medium">
             <div class="row" id="app">
                 <div v-if="!hasfriends">
-                    Try adding friends and jio them out!
-                    <br /><br /><br /><br />
+                    <div class="row" style="height: 400px;">
+                        <div class="col text-center my-auto" style="font-family: worksans-extrabold;">
+                            <h1><i class="bi bi-person-add"></i></h1>
+                            <div>You haven't added anyone to your friend's list!</div>
+                        </div>
+                    </div>
                 </div>
-                <div v-if="Object.keys(privateevents).length == 0">
-                    Your friends never create any jios leh. Why don't you create
-                    a jio?
-                    <br /><br /><br /><br />
+                <div v-else-if="Object.keys(privateevents).length == 0">
+                    
+                    <div class="row" style="height: 400px;">
+                        <div class="col text-center my-auto" style="font-family: worksans-extrabold;">
+                            <h1><i class="bi bi-card-heading"></i></h1>
+                            <div>
+                                It appears your friends has not created any jios. Why don't you create a jio?
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div v-else>
@@ -108,7 +121,16 @@
                                 </router-link>
                             </div>
                         </div>
-                        <div v-else>No events to see</div>
+                        <div v-else>
+                            <div class="container mx-auto">
+                                <div class="row mb-5">
+                                    <div class="col text-center" style="font-family: worksans-extrabold">
+                                        <div class=""><i class="bi bi-search"></i></div>
+                                        <div>Sorry! No events found.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <!-- end of display event  -->

@@ -39,37 +39,36 @@
     </Renderer>
 
       <div class="point point-0">
-        <div class="label label-central">
-          <!-- <span>Central</span> --> Central
+        <div class="label label-central" id="central">
+          Central
           <div class="text">Click to filter Central location.</div>
         </div>
       </div>
 
       <div class="point point-1">
-        <div class="label label-north">
-          <!-- <span>North</span> --> North
+        <div class="label label-north" id="north">
+          North
           <div class="text">Click to filter North location.</div>
         </div>
       </div>
 
       <div class="point point-2">
-        <div class="label label-east">
-          <!-- <span>East</span> --> East
+        <div class="label label-east" id="east">
+          East
           <div class="text">Click to filter East location.</div>
         </div>
       </div>
 
       <div class="point point-3">
-        <div class="label label-west">
-          <!-- <span>West</span> --> West
+        <div class="label label-west" id="west">
+          West
           <div class="text">Click to filter West location.</div>
         </div>
       </div>
 
       <div class="point point-4">
-        <div class="label label-reset">
-          <!-- <span>Reset</span>
-           --> Reset
+        <div class="label label-reset" id="reset">
+          Reset
           <div class="text">Click to reset filter.</div>
         </div>
       </div>
@@ -81,82 +80,29 @@
         <div class="row d-flex align-content-center justify-content-center">
         <div class="col-sm-3 col-4 d-flex align-content-center justify-content-center">
           <button @click="activeTab = 'EventsButton'" class="btn" id="events">EVENTS</button>
-          <!-- <button class="btn" id="events">EVENTS</button> -->
         </div>
         <div class="col-sm-3 col-4 d-flex align-content-center justify-content-center">
           <button @click="activeTab = 'PublicButton'" class="btn" id="public">PUBLIC JIOS</button>
-          <!-- <button class="btn" id="public">PUBLIC JIOS</button> -->
         </div>
         <div class="col-sm-3 col-4 d-flex align-content-center justify-content-center">
           <button @click="activeTab = 'PrivateButton'" class="btn" id="private">PRIVATE JIOS</button>
-          <!-- <button class="btn" id="private">PRIVATE JIOS</button>  -->
         </div>
       </div>
     </div>
 
     <div class="container" style="display:flex; justify-content:space-between;">
 
-    <!-- <button @click="activeTab = 'EventsButton'">A</button> -->
-    <!-- <button @click="activeTab = 'PublicButton'">B</button> -->
-    <!-- <button @click="activeTab = 'PrivateButton'">C</button> -->
-    
-
     </div>
-
-    <!-- <span v-if="uid.length <=1">
-      <EventsButton v-if="activeTab === 'EventsButton'" :data="filterchoice"/>
-      <PublicButton v-if="activeTab === 'PublicButton'"/>
-      <PrivateButton class="d-none" />
-    </span> -->
 
     <span>
     <EventsButton v-if="activeTab === 'EventsButton'" :data="filterchoice"/>
     <PublicButton v-if="activeTab === 'PublicButton'"/> 
     <PrivateButton v-if="activeTab === 'PrivateButton'"/>
     </span>
-<!--  
-    <keep-alive>
-    <component :is="activeTab" />
-    </keep-alive> -->
-    
-    <!-- <div id='event-container' class="container mt-5" style="font-family: worksans-medium">
-      <div class="row" id ='app'>
-        <div class="col-md-4 mb-5" v-for="(event, index) in eventsloaded.slice(0, events.length)" :key="index">
-      
-                <div class="card" style="width:auto">
-                  <img class="card-img-top" :src="event.image.url" alt="card image collar">
-                  <div class="card-body" style="width: auto;">
-                  <div class="card-title pt-4"> {{event.name}}</div>
-                   
-                  </div>
-                </div>
-      
-         </div>
-        </div> -->
-        <!-- <button id="view-more" class="mb-3" @click="loadMore" style="box-shadow: 0px 0px 14px -7px #f09819">View More</button> -->
-        <!-- <button id='view-more' class="btn mb-3" @click="loadMore" style="box-shadow: 0px 0px 14px -7px #f09819" >Load</button> -->
-    <!-- </div> -->
-    
-    <!-- <div class="container" id="bottom">
-        <div class="row">
-          <div class="col-3"></div>
-          <div class="col-sm-6 col-12">
-          </div>
-          <div class="col-lg-3 col-12 d-flex justify-content-lg-end justify-content-center mb-5">
-            <span>Showing 
-              <span id="card-count">{{length}}</span> of 
-              <span id="card-total"></span> {{events.length}} events      
-            </span>
-          </div>
-        </div>
-      </div> -->
 
 </template> 
 
-<!-- <meta http-equiv="Content-Security-Policy" content="connect-src 'ws://localhost:8080';"> -->
 <script>
-//  const socket = new WebSocket('ws://localhost:8080')
-// console.log(socket)
 import * as THREE from 'three'
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { Sky } from 'three/examples/jsm/objects/Sky'
@@ -379,7 +325,6 @@ export default {
       }
     };
 
-    
     const loader = new GLTFLoader(manager);
     loader.load('Model/finalised_map.gltf', mesh => {
       mesh.scene.traverse(child => {
@@ -442,22 +387,42 @@ export default {
           case 'label-west':
             // Animations.animateCamera(camera, orbitCtrl, { x: -15, y: 80, z: 60 }, { x: 0, y: 0, z: 0 }, 1600, () => {});
             this.filterchoice = 'West'
+            document.getElementById('west').classList.add('clicked')
+            document.getElementById('north').classList.remove('clicked')
+            document.getElementById('east').classList.remove('clicked')
+            document.getElementById('central').classList.remove('clicked')
             break;
           
           case 'label-north':
             this.filterchoice = 'North'
+            document.getElementById('west').classList.remove('clicked')
+            document.getElementById('north').classList.add('clicked')
+            document.getElementById('east').classList.remove('clicked')
+            document.getElementById('central').classList.remove('clicked')
             break;
 
           case 'label-central':
             this.filterchoice = 'Central'
+            document.getElementById('west').classList.remove('clicked')
+            document.getElementById('north').classList.remove('clicked')
+            document.getElementById('east').classList.remove('clicked')
+            document.getElementById('central').classList.add('clicked')
             break
 
           case 'label-east':
             this.filterchoice = 'East'
+            document.getElementById('west').classList.remove('clicked')
+            document.getElementById('north').classList.remove('clicked')
+            document.getElementById('east').classList.add('clicked')
+            document.getElementById('central').classList.remove('clicked')
             break
 
           case 'label-reset':
             this.filterchoice = 'All'
+            document.getElementById('west').classList.remove('clicked')
+            document.getElementById('north').classList.remove('clicked')
+            document.getElementById('east').classList.remove('clicked')
+            document.getElementById('central').classList.remove('clicked')
             break
 
         }
