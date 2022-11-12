@@ -259,7 +259,7 @@
                             >{{ getVenue() }}
                         </div>
                     </div>
-                    {{eventId}}
+                    <!-- {{eventId}} -->
                     
                     
                     <div class="col text-center">

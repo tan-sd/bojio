@@ -162,7 +162,7 @@
               </div>
             </div>
           </div>
-          {{places}}
+          <!-- {{places}} -->
 
           <div class="form-group mt-3" style="width: auto">
             <div class="form-floating">
