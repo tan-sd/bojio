@@ -274,18 +274,7 @@ export default {
     },
 
     methods: {
-        userLocation() {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    this.ownLat = position.coords.latitude;
-                    this.ownLng = position.coords.longitude;
-                    console.log(this.ownLat, this.ownLng);
-                },
-                (error) => {
-                    console.log(error.message);
-                }
-            );
-        },
+        
 
         calculateAndDisplayRoute(
             directionsService,
@@ -434,7 +423,7 @@ export default {
 
     created() {
         this.ownLoc;
-        this.userLocation();
+        
         // this.calculateAndDisplayRoute()
         // this.loadMap()
 
@@ -465,10 +454,16 @@ export default {
                     (this.date = this.eventdate.split("T")[0]);
                 this.time = this.eventdate.split("T")[1];
 
-                axios
+                //start of locating user 
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                    axios
                     .get(this.venueURL)
                     .then(
                         (response) => (
+                            this.ownLat = position.coords.latitude,
+                            this.ownLng = position.coords.longitude,
+                            console.log(this.ownLat, this.ownLng),
                             console.log(response.data),
                             (this.venueName = response.data.name),
                             (this.latitude = parseFloat(
@@ -477,8 +472,8 @@ export default {
                             (this.longitude = parseFloat(
                                 response.data.longitude
                             )),
-                            console.log(this.longitude),
-                            this.userLocation(),
+                            console.log(this.ownLat),
+                            console.log(this.ownLng),
                             (this.routeLink =
                                 "https://www.google.com/maps/dir/" +
                                 this.ownLat +
@@ -488,8 +483,14 @@ export default {
                                 this.latitude +
                                 "," +
                                 this.longitude)
-                        )
+                        ),
+                    )     
+                        },
+                        (error) => {
+                            console.log(error.message);
+                        }
                     ),
+                
                     axios
                         .get(this.descriptionURL)
                         .then(

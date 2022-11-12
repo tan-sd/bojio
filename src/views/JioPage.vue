@@ -237,6 +237,7 @@
                 </div>
             </div>
             <!-- map -->
+            
             <div
                 class="col-12 col-xl-6 order-xl-last order-first"
                 style="position: relative"
@@ -262,7 +263,9 @@
                             >{{ getVenue() }}
                         </div>
                     </div>
-
+                    {{eventId}}
+                    
+                    
                     <div class="col text-center">
                         <GMapMap
                             :center="center"
@@ -418,7 +421,7 @@ import {
     getmessage,
 } from "../utils/index.js";
 import { reactive, onMounted, ref, getCurrentInstance, computed } from "vue";
-import { deleteprivatejio, deletepublicjio } from "../utils/index";
+import { deleteprivatejio, deletepublicjio, leavejio } from "../utils/index";
 
 var directionsDisplay;
 var directionsService;
@@ -643,9 +646,16 @@ export default {
                 });
         },
 
-        leavejio(myuid) {
-            var index = this.peoplegoing.findIndex(myuid);
+        leaveJio(myuid) {
+            var index = this.peoplegoing.indexOf(myuid);
             this.peoplegoing.splice(index, 1);
+            var creatorid=this.event.userid
+            var eventId=this.eventId
+            console.log(index),
+            console.log(creatorid),
+            console.log(eventId),
+            leavejio(creatorid,eventId,index);
+
         },
 
         getnames() {
