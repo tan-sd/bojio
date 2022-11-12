@@ -261,7 +261,8 @@ export default {
                 <div class="col-lg-4 col-md-6 mb-5" v-for="(event, index) in filterevents" :key="index">
                     <router-link @click="scrollToTop" style="text-decoration: none; color: inherit" :to="{ name: 'eachjioevent', params: { idx: index } }">
                         <div class="card event-card" style="width: auto; height: 500px">
-                            <img class="card-img-top" src="../../public/Images/default-event-picture.jpg" alt="card image collar"/>
+                            <img class="card-img-top" v-if="event.image == 'no-image'" src="../../public/Images/default-event-picture.jpg" style="max-height: 200px; width: 100%;" />
+                            <img v-else class="card-img-top" :src="event.imageUrl" alt="card image collar" style="min-height: 200px; width: 100%;" />
                             <div class="card-body" style="width: auto">
                                 <div class="card-title pt-1 eventTitle">
                                     {{ event.eventname }}
@@ -288,7 +289,14 @@ export default {
                 </div>
             </div>
             <div v-else>
-                No events to see
+                <div class="container">
+                    <div class="row" style="height: 400px;">
+                        <div class="col text-center my-auto" style="font-family: worksans-extrabold;">
+                            <h1><i class="bi bi-search"></i></h1>
+                            <div>Sorry! No events found.</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

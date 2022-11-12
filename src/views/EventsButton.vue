@@ -1,7 +1,7 @@
 <template>
     <div class="container mt-5">
-        <div class="row w-75 mx-auto">
-            <div class="col-12 col-md-6 mb-3">
+        <div class="row w-50 mx-auto">
+            <div class="col">
                 <input
                     type="textbox"
                     v-model="searchedname"
@@ -15,7 +15,7 @@
 
             <!-- Search:
       <input type="textbox" v-model="searchedname" placeholder="enter event name..." @keydown="search()" @keyup.delete="deletesearch()"> -->
-            <div class="col-12 col-md-6">
+            <!-- <div class="col-12 col-md-6">
                 <span
                     v-if="selectedlocation == '' || selectedlocation == 'All'"
                 >
@@ -23,7 +23,7 @@
                 </span>
                 <span v-else>
                     You have selected {{ selectedlocation }} events
-                </span>
+                </span> -->
                 <!-- <select v-model="selectedlocation" class="form-select" aria-label="Default select example" @click="filter">
             <option v-for="(value, key) in sgdistrictcode" :key="value">
               {{key}}  
@@ -32,7 +32,7 @@
                 <!-- <button class="btn" style="background-color: #f5b459" @click="clearfilter">
           Clear filter
         </button> -->
-            </div>
+            <!-- </div> -->
         </div>
 
         <!-- Filter by Location:
