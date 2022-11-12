@@ -104,6 +104,13 @@ const firestoredb = getFirestore(app);
 // console.log(db);
 // const dbRef = ref(getDatabase());
 
+export function removemsgs(){
+
+  remove(ref(db, `messages`))
+  // remove(ref(db, 'images'))
+
+}
+
 //validate email
 function validate_email(email) {
   var expression = /^[^@]+@\w+(\.\w+)+\w$/
@@ -565,7 +572,7 @@ export function createJio(actArr) {
         document.getElementById('eventDateTime').value = ''
         document.querySelector('input[name="exampleRadios"]:checked').checked = false
         document.getElementById('eventDescription').value = ''
-        
+
         return update(ref(db), updates);
         // somehow the return gives undefined now...
 
@@ -851,6 +858,8 @@ export async function displaypplgoing(creatorid,eventid) {
   })
 }
 
+var username
+
 //create message for this event
 export function createMessage(eventid, message) {
   const db = getDatabase();
@@ -859,51 +868,76 @@ export function createMessage(eventid, message) {
   // if (typeof (Storage) !== "undefined") {
     userid = localStorage.getItem('uid')
     var name = localStorage.getItem('fullname')
+    
     ////////////////
     const dbRef = ref(getDatabase());
-    get(child(dbRef, `messages/${eventid}`)).then((snapshot) => {
+
+    get(child(dbRef, `accounts/${userid}`)).then((snapshot) => {
       if (snapshot.exists()) {
-
-        var val = snapshot.val()
-        console.log(val);
-
-        const jioData = {
-          username: name,
-          content: message.content,
-        };
+        // console.log(snapshot.val());
+        username = snapshot.val().username
+        console.log('LOOKHERE');
+        console.log(username);
+        // }
+        // return (resolve(snapshot.val().username))
+        get(child(dbRef, `messages/${eventid}`)).then((snapshot) => {
+          if (snapshot.exists()) {
     
-        // Get a key for a new message
-        const newKey = push(child(ref(db), 'messages')).key;
+            var val = snapshot.val()
+            console.log(val);
+            console.log('LOOKHERE2');
     
-        const updates = {};
+            console.log(username);
     
-        updates[`messages/${eventid}/${newKey}`] = jioData;
+            const jioData = {
+              username: username,
+              content: message.content,
+            };
+        
+            // Get a key for a new message
+            const newKey = push(child(ref(db), 'messages')).key;
+        
+            const updates = {};
+        
+            updates[`messages/${eventid}/${newKey}`] = jioData;
+        
+            console.log(updates);
+            return update(ref(db), updates);
     
-        console.log(updates);
-        return update(ref(db), updates);
+          } else {
+    
+            console.log("No data available");
+            const newKey = push(child(ref(db), 'messages')).key;
+    
+            set(ref(db, 'messages/' + eventid +'/'+ newKey), {
+              username: message.username,
+              content: message.content,
+            })
+            .then(() => {
+              // Data saved successfully!
+              console.log('message added');
+            })
+            .catch((error) => {
+              // The write failed...
+              console.log('fail');
+            });
+    
+          }
+        }).catch((error) => {
+          console.error(error);
+        });
+    
 
       } else {
 
         console.log("No data available");
-        const newKey = push(child(ref(db), 'messages')).key;
-
-        set(ref(db, 'messages/' + eventid +'/'+ newKey), {
-          username: message.username,
-          content: message.content,
-        })
-        .then(() => {
-          // Data saved successfully!
-          console.log('message added');
-        })
-        .catch((error) => {
-          // The write failed...
-          console.log('fail');
-        });
-
+   
       }
     }).catch((error) => {
       console.error(error);
     });
+
+
 
   // } 
   // else {
