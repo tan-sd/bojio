@@ -20,6 +20,10 @@ html {
     overflow-y: scroll; /* to ensure that scroll bar on the right shows for all pages */
 }
 
+body {
+    font-family: worksans-medium;
+}
+
 /* fading in matters */
 .reveal {
     position: relative;
