@@ -409,19 +409,7 @@ export function getdata() {
         let fullname = snapshot.val().firstname + ' ' + snapshot.val().lastname
         if (typeof (Storage) !== 'undefined') {
           localStorage.setItem('fullname', fullname)
-          console.log(localStorage.getItem('fullname'));
         }
-        console.log('line 283');
-        // console.log(fullname);
-
-        // let personname = document.getElementById('personname')
-
-        // //only say hi at main page
-        // if(personname){
-        //     personname.innerText =  `Welcome,  ${fullname} ! 👋🏼`
-        //     personname.setAttribute('style', ' display:inline; font-family: worksans-extrabold; font-size: 4vmin;')
-        //     personname.setAttribute('class', '')
-        //   }
 
         return resolve(fullname)
       } else {
@@ -452,7 +440,6 @@ export async function getusers() {
 
       } else {
 
-        console.log("No data available");
         return reject
       }
     }).catch((error) => {
