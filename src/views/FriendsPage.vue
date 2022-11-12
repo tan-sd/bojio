@@ -1,19 +1,43 @@
 <template>
-        <div class="container">
-            
-        </div>  
-
+{{requests}}
         <div class="container">
             <!-- display friend requests here first -->
             <div class="mb-3 d-flex justify-content-center" style="font-family:worksans-medium; font-size:1.5rem">Friend Requests</div>
-            <div v-if="!norequests">
-                {{requests}}
-                {{ username }}
-                <div v-for="request, index in requests" :key="request">
-                    <div>{{request}} id: {{index}}</div>
-                    <button @click="accept(request, index)">Accept request</button>
+            <div v-if="!norequests" class="">
+                <div class="row">
+                
+                    <div class="col-xl-4 col-md-6 mb-5 d-flex justify-content-center" v-for="requester, index in requests" :key="requester">    
+                        
+                            <div class="card border-0 friend-bar p-2 ps-3" style="width: 20rem; height: 5rem;">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <!-- link to profile on the circle -->
+                                        <router-link class="routerLink" :to="{name:'individual profile', params:{idx: index}}">
+                                            <div class="rounded-circle" style="padding:7px 15px; font-size:30px; background: linear-gradient(90deg, #ef4136, #fbb040); color:white;">
+                                                <span class="d-flex justify-content-center">{{requester[0].toUpperCase()}}</span> 
+                                            </div>   
+                                        </router-link>
+                                    </div>
+                                    <div class="col-5 my-auto">
+                                        <!-- link to profile on username -->
+                                        <router-link class="routerLink" :to="{name:'individual profile', params:{idx: index}}">
+                                            <span class="float-start friend-requester my-auto" style="color:black;">{{requester}}</span>
+                                        </router-link>
+                                    </div>
+                                    <div class="col-4 align-self-center">
+                                        <span class="friend-request-icons row">
+                                            <span class="col p-0 text-center"><i class="bi bi-check-circle friend-tick" @click="acceptRequest(requester, index)"></i></span>
+                                            <span class="col p-0 text-start"><i class="bi bi-x-circle friend-x" @click="deleteRequest(requester,index)"></i></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                    </div>
+                
                 </div>
             </div>
+                
             <div class="mb-3 d-flex justify-content-center" style="font-family:worksans-medium; font-size:1.5rem">Current Friends</div>
             <div class="row">
                 <div class="input-group mb-3 w-25 mx-auto mb-5 friend-search">
@@ -104,6 +128,7 @@ export default{
             requests: '',
             norequests: false,
             myFriends: '',
+            tick: true,
             // cannot disable button
         }
     },
@@ -157,16 +182,23 @@ export default{
         },
 
         //accept request
-        accept(user, userid){ 
+        acceptRequest(user, userid){ 
             delete this.requests[userid]
             makefriends(userid)
             var objectlen = Object.keys(this.requests).length
             if(objectlen === 0){
                 this.norequests = true
             }
-            else{ 
-                // console.log(objectlen);
+        },
+
+        //delete request
+        deleteRequest(user, userid){
+            delete this.requests[userid]
+            var objectlen = Object.keys(this.requests).length
+            if(objectlen === 0){
+                this.norequests = true
             }
+
         },
 
         // using after retreive user id, from this object change into user name. returns an objects with mulitple user names key== userid, value== username
