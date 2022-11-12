@@ -18,9 +18,8 @@
                 <!-- full name -->
                 <div class="profile-name text-xl-start text-center">
                     {{ friendObj.firstname + ' ' + friendObj.lastname }}
-                    <!-- to add <button> -->
-                        <i class="bi bi-person-plus-fill ms-3"></i><!-- friend add button-->
-                    <!-- to add </button>  -->
+                    
+                     <i class="bi bi-person-plus-fill ms-3"></i><!-- friend add button-->
                 </div>
 
                 <!-- user name -->
@@ -36,14 +35,13 @@
 
         <!-- public jios section start -->
         <div class="profile-public-header text-center my-4"> {{friendObj.firstname}}'s Public Jios</div>
-        <!-- {{ allusers[$route.params.idx].createdjios }} -->
         <div class="row">
             
 <!-- 
             <template v-for="jioObj,jioId in friendObj.createdjios" :key="jioObj"> -->
             <template v-for="jioObj in friendObj.createdjios" :key="jioObj">
                 <!-- <router-link :to="{ name: 'eachjioevent', params: { idx: jioId }}"> -->
-                    <div v-if="ifPublic(jioObj)" class="profile-event-card card border-0  col-12 mx-auto p-3" @mouseover="viewDetails = true" @mouseout="viewDetails = null">
+                    <div v-if="ifPublic(jioObj)" class="profile-event-card card border-0  col-12 mx-auto p-3 pb-5">
                         <!-- <img class="card-img-top" src="../../../wallpaper1.jpg" alt=""> --> 
                         <div class="profile-event-title">{{jioObj.eventname}}</div>
                         <div class="profile-event-location">Starts @ {{jioObj.activities[0].location}}</div>
@@ -51,7 +49,9 @@
                         <div class="profile-activity-name card text-center p-2 m-1" v-for="activity in jioObj.activities.slice(0,3)" :key="activity">
                             {{activity.name}}
                         </div>
-                        <div v-if="viewDetails == true" class="text-center text-secondary"> view more </div>
+                        <div class="profile-view-more">
+                            view more details
+                        </div>
                     </div>
                 <!-- </router-link> -->
             </template>
@@ -65,8 +65,7 @@
         <div class="row">
 
             <!-- check if user is logged in, if not, show lock symbol -->
-            {{$route.query.status}}
-            <div v-if="!authStatus" class="text-center p-5 card border-0 bg-secondary text-light">
+            <div v-if="!isLoggedIn" class="text-center p-5 card border-0 bg-secondary text-light">
                 <i class="profile-lock-icon bi bi-lock-fill"></i>
                 You are not logged in.
                 <div class="d-inline">
@@ -131,7 +130,7 @@ export default{
         return{
             searchedperson:'',
             allusers: [],
-            viewDetails: null,
+            viewDetails: null, //to show the view more button
             myFriends: ''
         }
     },
@@ -145,10 +144,6 @@ export default{
             else {
                 return false
             }
-        },
-
-        isMyFriend(){
-            
         }
     },
     computed: {
@@ -165,8 +160,13 @@ export default{
 
 
         // check if user is logged in
-        authStatus() {
-          return this.$route.query.status == 'notAuth' ?  true : false
+        isLoggedIn() {
+            var myuid = localStorage.getItem('uid')
+            if(myuid.length>0){
+                return true
+            } else{
+                return false
+            }
         }
     },
 
@@ -189,11 +189,5 @@ export default{
     },
     
 }
-
-</script>
-
-<script setup>
-import { getAuth } from 'firebase/auth'
-const auth = getAuth
 
 </script>
