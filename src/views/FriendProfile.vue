@@ -17,7 +17,7 @@
                         <span>Are you sure you want to delete {{friendObj.firstname}} as a friend?</span>
                     </div>
                     <div class="row">
-                        <div class="col"><button class="profile-popup-button w-100" @click="deleteFriend(friendId)">Yes</button></div>
+                        <div class="col"><button class="profile-popup-button w-100" @click="removeFriend()">Yes</button></div>
                         <div class="col"><button class="profile-popup-button w-100" @click="deleteFriendPopUp=false">No</button></div>
                     </div>
                 </div>
@@ -38,7 +38,6 @@
             <div class="col-xl-9 col-12 my-auto">
 
                 <!-- full name -->
-                {{myFriends}}
                 <div class="profile-name text-xl-start text-center">
                     {{ friendObj.firstname + ' ' + friendObj.lastname }}
 
@@ -49,12 +48,12 @@
                     </template>
 
                     <!-- if user is not a friend -->
-                    <template v-else-if="!(friendId in myFriends)">
-                        <i class="profile-person-icon bi bi-person-plus-fill ms-3"></i>
+                    <template v-else-if="!(Object.keys(myFriends).includes(friendId)) && !requested">
+                        <i class="profile-person-icon bi bi-person-plus-fill ms-3" @click="addFriend"></i>
                     </template>
 
                     <!-- if user is a friend -->
-                    <template v-else-if="(friendId in myFriends)">
+                    <template v-else-if="(Object.keys(myFriends).includes(friendId))">
                             <!-- allow to delete on hover -->
                             <span @mouseover="iconX=true" @mouseleave="iconX=false">
                                 <i v-if="!iconX" class="profile-person-icon bi bi-person-check-fill ms-3"></i>
@@ -64,7 +63,7 @@
                     </template>
 
                     <!-- if user is requesting -->
-                    <template v-else>
+                    <template v-else-if="requested">
                         <i class="profile-person-icon bi bi-person-fill ms-3"></i> <span class="profile-side-text">requested</span>
                     </template>
                     
@@ -135,7 +134,7 @@
             </div>
             
             <!-- check if user is a friend, show private jios -->
-            <div v-else-if="friendId in myFriends">
+            <div v-else-if="(Object.keys(myFriends).includes(friendId))">
                 <template v-for="jioObj in friendObj.createdjios" :key=jioObj>
                     <div v-if="!ifPublic(jioObj)" class="profile-event-card card border-0 col-12 mx-auto p-3">
                         <!-- <img class="card-img-top" src="../../../wallpaper1.jpg" alt=""> -->
@@ -172,7 +171,7 @@
 </template>
 
 <script>
-import {getusers, displayfriends} from '../utils'
+import {deleteFriend, getusers, displayfriends, createfriendrequest} from '../utils'
 
 
 export default{ 
@@ -189,7 +188,8 @@ export default{
             showText: false,
             iconX: false,
             hover: false,
-            deleteFriendPopUp: false
+            deleteFriendPopUp: false,
+            requested: false,
         }
     },
 
@@ -219,10 +219,17 @@ export default{
                 this.iconNormal = true
             }
         },
+        // add friend (send them a request)
+        addFriend(){
+            createfriendrequest(this.friendId)
+            this.requested = true
+
+        },
         // delete friend
-        deleteFriend(friendId){
-            delete this.myFriends[friendId];
-            this.deleteFriendPopUp=false;
+        removeFriend(){
+            deleteFriend(this.friendId,this.myuid)
+            this.deleteFriendPopUp = false
+            delete this.myFriends[this.friendId]
         }
     },
     computed: {
@@ -238,14 +245,18 @@ export default{
         },
 
 
-        // check if user is logged in
+        // check if current user is logged in
         isLoggedIn() {
-            var myuid = localStorage.getItem('uid')
-            if(myuid.length>0){
+            if(this.myuid.length>0){
                 return true
             } else{
                 return false
             }
+        },
+
+        // returns current user uid
+        myuid(){
+            return localStorage.getItem('uid')
         }
     },
 
