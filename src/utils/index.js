@@ -8,7 +8,8 @@ import {
   getAuth,
   onAuthStateChanged,
   signOut,
-  createUserWithEmailAndPassword
+  createUserWithEmailAndPassword,
+  sendPasswordResetEmail
 } from 'firebase/auth';
 import {
   useRouter
@@ -108,6 +109,33 @@ export function removemsgs(){
 
   remove(ref(db, `messages`))
   // remove(ref(db, 'images'))
+
+}
+
+export function resetPassword(){
+  const auth = getAuth();
+
+  var email = document.getElementById('emailValidation').value
+  var status = document.getElementById('status')
+  sendPasswordResetEmail(auth, email)
+  .then(() => {
+    // Password reset email sent!
+    // ..
+    console.log('success');
+    status.innerHTML = 'Email sent. Check your email to reset password.'
+    status.style.color = 'black'
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    console.log(error);
+    status.innerHTML = 'Sorry, invalid email.'
+    status.style.color = 'red'
+
+  
+
+    // ..
+  });
 
 }
 

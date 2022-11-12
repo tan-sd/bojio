@@ -11,40 +11,33 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-2"></div>
-            <div class="col-8 d-flex justify-content-center align-items-center">
-                <form class="register-form" style="width: 400px;">
+            <div class="col-8 d-flex justify-content-center align-items-center">  
+              <form class="register-form" style="width: 400px;">
 
                     <div class="form-row pt-4">
 
-                      <!-- i change these frm username to email -->
+                      <div id="status" class="text-center">
+                        </div>
                         <!-- <div class="form-group col" style="width: auto;">
-                          <div class="form-floating">
-                          <input type="text" class="form-control" id="usernameLogin" placeholder="username">
-                            <label for="usernameLogin" class="text-muted">username</label>
-                            <div id="usernameLoginInvalid" class="invalid-feedback">
-                            </div>
-                          </div>
-                        </div> -->
-
-                        <div class="form-group col" style="width: auto;">
                           <div class="form-floating">
                           <input type="text" class="form-control" id="usernameValidation" placeholder="username">
                             <label for="usernameValidation" class="text-muted">username</label>
                             <div id="usernameValidationInvalid" class="invalid-feedback">
                             </div>
                           </div>
-                        </div>
+                        </div> -->
 
+                       
                         <div class="form-group col pt-3">
                           <div class="form-floating">
                           <input type="email" class="form-control" id="emailValidation" placeholder='email' >
-                            <label for="emailValidation" class="text-muted">email</label>
+                            <label for="emailValidation" class="text-muted">Enter your email</label>
                             <div id="emailValidationInvalid" class="invalid-feedback">
                             </div>
                           </div>
                         </div>
                         
-                        <div class="form-group col pt-3">
+                        <!-- <div class="form-group col pt-3">
                           <div class="form-floating">
                           <input type="password" class="form-control" id="newPasswordReset" placeholder='new password'>
                             <label for="newPasswordReset" class="text-muted">new password</label>
@@ -60,11 +53,11 @@
                             <div id="newConfirmPasswordResetInvalid" class="invalid-feedback">
                             </div>
                           </div>
-                        </div>
+                        </div> -->
 
                       </div>
                     
-                    <button type="button" style="background-color: rgb(255, 127, 45); color: white; padding: 1rem; font-family: worksans-semibold;" class="btn orange border border-3 mt-4 w-50" id="loginBtn" @click="signIn">Reset Password</button>
+                    <button type="button" style="background-color: rgb(255, 127, 45); color: white; padding: 1rem; font-family: worksans-semibold;" class="btn orange border border-3 mt-4 w-50" id="loginBtn" @click="checkfields">Reset Password</button>
                   </form>
             </div>
 
@@ -81,3 +74,30 @@
         </div>
       </div>
 </template>
+
+<script>
+import { resetPassword } from '../utils'
+
+var status;
+export default{
+  title:'reset password',
+
+  data(){
+    return{
+      errors:0,
+      success: false
+    }
+  },
+
+  methods:{
+    checkfields(){
+      
+      resetPassword()
+      // console.log(status);
+      
+
+    }
+  }
+}
+
+</script>
