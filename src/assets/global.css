@@ -1490,6 +1490,27 @@ td {
 
 .friend-bar {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+.friend-requester{
+    
+}
+.friend-tick{
+    background: linear-gradient(90deg, #ef4136, #fbb040);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    cursor: pointer;
+}
+
+.friend-x{
+    color: grey;
+    cursor: pointer;
+}
+.friend-request-icons{
+    font-size: 1.5rem;
+   
 }
 
 .friend-bar:hover {

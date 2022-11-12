@@ -14,7 +14,7 @@
                 <div class="card container p-4 profile-delete-popup text-center">
                     <div class="row mb-3 ">
                         <h5 style="font-family:worksans-semibold">Delete Friend?</h5>
-                        <span>Are you sure you want to delete {{friendObj.firstname}} as a friend?</span>
+                        <span>Are you sure you want to delete {{friendObj.firstname[0].toUpperCase() + friendObj.firstname.slice(1,friendObj.firstname.length)}} as a friend?</span>
                     </div>
                     <div class="row">
                         <div class="col"><button class="profile-popup-button w-100" @click="removeFriend()">Yes</button></div>
@@ -39,7 +39,7 @@
 
                 <!-- full name -->
                 <div class="profile-name text-xl-start text-center">
-                    {{ friendObj.firstname + ' ' + friendObj.lastname }}
+                    {{friendObj.firstname[0].toUpperCase() + friendObj.firstname.slice(1,friendObj.firstname.length) + ' ' + friendObj.lastname[0].toUpperCase() + friendObj.lastname.slice(1,friendObj.lastname.length) }}
 
                     
                     <!-- if user is not logged in -->
@@ -47,8 +47,8 @@
                         <i class="profile-person-icon bi bi-person-plus-fill ms-3" @click="addError"></i>
                     </template>
 
-                    <!-- if user is not a friend -->
-                    <template v-else-if="!(Object.keys(myFriends).includes(friendId)) && !requested">
+                    <!-- if user is not a friend and is not being -->
+                    <template v-else-if="!(Object.keys(myFriends).includes(friendId)) && !requested && !isRequesting">
                         <i class="profile-person-icon bi bi-person-plus-fill ms-3" @click="addFriend"></i>
                     </template>
 
@@ -63,7 +63,7 @@
                     </template>
 
                     <!-- if user is requesting -->
-                    <template v-else-if="requested">
+                    <template v-else-if="isRequesting || requested">
                         <i class="profile-person-icon bi bi-person-fill ms-3"></i> <span class="profile-side-text">requested</span>
                     </template>
                     
@@ -87,14 +87,14 @@
 
 
         <!-- public jios section start -->
-        <div class="profile-public-header text-center my-4"> {{friendObj.firstname}}'s Public Jios</div>
+        <div class="profile-public-header text-center my-4"> {{friendObj.firstname[0].toUpperCase() + friendObj.firstname.slice(1,friendObj.firstname.length)}}'s Public Jios</div>
         <div class="row">
             
 <!-- 
             <template v-for="jioObj,jioId in friendObj.createdjios" :key="jioObj"> -->
             <template v-for="jioObj in friendObj.createdjios" :key="jioObj">
                 <!-- <router-link :to="{ name: 'eachjioevent', params: { idx: jioId }}"> -->
-                    <div v-if="ifPublic(jioObj)" class="profile-event-card card border-0  col-12 mx-auto p-3 pb-5">
+                    <div v-if="ifPublic(jioObj)" class="profile-event-card card border-0 col-12 mx-auto p-3 pb-5">
                         <!-- <img class="card-img-top" src="../../../wallpaper1.jpg" alt=""> --> 
                         <div class="profile-event-title">{{jioObj.eventname}}</div>
                         <div class="profile-event-location">Starts @ {{jioObj.activities[0].location}}</div>
@@ -114,7 +114,7 @@
 
 
         <!-- private jios section start -->
-        <div class="profile-public-header text-center my-4"> {{friendObj.firstname}}'s Private Jios</div>
+        <div class="profile-public-header text-center my-4"> {{friendObj.firstname[0].toUpperCase() + friendObj.firstname.slice(1,friendObj.firstname.length)}}'s Private Jios</div>
         <div class="row">
 
             <!-- check if user is logged in, if not, show lock symbol -->
@@ -134,9 +134,9 @@
             </div>
             
             <!-- check if user is a friend, show private jios -->
-            <div v-else-if="(Object.keys(myFriends).includes(friendId))">
+            <div v-else-if="Object.keys(myFriends).includes(friendId)">
                 <template v-for="jioObj in friendObj.createdjios" :key=jioObj>
-                    <div v-if="!ifPublic(jioObj)" class="profile-event-card card border-0 col-12 mx-auto p-3">
+                    <div v-if="!ifPublic(jioObj)" class="profile-event-card card border-0 col-3 mx-auto p-3">
                         <!-- <img class="card-img-top" src="../../../wallpaper1.jpg" alt=""> -->
                         <div class="profile-event-title">{{jioObj.eventname}}</div>
                         <div class="profile-event-location">Starts @ {{jioObj.activities[0].location}}</div>
@@ -171,7 +171,7 @@
 </template>
 
 <script>
-import {deleteFriend, getusers, displayfriends, createfriendrequest} from '../utils'
+import {getfriendrequests, deleteFriend, getusers, displayfriends, createfriendrequest} from '../utils'
 
 
 export default{ 
@@ -190,6 +190,7 @@ export default{
             hover: false,
             deleteFriendPopUp: false,
             requested: false,
+            allrequests: '',
         }
     },
 
@@ -257,7 +258,18 @@ export default{
         // returns current user uid
         myuid(){
             return localStorage.getItem('uid')
+        },
+
+        // check if request still pending
+        isRequesting(){
+            if(Object.keys(this.allrequests).includes(this.myuid)){
+                if(Object.keys(this.allrequests[this.myuid]).includes(this.friendId)){
+                    return true
+                }
+            }
+            return false
         }
+
     },
 
     created() {
@@ -274,6 +286,13 @@ export default{
             (value) =>
             { 
                 this.myFriends = value
+            }
+        ),
+
+        getfriendrequests().then(
+            (value) =>
+            { 
+                this.allrequests = value
             }
         )
     },

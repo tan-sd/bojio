@@ -93,6 +93,8 @@
                         <label for="interestAreas" class="text-muted mb-2">Areas of interest</label>
 
                         <select class="form-select" aria-label="Default select example" v-model="interestAreas" id="interestAreas">
+                          <option value="Entertainment">Business and Industry</option>
+                          <option value="Entertainment">Education</option>
                           <option value="Entertainment">Entertainment </option>
                           <option value="Fitness and Wellness">Fitness and Wellness</option>
                           <option value="Food and Drinks">Food and Drinks</option>
@@ -230,10 +232,10 @@
           lastname: lastName.value,
           username: username.value,
           email: emailInput.value,
-          areaofinterest: interestAreas.value
+          areaofinterest: interestAreas.value,
           // password: passwordInput.value,
           // events: ['no events'],
-          // createdjios: ['no jios'],
+          createdjios: ['no jios'],
         })
         .then(() => {
           alert('details created successfully!')
