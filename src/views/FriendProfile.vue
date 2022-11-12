@@ -1,7 +1,25 @@
 <template>
 
     <div class="container p-1 pb-1 pb-xl-5 px-xl-5 ">
+        <!-- darken the entire page -->
+        <div v-if="deleteFriendPopUp" class="profile-dark-background">
+        </div>
         <div class="card mx-auto p-5 profile-outer-card">
+            
+            <!-- pops up when you try to delete friend -->
+            <template v-if="deleteFriendPopUp">
+                <div class="card container p-4 profile-delete-popup text-center">
+                    <div class="row mb-3 ">
+                        <h5 style="font-family:worksans-semibold">Delete Friend?</h5>
+                        <span>Are you sure you want to delete {{friendObj.firstname}} as a friend?</span>
+                    </div>
+                    <div class="row">
+                        <div class="col"><button class="profile-popup-button w-100">Yes</button></div>
+                        <div class="col"><button class="profile-popup-button w-100" @click="deleteFriendPopUp=false">No</button></div>
+                    </div>
+                </div>
+                
+            </template>
 
         <!-- name and profile pic section start -->
         <div class="row">
@@ -34,7 +52,7 @@
                     <template v-else-if="(friendId in myFriends)">
                         <span @mouseover="iconX=true" @mouseleave="iconX=false">
                             <i v-if="!iconX" class="profile-person-icon bi bi-person-check-fill ms-3"></i>
-                            <i v-else class="profile-person-icon bi bi-person-x-fill ms-3"></i>
+                            <i v-else class="profile-person-icon bi bi-person-x-fill ms-3" @click="deleteFriendPopUp=true"></i>
                         </span>
                     </template>
 
@@ -164,6 +182,7 @@ export default{
             showText: false,
             iconX: false,
             hover: false,
+            deleteFriendPopUp: false
         }
     },
 
@@ -178,14 +197,13 @@ export default{
             }
         },
 
-
         // notifies user if not logged in, cant add
         addError(){
             if(!this.showText){
                 this.showText = true
             }
         },
-
+        // change friend icon on hover (for current friends)
         changeIcon(){
             if(this.iconNormal){
                 this.iconNormal = false
@@ -193,6 +211,10 @@ export default{
             else {
                 this.iconNormal = true
             }
+        },
+        // delete friend
+        deleteFriend(){
+            
         }
     },
     computed: {
