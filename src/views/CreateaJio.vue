@@ -28,7 +28,7 @@
                     </div>
                     <div class="row">
                         <div class="col"><button class="profile-popup-button w-100" @click="createjio">Yes</button></div>
-                        <div class="col"><button class="profile-popup-button w-100" @click="confirmjio=false">No</button></div>
+                        <div class="col"><button class="profile-popup-button w-100" @click="this.confirmjio=false">No</button></div>
                     </div>
                 </div>
                 
@@ -684,6 +684,7 @@ export default {
     },
     createjio() {
       createJio(this.actArr)
+      this.confirmjio=false;
     },
   },
 
