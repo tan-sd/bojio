@@ -558,6 +558,14 @@ export function createJio(actArr) {
         updates[`accounts/${uid}/createdjios/${newKey}`] = jioData;
     
         console.log(updates);
+
+        document.getElementById('eventTitle').value = ''
+        document.getElementById("maxLimit").value = ''
+        document.getElementById("category").value = ''
+        document.getElementById('eventDateTime').value = ''
+        document.querySelector('input[name="exampleRadios"]:checked').checked = false
+        document.getElementById('eventDescription').value = ''
+        
         return update(ref(db), updates);
         // somehow the return gives undefined now...
 
