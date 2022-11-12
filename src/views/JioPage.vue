@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="row d-flex justify-content-center align-items-center">
-            <img id="goToTop" v-if="event.image == 'no-image'" src="../assets/images/default-event-picture.jpg" class="event-banner-card-image" />
+            <img id="goToTop" v-if="event.image == 'no-image'" src="/public/Images/default-event-picture.jpg" class="event-banner-card-image" />
             <img v-else id="goToTop" class="event-banner-card-image" :src="event.imageUrl"/>
         </div>
     </div>
@@ -205,6 +205,7 @@
                                                 : 'message'
                                         "
                                     >
+                                
                                         <div class="message-inner">
                                             <div class="username">
                                                 {{ message.username }}
@@ -258,7 +259,7 @@
                             >{{ getVenue() }}
                         </div>
                     </div>
-                    
+                    <!-- {{eventId}} -->
                     
                     
                     <div class="col text-center">
@@ -414,9 +415,10 @@ import {
     displaypplgoing,
     createMessage,
     getmessage,
+getusername,
 } from "../utils/index.js";
 import { reactive, onMounted, ref, getCurrentInstance, computed } from "vue";
-import { deleteprivatejio, deletepublicjio, leavejio } from "../utils/index";
+import { deleteprivatejio, deletepublicjio, leavejio, removemsgs } from "../utils/index";
 import { thisExpression } from "@babel/types";
 
 var directionsDisplay;
@@ -459,6 +461,10 @@ export default {
     },
 
     methods: {
+
+        // removemsg(){
+        //     removemsgs()
+        // },
         calculateAndDisplayRoute(
             directionsService,
             directionsDisplay
@@ -842,15 +848,15 @@ export default {
     //     return ''
     // }
 
-    mounted() {
+    created() {
+  
         var myuid = localStorage.getItem("uid");
         this.myuid = myuid;
-    },
-    created() {
-        // console.log(this.locations);
-        // this.routeLink=this.tempRoute
-        var name = localStorage.getItem("fullname");
-        this.state.username = name;
+        getusername(myuid).then((value)=>{
+    
+            this.state.username = value
+        })
+
 
         this.getId();
         //get public events

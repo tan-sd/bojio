@@ -70,7 +70,10 @@
     </div>
 
     <div class="about-header-text mx-auto text-center">
-      <i>the three main ways to use our platform</i>
+      <div class="">
+        the <i>three</i> main ways to use our platform
+      </div>
+      
     </div>
   </div>
 
@@ -88,30 +91,24 @@
       
       <!-- vertical carousel -->
       <!-- <div class="col-12 col-sm-6 wrapper carousel my-auto"> -->
-        <div class='wrapper col col-lg-6 text-center'>
+        <div class='wrapper col col-lg-6'>
           <div class='carousel'>
-
             <div v-for="item in objects" :key="item" class='carousel__item container'>
               <div class='carousel__item-body row'>
-                <div class='carousel__item-image-div col-4'>
-                  <img class='image' :src='item.image'>
+                <div class='carousel__item-image-div col-5'>
+                  <img class='image' :src=item.image>
                 </div>
-                <div class='carousel__item-words col-8'>
-                  <p class='title'>{{item.title}}</p>
-                  <p class='body'>{{item.date}}<br> {{item.time}}</p>
-                  <p class='carousel__fake-button text-center my-auto'>
-                    Create a Jio
-                  </p>
+                <div class='carousel__item-words col-7 ps-5 my-auto'>
+                  <div class='carousel-title'>{{item.title}}</div>
+                  <div class="carousel-creator"><i class="bi bi-person-circle" style="margin-right: 10px"></i>{{item.creator}}</div>
+                  <div class='carousel-details'><i class="bi bi-calendar2-week-fill" style="margin-right: 10px"></i>{{item.details}}</div>
+                  <div class="carousel-venue"><i class="bi bi-geo-alt-fill" style="margin-right: 10px"></i>{{item.venue}}</div>
+                  <div class='carousel__fake-button text-center my-auto mt-2'>Join Jio</div>
                 </div>
               </div>
             </div>
-<!--  -->
-
           </div>
         </div>
-       
-
-      
     </div>
 
     <!-- Step 2 -->
@@ -158,7 +155,7 @@
 
       <div class="col-12 col-lg-6">
         <p class="about-img">
-          <img src="../assets/images/about-create.png" class="about-img" alt="">
+          <img src="../../public/Images/about-create.png" class="about-img" alt="">
         </p>
       </div>
 
@@ -193,38 +190,42 @@
             objects : [
               {
                 title:'Dua Lipa Concert',
-                image: '',
-                date: '28 November 2022',
-                time: '8pm to 11pm'
-                
+                venue: 'The Star Theatre',
+                image: require('../../public/Images/carousel/dua_lipa.jpg'),
+                details: 'Sun, Nov 27, 8 PM',
+                creator: 'joelzxc',
               },
 
               {
-                title:'Picnic @Changi Beach',
-                image: '',
-                date: '15 November 2022',
-                time: '4pm to 7pm'
+                title:'Picnic',
+                venue: 'Changi Beach',
+                image: require('../../public/Images/carousel/changi_beach.jpg'),
+                details: 'Thu, Dec 15, 1 PM',
+                creator: 'boonkeng123'
               },
 
               {
-                title:'Fly Kite @Marina Barrage',
-                image: '',
-                date: '10 November 2022',
-                time: '10am to 12pm'
+                title:'Kite Flying',
+                venue: 'Marina Barrage',
+                image: require('../../public/Images/carousel/marina_barrage.jpg'),
+                details: 'Wed, Nov 30, 10 AM',
+                creator: 'sethyuppie'
               },
 
               {
-                title:'Standup Comedy @Robertson Quay',
-                image: '',
-                date: '8 December 2022',
-                time: '8pm to 10pm'
+                title:'Standup Comedy',
+                venue: 'Robertson Quay',
+                image: require('../../public/Images/carousel/robertson_quay.jpg'),
+                details: 'Thu, Dec 8, 8 PM',
+                creator: 'fuzzywuzzy'
               },
 
               {
-                title:'Paintball Session',
-                image: '',
-                date: '11 December 2022',
-                time: '1pm to 3pm'
+                title:'Christmas Party',
+                venue: 'Choa Chu Kang',
+                image: require('../../public/Images/carousel/christmas_party.jpg'),
+                details: 'Sat, Dec 24, 12 PM',
+                creator: 'taylor2224'
               }
             ]
           }

@@ -20,6 +20,10 @@ html {
     overflow-y: scroll; /* to ensure that scroll bar on the right shows for all pages */
 }
 
+body {
+    font-family: worksans-medium;
+}
+
 /* fading in matters */
 .reveal {
     position: relative;
@@ -663,9 +667,9 @@ background-color: #eaeaea !important;
     border-radius: 8px 0px 0px 8px;
 }
 
-.title {
+.carousel-title {
     font-family: worksans-semibold;
-    font-size: 30px;
+    font-size: 1.3rem;
     margin-top: auto;
     margin-bottom: auto;
 }
@@ -690,9 +694,18 @@ background-color: #eaeaea !important;
     box-sizing: border-box;
 }
 
-body {
-    font-family: worksans-medium;
-    height: 100vh;
+.carousel-details {
+    color: rgb(255, 127, 45);
+    font-size: 0.8rem;
+}
+
+.carousel-venue {
+    color: grey;
+    font-size: 0.8rem;
+}
+
+.carousel-creator {
+    font-size: 0.8rem;
 }
 
 .wrapper {
@@ -1079,39 +1092,39 @@ td {
 }
 
 .big-card:nth-child(2) {
-    background-image: url("./images/cards/universal.jpg");
+    background-image: url("/public/Images/cards/universal.jpg");
     transform: translateX(-10%) rotate(-1deg);
 }
 
 .big-card:nth-child(4) {
-    background-image: url("./images/cards/jewel.jpg");
+    background-image: url("/public/Images/cards/jewel.jpg");
     transform: rotate(2deg);
 }
 
 .big-card:nth-child(6) {
-    background-image: url("./images/cards/countdown.jpg");
+    background-image: url("/public/Images/cards/countdown.jpg");
     transform: translateX(-6%) rotate(-3deg);
 }
 
 .big-card:nth-child(8) {
-    background-image: url("./images/cards/lights.jpg");
+    background-image: url("/public/Images/cards/lights.jpg");
     transform: translate(10%, 3%) rotate(5deg);
 }
 
 .little-card:nth-child(1) {
-    background-image: url("./images/cards/flying-kite.jpg");
+    background-image: url("/public/Images/cards/flying-kite.jpg");
 }
 
 .little-card:nth-child(3) {
-    background-image: url("./images/cards/haji_lane.jpg");
+    background-image: url("/public/Images/cards/haji_lane.jpg");
 }
 
 .little-card:nth-child(5) {
-    background-image: url("./images/cards/lighthouse.jpg");
+    background-image: url("/public/Images/cards/lighthouse.jpg");
 }
 
 .little-card:nth-child(7) {
-    background-image: url("./images/cards/telok_ayer.jpg");
+    background-image: url("/public/Images/cards/telok_ayer.jpg");
 }
 
 .card-group:hover > .indiv-card {
@@ -1151,15 +1164,13 @@ td {
 }
 
 @media only screen and (max-device-width: 390px) {
-    #world-model {
-        aspect-ratio: 400 / 800;
-    }
-}
-
-@media only screen and (min-device-width: 390px) {
     /* screen equal or above 390 px */
     .about-header {
-        font-size: 2rem;
+        font-size: 2.5rem;
+    }
+
+    .world-model {
+        aspect-ratio: 450 / 800;
     }
 
     .banner-header-about-2 {
@@ -1167,13 +1178,13 @@ td {
     }
 
     .about-header-text {
-        font-size: 0.65rem;
+        font-size: 0.75rem;
         line-height: 150%;
         width: 65%;
     }
 
-    .steps-header {
-        font-size: 1.2rem;
+    .about-step-header {
+        font-size: 1.5rem;
     }
 
     .about-step-text {
@@ -1187,9 +1198,27 @@ td {
         border-radius: 8px;
         font-size: 10px;
     }
-}
 
-@media only screen and (max-device-width: 390px) {
+    .carousel-title {
+        font-size: 0.9rem;
+    }
+
+    .carousel-creator {
+        font-size: 0.6rem;
+    }
+
+    .carousel-details {
+        font-size: 0.6rem;
+    }
+
+    .carousel-venue {
+        font-size: 0.6rem;
+    }
+
+    .carousel__fake-button {
+        font-size: 0.6rem;
+    }
+
     #activities-index {
         padding: 5px 20px !important;
     }

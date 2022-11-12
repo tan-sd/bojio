@@ -24,9 +24,9 @@ export default {
                 "Fitness and Wellness",
                 "Food and Drinks",
                 "Hobbies and Activities",
-                "Others",
                 "Shopping and Fashion",
                 "Sports and Outdoor Activities",
+                "Others",
                 "Select All",
             ],
             selectedcategory: "",
@@ -227,7 +227,7 @@ export default {
             <div class="col-lg-4 col-md-6 mb-5" v-for="(event, index) in eventsloaded" :key="index">
                 <router-link @click="scrollToTop" style="text-decoration: none; color: inherit" :to="{ name: 'eachjioevent', params: { idx: index } }">
                     <div class="card event-card" style="width: auto; height: 500px">
-                        <img class="card-img-top" v-if="event.image == 'no-image'" src="../assets/images/default-event-picture.jpg" style="max-height: 200px; width: 100%;" />
+                        <img class="card-img-top" v-if="event.image == 'no-image'" src="../../public/Images/default-event-picture.jpg" style="max-height: 200px; width: 100%;" />
                         <img v-else class="card-img-top" :src="event.imageUrl" alt="card image collar" style="min-height: 200px; width: 100%;" />
                             <div class="card-body" style="width: auto">
                                 <div class="card-title pt-1 eventTitle">
@@ -254,13 +254,14 @@ export default {
                 </router-link>
             </div>
         </div>
+        <!-- C:\Users\tan_s\Downloads\Web Development\wad2-project\public\Images\wallpaper1.jpg -->
 
         <div v-else>
             <div class="row" v-if="Object.keys(filterevents).length > 0">
                 <div class="col-lg-4 col-md-6 mb-5" v-for="(event, index) in filterevents" :key="index">
                     <router-link @click="scrollToTop" style="text-decoration: none; color: inherit" :to="{ name: 'eachjioevent', params: { idx: index } }">
                         <div class="card event-card" style="width: auto; height: 500px">
-                            <img class="card-img-top" src="../assets/images/wallpaper1.jpg" alt="card image collar"/>
+                            <img class="card-img-top" src="../../public/Images/default-event-picture.jpg" alt="card image collar"/>
                             <div class="card-body" style="width: auto">
                                 <div class="card-title pt-1 eventTitle">
                                     {{ event.eventname }}

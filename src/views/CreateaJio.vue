@@ -111,13 +111,15 @@
             
                 <select class="form-select" aria-label="Default select example" v-model="category" id="category">
                   <option value="">Jio category </option>
-                  <option value="Entertainment">Entertainment </option>
+                  <option value="Entertainment">Business and Industry</option>
+                  <option value="Entertainment">Education</option>
+                  <option value="Entertainment">Entertainment</option>
                   <option value="Fitness and Wellness">Fitness and Wellness</option>
                   <option value="Food and Drinks">Food and Drinks</option>
                   <option value="Hobbies and Activities">Hobbies and Activities</option>
                   <option value="Shopping and Fashion">Shopping and Fashion</option>
                   <option value="Sports and Outdoor Activities">Sports and Outdoor Activities</option>
-                  <option value="Technology">Technology</option>
+                  <option value="Technology">Others</option>
             
                 </select>
                 <div class="invalid-feedback">
@@ -160,7 +162,7 @@
               </div>
             </div>
           </div>
-          {{places}}
+          <!-- {{places}} -->
 
           <div class="form-group mt-3" style="width: auto">
             <div class="form-floating">
@@ -636,6 +638,7 @@ export default {
         eventDateTime.classList = "form-control";
         //still in createjio, no error then add to db
         createJio(this.actArr)
+
       }
     },
   },
