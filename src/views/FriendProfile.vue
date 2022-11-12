@@ -2,11 +2,14 @@
 
     <div class="container p-1 pb-1 pb-xl-5 px-xl-5 ">
         <!-- darken the entire page -->
-        <div v-if="deleteFriendPopUp" class="profile-dark-background">
-        </div>
+        <Transition name="fade">
+            <div v-if="deleteFriendPopUp" class="profile-dark-background">
+            </div>
+        </Transition>
         <div class="card mx-auto p-5 profile-outer-card">
             
             <!-- pops up when you try to delete friend -->
+            <Transition name="fade">
             <template v-if="deleteFriendPopUp">
                 <div class="card container p-4 profile-delete-popup text-center">
                     <div class="row mb-3 ">
@@ -14,12 +17,13 @@
                         <span>Are you sure you want to delete {{friendObj.firstname}} as a friend?</span>
                     </div>
                     <div class="row">
-                        <div class="col"><button class="profile-popup-button w-100">Yes</button></div>
+                        <div class="col"><button class="profile-popup-button w-100" @click="deleteFriend(friendId)">Yes</button></div>
                         <div class="col"><button class="profile-popup-button w-100" @click="deleteFriendPopUp=false">No</button></div>
                     </div>
                 </div>
                 
             </template>
+            </Transition>
 
         <!-- name and profile pic section start -->
         <div class="row">
@@ -34,6 +38,7 @@
             <div class="col-xl-9 col-12 my-auto">
 
                 <!-- full name -->
+                {{myFriends}}
                 <div class="profile-name text-xl-start text-center">
                     {{ friendObj.firstname + ' ' + friendObj.lastname }}
 
@@ -50,10 +55,12 @@
 
                     <!-- if user is a friend -->
                     <template v-else-if="(friendId in myFriends)">
-                        <span @mouseover="iconX=true" @mouseleave="iconX=false">
-                            <i v-if="!iconX" class="profile-person-icon bi bi-person-check-fill ms-3"></i>
-                            <i v-else class="profile-person-icon bi bi-person-x-fill ms-3" @click="deleteFriendPopUp=true"></i>
-                        </span>
+                            <!-- allow to delete on hover -->
+                            <span @mouseover="iconX=true" @mouseleave="iconX=false">
+                                <i v-if="!iconX" class="profile-person-icon bi bi-person-check-fill ms-3"></i>
+                                <i v-else class="profile-person-icon bi bi-person-x-fill ms-3" @click="deleteFriendPopUp=true"></i>
+                            </span>
+                        
                     </template>
 
                     <!-- if user is requesting -->
@@ -213,8 +220,9 @@ export default{
             }
         },
         // delete friend
-        deleteFriend(){
-            
+        deleteFriend(friendId){
+            delete this.myFriends[friendId];
+            this.deleteFriendPopUp=false;
         }
     },
     computed: {
