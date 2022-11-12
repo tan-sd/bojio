@@ -18,13 +18,42 @@
                 <!-- full name -->
                 <div class="profile-name text-xl-start text-center">
                     {{ friendObj.firstname + ' ' + friendObj.lastname }}
+
                     
-                     <i class="bi bi-person-plus-fill ms-3"></i><!-- friend add button-->
+                    <!-- if user is not logged in -->
+                    <template v-if="!isLoggedIn">
+                        <i class="profile-person-icon bi bi-person-plus-fill ms-3" @click="addError"></i>
+                    </template>
+
+                    <!-- if user is not a friend -->
+                    <template v-else-if="!(friendId in myFriends)">
+                        <i class="profile-person-icon bi bi-person-plus-fill ms-3"></i>
+                    </template>
+
+                    <!-- if user is a friend -->
+                    <template v-else-if="(friendId in myFriends)">
+                        <span @mouseover="iconX=true" @mouseleave="iconX=false">
+                            <i v-if="!iconX" class="profile-person-icon bi bi-person-check-fill ms-3"></i>
+                            <i v-else class="profile-person-icon bi bi-person-x-fill ms-3"></i>
+                        </span>
+                    </template>
+
+                    <!-- if user is requesting -->
+                    <template v-else>
+                        <i class="profile-person-icon bi bi-person-fill ms-3"></i> <span class="profile-side-text">requested</span>
+                    </template>
+                    
+
                 </div>
 
                 <!-- user name -->
                 <div class="text-xl-start text-center">
                     <span class="profile-username">@{{ friendObj.username }}</span>
+                </div>
+
+                <!-- show error if not logged in and want to add -->
+                <div v-if="showText" class="profile-error-div text-xl-start text-center mt-2">
+                    <span class="profile-add-error text-danger" style="font-size: 1rem;"> please log in to add friend!</span>
                 </div>
 
             </div>
@@ -101,7 +130,7 @@
                 <br>
                 Private jios are only available for {{friendObj.firstname}}'s friends. 
                 <div class="d-inline">
-                    Add them as a friend by clicking on the <i class="d-inline bi bi-person-plus-fill"></i> above!
+                    Add {{friendObj.firstname}} as a friend by clicking on the <i class="d-inline bi bi-person-plus-fill"></i> above!
                 </div>
                 
             </div>
@@ -131,7 +160,10 @@ export default{
             searchedperson:'',
             allusers: [],
             viewDetails: null, //to show the view more button
-            myFriends: ''
+            myFriends: '',
+            showText: false,
+            iconX: false,
+            hover: false,
         }
     },
 
@@ -143,6 +175,23 @@ export default{
             }
             else {
                 return false
+            }
+        },
+
+
+        // notifies user if not logged in, cant add
+        addError(){
+            if(!this.showText){
+                this.showText = true
+            }
+        },
+
+        changeIcon(){
+            if(this.iconNormal){
+                this.iconNormal = false
+            }
+            else {
+                this.iconNormal = true
             }
         }
     },

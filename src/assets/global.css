@@ -1478,7 +1478,8 @@ td {
 }
 
 .profile-name {
-    font-size: 2.5rem;
+    font-size: 2.25rem;
+    position:relative;
 }
 
 .profile-username {
@@ -1487,6 +1488,32 @@ td {
     font-size: 1.25rem;
     margin-left: 5px;
 }
+
+.profile-person-icon{
+    background: linear-gradient(90deg, #ef4136, #fbb040);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    cursor: pointer;
+}
+
+.profile-side-text{
+    font-size: 1.125rem;
+    background: linear-gradient(90deg, #ef4136, #fbb040);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position:absolute;
+    top: 40%;
+    transform:translate(5%,-40%) 
+}
+
+.profile-add-error{
+    font-size: 1.125rem;
+    margin-left:5px;
+    
+}
+
 
 .profile-public-header {
     font-family: worksans-semibold;
