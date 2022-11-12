@@ -99,7 +99,7 @@
                           <option value="Hobbies and Activities">Hobbies and Activities</option>
                           <option value="Shopping and Fashion">Shopping and Fashion</option>
                           <option value="Sports and Outdoor Activities">Sports and Outdoor Activities</option>
-                          <option value="Technology">Technology</option>
+                          <option value="Technology">Others</option>
                         </select>
 
                         <div class="invalid-feedback">
@@ -230,9 +230,10 @@
           lastname: lastName.value,
           username: username.value,
           email: emailInput.value,
-          password: passwordInput.value,
-          events: ['no events'],
-          createdjios: ['no jios'],
+          areaofinterest: interestAreas.value
+          // password: passwordInput.value,
+          // events: ['no events'],
+          // createdjios: ['no jios'],
         })
         .then(() => {
           alert('details created successfully!')
