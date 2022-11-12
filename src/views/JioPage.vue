@@ -66,10 +66,10 @@
                     <!-- participants -->
                     <div class="my-3">
                         <span class="public-header">
-                            Participants ({{ peoplegoing.length }})
+                            Participants ({{ peoplegoing.length }})  
                         </span>
                         <div
-                            v-for="(username, userid) in names"
+                            v-for="(username, userid) in getnames"
                             :key="userid"
                             class="my-2"
                         >
@@ -193,6 +193,7 @@
                                     <h1>Welcome, {{ state.username }}</h1>
                                 </header>
 
+            
                                 <div class="chat-box">
                                     <div
                                         class=""
@@ -362,7 +363,7 @@
                             >
                         </button>
                     </div>
-                    <div v-else-if="peoplegoing.includes(myuid)">
+                    <div v-else-if="pplgoing.includes(myuid)">
                         <button
                             style="
                                 background-image: none;
@@ -416,6 +417,7 @@ import {
 } from "../utils/index.js";
 import { reactive, onMounted, ref, getCurrentInstance, computed } from "vue";
 import { deleteprivatejio, deletepublicjio, leavejio } from "../utils/index";
+import { thisExpression } from "@babel/types";
 
 var directionsDisplay;
 var directionsService;
@@ -452,6 +454,7 @@ export default {
                 messages: [],
             },
             inputMessage: "",
+            allthemessages:[],
         };
     },
 
@@ -592,13 +595,14 @@ export default {
                         createjiolist(creatorid, this.eventId).then((value) => {
                             // js continue;
                             // create list w my uid if no one has joined
-
+                            console.log('current list is empty, i add myself in');
                             //now confirm peoplegoing got some value, ill put this as pplgoing
                             getjiodetails(creatorid, this.eventId)
                                 .then((value) => {
                                     //means theres alr people going
 
                                     //this will give the current array of ppl going
+                                    this.peoplegoing = value
                                     pplgoing = value;
                                     //replace this 10 with maxlimit
                                     if (
@@ -615,22 +619,23 @@ export default {
                                             " just added u in so array length 1 if js added so need > 1"
                                         );
                                         this.errormsg = "u alr in the party";
-                                    } else if (!pplgoing.includes(myuid)) {
-                                        // in else statement:
-                                        // ppl going is 1 n its me
-                                        //means i hvn push the person in so here push
+                                    } 
+                                    // else if (!pplgoing.includes(myuid)) {
+                                    //     // in else statement:
+                                    //     // ppl going is 1 n its me
+                                    //     //means i hvn push the person in so here push
 
-                                        // console.log('added');
-                                        var uid = localStorage.getItem("uid");
-                                        pplgoing.push(uid);
-                                        replacejiolist(
-                                            creatorid,
-                                            this.eventId,
-                                            pplgoing
-                                        );
-                                        this.peoplegoing = pplgoing;
-                                        //here means can push person in
-                                    }
+                                    //     // console.log('added');
+                                    //     var uid = localStorage.getItem("uid");
+                                    //     pplgoing.push(uid);
+                                    //     replacejiolist(
+                                    //         creatorid,
+                                    //         this.eventId,
+                                    //         pplgoing
+                                    //     );
+                                    //     this.peoplegoing = pplgoing;
+                                    //     //here means can push person in
+                                    // }
                                 })
                                 .catch((value) => {
                                     console.log(value);
@@ -652,25 +657,6 @@ export default {
 
         },
 
-        getnames() {
-            var uidarray = this.peoplegoing;
-
-            // find usernames of the users
-            const allusers = this.allusers;
-            //object with userid as keys
-
-            console.log("in get names");
-            console.log(allusers);
-            var usernames = {};
-            for (const user in allusers) {
-                //user is the key
-                if (uidarray.includes(user)) {
-                    const username = allusers[user]["username"];
-                    usernames[user] = username;
-                }
-            }
-            this.names = usernames;
-        },
 
         displayDate() {
             const eventDate = this.event.date.split("T")[0];
@@ -748,8 +734,13 @@ export default {
             createMessage(this.eventId, message);
             console.log("sendMessage function, finish create message");
             this.inputMessage = "";
+            //js add on message
+            this.allthemessages.push(message)
+            // this.getupdatedmessage()
         },
+
         getupdatedmessage() {
+            console.log('in get updates message method');
             var messages = [];
             getmessage(this.eventId).then((value) =>
                 Object.keys(value).forEach((key) => {
@@ -760,10 +751,11 @@ export default {
                     });
                 })
             );
-            console.log("sendMessage function, finish get message");
+            console.log(" finish get message ");
 
             console.log(messages);
             this.state.messages = messages;
+            console.log('finish get updated message method');
         },
         deleteJio(eventId) {
             let userid = this.event.userid;
@@ -785,14 +777,47 @@ export default {
         },
 
         numberofppl() {
-            return this.peoplegoing;
+            console.log('numberofppl computed');
+            return this.peoplegoing.length;
+        },
+
+        pplgoing(){
+            console.log('ppl going computed');
+            return this.peoplegoing
         },
 
         allmessages() {
             this.getupdatedmessage();
 
+            console.log('allmessages computed');
             console.log(this.state.messages);
-            return this.state.messages;
+            return this.allthemessages;
+        },
+
+        getnames() {
+            
+            var uidarray = this.peoplegoing;
+
+            // find usernames of the users
+            const allusers = this.allusers;
+            //object with userid as keys
+
+            console.log("in get names");
+            console.log(allusers);
+            var usernames = {};
+            for (const user in allusers) {
+                //user is the key
+                if (uidarray.includes(user)) {
+                    const username = allusers[user]["username"];
+                    usernames[user] = username;
+                }
+            }
+
+            console.log('username here');
+            console.log(usernames);
+            return usernames
+            // this.names = usernames;
+            // console.log(this.names);
         },
     },
     // tempRoute(){
@@ -880,7 +905,7 @@ export default {
                     displaypplgoing(this.creatorid, this.eventId).then(
                         (value) => {
                             this.peoplegoing = value;
-                            this.getnames();
+                            // this.getnames();
                         }
                     );
                 })
@@ -927,10 +952,11 @@ export default {
 
                 displaypplgoing(this.creatorid, this.eventId).then((value) => {
                     this.peoplegoing = value;
-                    this.getnames();
+                    // this.getnames();
                 });
             }
         });
+
         var messages = [];
         //to get all msg from firebase
         getmessage(this.eventId).then(
@@ -943,7 +969,8 @@ export default {
                     });
                 }),
 
-            (this.state.messages = messages)
+            (this.state.messages = messages),
+            this.allthemessages = messages
         );
         console.log(this.state.messages);
         console.log("here is to display events on create");
