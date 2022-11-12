@@ -160,6 +160,7 @@
               </div>
             </div>
           </div>
+          {{places}}
 
           <div class="form-group mt-3" style="width: auto">
             <div class="form-floating">
@@ -355,7 +356,7 @@ export default {
 
       var travelMode = this.travelMode;
 
-      console.log(travelMode)
+      
 
       var start = this.places[0]
       var end = this.places[this.places.length - 1]
@@ -383,16 +384,24 @@ export default {
           if (status === "OK") {
             directionsDisplay.setDirections(response);
           } else {
-            window.alert("Directions request failed due to " + status);
+            // console.log(this.places)
+            // this.places.splice(this.places.length-1,1)
+            // console.log(this.places)
+
+            window.alert("Directions request failed due to location " + status + "\n\nPlease remove activity and choose another location");
+            
+            
           }
         }
       ); 
     },
+    
 
     setPlace(place) {
       this.actLocation = place.name;
       this.currentLat = place.geometry.location.lat();
       this.currentLng = place.geometry.location.lng();
+      console.log(place)
     },
     addAct() {
       //reset map
@@ -436,10 +445,14 @@ export default {
       } else {
         activityTitle.classList = "form-control is-valid";
       }
+      
 
       if (errors == 0) {
         this.places.push(this.actLocation);
         console.log(this.places)
+        console.log(this.currentLat)
+        console.log(this.currentLng)
+        
         
         
         if (this.places.length >= 1) {

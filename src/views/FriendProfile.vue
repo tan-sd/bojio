@@ -2,11 +2,14 @@
 
     <div class="container p-1 pb-1 pb-xl-5 px-xl-5 ">
         <!-- darken the entire page -->
-        <div v-if="deleteFriendPopUp" class="profile-dark-background">
-        </div>
+        <Transition name="fade">
+            <div v-if="deleteFriendPopUp" class="profile-dark-background">
+            </div>
+        </Transition>
         <div class="card mx-auto p-5 profile-outer-card">
             
             <!-- pops up when you try to delete friend -->
+            <Transition name="fade">
             <template v-if="deleteFriendPopUp">
                 <div class="card container p-4 profile-delete-popup text-center">
                     <div class="row mb-3 ">
@@ -14,12 +17,13 @@
                         <span>Are you sure you want to delete {{friendObj.firstname}} as a friend?</span>
                     </div>
                     <div class="row">
-                        <div class="col"><button class="profile-popup-button w-100">Yes</button></div>
+                        <div class="col"><button class="profile-popup-button w-100" @click="removeFriend()">Yes</button></div>
                         <div class="col"><button class="profile-popup-button w-100" @click="deleteFriendPopUp=false">No</button></div>
                     </div>
                 </div>
                 
             </template>
+            </Transition>
 
         <!-- name and profile pic section start -->
         <div class="row">
@@ -44,20 +48,22 @@
                     </template>
 
                     <!-- if user is not a friend -->
-                    <template v-else-if="!(friendId in myFriends)">
-                        <i class="profile-person-icon bi bi-person-plus-fill ms-3"></i>
+                    <template v-else-if="!(Object.keys(myFriends).includes(friendId)) && !requested">
+                        <i class="profile-person-icon bi bi-person-plus-fill ms-3" @click="addFriend"></i>
                     </template>
 
                     <!-- if user is a friend -->
-                    <template v-else-if="(friendId in myFriends)">
-                        <span @mouseover="iconX=true" @mouseleave="iconX=false">
-                            <i v-if="!iconX" class="profile-person-icon bi bi-person-check-fill ms-3"></i>
-                            <i v-else class="profile-person-icon bi bi-person-x-fill ms-3" @click="deleteFriendPopUp=true"></i>
-                        </span>
+                    <template v-else-if="(Object.keys(myFriends).includes(friendId))">
+                            <!-- allow to delete on hover -->
+                            <span @mouseover="iconX=true" @mouseleave="iconX=false">
+                                <i v-if="!iconX" class="profile-person-icon bi bi-person-check-fill ms-3"></i>
+                                <i v-else class="profile-person-icon bi bi-person-x-fill ms-3" @click="deleteFriendPopUp=true"></i>
+                            </span>
+                        
                     </template>
 
                     <!-- if user is requesting -->
-                    <template v-else>
+                    <template v-else-if="requested">
                         <i class="profile-person-icon bi bi-person-fill ms-3"></i> <span class="profile-side-text">requested</span>
                     </template>
                     
@@ -128,7 +134,7 @@
             </div>
             
             <!-- check if user is a friend, show private jios -->
-            <div v-else-if="friendId in myFriends">
+            <div v-else-if="(Object.keys(myFriends).includes(friendId))">
                 <template v-for="jioObj in friendObj.createdjios" :key=jioObj>
                     <div v-if="!ifPublic(jioObj)" class="profile-event-card card border-0 col-12 mx-auto p-3">
                         <!-- <img class="card-img-top" src="../../../wallpaper1.jpg" alt=""> -->
@@ -165,7 +171,7 @@
 </template>
 
 <script>
-import {getusers, displayfriends} from '../utils'
+import {deleteFriend, getusers, displayfriends, createfriendrequest} from '../utils'
 
 
 export default{ 
@@ -182,7 +188,8 @@ export default{
             showText: false,
             iconX: false,
             hover: false,
-            deleteFriendPopUp: false
+            deleteFriendPopUp: false,
+            requested: false,
         }
     },
 
@@ -212,9 +219,17 @@ export default{
                 this.iconNormal = true
             }
         },
+        // add friend (send them a request)
+        addFriend(){
+            createfriendrequest(this.friendId)
+            this.requested = true
+
+        },
         // delete friend
-        deleteFriend(){
-            
+        removeFriend(){
+            deleteFriend(this.friendId,this.myuid)
+            this.deleteFriendPopUp = false
+            delete this.myFriends[this.friendId]
         }
     },
     computed: {
@@ -230,14 +245,18 @@ export default{
         },
 
 
-        // check if user is logged in
+        // check if current user is logged in
         isLoggedIn() {
-            var myuid = localStorage.getItem('uid')
-            if(myuid.length>0){
+            if(this.myuid.length>0){
                 return true
             } else{
                 return false
             }
+        },
+
+        // returns current user uid
+        myuid(){
+            return localStorage.getItem('uid')
         }
     },
 

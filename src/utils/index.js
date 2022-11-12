@@ -715,6 +715,12 @@ export async function displayfriends() {
   })
 }
 
+export function deleteFriend(friendId,userId){
+  remove(ref(db,`friends/${userId}/${friendId}`))
+  remove(ref(db,`friends/${friendId}/${userId}`))
+
+}
+
 //get userid to say hi
 export function getuserid() {
   const auth = getAuth();
@@ -944,3 +950,5 @@ export function leavejio(creatorid,eventid,ind){
   remove(ref(db,"createdjios/"+creatorid+"/"+eventid+"/peoplegoing/"+ind))
   console.log("jio removed")
 }
+
+

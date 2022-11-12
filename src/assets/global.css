@@ -1,3 +1,4 @@
+/* hello */
 /* fonts */
 @font-face {
     font-family: worksans-extrabold;
@@ -1489,6 +1490,18 @@ td {
 .profile-outer-card {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     position:relative;
+}
+
+/* fade transitions */
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+    transition: opacity 0.5s ease;
+    opacity: 0;
 }
 
 .profile-delete-popup{

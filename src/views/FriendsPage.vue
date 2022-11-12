@@ -1,8 +1,12 @@
 <template>
         <div class="container">
+            
+        </div>  
+
+        <div class="container">
             <!-- display friend requests here first -->
-            <div class="banner-header-form d-flex justify-content-center">Your Friends</div>
-            <div v-if="norequests">
+            <div class="mb-3 d-flex justify-content-center" style="font-family:worksans-medium; font-size:1.5rem">Friend Requests</div>
+            <div v-if="!norequests">
                 {{requests}}
                 {{ username }}
                 <div v-for="request, index in requests" :key="request">
@@ -10,9 +14,6 @@
                     <button @click="accept(request, index)">Accept request</button>
                 </div>
             </div>
-        </div>
-
-        <div class="container">
             <div class="mb-3 d-flex justify-content-center" style="font-family:worksans-medium; font-size:1.5rem">Current Friends</div>
             <div class="row">
                 <div class="input-group mb-3 w-25 mx-auto mb-5 friend-search">
