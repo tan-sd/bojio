@@ -1,14 +1,8 @@
 <template>
     <div class="container">
-        <div class="row">
-            <div class="col d-flex justify-content-center">
-                <img
-                    class="event-banner-card-image"
-                    id="goToTop"
-                    src="../assets/images/wallpaper1.jpg"
-                    alt=""
-                />
-            </div>
+        <div class="row d-flex justify-content-center align-items-center">
+            <img id="goToTop" v-if="event.image == 'no-image'" src="../assets/images/default-event-picture.jpg" class="event-banner-card-image" />
+            <img v-else id="goToTop" class="event-banner-card-image" :src="event.imageUrl"/>
         </div>
     </div>
 

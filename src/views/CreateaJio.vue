@@ -52,7 +52,7 @@
               </div>
               <div @click="imgUpload" id="imgPreview" class="row mt-4 mx-auto card" style="cursor: pointer; width: 400px; height: 250px;">
                 <div id="preview" class="d-flex justify-content-center align-items-center my-auto">
-                  <img style="width: 80%;" v-if="imgUrl" :src="imgUrl">
+                  <img style="width: 80%;" v-if="imgUrl != 'no-imageUrl'" :src="imgUrl">
                   <div v-else>
                     <div class="d-flex justify-content-center align-items-center">
                       <h1><i class="bi bi-card-image mx-auto"></i></h1>
@@ -192,7 +192,6 @@
 
             <div class="row mt-5"> <!-- event details -->
               <div v-if="actArr.length == 0">
-                <div>{{title}}</div>
                     <div class="card border-0 friend-bar p-2 ps-4 mx-auto" style="max-width: 30rem; height:5rem">
                       <div class="row my-auto">
                         <div class="col-3 col-md-2">
@@ -287,8 +286,9 @@ export default {
   title: "BOJIO – Create a Jio",
   data() {
     return {
-      imgUrl: null,
+      imgUrl: 'no-imageUrl',
       image: 'no-image',
+      imageData: 'no-imageData',
       actError: [],
       evtError: [],
       center: { lat: 1.3421, lng: 103.8198 },
@@ -338,6 +338,7 @@ export default {
     },
     onFileChange(e) {
       const file = e.target.files[0]
+      this.imageData = file;
       this.imgUrl = URL.createObjectURL(file);
 
       const files = e.target.files;
@@ -456,7 +457,10 @@ export default {
         name: this.actTitle,
         location: this.actLocation,
         duration: this.actDuration,
-        description: this.description
+        description: this.description,
+        image: this.image,
+        imageUrl: this.imgUrl,
+        imageData: this.imageData
       });
 
         this.totalDuration += parseFloat(this.actDuration);

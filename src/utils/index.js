@@ -28,9 +28,12 @@ import {
   remove
 } from 'firebase/database'
 
+import { getStorage, ref as refStorage, uploadBytesResumable, getDownloadURL } from "firebase/storage"
+
 // import Filter from 'bad-words'
 import { getFirestore } from "firebase/firestore";
 import { doc, deleteDoc } from "firebase/firestore";
+import { nodeName } from 'jquery';
 
 
 
@@ -461,14 +464,29 @@ var activities;
 var testthis;
 var maxLimit;
 var category;
+var image;
+var imageUrl;
+var imageData;
 
 // //to createjio
 export function createJio(actArr) {
+  console.log(actArr);
+  console.log(typeof actArr[0].image)
+  console.log(actArr[0].image.name)
+  console.log(actArr[0].imageUrl)
   const db = getDatabase();
   console.log('inside function createjio');
   eventname = document.getElementById('eventTitle').value
   maxLimit= parseInt(document.getElementById("maxLimit").value);
   category = document.getElementById("category").value
+  console.log(actArr[0].image == 'no-image')
+  image = actArr[0].image
+  if (actArr[0].image != "no-image") {
+    image = actArr[0].image.name;
+  }
+  imageUrl = actArr[0].imageUrl;
+  imageData = actArr[0].imageData;
+  console.log(image)
 
   // console.log(localStorage.getItem('username'));
   // var userid;
@@ -478,6 +496,29 @@ export function createJio(actArr) {
 
     ////////////////
 
+    // FIREBASE STORAGE
+    const storage = getStorage();
+    const storageRef = refStorage(storage, `${imageData.name}`)
+    const uploadTask = uploadBytesResumable(storageRef, imageData)
+    uploadTask.on(`state_changed`, (snapshot) => {
+      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log('Upload is ' + progress + '% done');
+      switch (snapshot.state) {
+        case 'paused':
+          console.log('Uploaded is paused');
+          break;
+        case 'running':
+          console.log('Upload is running');
+          break;
+      }
+    }, error=>{
+      console.log(error.message)},
+    () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          imageUrl = downloadURL
+          console.log('File available at', downloadURL);
+
+          // FIREBASE DATABASE
     const dbRef = ref(getDatabase());
     get(child(dbRef, `accounts/${userid}`)).then((snapshot) => {
       if (snapshot.exists()) {
@@ -499,7 +540,9 @@ export function createJio(actArr) {
           activities: actArr,
           fullname: val.firstname + ' ' + val.lastname,
           category: category,
-          maxnumber: maxLimit
+          maxnumber: maxLimit,
+          image: image,
+          imageUrl: imageUrl,
         };
     
         // Get a key for a new Post.
@@ -526,6 +569,10 @@ export function createJio(actArr) {
     }).catch((error) => {
       console.error(error);
     });
+        });
+      }
+    );
+
 
 
     //////////////

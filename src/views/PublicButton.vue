@@ -227,7 +227,8 @@ export default {
             <div class="col-lg-4 col-md-6 mb-5" v-for="(event, index) in eventsloaded" :key="index">
                 <router-link @click="scrollToTop" style="text-decoration: none; color: inherit" :to="{ name: 'eachjioevent', params: { idx: index } }">
                     <div class="card event-card" style="width: auto; height: 500px">
-                        <img class="card-img-top" src="../assets/images/wallpaper1.jpg" alt="card image collar"/>
+                        <img class="card-img-top" v-if="event.image == 'no-image'" src="../assets/images/default-event-picture.jpg" style="max-height: 200px; width: 100%;" />
+                        <img v-else class="card-img-top" :src="event.imageUrl" alt="card image collar" style="min-height: 200px; width: 100%;" />
                             <div class="card-body" style="width: auto">
                                 <div class="card-title pt-1 eventTitle">
                                     {{ event.eventname }}

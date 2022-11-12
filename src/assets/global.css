@@ -346,7 +346,7 @@ background-color: #eaeaea !important;
 }
 
 .event-banner-card-image {
-    border-radius: 10px;
+    border-radius: 10% !important;
     height: 35vmin;
     width: auto;
 }
