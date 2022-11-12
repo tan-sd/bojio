@@ -12,15 +12,13 @@
             </div>
         </div>
 
-        <div class="container ">
+        <div class="container">
             <div class="mb-3 d-flex justify-content-center" style="font-family:worksans-medium; font-size:1.5rem">Current Friends</div>
             <div class="row">
-                <div class="input-group mb-3 w-25 mx-auto mb-5">
+                <div class="input-group mb-3 w-25 mx-auto mb-5 friend-search">
                     <input type="text" class="form-control" name="searchfriend" placeholder="Find a friend..." v-model="searchedfriends">
                 </div>
             </div>
-        </div>
-
             <div class="row">
                 <div class="col-xl-4 col-md-6 mb-5 d-flex justify-content-center" v-for="key, friend in filterfriends" :key="key">
                     <router-link class="routerLink" :to="{name:'individual profile', params:{idx: key}}">
@@ -39,32 +37,38 @@
                     </router-link>
                 </div>
             </div>
-            
-            <div class="mb-3 d-flex justify-content-center" style="font-family:worksans-medium; font-size:1.5rem">Discover new friends</div>
-            <span class="input-group mb-3 w-25 col-3 mx-auto mb-5">
-                <input type="text" class="form-control" name="searchfriend" placeholder="Find a user..." v-model="searchedusers">
-            </span>
+        </div>
 
-            <div class="container-fluid text-center">
+            
+            
+            <div class="container">
+                <div class="mb-3 d-flex justify-content-center" style="font-family:worksans-medium; font-size:1.5rem">Discover new friends</div>
                 <div class="row">
-                    <div class="col-xl-4 col-md-6 mb-5 d-flex justify-content-center" v-for="(user,userid) in filtereddata" :key="userid">
-                        <router-link class="routerLink" :to="{name:'individual profile', params:{idx: userid}}">
-                            <div class="card border-0 friend-bar p-2 ps-3" style="width: 20rem; height: 5rem;">
-                                <div class="row">
-                                    <div class="col-3">
-                                    <div class="rounded-circle" style="padding:7px 15px; font-size:30px; background: linear-gradient(90deg, #ef4136, #fbb040); color:white;">
-                                        <span>{{user.username[0].toUpperCase()}}</span>
-                                    </div>   
-                                    </div>
-                                    <div class="col-9 my-auto">
-                                        <span class="float-start" style="color:black;">{{user.username}}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </router-link>
+                    <div class="input-group mb-3 w-25 mx-auto mb-5 friend-search">
+                        <input type="text" class="form-control" name="searchfriend" placeholder="Find a user..." v-model="searchedusers">
                     </div>
                 </div>
-            </div>  
+                <div class="container-fluid text-center">
+                    <div class="row">
+                        <div class="col-xl-4 col-md-6 mb-5 d-flex justify-content-center" v-for="(user,userid) in filtereddata" :key="userid">
+                            <router-link class="routerLink" :to="{name:'individual profile', params:{idx: userid}}">
+                                <div class="card border-0 friend-bar p-2 ps-3" style="width: 20rem; height: 5rem;">
+                                    <div class="row">
+                                        <div class="col-3">
+                                        <div class="rounded-circle" style="padding:7px 15px; font-size:30px; background: linear-gradient(90deg, #ef4136, #fbb040); color:white;">
+                                            <span>{{user.username[0].toUpperCase()}}</span>
+                                        </div>
+                                        </div>
+                                        <div class="col-9 my-auto">
+                                            <span class="float-start" style="color:black;">{{user.username}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </router-link>
+                        </div>
+                    </div>
+                </div>
+            </div> 
         
 </template> 
 

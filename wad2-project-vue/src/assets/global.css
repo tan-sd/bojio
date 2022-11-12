@@ -1452,6 +1452,10 @@ td {
     box-shadow: 0 8px 14px rgba(0, 0, 0, 0.2);
 }
 
+.friend-search{
+  min-width: 300px;
+}
+
 /* FRIENDS PAGE END */
 
 /* FRIENDS PROFILE */
