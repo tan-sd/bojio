@@ -1,4 +1,4 @@
-# wad2proj
+# BOJIO - A website that connects people together
 
 ## Project setup
 ```
