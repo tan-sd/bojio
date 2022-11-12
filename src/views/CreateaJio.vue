@@ -12,6 +12,29 @@
         </div>
       </div>
     </div>
+    <Transition name="fade">
+            <div v-if="confirmjio" class="profile-dark-background">
+            </div>
+        </Transition>
+        
+            
+            <!-- pops up when you try to delete friend -->
+            <Transition name="fade">
+            <template v-if="confirmjio">
+                <div class="card container p-4 profile-delete-popup text-center">
+                    <div class="row mb-3 ">
+                        <h5 style="font-family:worksans-semibold">Confirm Jio?</h5>
+                        <span>Are you sure you want to confirm Jio</span>
+                    </div>
+                    <div class="row">
+                        <div class="col"><button class="profile-popup-button w-100" @click="createjio">Yes</button></div>
+                        <div class="col"><button class="profile-popup-button w-100" @click="confirmjio=false">No</button></div>
+                    </div>
+                </div>
+                
+            </template>
+            </Transition>
+        
 
     <div class="container-fluid p-5">
       <div class="row">
@@ -146,7 +169,7 @@
               Activity title
             </label>
             <div class="invalid-feedback">
-              Please provide the activity title
+              Please provide an activity title
             </div>
           </div>
 
@@ -158,11 +181,10 @@
                 </GMapAutocomplete>
                 <label for="activityLocation" class="text-muted">Activity location</label>
                 <div class="invalid-feedback">
-                  Please provide the location.
+                  Please provide a location.
               </div>
             </div>
           </div>
-          <!-- {{places}} -->
 
           <div class="form-group mt-3" style="width: auto">
             <div class="form-floating">
@@ -172,7 +194,7 @@
                 Activity duration (mins)
               </label>
               <div class="invalid-feedback">
-                Please provide the duration.
+                Please provide a duration.
               </div>
             </div>
           </div>
@@ -184,6 +206,7 @@
             </div>
         </div>
         </div>
+        
 
         <div class="col-12 col-lg-7">
           <div class="text-center mb-4 mt-5" style="font-family: worksans-semibold">Overview</div>
@@ -208,6 +231,10 @@
                             <br>
                             <span style="font-size: 0.9rem; color: grey;">Add an activity!</span>
                           </span>
+                          <div class="invalid-feedback">
+                          Please provide some activities
+                          </div>
+                          
                         </div>
                       </div>
                     </div>
@@ -267,7 +294,7 @@
         </div>
 
         <div class="row mt-5">
-          <button type="button" style="min-width:10rem" class="btn login-signup-button mt-4 w-25" id="loginBtn" @click="createjio">
+          <button type="button" style="min-width:10rem" class="btn login-signup-button mt-4 w-25" id="loginBtn" @click="checkjio">
             Create Jio!
           </button>
         </div>
@@ -289,6 +316,8 @@ export default {
   title: "BOJIO – Create a Jio",
   data() {
     return {
+      confirmjio:false,
+      popup:false,
       imgUrl: 'no-imageUrl',
       image: 'no-image',
       imageData: 'no-imageData',
@@ -358,12 +387,10 @@ export default {
 
       var travelMode = this.travelMode;
 
-      
-
       var start = this.places[0]
       var end = this.places[this.places.length - 1]
 
-      
+
       for (var i=1;i<this.places.length-1;i++) {
         refWaypoints.push({
           location: this.places[i],
@@ -447,15 +474,17 @@ export default {
       } else {
         activityTitle.classList = "form-control is-valid";
       }
+      if(errors>0){
+        this.confirmjio=false
+      }
       
 
       if (errors == 0) {
+        
         this.places.push(this.actLocation);
         console.log(this.places)
         console.log(this.currentLat)
         console.log(this.currentLng)
-        
-        
         
         if (this.places.length >= 1) {
         this.calculateAndDisplayRoute(
@@ -568,13 +597,16 @@ export default {
       this.actTitle = "";
       this.actError = [];
     },
-    createjio() {
+    checkjio() {
       var eventTitle = document.getElementById("eventTitle");
       var eventDescription = document.getElementById("eventDescription");
       var eventDateTime = document.getElementById("eventDateTime");
       var eventDateTimeInvalid = document.getElementById("eventDateTimeInvalid");
       var maxLimit= document.getElementById("maxLimit");
       var category = document.getElementById("category");
+      var activityLocation = document.getElementById("activityLocation");
+      var activityTitle = document.getElementById("activityTitle");
+      var activityDuration = document.getElementById("activityDuration");
       var errors = 0;
 
       if (this.title == "") {
@@ -599,6 +631,7 @@ export default {
       ) {
         eventDateTime.classList = "form-control is-invalid";
         eventDateTimeInvalid.innerHTML = "Please provide a valid date.";
+        errors += 1;
         // this.evtError.push("Please choose a valid date");
       } else {
         eventDateTime.classList = "form-control is-valid";
@@ -606,12 +639,19 @@ export default {
       }
 
       if (this.actArr.length < 1) {
+        errors+=1
+        activityDuration.classList = "form-control is-invalid";
+        activityTitle.classList = "form-control is-invalid";
+        activityLocation.classList = "form-control is-invalid";
         // [FILLUP].classList = ('form-control is-invalid')
         // [FILLUP].innerHTML = 'Please provide at least one activity.'
         // this.evtError.push("Please provide at least one activity");
       } else {
         // [FILLUP].classList = ('form-control is-valid')
         // [FILLUP].innerHTML = ''
+        activityDuration.classList = "form-control is-valid";
+        activityTitle.classList = "form-control is-valid";
+        activityLocation.classList = "form-control is-valid";
       }
 
       if (this.maxLimit == "") {
@@ -629,17 +669,21 @@ export default {
       } else {
         category.classList = "form-control is-valid";
       }
+      
 
       console.log(this.evtError);
 
       if (errors == 0) {
+        this.confirmjio=true;
         eventTitle.classList = "form-control";
         eventDescription.classList = "form-control";
         eventDateTime.classList = "form-control";
         //still in createjio, no error then add to db
-        createJio(this.actArr)
-
+        
       }
+    },
+    createjio() {
+      createJio(this.actArr)
     },
   },
 
