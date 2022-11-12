@@ -3,11 +3,7 @@
         <div class="row">
             <div class="col d-flex justify-content-center mt-5">
                 selected: {{ selectedcategory }}
-                <select
-                    v-model="selectedcategory"
-                    placeholder="select category"
-                    @click="filter"
-                >
+                <select v-model="selectedcategory" placeholder="select category" @click="filter">
                     <option v-for="value in categories" :key="value">
                         {{ value }}
                     </option>
@@ -19,13 +15,7 @@
     <div v-if="uid.length <= 1" class="h1 container text-center">
         <br /><br />
         <!-- <Modal v-if="showmodal" v-on:closepopup="close()" ></Modal> -->
-        <div
-            style="
-                padding-bottom: 10vmin;
-                font-size: 4vmin;
-                font-family: worksans-medium;
-            "
-        >
+        <div style=" padding-bottom: 10vmin; font-size: 4vmin; font-family: worksans-medium;">
             Please
             <span class="privateJio">
                 <router-link to="/login">login</router-link>
@@ -39,11 +29,7 @@
     </div>
 
     <div v-else>
-        <div
-            id="event-container"
-            class="container mt-5"
-            style="font-family: worksans-medium"
-        >
+        <div id="event-container" class="container mt-5" style="font-family: worksans-medium">
             <div class="row" id="app">
                 <div v-if="!hasfriends">
                     Try adding friends and jio them out!
@@ -58,78 +44,27 @@
                 <div v-else>
                     <div
                         class="row"
-                        v-if="
-                            selectedcategory == '' ||
-                            selectedcategory == 'Select All'
-                        "
-                    >
-                        <div
-                            class="col-lg-4 col-md-6 mb-5"
-                            v-for="(event, index) in privateevents"
-                            :key="index"
-                        >
-                            <router-link
-                                @click="scrollToTop"
-                                style="text-decoration: none; color: inherit"
-                                :to="{
-                                    name: 'eachjioevent',
-                                    params: { idx: index },
-                                }"
-                            >
-                                <div
-                                    class="card event-card"
-                                    style="width: auto"
-                                    height="500px"
-                                >
-                                    <img
-                                        class="card-img-top"
-                                        src="../../../wallpaper1.jpg"
-                                        alt="card img collar"
-                                    />
+                        v-if=" selectedcategory == '' || selectedcategory == 'Select All'">
+                        <div class="col-lg-4 col-md-6 mb-5" v-for="(event, index) in privateevents" :key="index">
+                            <router-link @click="scrollToTop" style="text-decoration: none; color: inherit" :to="{ name: 'eachjioevent', params: { idx: index },}">
+                                <div class="card event-card" style="width: auto" height="500px">
+                                    <img class="card-img-top" src="../../../wallpaper1.jpg" alt="card img collar"/>
                                     <div class="card-body" style="width: auto">
                                         <div class="card-title pt-1 eventTitle">
                                             {{ event.eventname }}
                                         </div>
                                         <div class="card-text">
-                                            <div
-                                                class="eventCreator"
-                                                style="margin-right: 10px"
-                                            >
-                                                <i
-                                                    class="bi bi-person-circle"
-                                                    style="margin-right: 10px"
-                                                ></i
-                                                >{{ event.username }}
+                                            <div class="eventCreator" style="margin-right: 10px">
+                                                <i class="bi bi-person-circle" style="margin-right: 10px"></i>{{ event.username }}
                                             </div>
                                             <div class="eventDate mt-2">
-                                                <i
-                                                    class="bi bi-calendar2-week-fill"
-                                                    style="margin-right: 10px"
-                                                ></i
-                                                >{{
-                                                    convertDate(
-                                                        event.date.split("T")[0]
-                                                    )
-                                                }},
-                                                {{
-                                                    convert24(
-                                                        event.date.split("T")[1]
-                                                    )
-                                                }}
+                                                <i class="bi bi-calendar2-week-fill" style="margin-right: 10px"></i>{{convertDate(event.date.split("T")[0])}},{{convert24(event.date.split("T")[1])}}
                                             </div>
                                             <div class="eventVenue mt-2">
-                                                <i
-                                                    class="bi bi-geo-alt-fill"
-                                                    style="margin-right: 10px"
-                                                ></i
-                                                >{{
-                                                    event.activities[0].location
-                                                }}
+                                                <i class="bi bi-geo-alt-fill" style="margin-right: 10px"></i>{{event.activities[0].location}}
                                             </div>
                                             <div class="tagContainer mt-3">
-                                                <div
-                                                    class="badge text-bg-secondary"
-                                                >
+                                                <div class="badge text-bg-secondary">
                                                     {{ event.category }}
                                                 </div>
                                             </div>
@@ -141,26 +76,9 @@
                     </div>
 
                     <div v-else>
-                        <div
-                            class="row"
-                            v-if="Object.keys(filterevents).length > 0"
-                        >
-                            <div
-                                class="col-lg-4 col-md-6 mb-5"
-                                v-for="(event, index) in filterevents"
-                                :key="index"
-                            >
-                                <router-link
-                                    @click="scrollToTop"
-                                    style="
-                                        text-decoration: none;
-                                        color: inherit;
-                                    "
-                                    :to="{
-                                        name: 'eachjioevent',
-                                        params: { idx: index },
-                                    }"
-                                >
+                        <div class="row" v-if="Object.keys(filterevents).length > 0">
+                            <div class="col-lg-4 col-md-6 mb-5" v-for="(event, index) in filterevents" :key="index">
+                                <router-link @click="scrollToTop" style=" text-decoration: none; color: inherit;" :to="{name: 'eachjioevent', params: { idx: index },}">
                                     <div
                                         class="card event-card"
                                         style="width: auto"
