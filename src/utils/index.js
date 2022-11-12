@@ -940,3 +940,7 @@ export function deleteprivatejio(eventId,userId){
 
 }
 
+export function leavejio(creatorid,eventid,ind){
+  remove(ref(db,"createdjios/"+creatorid+"/"+eventid+"/peoplegoing/"+ind))
+  console.log("jio removed")
+}

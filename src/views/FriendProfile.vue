@@ -1,7 +1,25 @@
 <template>
 
     <div class="container p-1 pb-1 pb-xl-5 px-xl-5 ">
+        <!-- darken the entire page -->
+        <div v-if="deleteFriendPopUp" class="profile-dark-background">
+        </div>
         <div class="card mx-auto p-5 profile-outer-card">
+            
+            <!-- pops up when you try to delete friend -->
+            <template v-if="deleteFriendPopUp">
+                <div class="card container p-4 profile-delete-popup text-center">
+                    <div class="row mb-3 ">
+                        <h5 style="font-family:worksans-semibold">Delete Friend?</h5>
+                        <span>Are you sure you want to delete {{friendObj.firstname}} as a friend?</span>
+                    </div>
+                    <div class="row">
+                        <div class="col"><button class="profile-popup-button w-100">Yes</button></div>
+                        <div class="col"><button class="profile-popup-button w-100" @click="deleteFriendPopUp=false">No</button></div>
+                    </div>
+                </div>
+                
+            </template>
 
         <!-- name and profile pic section start -->
         <div class="row">
@@ -18,14 +36,42 @@
                 <!-- full name -->
                 <div class="profile-name text-xl-start text-center">
                     {{ friendObj.firstname + ' ' + friendObj.lastname }}
-                    <!-- to add <button> -->
-                        <i class="bi bi-person-plus-fill ms-3"></i><!-- friend add button-->
-                    <!-- to add </button>  -->
+
+                    
+                    <!-- if user is not logged in -->
+                    <template v-if="!isLoggedIn">
+                        <i class="profile-person-icon bi bi-person-plus-fill ms-3" @click="addError"></i>
+                    </template>
+
+                    <!-- if user is not a friend -->
+                    <template v-else-if="!(friendId in myFriends)">
+                        <i class="profile-person-icon bi bi-person-plus-fill ms-3"></i>
+                    </template>
+
+                    <!-- if user is a friend -->
+                    <template v-else-if="(friendId in myFriends)">
+                        <span @mouseover="iconX=true" @mouseleave="iconX=false">
+                            <i v-if="!iconX" class="profile-person-icon bi bi-person-check-fill ms-3"></i>
+                            <i v-else class="profile-person-icon bi bi-person-x-fill ms-3" @click="deleteFriendPopUp=true"></i>
+                        </span>
+                    </template>
+
+                    <!-- if user is requesting -->
+                    <template v-else>
+                        <i class="profile-person-icon bi bi-person-fill ms-3"></i> <span class="profile-side-text">requested</span>
+                    </template>
+                    
+
                 </div>
 
                 <!-- user name -->
                 <div class="text-xl-start text-center">
                     <span class="profile-username">@{{ friendObj.username }}</span>
+                </div>
+
+                <!-- show error if not logged in and want to add -->
+                <div v-if="showText" class="profile-error-div text-xl-start text-center mt-2">
+                    <span class="profile-add-error text-danger" style="font-size: 1rem;"> please log in to add friend!</span>
                 </div>
 
             </div>
@@ -36,14 +82,13 @@
 
         <!-- public jios section start -->
         <div class="profile-public-header text-center my-4"> {{friendObj.firstname}}'s Public Jios</div>
-        <!-- {{ allusers[$route.params.idx].createdjios }} -->
         <div class="row">
             
 <!-- 
             <template v-for="jioObj,jioId in friendObj.createdjios" :key="jioObj"> -->
             <template v-for="jioObj in friendObj.createdjios" :key="jioObj">
                 <!-- <router-link :to="{ name: 'eachjioevent', params: { idx: jioId }}"> -->
-                    <div v-if="ifPublic(jioObj)" class="profile-event-card card border-0  col-12 mx-auto p-3" @mouseover="viewDetails = true" @mouseout="viewDetails = null">
+                    <div v-if="ifPublic(jioObj)" class="profile-event-card card border-0  col-12 mx-auto p-3 pb-5">
                         <!-- <img class="card-img-top" src="../../../wallpaper1.jpg" alt=""> --> 
                         <div class="profile-event-title">{{jioObj.eventname}}</div>
                         <div class="profile-event-location">Starts @ {{jioObj.activities[0].location}}</div>
@@ -51,7 +96,9 @@
                         <div class="profile-activity-name card text-center p-2 m-1" v-for="activity in jioObj.activities.slice(0,3)" :key="activity">
                             {{activity.name}}
                         </div>
-                        <div v-if="viewDetails == true" class="text-center text-secondary"> view more </div>
+                        <div class="profile-view-more">
+                            view more details
+                        </div>
                     </div>
                 <!-- </router-link> -->
             </template>
@@ -65,8 +112,7 @@
         <div class="row">
 
             <!-- check if user is logged in, if not, show lock symbol -->
-            {{$route.query.status}}
-            <div v-if="!authStatus" class="text-center p-5 card border-0 bg-secondary text-light">
+            <div v-if="!isLoggedIn" class="text-center p-5 card border-0 bg-secondary text-light">
                 <i class="profile-lock-icon bi bi-lock-fill"></i>
                 You are not logged in.
                 <div class="d-inline">
@@ -102,7 +148,7 @@
                 <br>
                 Private jios are only available for {{friendObj.firstname}}'s friends. 
                 <div class="d-inline">
-                    Add them as a friend by clicking on the <i class="d-inline bi bi-person-plus-fill"></i> above!
+                    Add {{friendObj.firstname}} as a friend by clicking on the <i class="d-inline bi bi-person-plus-fill"></i> above!
                 </div>
                 
             </div>
@@ -131,8 +177,12 @@ export default{
         return{
             searchedperson:'',
             allusers: [],
-            viewDetails: null,
-            myFriends: ''
+            viewDetails: null, //to show the view more button
+            myFriends: '',
+            showText: false,
+            iconX: false,
+            hover: false,
+            deleteFriendPopUp: false
         }
     },
 
@@ -147,7 +197,23 @@ export default{
             }
         },
 
-        isMyFriend(){
+        // notifies user if not logged in, cant add
+        addError(){
+            if(!this.showText){
+                this.showText = true
+            }
+        },
+        // change friend icon on hover (for current friends)
+        changeIcon(){
+            if(this.iconNormal){
+                this.iconNormal = false
+            }
+            else {
+                this.iconNormal = true
+            }
+        },
+        // delete friend
+        deleteFriend(){
             
         }
     },
@@ -165,8 +231,13 @@ export default{
 
 
         // check if user is logged in
-        authStatus() {
-          return this.$route.query.status == 'notAuth' ?  true : false
+        isLoggedIn() {
+            var myuid = localStorage.getItem('uid')
+            if(myuid.length>0){
+                return true
+            } else{
+                return false
+            }
         }
     },
 
@@ -189,11 +260,5 @@ export default{
     },
     
 }
-
-</script>
-
-<script setup>
-import { getAuth } from 'firebase/auth'
-const auth = getAuth
 
 </script>
