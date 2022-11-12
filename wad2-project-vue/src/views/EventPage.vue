@@ -123,7 +123,7 @@
                         </a>
                     </div>
                     <div id="event-card-buttons" class="col-lg-2 col-4 my-auto">
-                        <button type="button" class="btn btn-primary col-12">
+                        <button type="button" class="btn btn-primary col-12 ">
                             <router-link
                                 class="routerLink"
                                 :to="{
