@@ -264,6 +264,7 @@ export default {
     <div class="container">
         <div class="row">
             <div class="col-6 d-flex justify-content-center mt-5">
+                 <label class="text-center">Search Events <i class="bi bi-search"></i></label>
                 <input type="textbox" v-model="searchedname" class="form-control rounded-pill"
                     id="exampleFormControlInput1" placeholder="Search..." @keyup="search()"
                     @keyup.delete="deletesearch()" />
