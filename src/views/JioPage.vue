@@ -415,7 +415,6 @@
                             <button
                                 type="button"
                                 class="btn btn-primary col-12"
-                                @click="joinjio(event.userid)"
                             >
                                 Join Jio +
                             </button>
