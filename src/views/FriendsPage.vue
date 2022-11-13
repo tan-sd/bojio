@@ -1,4 +1,5 @@
 <template>
+    {{myFriends}}
         <div class="container">
             <!-- display friend requests here first -->
             <div class="mb-3 d-flex justify-content-center" style="font-family:worksans-medium; font-size:1.5rem">Friend Requests</div>
@@ -43,13 +44,14 @@
                 
             <div class="mb-3 d-flex justify-content-center" style="font-family:worksans-medium; font-size:1.5rem">Current Friends</div>
             <div class="row">
-                <div class="input-group mb-3 w-25 mx-auto mb-5 friend-search">
+                <div class="input-group mb-3 w-25 mx-auto mb-2 friend-search">
                     <input type="text" class="form-control" name="searchfriend" placeholder="Find a friend..." v-model="searchedfriends">
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xl-4 col-md-6 mb-5 d-flex justify-content-center" v-for="key, friend in filterfriends" :key="key">
-                    <template v-if="key in Object.keys">
+            <div class="row mb-5">
+                
+                <template v-if="Object.keys(filterfriends).length > 0">
+                    <div class="col-xl-4 col-md-6 mb-5 d-flex justify-content-center" v-for="key, friend in filterfriends" :key="key">
                         <router-link class="routerLink" :to="{name:'individual profile', params:{idx: key}}">
                             <div class="card border-0 friend-bar p-2 ps-3" style="width: 20rem; height: 5rem;">
                                 <div class="row">
@@ -64,7 +66,12 @@
                                 </div>
                             </div>
                         </router-link>
-                    </template>
+                    </div>
+                </template>
+
+                <div v-else class="text-center">
+                    <div style="font-size:2rem"><i class="orange-icon bi bi-people-fill"></i></div>
+                    <div>No friends found. <br> Add some users below. :) </div>
                 </div>
             </div>
         </div>
