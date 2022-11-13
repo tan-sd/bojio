@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="row d-flex justify-content-center align-items-center">
-            <img id="goToTop" v-if="event.image == 'no-image'" src="/public/Images/default-event-picture.jpg" class="event-banner-card-image" />
+            <img id="goToTop" v-if="event.image == 'no-image'" src="../../public/Images/default-event-picture.jpg" class="event-banner-card-image" />
             <img v-else id="goToTop" class="event-banner-card-image" :src="event.imageUrl"/>
         </div>
     </div>
