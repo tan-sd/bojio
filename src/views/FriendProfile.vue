@@ -85,34 +85,42 @@
 
 
         <!-- public jios section start -->
-        <div class="profile-public-header text-center my-4"> {{friendObj.firstname[0].toUpperCase() + friendObj.firstname.slice(1,friendObj.firstname.length)}}'s Public Jios</div>
+        <div class="profile-public-header text-center my-4">Public Jios</div>
         <div class="row">
+            {{Object.keys(friendObj.createdjios).length}}
             
 <!-- 
             <template v-for="jioObj,jioId in friendObj.createdjios" :key="jioObj"> -->
-            <template v-for="jioObj in friendObj.createdjios" :key="jioObj">
-                <!-- <router-link :to="{ name: 'eachjioevent', params: { idx: jioId }}"> -->
-                    <div v-if="ifPublic(jioObj)" class="profile-event-card card border-0 col-12 mx-auto p-3 pb-5">
-                        <!-- <img class="card-img-top" src="../../../wallpaper1.jpg" alt=""> --> 
-                        <div class="profile-event-title">{{jioObj.eventname}}</div>
-                        <div class="profile-event-location">Starts @ {{jioObj.activities[0].location}}</div>
-                        <!-- slice to only show first three activities for the jio. users can click the event to see all -->
-                        <div class="profile-activity-name card text-center p-2 m-1" v-for="activity in jioObj.activities.slice(0,3)" :key="activity">
-                            {{activity.name}}
+            <!-- <template v-if="Object.keys(friendObj.createdjios).length > 0"> -->
+                <template v-for="jioObj in friendObj.createdjios" :key="jioObj">
+                    <!-- <router-link :to="{ name: 'eachjioevent', params: { idx: jioId }}"> -->
+                        <div v-if="ifPublic(jioObj)" class="profile-event-card card border-0 col-12 mx-auto p-3 pb-5">
+                            <!-- <img class="card-img-top" src="../../../wallpaper1.jpg" alt=""> -->
+                            <div class="profile-event-title">{{jioObj.eventname}}</div>
+                            <div class="profile-event-location">Starts @ {{jioObj.activities[0].location}}</div>
+                            <!-- slice to only show first three activities for the jio. users can click the event to see all -->
+                            <div class="profile-activity-name card text-center p-2 m-1" v-for="activity in jioObj.activities.slice(0,3)" :key="activity">
+                                {{activity.name}}
+                            </div>
+                            <div class="profile-view-more">
+                                view more details
+                            </div>
                         </div>
-                        <div class="profile-view-more">
-                            view more details
-                        </div>
-                    </div>
-                <!-- </router-link> -->
-            </template>
+                    <!-- </router-link> -->
+                </template>
+            <!-- </template> -->
+            <!-- <template v-else>
+                <div>
+                    
+                </div>
+            </template> -->
 
         </div>
         <!-- public jios section end -->
 
 
         <!-- private jios section start -->
-        <div class="profile-public-header text-center my-4"> {{friendObj.firstname[0].toUpperCase() + friendObj.firstname.slice(1,friendObj.firstname.length)}}'s Private Jios</div>
+        <div class="profile-public-header text-center my-4">Private Jios</div>
         <div class="row">
 
             <!-- check if user is logged in, if not, show lock symbol -->
@@ -128,7 +136,7 @@
 
             <!-- if user has no private jios -->
             <div v-else-if="friendObj.createdjios.length == 0" class="text-center p-5 card">
-                {{friendObj.firstname}} currently does not have any private jios.
+                {{friendObj.firstname[0].toUpperCase() + friendObj.firstname.slice(1,friendObj.firstname.length)}} currently does not have any private jios.
             </div>
             
             <!-- check if user is a friend, show private jios -->
