@@ -4,11 +4,7 @@
         <div class="container">
             <div class="row">
                 <div class="col d-flex justify-content-center">
-                    <img
-                        class="event-banner-card-image"
-                        id="goToTop"
-                        :src="imageurl"
-                    />
+                    <img class="event-banner-card-image" id="goToTop" :src="imageurl" />
                 </div>
             </div>
         </div>
@@ -29,62 +25,36 @@
                     <!-- description from data -->
                     <div class="row mx-auto">
                         <div style="font-family: worksans-semibold">About</div>
-                        <div
-                            class="mb-5"
-                            id="event-about-section"
-                            v-html="description"
-                        ></div>
+                        <div class="mb-5" id="event-about-section" v-html="description"></div>
                     </div>
                 </div>
 
                 <div class="col-12 col-xl-5 mt-5 order-xl-last order-first">
                     <div class="p-3 event-right-column event-map-container">
                         <div class="row mx-auto">
-                            <div
-                                class="mt-2"
-                                style="font-family: worksans-semibold"
-                            >
+                            <div class="mt-2" style="font-family: worksans-semibold">
                                 Details
                             </div>
                             <div class="mt-2">
-                                <i
-                                    class="bi bi-calendar2-week-fill eventDate"
-                                    style="margin-right: 10px"
-                                ></i
-                                >{{ displayDate() }}, {{ convertTime() }}
+                                <i class="bi bi-calendar2-week-fill eventDate" style="margin-right: 10px"></i>{{
+                                        displayDate()
+                                }}, {{ convertTime() }}
                             </div>
                             <div class="mt-2">
-                                <i
-                                    class="bi bi-geo-alt-fill eventVenue"
-                                    style="margin-right: 10px"
-                                ></i
-                                >{{ getVenue() }}
+                                <i class="bi bi-geo-alt-fill eventVenue" style="margin-right: 10px"></i>{{ getVenue() }}
                             </div>
                             <div class="mt-2">
-                                <i
-                                    class="bi bi-briefcase-fill"
-                                    style="margin-right: 10px"
-                                ></i
-                                >{{ organizerName }}
+                                <i class="bi bi-briefcase-fill" style="margin-right: 10px"></i>{{ organizerName }}
                             </div>
                         </div>
 
                         <div class="container mb-3 mt-4">
                             <div class="col text-center">
                                 <!-- GOOGLE MAP -->
-                                <GMapMap
-                                    :center="center"
-                                    :zoom="16"
-                                    map-type-id="roadmap"
-                                    style="width: 85; height: 40vmin"
-                                    :options="options"
-                                    ref="map"
-                                >
-                                    <GMapMarker
-                                        :key="marker.id"
-                                        v-for="marker in markers"
-                                        :position="marker.position"
-                                    />
+                                <GMapMap :center="center" :zoom="16" map-type-id="roadmap"
+                                    style="width: 85; height: 40vmin" :options="options" ref="map">
+                                    <GMapMarker :key="marker.id" v-for="marker in markers"
+                                        :position="marker.position" />
                                 </GMapMap>
                             </div>
                         </div>
@@ -102,42 +72,35 @@
                                 {{ displayDate().toUpperCase() }},
                                 {{ convertTime() }}
                             </div>
-                            <div
-                                class="row"
-                                style="font-family: worksans-semibold"
-                            >
+                            <div class="row" style="font-family: worksans-semibold">
                                 {{ name }}
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-2 col-4 my-auto" id="event-card-buttons">
-                        <a
-                            :href="routeLink"
-                            target="_blank"
-                            id="event-route"
-                            class="col-12"
-                        >
-                            <span id="howToGetThere"
-                                ><i class="bi bi-pin-map"></i> Directions</span
-                            >
+                        <a :href="routeLink" target="_blank" id="event-route" class="col-12">
+                            <span id="howToGetThere"><i class="bi bi-pin-map"></i> Directions</span>
                         </a>
                     </div>
                     <div id="event-card-buttons" class="col-lg-2 col-4 my-auto">
                         <button type="button" class="btn btn-primary col-12 ">
-                            <router-link
-                                class="routerLink"
-                                :to="{
-                                    name: 'createajioParams',
-                                    params: { idx: this.name },
-                                }"
-                            >
+                            <router-link class="routerLink" :to="{
+                                name: 'createajioParams',
+                                params: { idx: this.name },
+                            }">
                                 Create a Jio
                             </router-link>
                         </button>
                     </div>
                     <div id="event-card-buttons" class="col-lg-2 col-4 my-auto">
+
                         <button type="button" class="btn btn-primary col-12">
-                            Join a Jio
+                            <router-link class="routerLink" :to="{
+                                name: 'publicevents',
+                                params: { idx: this.name }
+                            }">
+                                Join a Jio
+                            </router-link>
                         </button>
                     </div>
                 </div>
@@ -149,16 +112,9 @@
         <div>
             <div class="row">
                 <div class="col-11 col-sm-10 col-md-8 col-lg-6 mx-auto">
-                    <svg
-                        class="bd-placeholder-img card-img-top"
-                        width="100%"
-                        height="180"
-                        xmlns="http://www.w3.org/2000/svg"
-                        role="img"
-                        aria-label="Placeholder"
-                        preserveAspectRatio="xMidYMid slice"
-                        focusable="false"
-                    >
+                    <svg class="bd-placeholder-img card-img-top" width="100%" height="180"
+                        xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder"
+                        preserveAspectRatio="xMidYMid slice" focusable="false">
                         <rect width="100%" height="100%" fill="#868e96"></rect>
                     </svg>
                     <div id="event-banner-card-body">
@@ -177,9 +133,7 @@
                                     <span class="placeholder col-5"></span>
                                 </p>
                             </div>
-                            <p
-                                class="col-12 col-md-6 text-center placeholder-glow"
-                            >
+                            <p class="col-12 col-md-6 text-center placeholder-glow">
                                 <span class="placeholder col-12 mb-1"></span>
                                 <span class="placeholder col-12 mb-1"></span>
                                 <span class="placeholder col-12"></span>
@@ -274,7 +228,7 @@ export default {
     },
 
     methods: {
-        
+
 
         calculateAndDisplayRoute(
             directionsService,
@@ -391,7 +345,7 @@ export default {
         shorttext(value, limit) {
             if (value) {
                 return value.substring(0, limit);
-            }            
+            }
         }
     },
 
@@ -423,7 +377,7 @@ export default {
 
     created() {
         this.ownLoc;
-        
+
         // this.calculateAndDisplayRoute()
         // this.loadMap()
 
@@ -457,40 +411,40 @@ export default {
                 //start of locating user 
                 navigator.geolocation.getCurrentPosition(
                     (position) => {
-                    axios
-                    .get(this.venueURL)
-                    .then(
-                        (response) => (
-                            this.ownLat = position.coords.latitude,
-                            this.ownLng = position.coords.longitude,
-                            console.log(this.ownLat, this.ownLng),
-                            console.log(response.data),
-                            (this.venueName = response.data.name),
-                            (this.latitude = parseFloat(
-                                response.data.latitude
-                            )),
-                            (this.longitude = parseFloat(
-                                response.data.longitude
-                            )),
-                            console.log(this.ownLat),
-                            console.log(this.ownLng),
-                            (this.routeLink =
-                                "https://www.google.com/maps/dir/" +
-                                this.ownLat +
-                                "," +
-                                this.ownLng +
-                                "/" +
-                                this.latitude +
-                                "," +
-                                this.longitude)
-                        ),
-                    )     
-                        },
-                        (error) => {
-                            console.log(error.message);
-                        }
-                    ),
-                
+                        axios
+                            .get(this.venueURL)
+                            .then(
+                                (response) => (
+                                    this.ownLat = position.coords.latitude,
+                                    this.ownLng = position.coords.longitude,
+                                    console.log(this.ownLat, this.ownLng),
+                                    console.log(response.data),
+                                    (this.venueName = response.data.name),
+                                    (this.latitude = parseFloat(
+                                        response.data.latitude
+                                    )),
+                                    (this.longitude = parseFloat(
+                                        response.data.longitude
+                                    )),
+                                    console.log(this.ownLat),
+                                    console.log(this.ownLng),
+                                    (this.routeLink =
+                                        "https://www.google.com/maps/dir/" +
+                                        this.ownLat +
+                                        "," +
+                                        this.ownLng +
+                                        "/" +
+                                        this.latitude +
+                                        "," +
+                                        this.longitude)
+                                ),
+                            )
+                    },
+                    (error) => {
+                        console.log(error.message);
+                    }
+                ),
+
                     axios
                         .get(this.descriptionURL)
                         .then(
