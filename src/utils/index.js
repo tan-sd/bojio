@@ -977,21 +977,17 @@ export function createMessage(eventid, message) {
 export function getmessage(eventid) {
   console.log('this function is getmessage');
   return new Promise((resolve, reject) => {
-    console.log('inside promise');
+
     var messages = ref(db, `messages/${eventid}`)
 
     onValue(messages, (snapshot) => {
-      console.log('inside onvalue');
 
       const data = snapshot.val()
 
       if (data != null) {
-        console.log('inside js file getmessage');
-        console.log(data);
-
         return resolve(data)
       }
-      console.log('at reject');
+   
       return reject('not found')
     })
   })

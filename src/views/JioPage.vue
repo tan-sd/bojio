@@ -455,6 +455,7 @@ import { deleteprivatejio, deletepublicjio, leavejio, removemsgs } from "../util
 import { thisExpression } from "@babel/types";
 import {  onValue,  ref as Ref, getDatabase } from "firebase/database";
 import { initializeApp } from 'firebase/app'
+import { TroisJSVuePlugin } from "troisjs";
 
 var directionsDisplay;
 var directionsService;
@@ -798,26 +799,27 @@ export default {
 
             console.log(messages);
             this.state.messages = messages;
+            // this.allthemessages = messages
             console.log('finish get updated message method');
         },
-        getmessage(eventid) {
-            console.log('this function is getmessage');
-            // return new Promise((resolve, reject) => {
+        // getmessage(eventid) {
+        //     console.log('this function is getmessage');
+        //     // return new Promise((resolve, reject) => {
              
-                var messages = ref(db, `messages/${eventid}`)
-                onValue(messages, (snapshot) => {
+        //         var messages = ref(db, `messages/${eventid}`)
+        //         onValue(messages, (snapshot) => {
               
 
-                const data = snapshot.val()
+        //         const data = snapshot.val()
 
-                if (data != null) {
-                    console.log('inside js file getmessage');
-                    console.log(data);
-                }
-                })
-            // })
+        //         if (data != null) {
+        //             console.log('inside js file getmessage');
+        //             console.log(data);
+        //         }
+        //         })
+        //     // })
 
-        },
+        // },
         deleteJio(eventId) {
             let userid = this.event.userid;
             if (this.event.type == "public") {
@@ -850,8 +852,9 @@ export default {
         allmessages() {
             this.getupdatedmessage()
             console.log('allmessages computed');
-            console.log(this.state.messages);
-            return this.state.messages
+            console.log(this.state.messages);   
+            // return this.state.messages
+            return this.allthemessages
         },
 
         getnames() {
@@ -878,15 +881,15 @@ export default {
             return usernames
         },
     },
-    mounted: function () {
-        checkmsg = window.setInterval(() => {
-                this.getupdatedmessage()
-            }, 5000)
-    },
-    unmounted(){
-        console.log('destroyed')
-        clearInterval(checkmsg)
-    },
+    // mounted: function () {
+    //     checkmsg = window.setInterval(() => {
+    //             this.getupdatedmessage()
+    //         }, 5000)
+    // },
+    // unmounted(){
+    //     console.log('destroyed')
+    //     clearInterval(checkmsg)
+    // },
 
 
     created() {
