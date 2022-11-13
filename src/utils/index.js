@@ -504,7 +504,7 @@ export function createJio(actArr) {
   const db = getDatabase();
   console.log('inside function createjio');
   eventname = document.getElementById('eventTitle').value
-  maxLimit= parseInt(document.getElementById("maxLimit").value);
+  maxLimit= parseInt(document.getElementById("eventCapacity").value);
   category = document.getElementById("category").value
   console.log(actArr[0].image == 'no-image')
   image = actArr[0].image
@@ -587,7 +587,7 @@ export function createJio(actArr) {
         console.log(updates);
 
         document.getElementById('eventTitle').value = ''
-        document.getElementById("maxLimit").value = ''
+        document.getElementById("eventCapacity").value = ''
         document.getElementById("category").value = ''
         document.getElementById('eventDateTime').value = ''
         document.querySelector('input[name="exampleRadios"]:checked').checked = false

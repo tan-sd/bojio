@@ -176,6 +176,7 @@
         </form>
         </div>
       </div>
+      {{category}}
 
       <div class="row">
         <div class="col-12 col-lg-5 mt-5">
@@ -228,7 +229,7 @@
             </div>
         </div>
         </div>
-        
+
 
         <div class="col-12 col-lg-7">
           <div class="text-center mb-4 mt-5" style="font-family: worksans-semibold">Overview</div>
@@ -474,6 +475,8 @@ export default {
       var activityTitle = document.getElementById("activityTitle");
       var activityDuration = document.getElementById("activityDuration");
 
+      
+
       if (this.actDuration == "") {
         activityDuration.classList = "form-control is-invalid";
         // this.actError.push("Duration is empty or invalid");
@@ -625,19 +628,22 @@ export default {
       var eventDescription = document.getElementById("eventDescription");
       var eventDateTime = document.getElementById("eventDateTime");
       var eventDateTimeInvalid = document.getElementById("eventDateTimeInvalid");
-      var maxLimit= document.getElementById("maxLimit");
+      var maxEventLimit= document.getElementById("eventCapacity");
       var category = document.getElementById("category");
       var activityLocation = document.getElementById("activityLocation");
       var activityTitle = document.getElementById("activityTitle");
       var activityDuration = document.getElementById("activityDuration");
-      var eventCapacity = document.getElementById('eventCapacity');
+      // var eventCapacity = document.getElementById('eventCapacity');
       var errors = 0;
       console.log(category.value)
+      console.log(this.maxLimit)
+      console.log(typeof this.maxLimit)
+      console.log(typeof maxEventLimit.value)
 
-      if (eventCapacity.value == "") {
-        eventCapacity.classList = "form-control is-invalid";
-      } else if (eventCapacity.value < 1) {
-        eventCapacity.classList = "form-control is-invalid";
+      if (this.maxLimit === "") {
+        maxEventLimit.classList = "form-control is-invalid";
+      } else if (Number(this.maxLimit) < 1) {
+        maxEventLimit.classList = "form-control is-invalid";
         document.getElementById('eventCapacityInvalid').innerHTML = "Please provide a number more than 0."
       }
 
@@ -686,23 +692,24 @@ export default {
         activityLocation.classList = "form-control is-valid";
       }
 
-      if (this.maxLimit == "") {
-        maxLimit.classList = "form-control is-invalid";
-        // this.evtError.push("Event has no title");
-        errors += 1;
-      } else {
-        maxLimit.classList = "form-control is-valid";
-      }
+      // if (this.maxLimit <1) {
+      //   maxLimit.classList = "form-control is-invalid";
+      //   // this.evtError.push("Event has no title");
+      //   errors += 1;
+      // } else {
+      //   maxLimit.classList = "form-control is-valid";
+      // }
 
-      if (category.value == "") {
+      if(this.category==""){
         category.classList = "form-control is-invalid";
-        // this.evtError.push("Event has no title");
+        // this.actError.push("Duration is empty or invalid");
         errors += 1;
       } else {
         category.classList = "form-control is-valid";
       }
       
       console.log(this.evtError);
+      console.log(errors);
 
       if (errors == 0) {
         this.confirmjio=true;
