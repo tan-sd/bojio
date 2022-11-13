@@ -8,7 +8,6 @@
       </div>
     </div> 
 
-  
   <!-- SINGAPORE ISLAND -->
   <div class="mx-auto about-fadeup island">
     <Renderer
@@ -72,7 +71,6 @@
           <div class="text">Click to reset filter.</div>
         </div>
       </div>
-        
         
     </div>
 
@@ -247,6 +245,17 @@ export default {
 
   mounted() {
 
+    if(this.$route.params.idx){
+      console.log(this.$route.params.idx);
+
+      if(this.$route.params.idx == 'events'){
+        this.activeTab = ''
+      }else{
+        
+        this.activeTab = 'PublicButton'
+      }
+      // console.log(this.$route.params.public.idx);
+    }
     const clock = new THREE.Clock();
     const raycaster = new THREE.Raycaster()
     const sizes = {
@@ -358,26 +367,32 @@ export default {
 
     const points = [
       {
-        position: new THREE.Vector3(20, 95, 0),
+        position: new THREE.Vector3(15, 35, 0),
         element: document.querySelector('.point-0')
       },
       {
-        position: new THREE.Vector3(-10, 55, 50),
+        position: new THREE.Vector3(-10, 8, 24),
         element: document.querySelector('.point-1')
       },
       {
-        position: new THREE.Vector3(30, 55, 60),
+        position: new THREE.Vector3(30, 10, 70),
         element: document.querySelector('.point-2')
       },
       {
-        position: new THREE.Vector3(-20, 65, 24),
+        position: new THREE.Vector3(-15, 30, -20),
         element: document.querySelector('.point-3')
       },
       {
-      position: new THREE.Vector3(-30, 50, 60),
+      position: new THREE.Vector3(-20, 10, 70),
         element: document.querySelector('.point-4')
       },
     ];
+
+    for (const point of points) {
+        if (point.element.classList.contains('visible')) {
+          point.element.classList.remove('visible');
+      }
+    }
 
     document.querySelectorAll('.point').forEach(item => {
       item.addEventListener('click', event => {
@@ -455,14 +470,14 @@ export default {
           // console.log(point.element)
           const intersectionDistance = intersects[0].distance;
           const pointDistance = point.position.distanceTo(camera.position);
-          intersectionDistance < pointDistance ? point.element.classList.remove('visible') :  point.element.classList.add('visible');
+          intersectionDistance < pointDistance ? point.element.classList.remove('visible') : point.element.classList.add('visible');
           // console.log(point)
         }
           const translateX = screenPosition.x * sizes.width * 0.5;
           const translateY = - screenPosition.y * sizes.height * 0.5;
           point.element.style.transform = `translateX(${translateX}px) translateY(${translateY}px)`;
         }
-    }
+      }
       renderer.render(scene, camera);
     }
     animate()

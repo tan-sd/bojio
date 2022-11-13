@@ -515,8 +515,9 @@ background-color: #eaeaea !important;
 
 .island {
     height: 80vh;
-    width: 95vw;
+    width: 95%;
     overflow: hidden;
+    position: relative;
 }
 
 .point {
@@ -546,7 +547,7 @@ background-color: #eaeaea !important;
 
 .label {
     position: absolute;
-    top: 600px;
+    top: -16px;
     left: -16px;
     width: 60px;
     height: 60px;
@@ -567,7 +568,7 @@ background-color: #eaeaea !important;
 
 .label:hover {
     opacity: 1;
-    background: linear-gradient(10deg, #ef4136, #fbb040);
+    /* background: linear-gradient(10deg, #ef4136, #fbb040); */
 }
 
 .clicked {

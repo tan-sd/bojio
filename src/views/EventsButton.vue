@@ -13,54 +13,12 @@
                 />
             </div>
 
-            <!-- Search:
-      <input type="textbox" v-model="searchedname" placeholder="enter event name..." @keydown="search()" @keyup.delete="deletesearch()"> -->
-            <!-- <div class="col-12 col-md-6">
-                <span
-                    v-if="selectedlocation == '' || selectedlocation == 'All'"
-                >
-                    All events displayed
-                </span>
-                <span v-else>
-                    You have selected {{ selectedlocation }} events
-                </span> -->
-                <!-- <select v-model="selectedlocation" class="form-select" aria-label="Default select example" @click="filter">
-            <option v-for="(value, key) in sgdistrictcode" :key="value">
-              {{key}}  
-            </option>
-          </select> -->
-                <!-- <button class="btn" style="background-color: #f5b459" @click="clearfilter">
-          Clear filter
-        </button> -->
-            <!-- </div> -->
+            <div v-if="filterchoice!=''"></div>
+
         </div>
 
-        <!-- Filter by Location:
-      <select v-model="selectedlocation" placeholder="select location" @click="filter">
-        <option v-for="value,key in sgdistrictcode" :key="value">{{key}}</option>
-      </select>
-     
-      <div style="float:right">
-        <button @click="clearfilter">
-          Clear filter
-        </button>
-
-      </div>
-    </div>
-    </div> -->
-
-        <!-- <span v-if="data != ''"> -->
-        {{ usemapfilter() }}
-        <!-- </span> -->
     </div>
 
-    <!-- if use map -->
-
-    <!-- chosenlocation: {{selectedlocation}}
-    use filter: {{usefilter}}
-    use search: {{usesearch}} -->
-
-    <!-- {{events}} -->
     <!-- if no filters used  -->
     <div v-if="!usefilter">
         <div
@@ -559,7 +517,9 @@ export default {
         usemapfilter() {
             // console.log('in map filter function');
             // var chosenlocation = this.filterchoice
+            console.log(this.data);
             this.selectedlocation = this.data;
+            console.log(this.selectedlocation);
             this.filter();
         },
 
@@ -663,6 +623,13 @@ export default {
         },
     },
     computed: {
+
+        filterchoice(){
+            console.log(this.data);
+            this.usemapfilter()
+            return this.data
+        },
+
         eventsloaded() {
             if (this.usesearch) {
                 //change events to searcharray
@@ -694,10 +661,7 @@ export default {
     //   return this.filterchoice
     // },
 
-    // created(){
-    //   var mapfilter = this.filterchoice
-    //   console.log(mapfilter);
-    // }
+
 };
 </script>
 
