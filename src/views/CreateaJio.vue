@@ -13,12 +13,12 @@
       </div>
     </div>
     <Transition name="fade">
-            <div v-if="confirmjio" class="profile-dark-background">
+            <div v-if="confirmjio || gobackhome" class="profile-dark-background">
             </div>
         </Transition>
         
             
-            <!-- pops up when you try to delete friend -->
+            <!-- pops up when creating jio -->
             <Transition name="fade">
             <template v-if="confirmjio">
                 <div class="card container p-4 profile-delete-popup text-center">
@@ -27,9 +27,27 @@
                         <span>Are you sure you want to confirm Jio</span>
                     </div>
                     <div class="row">
-                        <div class="col"><router-link to='/' style="text-decoration: none;"><button class="profile-popup-button w-100" @click="createjio">
-                          Yes</button></router-link></div>
+                        <div class="col"><button class="profile-popup-button w-100" @click="createjio">
+                          Yes</button></div>
                         <div class="col"><button class="profile-popup-button w-100" @click="this.confirmjio=false">No</button></div>
+                    </div>
+                </div>
+                
+            </template>
+            </Transition>
+
+            <!-- to direct back to home page -->
+            <Transition name="fade">
+            <template v-if="gobackhome">
+                <div class="card container p-4 profile-delete-popup text-center">
+                    <div class="row mb-3 ">
+                        <h5 style="font-family:worksans-semibold">Confirm Jio?</h5>
+                        <span>Are you sure you want to confirm Jio</span>
+                    </div>
+                    <div class="row">
+                        <div class="col"><router-link to='/' style="text-decoration: none;"><button class="profile-popup-button w-100">
+                          Return back to home page</button></router-link></div>
+                        <div class="col"><button class="profile-popup-button w-100" @click="this.$router.go()">create another jio</button></div>
                     </div>
                 </div>
                 
@@ -102,7 +120,7 @@
                 </div> -->
               </div>
             </div>
-            {{eventDateTime}}
+            
             
             <div class="form-row mt-3">
               Type of Event:
@@ -319,6 +337,7 @@ export default {
   data() {
     return {
       confirmjio:false,
+      gobackhome:false,
       popup:false,
       imgUrl: 'no-imageUrl',
       image: 'no-image',
@@ -687,6 +706,7 @@ export default {
     createjio() {
       createJio(this.actArr)
       this.confirmjio=false;
+      this.gobackhome=true
       // this.$router.push("/");
     },
   },

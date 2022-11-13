@@ -1,7 +1,9 @@
 <template>
     <div class="container mt-5">
         <div class="row w-50 mx-auto">
+
             <div class="col">
+                <p class="text-center">Search Events <i class="bi bi-search"></i></p>
                 <input
                     type="textbox"
                     v-model="searchedname"

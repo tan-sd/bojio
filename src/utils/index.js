@@ -998,13 +998,13 @@ export function getmessage(eventid) {
 
 export function deletepublicjio(eventId,userId){
   
-  
+  remove(ref(db,"accounts/"+userId+"/createdjios/"+eventId))
   remove(ref(db,"createdjios/"+userId+"/"+eventId))
   remove(ref(db,"public events/"+eventId))
 }
 
 export function deleteprivatejio(eventId,userId){
-  
+  remove(ref(db,"accounts/"+userId+"/createdjios/"+eventId))
   remove(ref(db,"createdjios/"+userId+"/"+eventId))
   remove(ref(db,"private events/"+eventId))
 
