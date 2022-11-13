@@ -4,7 +4,7 @@
     <!-- will be putting if person exist here but dont work yet -->
     <div class="container" v-if="uid.length > 0">
       <div class="row mb-5">
-        <div id = 'personname' style="font-family: worksans-extrabold; font-size: 4vmin;"> Welcome, {{fullname}}! 👋🏼</div>
+        <div id = 'personname' style="font-family: worksans-extrabold; font-size: 4vmin;"> Welcome, {{capitalised}}! 👋🏼</div>
       </div>
     </div> 
 
@@ -222,8 +222,6 @@ export default {
         //   }
       },
       loadMore() {
-        console.log(this.fullname);
-        console.log(this.events);
         if (this.length >= this.events.length) {
           return
         }
@@ -240,6 +238,16 @@ export default {
       eventsloaded() {
         return this.events.slice(0, this.length);
       },
+      capitalised(){
+        let nameSplit = this.fullname.split(" ")
+        let firstName = nameSplit[0]
+        let lastName = nameSplit[1]
+
+        firstName = firstName[0].toUpperCase() + firstName.slice(1,firstName.length)
+        lastName = lastName[0].toUpperCase() + lastName.slice(1,lastName.length)
+
+        return `${firstName} ${lastName}`
+      }
 
   },
 
