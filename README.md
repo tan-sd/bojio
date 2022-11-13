@@ -1,12 +1,12 @@
 # BOJIO - A website that connects people together
 
+## Deployment
+
+- View our deployed website on Netlify <a href="https://bojio.netlify.app" target="_blank">`here`</a>
+
 ## Installation
 
 ---
-
-### Deployment
-
-- View our deployed website on Netlify <a href= "https://bojio.netlify.app" target="_blank">here</a>
 
 ### Clone
 
