@@ -1,8 +1,13 @@
 <template>
     <div class="container">
         <div class="row">
+            <div class="col-6 d-flex justify-content-center mt-5">
+                <input type="textbox" v-model="searchedname" class="form-control rounded-pill"
+                    id="exampleFormControlInput1" placeholder="Search..." @keyup="search()"
+                    @keyup.delete="deletesearch()" />
+            </div>
             <div class="col d-flex justify-content-center mt-5">
-                selected: {{ selectedcategory }}
+                <!-- selected: {{ selectedcategory }} -->
                 <select v-model="selectedcategory" placeholder="select category" @click="filter">
                     <option v-for="value in categories" :key="value">
                         {{ value }}
@@ -165,14 +170,6 @@ import { ref } from "vue";
 
 export default {
     name: "PrivateButton",
-    // components: {Modal},
-    // setup(){
-    //   const popupTriggers =ref({
-    //     buttonTrigger: false,
-    //     timedTrigger: false
-    //   })
-    // },
-    // privateevents: getthis(),
 
     data() {
         return {
@@ -197,6 +194,11 @@ export default {
             allevents: "",
             filterobj: {},
             temparray: [],
+            searchobj: {},
+            searchedname: '',
+            usesearch: false,
+            usefilter: false,
+            latestobj: {}
         };
     },
 
@@ -207,19 +209,93 @@ export default {
         filter() {
             var category = this.selectedcategory;
             var tempobj = {};
-            const events = this.privateevents;
-            console.log(typeof events);
-            for (const event in events) {
+            if(!this.usesearch){
+                const events = this.privateevents;
+                for (const event in events) {
                 console.log(event);
                 const eventcat = events[event]["category"];
                 if (eventcat == category) {
                     tempobj[event] = events[event];
                 }
-            }
-            this.filterobj = tempobj;
-            // console.log(JSON.stringify(tempobj));
-        },
+                }
+                this.filterobj = tempobj;
+                console.log(tempobj);
+                
+            }else{
+                //get searcharray
+                const events = this.searchobj
+                for (const event in events) {
+                console.log(event);
+                const eventcat = events[event]["category"];
+                if (eventcat == category) {
+                    tempobj[event] = events[event];
+                }
+                }
+                this.filterobj = tempobj;
+                console.log(tempobj);
 
+                this.latestobj = tempobj
+
+            }
+    
+        },
+        
+        search() {
+    
+    console.log("start of search func");
+    var search = this.searchedname;
+    if (search.length > 0) {
+        this.usesearch = true;
+    } else {
+        this.usesearch = false;
+    }
+    console.log(search);
+    var allevents = this.publicevents;
+    //its an object
+
+    //dont replace this.events , shd create a new search array
+    var tempobj = {};
+    console.log(allevents);
+    for (const event in allevents) {
+        //event is my key
+        console.log(allevents[event]);
+        const eventname = allevents[event]['eventname'].toLowerCase();
+        console.log(eventname);
+        console.log(search);
+        if (eventname.includes(search.toLowerCase())) {
+            tempobj[event] = allevents[event]
+        }
+    }
+    this.searchobj = tempobj
+    console.log(tempobj);
+
+    console.log("end of search func");
+},
+
+deletesearch() {
+    console.log("in delete search");
+    var search = this.searchedname;
+
+    if (search != "") {
+        console.log("in delete, use search");
+
+        var allevents = this.publicevents
+        var tempobj = {};
+
+        for (const event in allevents) {
+            console.log(event);
+            const eventname = allevents[event]["name"].toLowerCase();
+            // console.log(eventname);
+            if (eventname.includes(search.toLowerCase())) {
+                // tempobj.push(event);
+            tempobj[event] = allevents[event]
+            }
+        }
+        this.searchobj = tempobj
+
+        // this.searcharray = temparray;
+    }
+},
         loadMore() {
             console.log(this.privateevents);
             if (this.length >= this.privateevents.length) {
@@ -275,14 +351,23 @@ export default {
     },
     computed: {
         eventsloaded() {
-            // console.log('hi');
+            if(this.usesearch){
+                return this.searchobj
+            }
             return this.privateevents;
         },
 
         filterevents() {
             // this.allevents = this.filterarray
+            if (this.usesearch && this.filterarray) {
+                // if use search, take searcharray
+                this.filter();
+                console.log(this.latestobj);
+                return this.latestobj;
+            }else{
             this.filter();
             console.log(this.filterobj);
+            }
             return this.filterobj;
         },
     },
