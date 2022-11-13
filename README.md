@@ -4,6 +4,11 @@
 
 ---
 
+### Deployment
+```
+View our deployed website on Netlify <a href: bojio.netlify.app>here</a>
+```
+
 ### Clone
 
 - Clone our github repository to your local machine using `https://github.com/tan-sd/wad2-project.git`
@@ -38,3 +43,7 @@ npm run lint
 | Foo Yao Sheng, Matthew         | matthew.foo.2021 | fooyaoshengmatthew@gmail.com    |
 | Muhammad Faez Bin Abdul Latiff | muhammadal.2021  | faezlatiff0706@gmail.com|
 | Sng Yue Wei, Rachel            | rachel.sng.2021  | rrachelsng@gmail.com    |
+
+## Trial Account
+| Username       | michael@gmail.com |
+| Password       | 12345678 |
