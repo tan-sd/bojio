@@ -5,9 +5,8 @@
 ---
 
 ### Deployment
-```
-View our deployed website on Netlify <a href: bojio.netlify.app>here</a>
-```
+
+- View our deployed website on Netlify <a href= "https://bojio.netlify.app" target="_blank">here</a>
 
 ### Clone
 
@@ -46,4 +45,5 @@ npm run lint
 
 ## Trial Account
 | Username       | michael@gmail.com |
-| Password       | 12345678 |
+| -------------- | ------------------|
+| Password       | 12345678          |
