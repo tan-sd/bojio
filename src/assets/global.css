@@ -15,6 +15,14 @@
     src: url("../../public/Font/worksans/WorkSans-SemiBold.ttf");
 }
 
+/* changes any words/icon into a nice orange gradient */
+.orange-icon{
+    background: linear-gradient(90deg, #ef4136, #fbb040);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
 html {
     scroll-behavior: smooth;
     overflow-y: scroll; /* to ensure that scroll bar on the right shows for all pages */
@@ -1620,7 +1628,13 @@ td {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    cursor: pointer;
+}
+
+.orange-icon{
+    background: linear-gradient(90deg, #ef4136, #fbb040);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .profile-side-text{

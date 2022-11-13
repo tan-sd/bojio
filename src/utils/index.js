@@ -547,7 +547,7 @@ export function createJio(actArr) {
 
         var val = snapshot.val()
         console.log(val);
-
+        
         date = document.getElementById('eventDateTime').value
         type = document.querySelector('input[name="exampleRadios"]:checked').value;
     

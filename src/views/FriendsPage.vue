@@ -37,7 +37,8 @@
                 </div>
             </div>
             <div v-else class="text-center mb-5">
-                No requests at the moment! 
+                <div  style="font-size:2rem"><i class="orange-icon bi bi-people-fill"></i></div>
+                <div>No requests at the moment! </div>
             </div>
                 
             <div class="mb-3 d-flex justify-content-center" style="font-family:worksans-medium; font-size:1.5rem">Current Friends</div>
@@ -48,20 +49,22 @@
             </div>
             <div class="row">
                 <div class="col-xl-4 col-md-6 mb-5 d-flex justify-content-center" v-for="key, friend in filterfriends" :key="key">
-                    <router-link class="routerLink" :to="{name:'individual profile', params:{idx: key}}">
-                        <div class="card border-0 friend-bar p-2 ps-3" style="width: 20rem; height: 5rem;">
-                            <div class="row">
-                                <div class="col-3">
-                                    <div class="rounded-circle" style="padding:7px 15px; font-size:30px; background: linear-gradient(90deg, #ef4136, #fbb040); color:white;">
-                                        <span class="d-flex justify-content-center">{{friend[0].toUpperCase()}}</span> 
-                                    </div>   
-                                </div>
-                                <div class="col-9 my-auto">
-                                    <span class="float-start" style="color:black;">{{friend}}</span>
+                    <template v-if="key in Object.keys">
+                        <router-link class="routerLink" :to="{name:'individual profile', params:{idx: key}}">
+                            <div class="card border-0 friend-bar p-2 ps-3" style="width: 20rem; height: 5rem;">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <div class="rounded-circle" style="padding:7px 15px; font-size:30px; background: linear-gradient(90deg, #ef4136, #fbb040); color:white;">
+                                            <span class="d-flex justify-content-center">{{friend[0].toUpperCase()}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-9 my-auto">
+                                        <span class="float-start" style="color:black;">{{friend}}</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </router-link>
+                        </router-link>
+                    </template>
                 </div>
             </div>
         </div>

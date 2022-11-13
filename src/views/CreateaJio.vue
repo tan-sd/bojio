@@ -27,7 +27,8 @@
                         <span>Are you sure you want to confirm Jio</span>
                     </div>
                     <div class="row">
-                        <div class="col"><button class="profile-popup-button w-100" @click="createjio">Yes</button></div>
+                        <div class="col"><router-link to='/' style="text-decoration: none;"><button class="profile-popup-button w-100" @click="createjio">
+                          Yes</button></router-link></div>
                         <div class="col"><button class="profile-popup-button w-100" @click="this.confirmjio=false">No</button></div>
                     </div>
                 </div>
@@ -101,6 +102,7 @@
                 </div> -->
               </div>
             </div>
+            {{eventDateTime}}
             
             <div class="form-row mt-3">
               Type of Event:
