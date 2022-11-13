@@ -216,6 +216,7 @@
                                     <h1>Welcome, {{ state.username }}</h1>
                                 </header>
 
+                                {{allmessages}}
             
                                 <div class="chat-box">
                                     <div
@@ -474,7 +475,10 @@ const firebaseConfig = {
 // var eventId;
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
-
+const state = reactive({
+    username:'',
+    messages:''
+})
 
 export default {
     name: "jio details for both public and private",
@@ -538,8 +542,6 @@ export default {
             }
 
             console.log(refWaypoints);
-            console.log("start: " + start);
-            console.log("end: " + end);
             directionsService.route(
                 {
                     origin: start,
@@ -776,7 +778,7 @@ export default {
             };
 
             createMessage(this.eventId, message);
-            console.log("sendMessage function, finish create message");
+
             this.inputMessage = "";
             //js add on message
             this.allthemessages.push(message)
@@ -802,24 +804,24 @@ export default {
             // this.allthemessages = messages
             console.log('finish get updated message method');
         },
-        // getmessage(eventid) {
-        //     console.log('this function is getmessage');
-        //     // return new Promise((resolve, reject) => {
+        getmessage(eventid) {
+            console.log('this function is getmessage');
+            // return new Promise((resolve, reject) => {
              
-        //         var messages = ref(db, `messages/${eventid}`)
-        //         onValue(messages, (snapshot) => {
+                var messages = ref(db, `messages/${eventid}`)
+                onValue(messages, (snapshot) => {
               
 
-        //         const data = snapshot.val()
+                const data = snapshot.val()
 
-        //         if (data != null) {
-        //             console.log('inside js file getmessage');
-        //             console.log(data);
-        //         }
-        //         })
-        //     // })
+                if (data != null) {
+                    console.log('inside js file getmessage');
+                    console.log(data);
+                }
+                })
+            // })
 
-        // },
+        },
         deleteJio(eventId) {
             let userid = this.event.userid;
             if (this.event.type == "public") {
@@ -850,11 +852,11 @@ export default {
         },
 
         allmessages() {
-            this.getupdatedmessage()
+            // this.getupdatedmessage()
             console.log('allmessages computed');
             console.log(this.state.messages);   
-            // return this.state.messages
-            return this.allthemessages
+            return this.state.messages
+            // return this.allthemessages
         },
 
         getnames() {
@@ -881,15 +883,15 @@ export default {
             return usernames
         },
     },
-    // mounted: function () {
-    //     checkmsg = window.setInterval(() => {
-    //             this.getupdatedmessage()
-    //         }, 5000)
-    // },
-    // unmounted(){
-    //     console.log('destroyed')
-    //     clearInterval(checkmsg)
-    // },
+    mounted: function () {
+        checkmsg = window.setInterval(() => {
+                this.getupdatedmessage()
+            }, 5000)
+    },
+    unmounted(){
+        console.log('destroyed')
+        clearInterval(checkmsg)
+    },
 
 
     created() {

@@ -903,19 +903,13 @@ export function createMessage(eventid, message) {
       if (snapshot.exists()) {
         // console.log(snapshot.val());
         username = snapshot.val().username
-        console.log('LOOKHERE');
-        console.log(username);
-        // }
+
         // return (resolve(snapshot.val().username))
         get(child(dbRef, `messages/${eventid}`)).then((snapshot) => {
           if (snapshot.exists()) {
     
             var val = snapshot.val()
-            console.log(val);
-            console.log('LOOKHERE2');
-    
-            console.log(username);
-    
+ 
             const jioData = {
               username: username,
               content: message.content,
