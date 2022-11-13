@@ -355,6 +355,18 @@ background-color: #eaeaea !important;
     height: 35vmin;
     width: auto;
 }
+
+.crop {
+    height: 205px;
+    width: auto;
+    overflow: hidden;
+}
+
+.crop img {
+    height: 220px;
+    width: 400px;
+}
+
 #event-banner-card-body {
     color: black;
     background-color: white;
@@ -1502,28 +1514,13 @@ td {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    opacity: 0.5;
-    transition: 0.2s ease-in-out;
-}
-
-.friend-tick:hover {
-    opacity: 1;
     cursor: pointer;
-    transition: 0.2s ease-in-out;
 }
 
 .friend-x{
     color: grey;
-    opacity: 0.5;
-    transition: 0.2s ease-in-out;
-}
-
-.friend-x:hover{
-    opacity: 1;
     cursor: pointer;
-    transition: 0.2s ease-in-out;
 }
-
 .friend-request-icons{
     font-size: 1.5rem;
    

@@ -320,11 +320,14 @@ export default {
                 <router-link @click="scrollToTop" style="text-decoration: none; color: inherit"
                     :to="{ name: 'eachjioevent', params: { idx: index } }">
                     <div class="card event-card" style="width: auto; height: 500px">
-                        <img class="card-img-top" v-if="event.image == 'no-image'"
+                        <div v-if="event.image == 'no-image'" class="crop">
+                            <img class="card-img-top fixed-img-size"
                             src="../../public/Images/default-event-picture.jpg"
                             style="max-height: 200px; width: 100%;" />
-                        <img v-else class="card-img-top" :src="event.imageUrl" alt="card image collar"
-                            style="min-height: 200px; width: 100%;" />
+                        </div>
+                        <div v-else class="crop">
+                            <img class="card-img-top fixed-img-size" :src="event.imageUrl" alt="card image collar" style="min-height: 200px; width: 100%"/>
+                        </div>
                         <div class="card-body" style="width: auto">
                             <div class="card-title pt-1 eventTitle">
                                 {{ event.eventname }}
@@ -363,11 +366,12 @@ export default {
                     <router-link @click="scrollToTop" style="text-decoration: none; color: inherit"
                         :to="{ name: 'eachjioevent', params: { idx: index } }">
                         <div class="card event-card" style="width: auto; height: 500px">
-                            <img class="card-img-top" v-if="event.image == 'no-image'"
-                                src="../../public/Images/default-event-picture.jpg"
-                                style="max-height: 200px; width: 100%;" />
-                            <img v-else class="card-img-top" :src="event.imageUrl" alt="card image collar"
-                                style="min-height: 200px; width: 100%;" />
+                            <div v-if="event.image == 'no-image'" class="crop">
+                                <img class="card-img-top fixed-img-size" src="../../public/Images/default-event-picture.jpg"/>
+                            </div>
+                            <div v-else class="crop">
+                                <img class="card-img-top fixed-img-size" :src="event.imageUrl" alt="card image collar" style="min-height: 200px; width: 100%"/>
+                            </div>
                             <div class="card-body" style="width: auto">
                                 <div class="card-title pt-1 eventTitle">
                                     {{ event.eventname }}
