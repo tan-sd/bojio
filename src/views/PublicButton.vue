@@ -236,6 +236,13 @@ export default {
                 console.log("inside this");
                 console.log(value);
                 this.publicevents = value;
+                if (this.$route.params.idx) {
+                    console.log(this.$route.params.idx);
+                    this.searchedname = this.$route.params.idx
+                    this.search()
+                    // this.$router.replace({':idx': null})
+                    this.$route.params.idx = ''
+                }
                 console.log("created - " + this.publicevents);
                 console.log(typeof value);
                 console.log("end of .then");
@@ -247,12 +254,7 @@ export default {
 
     },
 
-    mounted() {
-        if (this.$route.params.idx) {
-            console.log(this.$route.params.idx);
-            this.searchedname = this.$route.params.idx
-        }
-    }
+
 };
 </script>
 

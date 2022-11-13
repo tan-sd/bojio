@@ -454,9 +454,27 @@ getusername,
 import { reactive, onMounted, ref, getCurrentInstance, computed } from "vue";
 import { deleteprivatejio, deletepublicjio, leavejio, removemsgs } from "../utils/index";
 import { thisExpression } from "@babel/types";
+import {  onValue,  ref as Ref, getDatabase } from "firebase/database";
+import { initializeApp } from 'firebase/app'
 
 var directionsDisplay;
 var directionsService;
+var checkmsg;
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDC4kZ-Ec-jP7dnlFEmvD5rW9bOIXRyT3Q",
+  authDomain: "wad2-project-d8ba0.firebaseapp.com",
+  databaseURL: "https://wad2-project-d8ba0-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "wad2-project-d8ba0",
+  storageBucket: "wad2-project-d8ba0.appspot.com",
+  messagingSenderId: "168248515824",
+  appId: "1:168248515824:web:bfcb3221af409131e07635"
+};
+
+// var eventId;
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
 
 export default {
     name: "jio details for both public and private",
@@ -661,22 +679,7 @@ export default {
                                         );
                                         this.errormsg = "u alr in the party";
                                     } 
-                                    // else if (!pplgoing.includes(myuid)) {
-                                    //     // in else statement:
-                                    //     // ppl going is 1 n its me
-                                    //     //means i hvn push the person in so here push
 
-                                    //     // console.log('added');
-                                    //     var uid = localStorage.getItem("uid");
-                                    //     pplgoing.push(uid);
-                                    //     replacejiolist(
-                                    //         creatorid,
-                                    //         this.eventId,
-                                    //         pplgoing
-                                    //     );
-                                    //     this.peoplegoing = pplgoing;
-                                    //     //here means can push person in
-                                    // }
                                 })
                                 .catch((value) => {
                                     console.log(value);
@@ -798,6 +801,24 @@ export default {
             this.state.messages = messages;
             console.log('finish get updated message method');
         },
+        getmessage(eventid) {
+            console.log('this function is getmessage');
+            // return new Promise((resolve, reject) => {
+             
+                var messages = ref(db, `messages/${eventid}`)
+                onValue(messages, (snapshot) => {
+              
+
+                const data = snapshot.val()
+
+                if (data != null) {
+                    console.log('inside js file getmessage');
+                    console.log(data);
+                }
+                })
+            // })
+
+        },
         deleteJio(eventId) {
             let userid = this.event.userid;
             if (this.event.type == "public") {
@@ -828,11 +849,10 @@ export default {
         },
 
         allmessages() {
-            this.getupdatedmessage();
-
+            this.getupdatedmessage()
             console.log('allmessages computed');
             console.log(this.state.messages);
-            return this.allthemessages;
+            return this.state.messages
         },
 
         getnames() {
@@ -857,31 +877,18 @@ export default {
             console.log('username here');
             console.log(usernames);
             return usernames
-            // this.names = usernames;
-            // console.log(this.names);
         },
     },
-    // tempRoute(){
-    //     var ans=""
-    //     navigator.geolocation.getCurrentPosition(
+    mounted: function () {
+        checkmsg = window.setInterval(() => {
+                this.getupdatedmessage()
+            }, 5000)
+    },
+    unmounted(){
+        console.log('destroyed')
+        clearInterval(checkmsg)
+    },
 
-    //         (position) => {
-    //         this.ownLat=position.coords.latitude;
-    //         this.ownLng=position.coords.longitude;
-    //         ans= 'https://www.google.com/maps/dir/'+this.ownLat+","+this.ownLng+"/"
-
-    //         console.log(ans)
-    //         this.routeLink = ans
-    //         return ans
-    //         },
-    //         (error) => {
-    //         ans= error.message;
-    //         },
-    //         // console.log(ans)
-
-    //     );
-    //     return ''
-    // }
 
     created() {
   
