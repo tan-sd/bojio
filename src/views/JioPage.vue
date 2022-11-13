@@ -184,10 +184,11 @@
                         <div
                             class=""
                             v-if="
-                                creatorid == myuid ||
-                                peoplegoing.includes(myuid)
+                                (creatorid == myuid ||
+                                peoplegoing.includes(myuid)) && myuid != ''
                             "
-                        >
+                        > here
+                        {{creatorid}} {{myuid}}
                             <div class="view chat">
                                 <header>
                                     <h1>Welcome, {{ state.username }}</h1>
@@ -364,7 +365,7 @@
                             >
                         </button>
                     </div>
-                    <div v-else-if="pplgoing.includes(myuid)">
+                    <div v-else-if="pplgoing.includes(myuid) && myuid != ''">
                         <button
                             style="
                                 background-image: none;
@@ -386,6 +387,19 @@
                         >
                             <i class="bi bi-lock"></i> No slots left
                         </button>
+                    </div>
+                    <div v-else-if="myuid == ''">
+                        <!-- send to sign up page -->
+                        <router-link class='routerLink' :to="{name:'notloggedin'}">
+                        
+                            <button
+                                type="button"
+                                class="btn btn-primary col-12"
+                                @click="joinjio(event.userid)"
+                            >
+                                Join Jio +
+                            </button>
+                        </router-link>
                     </div>
                     <div v-else>
                         <button

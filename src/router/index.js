@@ -74,7 +74,15 @@ const routes =[
     // props:{
     //   activeTab:'PublicButton'
     // }
-  }
+  },
+  {
+    path: "/login/",
+    name: 'notloggedin',
+    component: () => import ("../views/LogIn.vue"),
+    meta:{ 
+      requiresAuth: true,
+    }
+  },
 ]
 
 
