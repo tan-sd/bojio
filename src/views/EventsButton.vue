@@ -118,6 +118,7 @@
     </div>
     <!-- <button id='view-more' class="btn mb-3" @click="loadMore" style="box-shadow: 0px 0px 14px -7px #f09819" >Load</button> -->
 
+    <!-- if filter is used -->
     <div v-else>
         <div
             id="event-container"
@@ -505,6 +506,7 @@ export default {
                 this.usefilter = false;
             }
 
+            console.log(this.usefilter);
             this.filterarray = temparray;
             // console.log(this.filterarray);
             // console.log('end of filter func');
@@ -515,16 +517,13 @@ export default {
         },
 
         usemapfilter() {
-            // console.log('in map filter function');
-            // var chosenlocation = this.filterchoice
-            console.log(this.data);
+
             this.selectedlocation = this.data;
-            console.log(this.selectedlocation);
             this.filter();
         },
 
         search() {
-            // console.log($e.key);
+
             console.log("start of search func");
             var search = this.searchedname;
             if (search.length > 0) {
@@ -547,35 +546,19 @@ export default {
             }
             this.searcharray = temparray;
             console.log(temparray);
-
+            console.log(this.usesearch);
             console.log("end of search func");
         },
 
         deletesearch() {
             console.log("in delete search");
             var search = this.searchedname;
-
-            // if(this.usesearch & this.usefilter){
-
-            //   console.log('in delete, use filter and search');
-            //   allevents = this.latestarray
-            //   temparray = []
-
-            //   for(const event of allevents){
-            //     // console.log(event);
-            //     const eventname = event['name'].toLowerCase()
-            //     // console.log(eventname);
-            //     if(eventname.includes(search.toLowerCase())){
-            //       temparray.push(event)
-            //     }
-            //   }
-            //   this.searcharray = temparray
-
-            // }
             if (search != "") {
                 console.log("in delete, use search");
 
                 var allevents = sourceData.events;
+                console.log(allevents);
+                console.log(allevents.length);
                 var temparray = [];
 
                 for (const event of allevents) {
@@ -587,6 +570,8 @@ export default {
                     }
                 }
                 this.searcharray = temparray;
+                console.log('in delete search');
+                console.log(this.searcharray);
             }
         },
 
@@ -625,7 +610,7 @@ export default {
     computed: {
 
         filterchoice(){
-            console.log(this.data);
+            // console.log(this.data);
             this.usemapfilter()
             return this.data
         },
@@ -634,6 +619,8 @@ export default {
             if (this.usesearch) {
                 //change events to searcharray
                 this.events = this.searcharray;
+            }else{
+                this.events = sourceData.events
             }
             return this.events.slice(0, this.length);
         },
@@ -651,15 +638,8 @@ export default {
             console.log(this.filterarray);
             return this.filterarray;
         },
-    },
 
-    searchevents() {
-        return this.searcharray;
-    },
-
-    // mapfilter(){
-    //   return this.filterchoice
-    // },
+    }
 
 
 };
