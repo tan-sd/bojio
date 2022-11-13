@@ -369,12 +369,13 @@ export default {
                     </router-link>
                 </div>
             </div>
+            
             <!-- if filter and no events appear -->
             <div v-else>
                 <div class="container">
                     <div class="row" style="height: 400px;">
                         <div class="col text-center my-auto" style="font-family: worksans-extrabold;">
-                            <h1><i class="bi bi-search"></i></h1>
+                            <h1><i class="bi bi-search orange-icon"></i></h1>
                             <div>Sorry! No events found.</div>
                         </div>
                     </div>

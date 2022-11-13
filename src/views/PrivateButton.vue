@@ -21,7 +21,7 @@
         <!-- <Modal v-if="showmodal" v-on:closepopup="close()" ></Modal> -->
         <div class="row" style="height: 400px; font-family: worksans-extrabold;">
             <div class="col my-auto">
-                <h1><i class="bi bi-stars"></i></h1>
+                <h1><i class="bi bi-stars orange-icon"></i></h1>
                 Please
             <span class="privateJio">
                 <router-link to="/login">login</router-link>
@@ -42,7 +42,7 @@
                 <div v-if="!hasfriends">
                     <div class="row" style="height: 400px;">
                         <div class="col text-center my-auto" style="font-family: worksans-extrabold;">
-                            <h1><i class="bi bi-person-add"></i></h1>
+                            <h1><i class="bi bi-person-add orange-icon"></i></h1>
                             <div>You haven't added anyone to your friend's list!</div>
                         </div>
                     </div>
@@ -51,7 +51,7 @@
                     
                     <div class="row" style="height: 400px;">
                         <div class="col text-center my-auto" style="font-family: worksans-extrabold;">
-                            <h1><i class="bi bi-card-heading"></i></h1>
+                            <h1><i class="bi bi-card-heading orange-icon"></i></h1>
                             <div>
                                 It appears your friends has not created any jios. Why don't you create a jio?
                             </div>
@@ -139,10 +139,10 @@
                             </div>
                         </div>
                         <div v-else>
-                            <div class="container mx-auto">
-                                <div class="row mb-5">
-                                    <div class="col text-center" style="font-family: worksans-extrabold">
-                                        <div class=""><i class="bi bi-search"></i></div>
+                            <div class="container">
+                                <div class="row" style="height: 400px;">
+                                    <div class="col text-center my-auto" style="font-family: worksans-extrabold;">
+                                        <h1><i class="bi bi-search orange-icon"></i></h1>
                                         <div>Sorry! No events found.</div>
                                     </div>
                                 </div>
