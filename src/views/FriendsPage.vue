@@ -1,5 +1,4 @@
 <template>
-    {{myFriends}}
         <div class="container">
             <!-- display friend requests here first -->
             <div class="mb-3 d-flex justify-content-center" style="font-family:worksans-medium; font-size:1.5rem">Friend Requests</div>
