@@ -244,7 +244,6 @@ export default {
   },
 
   mounted() {
-
     const clock = new THREE.Clock();
     const raycaster = new THREE.Raycaster()
     const sizes = {
