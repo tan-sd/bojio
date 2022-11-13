@@ -76,13 +76,18 @@ const routes =[
     // }
   },
   {
+    path: "/profile/:idx",
+    name: 'profile',
+    component: () => import ("../views/MyProfile.vue"),
+  },
+  {
     path: "/login/",
     name: 'notloggedin',
     component: () => import ("../views/LogIn.vue"),
     meta:{ 
       requiresAuth: true,
-    }
-  },
+    },
+  }
 ]
 
 
