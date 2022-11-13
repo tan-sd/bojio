@@ -4,7 +4,7 @@
     <!-- will be putting if person exist here but dont work yet -->
     <div class="container" v-if="uid.length > 0">
       <div class="row mb-5">
-        <div id = 'personname' style="font-family: worksans-extrabold; font-size: 4vmin;"> Welcome, {{capitalised}}! 👋🏼</div>
+        <div id = 'personname' style="font-family: worksans-extrabold; font-size: 4vmin;"> Welcome, {{fullName}}! 👋🏼</div>
       </div>
     </div> 
 
@@ -232,22 +232,34 @@ export default {
 
       updatefullname() { 
         this.fullname = localStorage.getItem('fullname')  
+        let nameSplit = this.fullname.split(" ")
+        let firstName = nameSplit[0]
+        let lastName = nameSplit[1]
+        firstName = firstName[0].toUpperCase() + firstName.slice(1,firstName.length)
+        lastName = lastName[0].toUpperCase() + lastName.slice(1,lastName.length)
+        this.fullname = firstName + ' ' + lastName
+        console.log(firstName)
+        console.log(lastName)
       }
     },
   computed: {
       eventsloaded() {
         return this.events.slice(0, this.length);
       },
-      capitalised(){
-        let nameSplit = this.fullname.split(" ")
-        let firstName = nameSplit[0]
-        let lastName = nameSplit[1]
 
-        firstName = firstName[0].toUpperCase() + firstName.slice(1,firstName.length)
-        lastName = lastName[0].toUpperCase() + lastName.slice(1,lastName.length)
-
-        return `${firstName} ${lastName}`
+      fullName(){
+        return this.fullname
       }
+      // capitalised(){
+      //   let nameSplit = this.fullname.split(" ")
+      //   let firstName = nameSplit[0]
+      //   let lastName = nameSplit[1]
+
+      //   firstName = firstName[0].toUpperCase() + firstName.slice(1,firstName.length)
+      //   lastName = lastName[0].toUpperCase() + lastName.slice(1,lastName.length)
+
+      //   return `${firstName} ${lastName}`
+      // }
 
   },
 
@@ -503,13 +515,12 @@ export default {
     getdata().then((value) =>
       { 
         this.fullname = value
+        this.updatefullname()
       }
       )
+
   },
 
-  onMounted() { 
-    this.updatefullname()
-  }
 
 }
 
