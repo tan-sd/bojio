@@ -62,7 +62,7 @@
 
                     <!-- if user is requesting -->
                     <template v-else-if="isRequesting || requested">
-                        <i class="profile-person-icon bi bi-person-fill ms-3"></i> <span class="profile-side-text">requested</span>
+                        <i class="orange-icon bi bi-person-fill ms-3"></i> <span class="profile-side-text">requested</span>
                     </template>
                     
 
@@ -87,14 +87,15 @@
         <!-- public jios section start -->
         <div class="profile-public-header text-center my-4">Public Jios</div>
         <div class="row">
-            {{Object.keys(friendObj.createdjios).length}}
             
-<!-- 
-            <template v-for="jioObj,jioId in friendObj.createdjios" :key="jioObj"> -->
-            <!-- <template v-if="Object.keys(friendObj.createdjios).length > 0"> -->
+
                 <template v-for="jioObj in friendObj.createdjios" :key="jioObj">
                     <!-- <router-link :to="{ name: 'eachjioevent', params: { idx: jioId }}"> -->
-                        <div v-if="ifPublic(jioObj)" class="profile-event-card card border-0 col-12 mx-auto p-3 pb-5">
+                        <div v-if="countPublic() == 0" class="text-center p-5 card">
+                            <div><i class="orange-icon bi bi-balloon-fill"></i></div>
+                            <div>{{friendObj.firstname[0].toUpperCase() + friendObj.firstname.slice(1,friendObj.firstname.length)}} currently does not have any public jios.</div>
+                        </div>
+                        <div v-else-if="ifPublic(jioObj)" class="profile-event-card card border-0 col-12 mx-auto p-3 pb-5">
                             <!-- <img class="card-img-top" src="../../../wallpaper1.jpg" alt=""> -->
                             <div class="profile-event-title">{{jioObj.eventname}}</div>
                             <div class="profile-event-location">Starts @ {{jioObj.activities[0].location}}</div>
@@ -108,12 +109,7 @@
                         </div>
                     <!-- </router-link> -->
                 </template>
-            <!-- </template> -->
-            <!-- <template v-else>
-                <div>
-                    
-                </div>
-            </template> -->
+
 
         </div>
         <!-- public jios section end -->
@@ -135,8 +131,9 @@
             </div> 
 
             <!-- if user has no private jios -->
-            <div v-else-if="friendObj.createdjios.length == 0" class="text-center p-5 card">
-                {{friendObj.firstname[0].toUpperCase() + friendObj.firstname.slice(1,friendObj.firstname.length)}} currently does not have any private jios.
+            <div v-else-if="countPrivate() == 0" class="text-center p-5 card">
+                <div><i class="orange-icon bi bi-balloon-fill"></i></div>
+                <div>{{friendObj.firstname[0].toUpperCase() + friendObj.firstname.slice(1,friendObj.firstname.length)}} currently does not have any private jios.</div>
             </div>
             
             <!-- check if user is a friend, show private jios -->
@@ -259,7 +256,28 @@ export default{
                 }
             }
             this.myFriends = usernames
-        }
+        },
+
+        countPublic(){
+            let count = 0
+            for(let jioObj in this.friendObj.createdjios){
+                if(this.friendObj.createdjios[jioObj].type == "public"){
+                    count++
+                }
+            }
+            return count
+        },
+
+        countPrivate(){
+            let count = []
+            for(let jioObj in this.friendObj.createdjios){
+                if(this.friendObj.createdjios[jioObj].type == "private"){
+                    count++
+                }
+            }
+            return count
+
+        },
     },
     computed: {
 
@@ -303,7 +321,7 @@ export default{
                 }
             }
             return false
-        },
+        }
         
 
     },
