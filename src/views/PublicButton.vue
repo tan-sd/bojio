@@ -20,6 +20,7 @@ export default {
             publicevents: "",
             length: 1,
             categories: [
+                "All",
                 "Business and Industry",
                 "Education",
                 "Entertainment",
@@ -29,7 +30,6 @@ export default {
                 "Shopping and Fashion",
                 "Sports and Outdoor Activities",
                 "Others",
-                "Select All",
             ],
             selectedcategory: "",
             allevents: "",
@@ -270,7 +270,8 @@ export default {
             </div>
             <div class="col-6 d-flex justify-content-center mt-5">
                 <!-- selected: {{ selectedcategory }} -->
-                <select v-model="selectedcategory" placeholder="select category" @click="filter">
+                <select class="form-select" v-model="selectedcategory" @click="filter">
+                    <option disabled value="">Categories</option>
                     <option v-for="value in categories" :key="value">
                         {{ value }}
                     </option>
@@ -281,7 +282,7 @@ export default {
 
     <!-- not using filter, just search or no search -->
     <div id="event-container" class="container mt-5" style="font-family: worksans-medium">
-        <div class="row" id="app" v-if="selectedcategory == '' || selectedcategory == 'Select All'">
+        <div class="row" id="app" v-if="selectedcategory == '' || selectedcategory == 'All'">
             <div class="col-lg-4 col-md-6 mb-5" v-for="(event, index) in eventsloaded" :key="index">
                 <router-link @click="scrollToTop" style="text-decoration: none; color: inherit"
                     :to="{ name: 'eachjioevent', params: { idx: index } }">

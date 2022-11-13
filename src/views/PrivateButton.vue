@@ -8,7 +8,8 @@
             </div>
             <div class="col d-flex justify-content-center mt-5">
                 <!-- selected: {{ selectedcategory }} -->
-                <select v-model="selectedcategory" placeholder="select category" @click="filter">
+                <select class="form-select" v-model="selectedcategory" @click="filter">
+                    <option disabled value="">Categories</option>
                     <option v-for="value in categories" :key="value">
                         {{ value }}
                     </option>
@@ -62,7 +63,7 @@
                 <div v-else>
                     <div
                         class="row"
-                        v-if=" selectedcategory == '' || selectedcategory == 'Select All'">
+                        v-if=" selectedcategory == '' || selectedcategory == 'All'">
                         <div class="col-lg-4 col-md-6 mb-5" v-for="(event, index) in privateevents" :key="index">
                             <router-link @click="scrollToTop" style="text-decoration: none; color: inherit" :to="{ name: 'eachjioevent', params: { idx: index },}">
                                 <div class="card event-card" style="width:auto; height:500px;">
@@ -180,6 +181,7 @@ export default {
             myfriends: [],
             hasfriends: false,
             categories: [
+                "All",
                 "Business and Industry",
                 "Education",
                 "Entertainment",
@@ -189,7 +191,6 @@ export default {
                 "Shopping and Fashion",
                 "Sports and Outdoor Activities",
                 "Others",
-                "Select All",
             ],
             allevents: "",
             filterobj: {},
