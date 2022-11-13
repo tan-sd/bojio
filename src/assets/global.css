@@ -305,6 +305,13 @@ background-color: #eaeaea !important;
     background: linear-gradient(90deg, #ef4136, #fbb040);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    opacity: 0.6;
+    transition: 0.3s ease-in-out;
+}
+
+.privateJio:hover {
+    opacity: 1;
+    transition: 0.3s ease-in-out;
 }
 
 /* HOMEPAGE END */
