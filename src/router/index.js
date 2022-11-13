@@ -87,7 +87,11 @@ const routes =[
     meta:{ 
       requiresAuth: true,
     },
-  }
+  },
+  {
+    path: '/*',
+    component: 404
+  },
 ]
 
 

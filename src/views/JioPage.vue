@@ -214,9 +214,7 @@
                             <div class="view chat">
                                 <header>
                                     <h1>Welcome, {{ state.username }}</h1>
-                                </header>
-
-                                {{allmessages}}
+                                </header>   
             
                                 <div class="chat-box">
                                     <div
