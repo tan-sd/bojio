@@ -5,6 +5,29 @@
             <img v-else id="goToTop" class="event-banner-card-image" :src="event.imageUrl"/>
         </div>
     </div>
+    <Transition name="fade">
+            <div v-if="confirmDelete" class="profile-dark-background">
+            </div>
+    </Transition>
+        
+            
+            <!-- pops up when you try to delete friend -->
+            <Transition name="fade">
+            <template v-if="confirmDelete">
+                <div class="card container p-4 profile-delete-popup text-center">
+                    <div class="row mb-3 ">
+                        <h5 style="font-family:worksans-semibold">Delete Jio?</h5>
+                        <span>Are you sure you want to delete Jio?</span>
+                    </div>
+                    <div class="row">
+                        <div class="col"><router-link to='/' style="text-decoration: none;"><button class="profile-popup-button w-100" @click="deleteJio(this.eventId)">
+                        Yes</button></router-link></div>
+                        <div class="col"><button class="profile-popup-button w-100" @click="this.confirmDelete=false">No</button></div>
+                    </div>
+                </div>
+                
+            </template>
+            </Transition>
 
     <div class="container">
         <div class="event-header-details text-center">
@@ -184,10 +207,11 @@
                         <div
                             class=""
                             v-if="
-                                creatorid == myuid ||
-                                peoplegoing.includes(myuid)
+                                (creatorid == myuid ||
+                                peoplegoing.includes(myuid)) && myuid != ''
                             "
-                        >
+                        > here
+                        {{creatorid}} {{myuid}}
                             <div class="view chat">
                                 <header>
                                     <h1>Welcome, {{ state.username }}</h1>
@@ -356,15 +380,13 @@
                         <button
                             type="button"
                             class="btn btn-primary col-12"
-                            @click="deleteJio(eventId)"
+                            @click="this.confirmDelete=true"
                         >
-                            <router-link to="/" style="text-decoration: none"
-                                ><i class="bi bi-x-lg"></i> Delete this
-                                jio</router-link
-                            >
+                        <i class="bi bi-x-lg"></i> Delete this jio
+                            
                         </button>
                     </div>
-                    <div v-else-if="pplgoing.includes(myuid)">
+                    <div v-else-if="pplgoing.includes(myuid) && myuid != ''">
                         <button
                             style="
                                 background-image: none;
@@ -386,6 +408,19 @@
                         >
                             <i class="bi bi-lock"></i> No slots left
                         </button>
+                    </div>
+                    <div v-else-if="myuid == ''">
+                        <!-- send to sign up page -->
+                        <router-link class='routerLink' :to="{name:'notloggedin'}">
+                        
+                            <button
+                                type="button"
+                                class="btn btn-primary col-12"
+                                @click="joinjio(event.userid)"
+                            >
+                                Join Jio +
+                            </button>
+                        </router-link>
                     </div>
                     <div v-else>
                         <button
@@ -429,6 +464,7 @@ export default {
 
     data() {
         return {
+            confirmDelete:false,
             eventId: "",
             event: "",
             errormsg: "",
@@ -765,12 +801,12 @@ export default {
         },
         deleteJio(eventId) {
             let userid = this.event.userid;
-
             if (this.event.type == "public") {
                 deletepublicjio(eventId, userid);
             } else {
                 deleteprivatejio(eventId, userid);
             }
+            this.confirmDelete=false;
         },
     },
 

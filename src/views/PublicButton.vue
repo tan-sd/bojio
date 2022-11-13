@@ -39,6 +39,7 @@ export default {
             searchedname: '',
             usesearch: false,
             usefilter: false,
+            latestobj:{}
         };
     },
 
@@ -99,17 +100,35 @@ export default {
         filter() {
             var category = this.selectedcategory;
             var tempobj = {};
-            const events = this.publicevents;
-            console.log(typeof events);
-            for (const event in events) {
+
+           //if im using only filter function
+           if(!this.usesearch){
+                const events = this.publicevents;
+                for (const event in events) {
                 console.log(event);
                 const eventcat = events[event]["category"];
                 if (eventcat == category) {
                     tempobj[event] = events[event];
                 }
+                }
+                this.filterobj = tempobj;
+                console.log(tempobj);
+                
+            }else{
+                //get searcharray
+                const events = this.searchobj
+                for (const event in events) {
+                console.log(event);
+                const eventcat = events[event]["category"];
+                if (eventcat == category) {
+                    tempobj[event] = events[event];
+                }
+                }
+                this.filterobj = tempobj;
+                console.log(tempobj);
+
+                this.latestobj = tempobj
             }
-            this.filterobj = tempobj;
-            console.log(tempobj);
         },
 
         search() {
@@ -136,11 +155,9 @@ export default {
                 console.log(search);
                 if (eventname.includes(search.toLowerCase())) {
                     tempobj[event] = allevents[event]
-                    // temparray.push(allevents[event]);
                 }
             }
             this.searchobj = tempobj
-            // this.searcharray = temparray;
             console.log(tempobj);
 
             console.log("end of search func");
@@ -181,46 +198,6 @@ export default {
             window.removeEventListener('popstate', this.popstateEventAction);
         }
 
-        // firebaseevents() {
-        //   getpublic().then((value) =>{
-        //       console.log('inside this');
-        //       console.log(value);
-        //       this.publicevents = value
-        //       // console.log("created - " + this.publicevents);
-        //       // console.log(typeof(value));
-        //       // console.log('end of .then');
-        //     })
-        //     .catch((message)=> {
-        //       console.log(message);
-        //       console.log('error');
-        //     })
-
-        // }
-
-        // outerfunction(){
-
-        //   getthis.then((value) =>{
-        //     eventsfromdb = value
-        //     console.log(value);
-        //     console.log(typeof(value));
-        //   })
-        //   .catch((message)=> {
-        //     console.log('error');
-        //   })
-
-        // },
-
-        // events: localStorage.getItem('publicjios'),
-        // mounted(){
-        //     fetch(getpublic())
-        //     .then( res => res.json())
-        //     .then(data => this.jobs = data)
-        //     .catch(err => console.log(err.message))
-
-        // }
-        // mounted(){
-        //     getpublic()
-        // }
     },
 
     computed: {
@@ -233,8 +210,15 @@ export default {
 
         filterevents() {
             // this.allevents = this.filterarray
-            this.filter();
-            console.log(this.filterobj);
+            if (this.usesearch && this.filterarray) {
+                // if use search, take searcharray
+                this.filter();
+                console.log(this.latestobj);
+                return this.latestobj;
+            }else{
+                this.filter();
+                console.log(this.filterobj);
+            }
             return this.filterobj;
         },
 
@@ -261,25 +245,6 @@ export default {
                 console.log("error");
             });
 
-        // this.firebaseevents()
-        // console.log("getpublic2")
-        // const dbRef = ref(getDatabase());
-        // get(child(dbRef, `public events/`)).then((snapshot) => {
-        //   console.log("getpublic2 - then")
-        //   if (snapshot.exists()) {
-        //     console.log("getpublic2 - snapshotexists")
-
-        //     // console.log(snapshot.val());
-        //     localStorage.setItem('publicjios', JSON.stringify(snapshot.val()))
-        //     console.log("snapshot.val():" + snapshot.val());
-        //     this.publicevents = snapshot.val();
-        //     // localStorage.setItem('publicjios', JSON.stringify(snapshot.val())
-        //   } else {
-        //     console.log("No data available");
-        //   }
-        // }).catch((error) => {
-        //   console.error(error);
-        // });
     },
 
     mounted() {
@@ -304,7 +269,7 @@ export default {
                     @keyup.delete="deletesearch()" />
             </div>
             <div class="col-6 d-flex justify-content-center mt-5">
-                selected: {{ selectedcategory }}
+                <!-- selected: {{ selectedcategory }} -->
                 <select v-model="selectedcategory" placeholder="select category" @click="filter">
                     <option v-for="value in categories" :key="value">
                         {{ value }}
@@ -314,6 +279,7 @@ export default {
         </div>
     </div>
 
+    <!-- not using filter, just search or no search -->
     <div id="event-container" class="container mt-5" style="font-family: worksans-medium">
         <div class="row" id="app" v-if="selectedcategory == '' || selectedcategory == 'Select All'">
             <div class="col-lg-4 col-md-6 mb-5" v-for="(event, index) in eventsloaded" :key="index">
@@ -360,6 +326,7 @@ export default {
         </div>
         <!-- C:\Users\tan_s\Downloads\Web Development\wad2-project\public\Images\wallpaper1.jpg -->
 
+        <!-- this one already filtering -->
         <div v-else>
             <div class="row" v-if="Object.keys(filterevents).length > 0">
                 <div class="col-lg-4 col-md-6 mb-5" v-for="(event, index) in filterevents" :key="index">
@@ -403,6 +370,7 @@ export default {
                 </div>
             </div>
             
+            <!-- if filter and no events appear -->
             <div v-else>
                 <div class="container">
                     <div class="row" style="height: 400px;">

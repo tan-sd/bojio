@@ -17,7 +17,7 @@
     <div class="container-fluid text-center" v-if="authStatus">
       <div class="row mt-3">
         <div class="col-8 p-3 mx-auto" style="color: red; width:400px; font-family: worksans-semibold">
-          <span>You must be logged in to begin creating Jios.</span>
+          <span>Oops! You must be logged in.</span>
         </div>
       </div>
     </div>
