@@ -210,8 +210,7 @@
                                 (creatorid == myuid ||
                                 peoplegoing.includes(myuid)) && myuid != ''
                             "
-                        > here
-                        {{creatorid}} {{myuid}}
+                        >
                             <div class="view chat">
                                 <header>
                                     <h1>Welcome, {{ state.username }}</h1>
