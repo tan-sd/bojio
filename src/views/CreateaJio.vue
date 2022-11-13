@@ -685,6 +685,7 @@ export default {
     createjio() {
       createJio(this.actArr)
       this.confirmjio=false;
+      this.$router.push("/");
     },
   },
 
