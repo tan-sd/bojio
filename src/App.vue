@@ -84,6 +84,10 @@
               <!-- <a class="nav-link" href="./signup.html">Sign up</a> -->
             </li>
             <li class="nav-item pe-4">
+              <router-link :to="{name: 'profile', params: {idx : uid}}" class="nav-link"> Profile </router-link> 
+              <!-- <a class="nav-link" href="./signup.html">Sign up</a> -->
+            </li>
+            <li class="nav-item pe-4">
               <router-link to="/friendspage" class="nav-link"> Friends </router-link> 
               <!-- <a class="nav-link" href="./signup.html">Sign up</a> -->
             </li>
@@ -136,14 +140,10 @@ import { getDatabase, onValue } from 'firebase/database'
 import { getdata } from './utils';
 
 
-
-
-
-
-
 const router = useRouter();
 const isLoggedIn = ref(false)
 
+var uidParams = `/profile/${uid}`
 var uid;
 
 let auth;

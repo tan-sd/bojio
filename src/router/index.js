@@ -74,6 +74,11 @@ const routes =[
     // props:{
     //   activeTab:'PublicButton'
     // }
+  },
+  {
+    path: "/profile/:idx",
+    name: 'profile',
+    component: () => import ("../views/MyProfile.vue"),
   }
 ]
 
