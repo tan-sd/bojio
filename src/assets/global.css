@@ -1530,12 +1530,31 @@ td {
     -webkit-text-fill-color: transparent;
     background-clip: text;
     cursor: pointer;
+    opacity: 0.5;
+    transition: 0.2s ease-in-out;
+}
+
+.friend-tick:hover{
+    opacity: 1;
+    transition: 0.2s ease-in-out;
+    
 }
 
 .friend-x{
     color: grey;
     cursor: pointer;
+    opacity: 0.5;
+    transition: 0.2s ease-in-out;
 }
+
+.friend-x:hover{
+    color: grey;
+    cursor: pointer;
+    opacity: 1;
+    transition: 0.2s ease-in-out;
+}
+
+
 .friend-request-icons{
     font-size: 1.5rem;
    

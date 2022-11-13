@@ -51,7 +51,7 @@
                     </template>
 
                     <!-- if user is a friend -->
-                    <template v-else-if="(Object.keys(myFriends).includes(friendId))">
+                    <template v-else-if="Object.keys(myFriends).includes(friendId)">
                             <!-- allow to delete on hover -->
                             <span @mouseover="iconX=true" @mouseleave="iconX=false">
                                 <i v-if="!iconX" class="profile-person-icon bi bi-person-check-fill ms-3"></i>
@@ -84,29 +84,45 @@
         <!-- name and profile pic section end -->
 
 
+
+
         <!-- public jios section start -->
         <div class="profile-public-header text-center my-4">Public Jios</div>
         <div class="row">
             
 
-                <template v-for="jioObj in friendObj.createdjios" :key="jioObj">
+                <template v-for="jioObj,value in friendObj.createdjios" :key="jioObj">
+              
                     <!-- <router-link :to="{ name: 'eachjioevent', params: { idx: jioId }}"> -->
                         <div v-if="countPublic() == 0" class="text-center p-5 card">
                             <div style="font-size:3rem"><i class="orange-icon bi bi-balloon-fill"></i></div>
                             <div>{{friendObj.firstname[0].toUpperCase() + friendObj.firstname.slice(1,friendObj.firstname.length)}} currently does not have any public jios.</div>
                         </div>
-                        <div v-else-if="ifPublic(jioObj)" class="profile-event-card card border-0 col-12 mx-auto p-3 pb-5">
-                            <!-- <img class="card-img-top" src="../../../wallpaper1.jpg" alt=""> -->
-                            <div class="profile-event-title">{{jioObj.eventname}}</div>
-                            <div class="profile-event-location">Starts @ {{jioObj.activities[0].location}}</div>
-                            <!-- slice to only show first three activities for the jio. users can click the event to see all -->
-                            <div class="profile-activity-name card text-center p-2 m-1" v-for="activity in jioObj.activities.slice(0,3)" :key="activity">
-                                {{activity.name}}
-                            </div>
-                            <div class="profile-view-more">
-                                view more details
-                            </div>
-                        </div>
+
+                        <template v-else-if="jioObj.type=='public'">
+                                <div class="profile-event-card card border-0 col-12 mx-auto p-3 pb-5">
+                                    <div class="profile-event-title">{{jioObj.eventname}}</div>
+                                    <div class="profile-event-location mt-2 orange-icon">
+                                    
+                                    {{ convertDate(jioObj.date.split("T")[0]) }}, {{convert24(jioObj.date.split("T")[1])
+                                        }}
+                                    </div>
+                                    <div class="profile-event-location">Starts @ {{jioObj.activities[0].location}}</div>
+                                    
+                                    <div class="tagContainer mt-3">
+                                        <div class="badge text-bg-secondary">
+                                            {{ jioObj.category }}
+                                        </div>
+                                    </div>
+                                    
+                                    <router-link :to="{ name: 'eachjioevent', params: { idx: value }}" >
+                                        <div class="profile-view-more">
+                                            click for more details
+                                        </div>
+                                    </router-link>
+                                </div>
+                            
+                        </template>
                     <!-- </router-link> -->
                 </template>
 
@@ -131,19 +147,39 @@
             </div> 
             
             <!-- check if user is a friend, show private jios -->
-            <div v-else-if="Object.keys(myFriends).includes(friendId)">
-                <template v-for="jioObj in friendObj.createdjios" :key=jioObj>
-                    <div v-if="!ifPublic(jioObj)" class="profile-event-card card border-0 col-3 mx-auto p-3">
+            <template v-else-if="Object.keys(myFriends).includes(friendId)">
+                <template v-for="jioObj,value in friendObj.createdjios" :key=jioObj>                 
+                    <div v-if="jioObj.type=='private' && countPrivate() > 0">
                         <!-- <img class="card-img-top" src="../../../wallpaper1.jpg" alt=""> -->
-                        <div class="profile-event-title">{{jioObj.eventname}}</div>
-                        <div class="profile-event-location">Starts @ {{jioObj.activities[0].location}}</div>
-                        <!-- slice to only show first three activities for the jio. users can click the event to see all -->
-                        <div class="profile-activity-name card text-center p-2 m-1" v-for="activity in jioObj.activities.slice(0,3)" :key="activity">
-                            {{activity.name}}
+                        <div class="profile-event-card card border-0 col-12 mx-auto p-3 pb-5">
+                                    <div class="profile-event-title">{{jioObj.eventname}}</div>
+                                    <div class="profile-event-location mt-2 orange-icon">
+                                    
+                                    {{ convertDate(jioObj.date.split("T")[0]) }}, {{convert24(jioObj.date.split("T")[1])
+                                        }}
+                                    </div>
+                                    <div class="profile-event-location">Starts @ {{jioObj.activities[0].location}}</div>
+                                    
+                                    <div class="tagContainer mt-3">
+                                        <div class="badge text-bg-secondary">
+                                            {{ jioObj.category }}
+                                        </div>
+                                    </div>
+                                    
+                                    <router-link :to="{ name: 'eachjioevent', params: { idx: value }}" >
+                                        <div class="profile-view-more">
+                                            click for more details
+                                        </div>
+                                    </router-link>
                         </div>
                     </div>
+                    <!-- if user is friend but has no private jios -->
+                    <div v-else-if="countPrivate() == 0" class="text-center p-5 card">
+                        <div><i style="font-size:3rem" class="orange-icon bi bi-balloon-fill"></i></div>
+                        <div>{{friendObj.firstname[0].toUpperCase() + friendObj.firstname.slice(1,friendObj.firstname.length)}} currently does not have any private jios.</div>
+                    </div>
                 </template>
-            </div>
+            </template>
 
             <!-- if user is not a friend, show lock symbol -->
             <div v-else-if="(!Object.keys(myFriends).includes(friendId))" class="text-center p-5 card bg-secondary text-light">
@@ -156,11 +192,7 @@
                 
             </div>
 
-            <!-- if user has no private jios -->
-            <div v-else-if="countPrivate() == 0" class="text-center p-5 card">
-                <div><i style="font-size:3rem" class="orange-icon bi bi-balloon-fill"></i></div>
-                <div>{{friendObj.firstname[0].toUpperCase() + friendObj.firstname.slice(1,friendObj.firstname.length)}} currently does not have any private jios.</div>
-            </div>
+            
 
         </div>
         <!-- private jios section end -->
@@ -198,14 +230,23 @@ export default{
 
     methods : {
         // checks if a given jio is public
-        ifPublic(jioObj){
-            if(jioObj.type == 'public'){
-                return true
-            }
-            else {
-                return false
-            }
-        },
+        // ifPublic(jioObj){
+        //     if(jioObj.type === 'public'){
+        //         return true
+        //     }
+        //     else {
+        //         return false
+        //     }
+        // },
+
+        // ifPrivate(jioObj){
+        //     if(jioObj.type === 'private'){
+        //         return true
+        //     }
+        //     else {
+        //         return false
+        //     }
+        // },
 
         // notifies user if not logged in, cant add
         addError(){
@@ -277,6 +318,44 @@ export default{
             }
             return count
 
+        },        convert24(time) {
+            // console.log(time);
+            time = time.split(":");
+            return (
+                (time[0] >= 12 &&
+                    (time[0] - 12 || 12) + ":" + time[1] + " PM") ||
+                (Number(time[0]) || 12) + ":" + time[1] + " AM"
+            );
+        },
+
+        convertDate(fullDate) {
+            // console.log(fullDate);
+            fullDate = fullDate.split("-");
+            var months = [
+                "",
+                "Jan",
+                "Feb",
+                "Mar",
+                "Apr",
+                "May",
+                "Jun",
+                "Jul",
+                "Aug",
+                "Sep",
+                "Oct",
+                "Nov",
+                "Dec",
+            ];
+            var days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+            var eventD = new Date(fullDate);
+            const date = eventD.getDay();
+            return (
+                days[date] +
+                ", " +
+                months[parseInt(fullDate[1], 10)] +
+                " " +
+                fullDate[2]
+            );
         },
     },
     computed: {
