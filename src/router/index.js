@@ -89,7 +89,7 @@ const routes =[
     },
   },
   {
-    path: '/*',
+    path: "/:pathMatch(.*)*",
     component: 404
   },
 ]
