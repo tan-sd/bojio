@@ -64,18 +64,14 @@
               <div class="form-row">
                 <div class="form-group col" style="width: auto">
                   <div class="form-floating">
-                    <input type="text" class="form-control" id="eventTitle" placeholder="event title" v-model="title"
-                      v-bind:class="{ maxCount: titleMaxCount }" />
+                    <input type="text" class="form-control" id="eventTitle" placeholder="event title" v-model="title"/>
                     <label for="eventTitle" class="text-muted">Event title</label>
                     <div id="eventTitleInvalid" class="invalid-feedback">
                       Please provide the event title.
                     </div>
                   </div>
-                  <div class="float-end mt-1">
-                    {{ checkTitle }} / {{ titleLimit }}
-                  </div>
                 </div>
-                <div class="form-group col mt-5" style="width: auto">
+                <div class="form-group col mt-4" style="width: auto">
                   <div class="form-floating">
                     <textarea v-model="description" class="form-control" placeholder="description" id="eventDescription"
                       style="height: 200px" v-bind:class="{ maxCount: descriptionMaxCount }"></textarea>
@@ -92,6 +88,17 @@
               <div class="input-group">
                 <input type="file" class="form-control" @change="onFileChange" accept="image/*" id="imgUpload" style="display: none"/>
               </div>
+              <div class="row mt-4">
+              <div class="form-group col" style="width: auto">
+                  <div class="form-floating">
+                    <input type="number" class="form-control" id="eventCapacity" placeholder="maximum Limit" v-model="maxLimit"/>
+                    <label for="maxLimit" class="text-muted">Event capacity</label>
+                    <div id="eventCapacityInvalid" class="invalid-feedback">
+                      Please provide a limit of people going.
+                    </div>
+                  </div>
+              </div>
+            </div>
               <div @click="imgUpload" id="imgPreview" class="row mt-4 mx-auto card" style="cursor: pointer; width: 400px; height: 250px;">
                 <div id="preview" class="d-flex justify-content-center align-items-center my-auto">
                   <img style="width: 80%;" v-if="imgUrl != 'no-imageUrl'" :src="imgUrl">
@@ -104,7 +111,7 @@
                 </div>
               </div>
               <div class="form-row">
-              <div class="register-form-field form-group col mt-5" style="width: auto">
+              <div class="register-form-field form-group col mt-4" style="width: auto">
                 <div class="form-floating">
                   <input type="datetime-local" class="form-control" id="eventDateTime" placeholder="eventDateTime"
                     v-model="eventDateTime" />
@@ -122,38 +129,35 @@
             </div>
             
             
-            <div class="form-row mt-3">
-              Type of Event:
-              <div class="form-check">
-                <!-- cannot make one horizontal line -->
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="public">
-                <label class="form-check-label" for="exampleRadios1">
-                  Public
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="private">
-                <label class="form-check-label" for="exampleRadios2">
-                  Private
-                </label>
+            <div class="form-row mt-4">
+              <div class="row">
+                <div class="col-4">
+                  Type of Event:
+                </div>
+                <div class="col-3">
+                  <div class="form-check">
+                  <!-- cannot make one horizontal line -->
+                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="public" checked>
+                    <label class="form-check-label" for="exampleRadios1">
+                      Public
+                    </label>
+                  </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="private">
+                      <label class="form-check-label" for="exampleRadios2">
+                        Private
+                      </label>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="row mt-3">
-              <div class="form-group col" style="width: auto">
-                  <div class="form-floating">
-                    <input type="number" class="form-control" id="maxLimit" placeholder="maximum Limit" v-model="maxLimit"
-                    />
-                    <label for="maxLimit" class="text-muted">Jio capacity</label>
-                    <div id="eventTitleInvalid" class="invalid-feedback">
-                      Please provide a limit to the number of people going
-                    </div>
-                  </div>
             
-              </div>
+            <div class="row mt-4">
               <div class="form-group col" style="width: auto">
-            
                 <select class="form-select" aria-label="Default select example" v-model="category" id="category">
-                  <option value="">Jio category </option>
+                  <option value="">Categories</option>
                   <option value="Business and Industry">Business and Industry</option>
                   <option value="Education">Education</option>
                   <option value="Entertainment">Entertainment</option>
@@ -163,12 +167,10 @@
                   <option value="Shopping and Fashion">Shopping and Fashion</option>
                   <option value="Sports and Outdoor Activities">Sports and Outdoor Activities</option>
                   <option value="Others">Others</option>
-            
                 </select>
                 <div class="invalid-feedback">
                   Please provide a category for the event
                 </div>
-            
               </div>
             </div>
         </form>
@@ -628,7 +630,16 @@ export default {
       var activityLocation = document.getElementById("activityLocation");
       var activityTitle = document.getElementById("activityTitle");
       var activityDuration = document.getElementById("activityDuration");
+      var eventCapacity = document.getElementById('eventCapacity');
       var errors = 0;
+      console.log(category.value)
+
+      if (eventCapacity.value == "") {
+        eventCapacity.classList = "form-control is-invalid";
+      } else if (eventCapacity.value < 1) {
+        eventCapacity.classList = "form-control is-invalid";
+        document.getElementById('eventCapacityInvalid').innerHTML = "Please provide a number more than 0."
+      }
 
       if (this.title == "") {
         eventTitle.classList = "form-control is-invalid";
@@ -683,7 +694,7 @@ export default {
         maxLimit.classList = "form-control is-valid";
       }
 
-      if (this.category == "") {
+      if (category.value == "") {
         category.classList = "form-control is-invalid";
         // this.evtError.push("Event has no title");
         errors += 1;
@@ -691,7 +702,6 @@ export default {
         category.classList = "form-control is-valid";
       }
       
-
       console.log(this.evtError);
 
       if (errors == 0) {
@@ -725,13 +735,6 @@ export default {
     },
     markersLength() {
       return this.markers.length;
-    },
-    titleMaxCount() {
-      if (this.title.length > 50) {
-        return true;
-      } else {
-        return false;
-      }
     },
     descriptionMaxCount() {
       if (this.description.length > 100) {

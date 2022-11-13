@@ -202,7 +202,7 @@
         </div>
     </div> -->
 
-                <div class="row">
+                <div class="row mb-5">
                     <div class="col-6 w-100">
                         <div
                             class=""
