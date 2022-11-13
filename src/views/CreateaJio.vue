@@ -41,8 +41,8 @@
             <template v-if="gobackhome">
                 <div class="card container p-4 profile-delete-popup text-center">
                     <div class="row mb-3 ">
-                        <h5 style="font-family:worksans-semibold">Confirm Jio?</h5>
-                        <span>Are you sure you want to confirm Jio</span>
+                        <h5 style="font-family:worksans-semibold">Jio Confirmed</h5>
+                        
                     </div>
                     <div class="row">
                         <div class="col"><router-link to='/' style="text-decoration: none;"><button class="profile-popup-button w-100">
@@ -154,15 +154,15 @@
             
                 <select class="form-select" aria-label="Default select example" v-model="category" id="category">
                   <option value="">Jio category </option>
-                  <option value="Entertainment">Business and Industry</option>
-                  <option value="Entertainment">Education</option>
+                  <option value="Business and Industry">Business and Industry</option>
+                  <option value="Education">Education</option>
                   <option value="Entertainment">Entertainment</option>
                   <option value="Fitness and Wellness">Fitness and Wellness</option>
                   <option value="Food and Drinks">Food and Drinks</option>
                   <option value="Hobbies and Activities">Hobbies and Activities</option>
                   <option value="Shopping and Fashion">Shopping and Fashion</option>
                   <option value="Sports and Outdoor Activities">Sports and Outdoor Activities</option>
-                  <option value="Technology">Others</option>
+                  <option value="Others">Others</option>
             
                 </select>
                 <div class="invalid-feedback">
