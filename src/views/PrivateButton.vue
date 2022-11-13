@@ -313,6 +313,7 @@ export default {
                         let userid = data.userid;
                         // console.log(userid);
                         console.log(myfriends);
+                        let myuid = localStorage.getItem('uid')
                         if (myfriends.includes(userid)) {
                             console.log(userid + "is my friend");
                             //then want to get event details
@@ -320,6 +321,12 @@ export default {
                             //cnot use count, must use i so can access eventid aft tat
                             // count ++;
                         }
+
+                        if (userid == myuid) {
+                            friendsjios[i] = data;
+                        }
+
+                        
 
                         // let individual_username = data.username
                         // console.log(individual_username);
