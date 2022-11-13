@@ -92,7 +92,7 @@
                 <template v-for="jioObj in friendObj.createdjios" :key="jioObj">
                     <!-- <router-link :to="{ name: 'eachjioevent', params: { idx: jioId }}"> -->
                         <div v-if="countPublic() == 0" class="text-center p-5 card">
-                            <div><i class="orange-icon bi bi-balloon-fill"></i></div>
+                            <div style="font-size:3rem"><i class="orange-icon bi bi-balloon-fill"></i></div>
                             <div>{{friendObj.firstname[0].toUpperCase() + friendObj.firstname.slice(1,friendObj.firstname.length)}} currently does not have any public jios.</div>
                         </div>
                         <div v-else-if="ifPublic(jioObj)" class="profile-event-card card border-0 col-12 mx-auto p-3 pb-5">
@@ -129,12 +129,6 @@
                     above!
                 </div>
             </div> 
-
-            <!-- if user has no private jios -->
-            <div v-else-if="countPrivate() == 0" class="text-center p-5 card">
-                <div><i class="orange-icon bi bi-balloon-fill"></i></div>
-                <div>{{friendObj.firstname[0].toUpperCase() + friendObj.firstname.slice(1,friendObj.firstname.length)}} currently does not have any private jios.</div>
-            </div>
             
             <!-- check if user is a friend, show private jios -->
             <div v-else-if="Object.keys(myFriends).includes(friendId)">
@@ -152,7 +146,7 @@
             </div>
 
             <!-- if user is not a friend, show lock symbol -->
-            <div v-else class="text-center p-5 card bg-secondary text-light">
+            <div v-else-if="(!Object.keys(myFriends).includes(friendId))" class="text-center p-5 card bg-secondary text-light">
                 <i class="profile-lock-icon bi bi-lock-fill"></i>
                 <br>
                 Private jios are only available for {{friendObj.firstname}}'s friends. 
@@ -160,6 +154,12 @@
                     Add {{friendObj.firstname}} as a friend by clicking on the <i class="d-inline bi bi-person-plus-fill"></i> above!
                 </div>
                 
+            </div>
+
+            <!-- if user has no private jios -->
+            <div v-else-if="countPrivate() == 0" class="text-center p-5 card">
+                <div><i style="font-size:3rem" class="orange-icon bi bi-balloon-fill"></i></div>
+                <div>{{friendObj.firstname[0].toUpperCase() + friendObj.firstname.slice(1,friendObj.firstname.length)}} currently does not have any private jios.</div>
             </div>
 
         </div>
