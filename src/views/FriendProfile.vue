@@ -1,5 +1,4 @@
 <template>
-
     <div class="container p-1 pb-1 pb-xl-5 px-xl-5 ">
         <!-- darken the entire page -->
         <Transition name="fade">
@@ -7,7 +6,6 @@
             </div>
         </Transition>
         <div class="card mx-auto p-5 profile-outer-card">
-            
             <!-- pops up when you try to delete friend -->
             <Transition name="fade">
             <template v-if="deleteFriendPopUp">
@@ -173,7 +171,6 @@
 <script>
 import {getfriendrequests, deleteFriend, getusers, displayfriends, createfriendrequest} from '../utils'
 
-
 export default{ 
 
     title: 'BOJIO – Friend List',
@@ -190,7 +187,7 @@ export default{
             hover: false,
             deleteFriendPopUp: false,
             requested: false,
-            allrequests: '',
+            allrequests: ''
         }
     },
 
@@ -231,10 +228,40 @@ export default{
             deleteFriend(this.friendId,this.myuid)
             this.deleteFriendPopUp = false
             delete this.myFriends[this.friendId]
+        },
+
+        // using after retreive user id, from this object change into user name. returns an objects with mulitple user names key== userid, value== username
+        getfriendnames(){ 
+            var friendsobj = this.myFriends
+            console.log(this.myFriends)
+            var temparray = []
+
+            for( const personid in friendsobj ){ 
+                temparray.push(personid)
+            }
+            // find usernames of the users
+            const allusers = this.allusers
+            var usernames = {}
+            for(const user in allusers){
+                //user is the key
+                if(temparray.includes(user)){
+                    const username = allusers[user]['username']
+                    usernames[user] = username
+                    // usernames.push(username)
+                }
+            }
+            this.myFriends = usernames
         }
     },
     computed: {
 
+
+        latestnames(){
+
+            console.log('in here');
+            console.log(this.myFriends);
+            return this.myFriends
+        },
         // returns friend userid only
         friendId(){
             return this.$route.params.idx
@@ -268,7 +295,8 @@ export default{
                 }
             }
             return false
-        }
+        },
+        
 
     },
 
@@ -286,6 +314,8 @@ export default{
             (value) =>
             { 
                 this.myFriends = value
+                console.log(this.myFriends)
+                this.getfriendnames()
             }
         ),
 
@@ -296,6 +326,10 @@ export default{
             }
         )
     },
+
+    mounted() {
+        console.log(this.myFriends)
+    }
     
 }
 

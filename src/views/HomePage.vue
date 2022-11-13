@@ -244,6 +244,18 @@ export default {
   },
 
   mounted() {
+
+    if(this.$route.params.idx){
+      console.log(this.$route.params.idx);
+
+      if(this.$route.params.idx == 'events'){
+        this.activeTab = ''
+      }else{
+        
+        this.activeTab = 'PublicButton'
+      }
+      // console.log(this.$route.params.public.idx);
+    }
     const clock = new THREE.Clock();
     const raycaster = new THREE.Raycaster()
     const sizes = {

@@ -12,6 +12,11 @@ const routes =[
     component: () => import("../views/HomePage.vue"),
   },
   {
+    path: "/:active",
+    name:'default',
+    component: () => import("../views/HomePage.vue"),
+  },
+  {
     path: "/signup",
     component: () => import("../views/SignUp.vue"),
   },
@@ -61,6 +66,14 @@ const routes =[
     path: "/jiopage/:idx",
     name: 'eachjioevent',
     component: () => import ("../views/JioPage.vue"),
+  },
+  {
+    path: "/:idx",
+    name: 'publicevents',
+    component: () => import ("../views/HomePage.vue"),
+    // props:{
+    //   activeTab:'PublicButton'
+    // }
   }
 ]
 

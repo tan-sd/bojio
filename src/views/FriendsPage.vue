@@ -1,5 +1,4 @@
 <template>
-    {{filterfriends}}
         <div class="container">
             <!-- display friend requests here first -->
             <div class="mb-3 d-flex justify-content-center" style="font-family:worksans-medium; font-size:1.5rem">Friend Requests</div>
@@ -36,6 +35,9 @@
                     </div>
                 
                 </div>
+            </div>
+            <div v-else class="text-center mb-5">
+                No requests at the moment! 
             </div>
                 
             <div class="mb-3 d-flex justify-content-center" style="font-family:worksans-medium; font-size:1.5rem">Current Friends</div>
