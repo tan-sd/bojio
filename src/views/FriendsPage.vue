@@ -1,4 +1,5 @@
 <template>
+    {{filterfriends}}
         <div class="container">
             <!-- display friend requests here first -->
             <div class="mb-3 d-flex justify-content-center" style="font-family:worksans-medium; font-size:1.5rem">Friend Requests</div>
@@ -25,7 +26,7 @@
                                     </div>
                                     <div class="col-4 align-self-center">
                                         <span class="friend-request-icons row">
-                                            <span class="col p-0 text-center"><i class="bi bi-check-circle friend-tick" @click="acceptRequest(requesterId, myuid)"></i></span>
+                                            <span class="col p-0 text-center"><i class="bi bi-check-circle friend-tick" @click="acceptRequest(requester, requesterId)"></i></span>
                                             <span class="col p-0 text-start"><i class="bi bi-x-circle friend-x" @click="deleteRequest(requesterId,myuid)"></i></span>
                                         </span>
                                     </div>
@@ -174,9 +175,10 @@ export default{
         },
 
         //accept request
-        acceptRequest(user, requesterId){ 
+        acceptRequest(requester, requesterId){ 
             delete this.requests[requesterId]
             makefriends(requesterId)
+            this.filterfriends[requester] = requesterId
             var objectlen = Object.keys(this.requests).length
             if(objectlen === 0){
                 this.norequests = true
