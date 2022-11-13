@@ -751,6 +751,12 @@ export function deleteFriend(friendId,userId){
 
 }
 
+export function removeRequest(requesterId, myuid){
+  // remove request from database
+  remove(ref(db,`friendrequest/${requesterId}/${myuid}`))
+
+}
+
 //get userid to say hi
 export function getuserid() {
   const auth = getAuth();

@@ -1,18 +1,17 @@
 <template>
-{{requests}}
         <div class="container">
             <!-- display friend requests here first -->
             <div class="mb-3 d-flex justify-content-center" style="font-family:worksans-medium; font-size:1.5rem">Friend Requests</div>
             <div v-if="!norequests" class="">
                 <div class="row">
                 
-                    <div class="col-xl-4 col-md-6 mb-5 d-flex justify-content-center" v-for="requester, index in requests" :key="requester">    
-                        
+                    <div class="col-xl-4 col-md-6 mb-5 d-flex justify-content-center" v-for="requester, requesterId in requests" :key="requester">    
                             <div class="card border-0 friend-bar p-2 ps-3" style="width: 20rem; height: 5rem;">
                                 <div class="row">
                                     <div class="col-3">
                                         <!-- link to profile on the circle -->
-                                        <router-link class="routerLink" :to="{name:'individual profile', params:{idx: index}}">
+                                        
+                                        <router-link class="routerLink" :to="{name:'individual profile', params:{idx: requesterId}}">
                                             <div class="rounded-circle" style="padding:7px 15px; font-size:30px; background: linear-gradient(90deg, #ef4136, #fbb040); color:white;">
                                                 <span class="d-flex justify-content-center">{{requester[0].toUpperCase()}}</span> 
                                             </div>   
@@ -20,14 +19,14 @@
                                     </div>
                                     <div class="col-5 my-auto">
                                         <!-- link to profile on username -->
-                                        <router-link class="routerLink" :to="{name:'individual profile', params:{idx: index}}">
+                                        <router-link class="routerLink" :to="{name:'individual profile', params:{idx: requesterId}}">
                                             <span class="float-start friend-requester my-auto" style="color:black;">{{requester}}</span>
                                         </router-link>
                                     </div>
                                     <div class="col-4 align-self-center">
                                         <span class="friend-request-icons row">
-                                            <span class="col p-0 text-center"><i class="bi bi-check-circle friend-tick" @click="acceptRequest(requester, index)"></i></span>
-                                            <span class="col p-0 text-start"><i class="bi bi-x-circle friend-x" @click="deleteRequest(requester,index)"></i></span>
+                                            <span class="col p-0 text-center"><i class="bi bi-check-circle friend-tick" @click="acceptRequest(requesterId, myuid)"></i></span>
+                                            <span class="col p-0 text-start"><i class="bi bi-x-circle friend-x" @click="deleteRequest(requesterId,myuid)"></i></span>
                                         </span>
                                     </div>
                                 </div>
@@ -65,7 +64,6 @@
         </div>
 
             
-            
             <div class="container">
                 <div class="mb-3 d-flex justify-content-center" style="font-family:worksans-medium; font-size:1.5rem">Discover new friends</div>
                 <div class="row">
@@ -99,7 +97,7 @@
 
 <script>
 
-import {getusers, createfriendrequest, getfriendrequests, makefriends, displayfriends} from '../utils'
+import {removeRequest, getusers, createfriendrequest, getfriendrequests, makefriends, displayfriends} from '../utils'
 
 // const data = {
 //     name: 'to show users',
@@ -119,7 +117,6 @@ export default{
   
     data(){
         return{
-            myuid: '',
             searchedfriends:'',
             searchedusers:'',
             allusers: [],
@@ -134,11 +131,6 @@ export default{
     },
 
     methods:{ 
-        add(user){ 
-            createfriendrequest(user)
-            // this.pressed = true
-            //need to disable specific button after clicking
-        },
 
         checkfriendrequest(){ 
             var friendrequests = this.allrequests
@@ -182,9 +174,9 @@ export default{
         },
 
         //accept request
-        acceptRequest(user, userid){ 
-            delete this.requests[userid]
-            makefriends(userid)
+        acceptRequest(user, requesterId){ 
+            delete this.requests[requesterId]
+            makefriends(requesterId)
             var objectlen = Object.keys(this.requests).length
             if(objectlen === 0){
                 this.norequests = true
@@ -192,8 +184,9 @@ export default{
         },
 
         //delete request
-        deleteRequest(user, userid){
-            delete this.requests[userid]
+        deleteRequest(requesterId, myuid){
+            delete this.requests[requesterId]
+            removeRequest(requesterId,myuid)
             var objectlen = Object.keys(this.requests).length
             if(objectlen === 0){
                 this.norequests = true
@@ -269,6 +262,10 @@ export default{
             console.log(temparray)
             return temparray;
         },
+
+        myuid(){
+            return localStorage.getItem('uid')
+        }
     },
 
     created() {
