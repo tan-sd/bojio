@@ -176,7 +176,7 @@
         </form>
         </div>
       </div>
-      {{category}}
+      
 
       <div class="row">
         <div class="col-12 col-lg-5 mt-5">

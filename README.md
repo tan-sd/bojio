@@ -1,5 +1,13 @@
 # BOJIO - A website that connects people together
 
+## Installation
+
+---
+
+### Clone
+
+- Clone our github repository to your local machine using `https://github.com/tan-sd/wad2-project.git`
+
 ## Project setup
 ```
 npm install
@@ -20,5 +28,13 @@ npm run build
 npm run lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### 
+
+## Member Information
+
+| Members               | School Email     | Email                           |
+| --------------------- | ---------------- | ------------------------------- |
+| Tan Sheng Da                   | shengda.tan.2021 | shengdatan@gmail.com            |
+| Foo Yao Sheng, Matthew         | matthew.foo.2021 | fooyaoshengmatthew@gmail.com    |
+| Muhammad Faez Bin Abdul Latiff | muhammadal.2021  | faezlatiff0706@gmail.com|
+| Sng Yue Wei, Rachel            | rachel.sng.2021  | rrachelsng@gmail.com    |
