@@ -1,8 +1,10 @@
-# BOJIO - A website that connects people together
+# BOJIO
+
+The COVID-19 pandemic has severely limited Singaporeans usual social engagement. As Singapore starts to ease community measures, people have started planning more activities. Project BOJIO aims to be a community platform for Singaporeans to ‘jio’ their beloved or to foster new relationships. Never say BOJIO again!
 
 ## Deployment
 
-- View our deployed website on Netlify <a href="https://bojio.netlify.app" target="_blank">`here`</a>
+- View our deployed website on Netlify <a href="https://bojio.netlify.app">`here`</a>
 
 ## Installation
 
@@ -17,19 +19,13 @@
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Running Development Server
 ```
+cd wad2-project
+
+# Start the development server
+
 npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
 ```
 
 ### 
