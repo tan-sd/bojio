@@ -219,7 +219,12 @@ export function securityCheck() {
     username.onanimationend = () => {
       setTimeout(username.classList.remove('errShake', 200))
     }
-
+   } else if (username.value.includes(' ')) {
+      username.classList = "form-control is-invalid";
+      errorCount += 1;
+      document.getElementById('usernameInvalid').innerHTML = 'Username should not contains any spaces.'
+      username.classList.add('errShake')
+      setTimeout(username.classList.remove('errShake', 200))
   } else {
     username.classList = "form-control is-valid";
     usernameInvalidError.innerText = ''

@@ -89,7 +89,7 @@
                         </div>  
                       </div>
 
-                      <div class="register-form-field form-group col mt-3 text-center" style="width: auto">
+                      <!-- <div class="register-form-field form-group col mt-3 text-center" style="width: auto">
                         <label for="interestAreas" class="text-muted mb-2">Areas of interest</label>
 
                         <select class="form-select" aria-label="Default select example" v-model="interestAreas" id="interestAreas">
@@ -108,7 +108,7 @@
                           Please provide an area of interest
                         </div>
                         
-                      </div>
+                      </div> -->
                       
                       <div class="col">
                         <button type="button" class="btn login-signup-button" id="signupBtn" @click="register">Create account</button>
@@ -209,6 +209,7 @@
       var firstName = document.getElementById('firstName');
       var lastName = document.getElementById('lastName');
       var username = document.getElementById("username");
+
       console.log(status);
       if(status){
         createUserWithEmailAndPassword(getAuth(), emailInput.value, passwordInput.value) // need .value because ref()
@@ -232,25 +233,22 @@
           lastname: lastName.value,
           username: username.value,
           email: emailInput.value,
-          areaofinterest: interestAreas.value,
+          // areaofinterest: interestAreas.value,
           // password: passwordInput.value,
           // events: ['no events'],
           createdjios: ['no jios'],
         })
         .then(() => {
-          alert('details created successfully!')
+          // alert('details created successfully!')
         })
         .catch((error) => {
           alert(error);
         })
-        
-        alert("Successfully signed up!");
-
+        // alert("Successfully signed up!");
         console.log('Successfully registered!');
         router.push('/') // redirect to the feed
         })
         .catch(error => {
-          // WORK IN PROGRESS -- SHENG DA (Binding and Form Verfication)
           console.log(error.code)
           // alert(error.message);
           switch (error.code){
