@@ -89,41 +89,37 @@
         <!-- public jios section start -->
         <div class="profile-public-header text-center my-4">Public Jios</div>
         <div class="row">
-            
 
-                <template v-for="jioObj,value in friendObj.createdjios" :key="jioObj">
-              
+                <div v-if="countPublic() == 0" class="text-center p-5 card">
+                    <div style="font-size:3rem"><i class="orange-icon bi bi-balloon-fill"></i></div>
+                    <div>{{friendObj.firstname[0].toUpperCase() + friendObj.firstname.slice(1,friendObj.firstname.length)}} currently does not have any public jios.</div>
+                </div>
+                <template v-for="jioObj,value in friendObj.createdjios" :key="jioObj">          
                     <!-- <router-link :to="{ name: 'eachjioevent', params: { idx: jioId }}"> -->
-                        <div v-if="countPublic() == 0" class="text-center p-5 card">
-                            <div style="font-size:3rem"><i class="orange-icon bi bi-balloon-fill"></i></div>
-                            <div>{{friendObj.firstname[0].toUpperCase() + friendObj.firstname.slice(1,friendObj.firstname.length)}} currently does not have any public jios.</div>
-                        </div>
-
-                        <template v-else-if="jioObj.type=='public'">
-                                <div class="profile-event-card card border-0 col-12 mx-auto p-3 pb-5">
-                                    <div class="profile-event-title">{{jioObj.eventname}}</div>
-                                    <div class="profile-event-location mt-2 orange-icon">
-                                    
-                                    {{ convertDate(jioObj.date.split("T")[0]) }}, {{convert24(jioObj.date.split("T")[1])
-                                        }}
-                                    </div>
-                                    <div class="profile-event-location">Starts @ {{jioObj.activities[0].location}}</div>
-                                    
-                                    <div class="tagContainer mt-3">
-                                        <div class="badge text-bg-secondary">
-                                            {{ jioObj.category }}
-                                        </div>
-                                    </div>
-                                    
-                                    <router-link :to="{ name: 'eachjioevent', params: { idx: value }}" >
-                                        <div class="profile-view-more">
-                                            click for more details
-                                        </div>
-                                    </router-link>
+                        <template v-if="jioObj.type=='public'">
+                            <div class="profile-event-card card border-0 col-12 mx-auto p-3 pb-5">
+                                <div class="profile-event-title">{{jioObj.eventname}}</div>
+                                <div class="profile-event-location mt-2 orange-icon">
+                                
+                                {{ convertDate(jioObj.date.split("T")[0]) }}, {{convert24(jioObj.date.split("T")[1])
+                                    }}
                                 </div>
+                                <div class="profile-event-location">Starts @ {{jioObj.activities[0].location}}</div>
+                                
+                                <div class="tagContainer mt-3">
+                                    <div class="badge text-bg-secondary">
+                                        {{ jioObj.category }}
+                                    </div>
+                                </div>
+                                
+                                <router-link :to="{ name: 'eachjioevent', params: { idx: value }}" >
+                                    <div class="profile-view-more">
+                                        click for more details
+                                    </div>
+                                </router-link>
+                            </div>
                             
                         </template>
-                    <!-- </router-link> -->
                 </template>
 
 
@@ -229,24 +225,6 @@ export default{
     },
 
     methods : {
-        // checks if a given jio is public
-        // ifPublic(jioObj){
-        //     if(jioObj.type === 'public'){
-        //         return true
-        //     }
-        //     else {
-        //         return false
-        //     }
-        // },
-
-        // ifPrivate(jioObj){
-        //     if(jioObj.type === 'private'){
-        //         return true
-        //     }
-        //     else {
-        //         return false
-        //     }
-        // },
 
         // notifies user if not logged in, cant add
         addError(){
@@ -318,7 +296,8 @@ export default{
             }
             return count
 
-        },        convert24(time) {
+        }, 
+        convert24(time) {
             // console.log(time);
             time = time.split(":");
             return (
