@@ -1,27 +1,6 @@
 <template>
     <div class="container p-1 pb-1 pb-xl-5 px-xl-5 ">
-        <!-- darken the entire page -->
-        <Transition name="fade">
-            <div v-if="deleteFriendPopUp" class="profile-dark-background">
-            </div>
-        </Transition>
         <div class="card mx-auto p-5 profile-outer-card">
-            <!-- pops up when you try to delete friend -->
-            <Transition name="fade">
-            <template v-if="deleteFriendPopUp">
-                <div class="card container p-4 profile-delete-popup text-center">
-                    <div class="row mb-3 ">
-                        <h5 style="font-family:worksans-semibold">Delete Friend?</h5>
-                        <span>Are you sure you want to delete {{friendObj.firstname[0].toUpperCase() + friendObj.firstname.slice(1,friendObj.firstname.length)}} as a friend?</span>
-                    </div>
-                    <div class="row">
-                        <div class="col"><button class="profile-popup-button w-100" @click="removeFriend()">Yes</button></div>
-                        <div class="col"><button class="profile-popup-button w-100" @click="deleteFriendPopUp=false">No</button></div>
-                    </div>
-                </div>
-                
-            </template>
-            </Transition>
 
         <!-- name and profile pic section start -->
         <div class="row">
@@ -45,10 +24,6 @@
                     <span class="profile-username">@{{ friendObj.username }}</span>
                 </div>
 
-                <!-- show error if not logged in and want to add -->
-                <div v-if="showText" class="profile-error-div text-xl-start text-center mt-2">
-                    <span class="profile-add-error text-danger" style="font-size: 1rem;"> please log in to add friend!</span>
-                </div>
 
             </div>
 
@@ -93,20 +68,22 @@
             
             <!-- check if user is a friend, show private jios -->
             <div>
-                <template v-for="jioObj in friendObj.createdjios" :key=jioObj>
-                    <div v-if="countPublic() == 0" class="text-center p-5 card">
+                <div v-if="countPrivate() == 0" class="text-center p-5 card">
                         <div><h1><i class="orange-icon bi bi-balloon-fill"></i></h1></div>
                         <div>You currently do not have any private jios.</div>
-                    </div>
-                    <div v-else-if="!ifPublic(jioObj)" class="profile-event-card card border-0 col-3 mx-auto p-3">
-                        <!-- <img class="card-img-top" src="../../../wallpaper1.jpg" alt=""> -->
-                        <div class="profile-event-title">{{jioObj.eventname}}</div>
-                        <div class="profile-event-location">Starts @ {{jioObj.activities[0].location}}</div>
-                        <!-- slice to only show first three activities for the jio. users can click the event to see all -->
-                        <div class="profile-activity-name card text-center p-2 m-1" v-for="activity in jioObj.activities.slice(0,3)" :key="activity">
-                            {{activity.name}}
+                </div>
+                <template v-else>
+                    <template v-for="jioObj in friendObj.createdjios" :key=jioObj>
+                        <div v-if="jioObj.type == 'private'" class="profile-event-card card border-0 col-3 mx-auto p-3">
+                            <!-- <img class="card-img-top" src="../../../wallpaper1.jpg" alt=""> -->
+                            <div class="profile-event-title">{{jioObj.eventname}}</div>
+                            <div class="profile-event-location">Starts @ {{jioObj.activities[0].location}}</div>
+                            <!-- slice to only show first three activities for the jio. users can click the event to see all -->
+                            <div class="profile-activity-name card text-center p-2 m-1" v-for="activity in jioObj.activities.slice(0,3)" :key="activity">
+                                {{activity.name}}
+                            </div>
                         </div>
-                    </div>
+                    </template>
                 </template>
             </div>
 
