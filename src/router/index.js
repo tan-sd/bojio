@@ -1,8 +1,4 @@
 import { async, getDefaultEmulatorHost } from "@firebase/util";
-// import 'core-js/actual/promise';
-// import { resolve, promise } from "core-js/fn/promise";
-// import Vue from 'vue';
-// import Vuex from 'vuex';
 import { createRouter, createWebHistory } from "vue-router";
 import { getAuth,onAuthStateChanged, createUserWithEmailAndPassword } from 'firebase/auth'
 
@@ -71,9 +67,6 @@ const routes =[
     path: "/:idx",
     name: 'publicevents',
     component: () => import ("../views/HomePage.vue"),
-    // props:{
-    //   activeTab:'PublicButton'
-    // }
   },
   {
     path: "/profile/:idx",
@@ -88,42 +81,12 @@ const routes =[
       requiresAuth: true,
     },
   },
-  {
-    path: "/:pathMatch(.*)*",
-    name: 'not-found',
-    component: () => import("@/views/404.vue")
-  },
 ]
 
 
 const router = createRouter({
   history: createWebHistory(),
   routes
-  // : [
-  //   {
-  //     path: "/",
-  //     component: () => import("../views/HomePage.vue"),
-  //   },
-  //   {
-  //     path: "/signup",
-  //     component: () => import("../views/SignUp.vue"),
-  //   },
-  //   {
-  //     path: "/login",
-  //     component: () => import("../views/LogIn.vue"),
-  //   },
-  //   {
-  //     path: "/aboutpage",
-  //     component: () => import("../views/AboutPage.vue"),
-  //   },
-  //   {
-  //     path: "/createajio",
-  //     component: () => import("../views/CreateaJio.vue"),
-  //     meta:{ 
-  //       requiresAuth: true,
-  //     }
-  //   },
-  // ],
 });
 
 const getCurrentUser =() => {

@@ -1,12 +1,10 @@
 <template>
-   
-    <!-- Welcome message -->
-    <!-- will be putting if person exist here but dont work yet -->
-    <div class="container" v-if="uid.length > 0">
-      <div class="row mb-5">
-        <div id = 'personname' style="font-family: worksans-extrabold; font-size: 4vmin;"> Welcome, {{fullName}}! 👋🏼</div>
-      </div>
-    </div> 
+  <!-- WELCOME MESSAGE IF LOGGED IN -->
+  <div class="container" v-if="uid.length > 0">
+    <div class="row mb-5">
+      <div id = 'personname' style="font-family: worksans-extrabold; font-size: 4vmin;"> Welcome, {{fullName}}! 👋🏼</div>
+    </div>
+  </div> 
 
   <!-- SINGAPORE ISLAND -->
   <div class="mx-auto about-fadeup island">
@@ -30,52 +28,52 @@
           :position="{ x: -1, y: 1.75, z: 1 }"
           :intensity="1"
         />
-
         <PointLight
           ref="pointLight"
         ></PointLight>
       </Scene>
     </Renderer>
 
-      <div class="point point-0">
-        <div class="label label-central" id="central">
-          Central
-          <div class="text">Click to filter Central location.</div>
-        </div>
+    <!-- LABELS AND POINTS IN THE MAP -->
+    <div class="point point-0">
+      <div class="label label-central" id="central">
+        Central
+        <div class="text">Click to filter Central location.</div>
       </div>
+    </div>
 
-      <div class="point point-1">
-        <div class="label label-north" id="north">
-          North
-          <div class="text">Click to filter North location.</div>
-        </div>
+    <div class="point point-1">
+      <div class="label label-north" id="north">
+        North
+        <div class="text">Click to filter North location.</div>
       </div>
+    </div>
 
-      <div class="point point-2">
-        <div class="label label-east" id="east">
-          East
-          <div class="text">Click to filter East location.</div>
-        </div>
+    <div class="point point-2">
+      <div class="label label-east" id="east">
+        East
+        <div class="text">Click to filter East location.</div>
       </div>
+    </div>
 
-      <div class="point point-3">
-        <div class="label label-west" id="west">
-          West
-          <div class="text">Click to filter West location.</div>
-        </div>
+    <div class="point point-3">
+      <div class="label label-west" id="west">
+        West
+        <div class="text">Click to filter West location.</div>
       </div>
+    </div>
 
-      <div class="point point-4">
-        <div class="label label-reset" id="reset">
-          Reset
-          <div class="text">Click to reset filter.</div>
-        </div>
+    <div class="point point-4">
+      <div class="label label-reset" id="reset">
+        Reset
+        <div class="text">Click to reset filter.</div>
       </div>
+    </div>
         
     </div>
 
     <div class="container mt-5">
-        <div class="row d-flex align-content-center justify-content-center">
+      <div class="row d-flex align-content-center justify-content-center">
         <div class="col-sm-3 col-4 d-flex align-content-center justify-content-center">
           <button @click="activeTab = 'EventsButton'" class="btn" id="events">EVENTS</button>
         </div>
@@ -88,17 +86,14 @@
       </div>
     </div>
 
-    <div class="container" style="display:flex; justify-content:space-between;">
-
-    </div>
+    <div class="container" style="display:flex; justify-content:space-between;"></div>
 
     <span>
-    <EventsButton v-if="activeTab === 'EventsButton'" :data="filterchoice"/>
-    <PublicButton v-if="activeTab === 'PublicButton'"/> 
-    <PrivateButton v-if="activeTab === 'PrivateButton'"/>
+      <EventsButton v-if="activeTab === 'EventsButton'" :data="filterchoice"/>
+      <PublicButton v-if="activeTab === 'PublicButton'"/> 
+      <PrivateButton v-if="activeTab === 'PrivateButton'"/>
     </span>
-
-</template> 
+</template>
 
 <script>
 import * as THREE from 'three'
@@ -117,164 +112,76 @@ import {getuserid, getdata} from '../utils/index.js'
 import { onMounted } from 'vue'
 
 export default {
-    name:'App',
-    title: 'BOJIO – Homepage',
-    components: {
-    EventsButton,PublicButton,PrivateButton
-},
-    data(){
-        return {
-            sceneReady: false,
-            loadingProcess: 0,
-            events: sourceData.events,
-            length: 9, 
-            uid: localStorage.getItem("uid"),
-            // userid: '',
-            activeTab : 'EventsButton',
-            fullname: '',
-            districtcode:{
-              'North': [25,26,27,28],
-              'Central': [21,11,10,9,8,7,6,5,4,3,2,1],
-              'East': [20,19,18,17,16,15,14,13,12],
-              'West': [22,23,24]
-            },
-
-            sgdistrictcode:{ 
-              'North': [72,73,77,78,75,76,79,80],
-              'Central': [1,2,3,4,5,6,7,8,14,15,16,9,10,11,12,13,17,18,19,20,21,22,23,24,25,26,27,28,29,30,58,59],
-              'East': [31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,81,51,52,53,54,55,82,56,57],
-              'West': [60,61,62,63,64,65,66,67,68,69,70,71]
-            },
-            selectedlocation: '',
-            usefilter: false,
-            currentIntersection: null,
-            clicked: false,
-            count: 0,
-            filterchoice: '',
-        }
-    },
-
-    methods: {
-      onPointerEvent(event) {
-        // if (this.currentIntersection === null) {
-          console.log(event)
-          // this.currentIntersection = event.intersect.object.material;
-          // event.intersect.object.material.color.set(event.over ? 1 : 1000)
-          console.log(event.over);
-          console.log(this.currentIntersection)
-          console.log('it is null')
-        // }
-        // console.log(currentIntersection)
-        // currentIntersection.material.color.set(0xffff00);
-
-        // console.log(event.over)
-        // event.intersect.object.material.color.set(event.over ? 500 : 1000)
-
-      },
-      // onPointerLeave(event) {
-
-      //   //identify location
-      //   var location = event.intersect.object.name
-      //   if(location =='North'){ 
-      //     this.filterchoice = 'North'
-      //   }
-
-      //   if(location == 'Central'){ 
-      //     this.filterchoice = 'Central'
-      //   }
-
-      //   if(location == 'East'){ 
-      //     this.filterchoice = 'East'
-      //   }
-
-      //   if(location == 'West'){ 
-      //     this.filterchoice = 'West'
-      //   }
-
-      //   this.count += 1
-      //   if(this.count % 4 == 0){ 
-      //     this.clicked = false
-      //   }else{ 
-        
-      //     this.clicked = true
-      //   }
-       
-        // if (this.clicked === true) {
-        //   event.intersect.object.material.color.set(100)
-        // } else {
-        //   event.intersect.object.material.color.set(1000)
-        // }
-
-      //   console.log('i am clicked '+ this.clicked);
-      //   return
-      // },
-      filter() {
-        // console.log(this.events);
-        //   if (this.length >= this.events.length) {
-        //       return
-        //   }
-        //   this.length = this.length + 9;   
-        //   console.log(this.length);
-        //   console.log(this.events.length);
-        //   if (this.length == this.events.length) {
-        //     var viewMoreBtn = document.getElementById('view-more');
-        //     viewMoreBtn.classList.add('disabled');
-        //   }
-      },
-      loadMore() {
-        if (this.length >= this.events.length) {
-          return
-        }
-        this.length = this.length + 9;   
-        console.log(this.length);
-    
-      },
-
-      updatefullname() { 
-        this.fullname = localStorage.getItem('fullname')  
-        let nameSplit = this.fullname.split(" ")
-        let firstName = nameSplit[0]
-        let lastName = nameSplit[1]
-        firstName = firstName[0].toUpperCase() + firstName.slice(1,firstName.length)
-        lastName = lastName[0].toUpperCase() + lastName.slice(1,lastName.length)
-        this.fullname = firstName + ' ' + lastName
-        console.log(firstName)
-        console.log(lastName)
-      }
-    },
-  computed: {
-      eventsloaded() {
-        return this.events.slice(0, this.length);
-      },
-
-      fullName(){
-        return this.fullname
-      }
-      // capitalised(){
-      //   let nameSplit = this.fullname.split(" ")
-      //   let firstName = nameSplit[0]
-      //   let lastName = nameSplit[1]
-
-      //   firstName = firstName[0].toUpperCase() + firstName.slice(1,firstName.length)
-      //   lastName = lastName[0].toUpperCase() + lastName.slice(1,lastName.length)
-
-      //   return `${firstName} ${lastName}`
-      // }
-
+  name:'App',
+  title: 'BOJIO – Homepage',
+  components: {
+  EventsButton, PublicButton, PrivateButton
   },
 
+  data(){
+    return {
+      sceneReady: false,
+      loadingProcess: 0,
+      events: sourceData.events,
+      length: 9, 
+      uid: localStorage.getItem("uid"),
+      activeTab : 'EventsButton',
+      fullname: '',
+      districtcode:{
+        'North': [25,26,27,28],
+        'Central': [21,11,10,9,8,7,6,5,4,3,2,1],
+        'East': [20,19,18,17,16,15,14,13,12],
+        'West': [22,23,24]
+      },
+      sgdistrictcode:{ 
+        'North': [72,73,77,78,75,76,79,80],
+        'Central': [1,2,3,4,5,6,7,8,14,15,16,9,10,11,12,13,17,18,19,20,21,22,23,24,25,26,27,28,29,30,58,59],
+        'East': [31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,81,51,52,53,54,55,82,56,57],
+        'West': [60,61,62,63,64,65,66,67,68,69,70,71]
+      },
+      selectedlocation: '',
+      usefilter: false,
+      currentIntersection: null,
+      clicked: false,
+      count: 0,
+      filterchoice: '',
+    }
+  },
+  methods: {
+    loadMore() {
+      if (this.length >= this.events.length) {
+        return
+      }
+      this.length = this.length + 9;   
+    },
+    updatefullname() { 
+      this.fullname = localStorage.getItem('fullname')  
+      let nameSplit = this.fullname.split(" ")
+      let firstName = nameSplit[0]
+      let lastName = nameSplit[1]
+      firstName = firstName[0].toUpperCase() + firstName.slice(1,firstName.length)
+      lastName = lastName[0].toUpperCase() + lastName.slice(1,lastName.length)
+      this.fullname = firstName + ' ' + lastName
+      // console.log(firstName)
+      // console.log(lastName)
+    }
+  },
+  computed: {
+    eventsloaded() {
+      return this.events.slice(0, this.length);
+    },
+
+    fullName(){
+      return this.fullname
+    }
+  },
   mounted() {
-
-    if(this.$route.params.idx){
-      console.log(this.$route.params.idx);
-
-      if(this.$route.params.idx == 'events'){
+    if (this.$route.params.idx) {
+      if (this.$route.params.idx == 'events') {
         this.activeTab = ''
-      }else{
-        
+      } else {
         this.activeTab = 'PublicButton'
       }
-      // console.log(this.$route.params.public.idx);
     }
     const clock = new THREE.Clock();
     const raycaster = new THREE.Raycaster()
@@ -282,10 +189,8 @@ export default {
       width: window.innerWidth,
       height: window.innerHeight
     }
-
     const renderer = this.$refs.renderer.renderer;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-
     const scene = this.$refs.scene.scene;
     const sky = new Sky();
     sky.scale.setScalar(10000);
@@ -372,18 +277,12 @@ export default {
     dirLight.position.multiplyScalar(30);
     const orbitCtrl = this.$refs.renderer.three.cameraCtrl
     orbitCtrl.enableZoom = false;
-    // orbitCtrl.enableZoom = false;
     orbitCtrl.target.set(0, 0, 0);
     orbitCtrl.enableDamping = true;
     orbitCtrl.enablePan = false;
     orbitCtrl.maxPolarAngle = 1.5;
     orbitCtrl.minDistance = 50;
     orbitCtrl.maxDistance = 1200;
-        // const renderer = this.$refs.renderer;
-        // const world = this.$refs.gltf.scene;
-        // console.log(world)
-        // const orbitCtrl = this.$refs.renderer.three.cameraCtrl
-        // orbitCtrl.enableZoom = false;
 
     const points = [
       {
@@ -420,7 +319,6 @@ export default {
         console.log(className);
         switch(className) {
           case 'label-west':
-            // Animations.animateCamera(camera, orbitCtrl, { x: -15, y: 80, z: 60 }, { x: 0, y: 0, z: 0 }, 1600, () => {});
             this.filterchoice = 'West'
             document.getElementById('west').classList.add('clicked')
             document.getElementById('north').classList.remove('clicked')
@@ -459,7 +357,6 @@ export default {
             document.getElementById('east').classList.remove('clicked')
             document.getElementById('central').classList.remove('clicked')
             break
-
         }
       }, false);
     });
@@ -485,13 +382,10 @@ export default {
         const intersects = raycaster.intersectObjects(scene.children, true);
         if (intersects.length === 0) {
           point.element.classList.add('visible');
-          // console.log(point.element)
         } else {
-          // console.log(point.element)
           const intersectionDistance = intersects[0].distance;
           const pointDistance = point.position.distanceTo(camera.position);
           intersectionDistance < pointDistance ? point.element.classList.remove('visible') : point.element.classList.add('visible');
-          // console.log(point)
         }
           const translateX = screenPosition.x * sizes.width * 0.5;
           const translateY = - screenPosition.y * sizes.height * 0.5;
@@ -502,32 +396,17 @@ export default {
     }
     animate()
   },
-
-  created(){
-
+  created() {
     getuserid().then((value)=>{
       console.log('my value in created' + value);
       this.uid = value
       localStorage.setItem('uid', value)
-      
     })
     console.log(localStorage.getItem('uid'));
-    getdata().then((value) =>
-      { 
-        this.fullname = value
-        this.updatefullname()
-      }
-      )
-
+    getdata().then((value) => { 
+      this.fullname = value
+      this.updatefullname()
+    })
   },
-
-
 }
-
-</script>
-
-<script setup>
-  // var fullname = localStorage.getItem('fullname')
-  // console.log(fullname);
-  // console.log('uid is ' + localStorage.getItem('uid'));
 </script>
