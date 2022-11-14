@@ -85,22 +85,24 @@
                 </div>
                 <div class="container-fluid text-center">
                     <div class="row">
-                        <div class="col-xl-4 col-md-6 mb-5 d-flex justify-content-center" v-for="(user,userid) in filtereddata" :key="userid">
-                            <router-link class="routerLink" :to="{name:'individual profile', params:{idx: userid}}">
-                                <div class="card border-0 friend-bar p-2 ps-3" style="width: 20rem; height: 5rem;">
-                                    <div class="row">
-                                        <div class="col-3">
-                                        <div class="rounded-circle" style="padding:7px 15px; font-size:30px; background: linear-gradient(90deg, #ef4136, #fbb040); color:white;">
-                                            <span>{{user.username[0].toUpperCase()}}</span>
-                                        </div>
-                                        </div>
-                                        <div class="col-9 my-auto">
-                                            <span class="float-start" style="color:black;">{{user.username}}</span>
+                        <template v-for="(user,userid) in filtereddata" :key="userid">
+                            <div v-if="!(Object.keys(myFriends).includes(userid))" class="col-xl-4 col-md-6 mb-5 d-flex justify-content-center">
+                                <router-link class="routerLink" :to="{name:'individual profile', params:{idx: userid}}">
+                                    <div class="card border-0 friend-bar p-2 ps-3" style="width: 20rem; height: 5rem;">
+                                        <div class="row">
+                                            <div class="col-3">
+                                            <div class="rounded-circle" style="padding:7px 15px; font-size:30px; background: linear-gradient(90deg, #ef4136, #fbb040); color:white;">
+                                                <span>{{user.username[0].toUpperCase()}}</span>
+                                            </div>
+                                            </div>
+                                            <div class="col-9 my-auto">
+                                                <span class="float-start" style="color:black;">{{user.username}}</span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </router-link>
-                        </div>
+                                </router-link>
+                            </div>
+                        </template>
                     </div>
                 </div>
             </div> 
