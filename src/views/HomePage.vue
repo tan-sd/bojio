@@ -162,8 +162,6 @@ export default {
       firstName = firstName[0].toUpperCase() + firstName.slice(1,firstName.length)
       lastName = lastName[0].toUpperCase() + lastName.slice(1,lastName.length)
       this.fullname = firstName + ' ' + lastName
-      // console.log(firstName)
-      // console.log(lastName)
     }
   },
   computed: {
@@ -242,7 +240,7 @@ export default {
     scene.add(water)
 
     const camera = this.$refs.camera.camera;
-    console.log(camera)
+    // console.log(camera)
 
     const manager = new THREE.LoadingManager();
     manager.onProgress = async(url, loaded, total) => {
@@ -316,7 +314,7 @@ export default {
     document.querySelectorAll('.point').forEach(item => {
       item.addEventListener('click', event => {
         let className = event.target.classList[event.target.classList.length - 1];
-        console.log(className);
+        // console.log(className);
         switch(className) {
           case 'label-west':
             this.filterchoice = 'West'
@@ -398,11 +396,11 @@ export default {
   },
   created() {
     getuserid().then((value)=>{
-      console.log('my value in created' + value);
+      // console.log('my value in created' + value);
       this.uid = value
       localStorage.setItem('uid', value)
     })
-    console.log(localStorage.getItem('uid'));
+    // console.log(localStorage.getItem('uid'));
     getdata().then((value) => { 
       this.fullname = value
       this.updatefullname()

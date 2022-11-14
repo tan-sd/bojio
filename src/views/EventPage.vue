@@ -9,10 +9,6 @@
             </div>
         </div>
 
-        <!-- <a id="event-scroll-top" href="#goToTop">
-        scroll to top
-      </a> -->
-
         <div class="container">
             {{ getlat }} {{ getlng }}
             <div class="event-header-details text-center">
@@ -51,10 +47,18 @@
                         <div class="container mb-3 mt-4">
                             <div class="col text-center">
                                 <!-- GOOGLE MAP -->
-                                <GMapMap :center="center" :zoom="16" map-type-id="roadmap"
-                                    style="width: 85; height: 40vmin" :options="options" ref="map">
-                                    <GMapMarker :key="marker.id" v-for="marker in markers"
-                                        :position="marker.position" />
+                                <GMapMap
+                                    :center="center"
+                                    :zoom="16"
+                                    map-type-id="roadmap"
+                                    style="width: 85;
+                                    height: 40vmin"
+                                    :options="options"
+                                    ref="map">
+                                    <GMapMarker
+                                        :key="marker.id"
+                                        v-for="marker in markers"
+                                        :position="marker.position"/>
                                 </GMapMap>
                             </div>
                         </div>
@@ -144,37 +148,12 @@
             </div>
         </div>
     </div>
-
-    <!-- <div id="event-card-buttons" class="text-center row mt-3">
-
-<div class="col-12 col-md-4 mx-auto">
-  <a :href="routeLink" target="_blank" id="event-route" class="col-12">
-      <span id="howToGetThere">Directions</span>  
-  </a>
-</div>
-<div class="col-12 col-md-4 mx-auto">
-  <button type="button" class="btn btn-primary col-12">
-      <router-link class="routerLink" :to="{ name:'createajioParams', params:{idx: this.name}}"> 
-        Create a Jio
-      </router-link>
-    </button>
-    
-
-  
-</div>
-<div class="col-12 col-md-4 mx-auto">
-  <button type="button" class="btn btn-primary col-12">
-      Join a Jio
-    </button>
-</div>
-</div> -->
 </template>
 
 <script>
 import sourceData from "../data.json";
 import axios from "axios";
 import { variableDeclarator } from "@babel/types";
-// import { getIdToken } from '@firebase/auth';
 
 export default {
     name: "EventsButton",
@@ -205,7 +184,10 @@ export default {
             ownLat: "",
             ownLng: "",
             routeLink: "",
-            center: { lat: this.latitude, lng: this.longitude },
+            center: {
+                lat: this.latitude,
+                lng: this.longitude
+            },
             markers: [
                 {
                     position: {
@@ -226,31 +208,17 @@ export default {
             },
         };
     },
-
     methods: {
-
-
         calculateAndDisplayRoute(
             directionsService,
             directionsDisplay
-            // start,
-            // destination
         ) {
-            // var refWaypoints = this.waypts;
             var refWaypoints = [];
-
             var start = this.ownLoc;
             var end = this.center;
-
-            // for (var i=1;i<this.places.length-1;i++) {
-            //   refWaypoints.push({
-            //     location: this.places[i],
-            //     stopover: true,
-            //   });
-            // }
-            console.log(refWaypoints);
-            console.log("start: " + start);
-            console.log("end: " + end);
+            // console.log(refWaypoints);
+            // console.log("start: " + start);
+            // console.log("end: " + end);
             directionsService.route(
                 {
                     origin: start,
@@ -278,15 +246,11 @@ export default {
             this.calculateAndDisplayRoute(
                 directionsService,
                 directionsDisplay
-                // this.places[0],
-                // this.places[1]
             );
         },
-
         setLoading() {
             this.loading = true;
         },
-
         displayDate() {
             const eventDate = this.date;
             let fullDate = eventDate.split("-");
@@ -310,7 +274,6 @@ export default {
             const date = eventD.getDay();
             return days[date] + ", " + months[fullDate[1]] + " " + fullDate[2];
         },
-
         convertTime() {
             let time = this.time;
             time = time.split(":");
@@ -320,22 +283,18 @@ export default {
                 (Number(time[0]) || 12) + ":" + time[1] + " AM"
             );
         },
-
         getVenue() {
             return this.venueName;
         },
-
         getImg() {
             return this.eventImg;
         },
-
         getId() {
             this.eventId = this.$route.params.idx;
             var eventId = this.$route.params.idx;
             this.url = `https://www.eventbriteapi.com/v3/events/${eventId}/?token=PRFPTWCYQ4TUG6MWF7GF`;
             this.descriptionURL = `https://www.eventbriteapi.com/v3/events/${eventId}/description/?token=PRFPTWCYQ4TUG6MWF7GF`;
         },
-
         checkDOM() {
             console.log(document.getElementsByTagName("div")[10]);
             console.log(document.getElementById("event-banner-card-body"));
@@ -348,7 +307,6 @@ export default {
             }
         }
     },
-
     computed: {
         get() {
             return this.$route.params.idx;
@@ -363,7 +321,6 @@ export default {
 
             return "";
         },
-
         getlng() {
             var obj = this.center;
             obj.lng = this.longitude;
@@ -377,10 +334,6 @@ export default {
 
     created() {
         this.ownLoc;
-
-        // this.calculateAndDisplayRoute()
-        // this.loadMap()
-
         this.getId();
         var url = this.url;
         console.log(url);
@@ -389,8 +342,6 @@ export default {
             .get(url)
             .then((response) => {
                 console.log(response);
-                // this.description = response.data.description.text
-                // this.eventName = response.data.name.html,
                 this.name = response.data.name.text;
                 this.imageurl = response.data.logo.original.url;
                 this.eventdate = response.data.start.local;
@@ -404,7 +355,6 @@ export default {
                         `https://www.eventbriteapi.com/v3/organizers/` +
                         this.organizerID +
                         `/?token=PRFPTWCYQ4TUG6MWF7GF`),
-                    // const eventdate = this.eventdate
                     (this.date = this.eventdate.split("T")[0]);
                 this.time = this.eventdate.split("T")[1];
 
@@ -463,7 +413,6 @@ export default {
             })
             .finally(() => setTimeout(this.setLoading, 500));
     },
-
     mounted() {
         this.checkDOM();
     },

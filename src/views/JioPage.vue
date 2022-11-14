@@ -6,28 +6,29 @@
         </div>
     </div>
     <Transition name="fade">
-            <div v-if="confirmDelete" class="profile-dark-background">
-            </div>
+        <div v-if="confirmDelete" class="profile-dark-background"></div>
     </Transition>
-        
-            
-            <!-- pops up when you try to delete friend -->
-            <Transition name="fade">
-            <template v-if="confirmDelete">
-                <div class="card container p-4 profile-delete-popup text-center">
-                    <div class="row mb-3 ">
-                        <h5 style="font-family:worksans-semibold">Delete Jio?</h5>
-                        <span>Are you sure you want to delete Jio?</span>
-                    </div>
-                    <div class="row">
-                        <div class="col"><router-link to='/' style="text-decoration: none;"><button class="profile-popup-button w-100" @click="deleteJio(this.eventId)">
-                        Yes</button></router-link></div>
-                        <div class="col"><button class="profile-popup-button w-100" @click="this.confirmDelete=false">No</button></div>
-                    </div>
+    <!-- pops up when you try to delete friend -->
+    <Transition name="fade">
+        <template v-if="confirmDelete">
+            <div class="card container p-4 profile-delete-popup text-center">
+                <div class="row mb-3 ">
+                    <h5 style="font-family:worksans-semibold">Delete Jio?</h5>
+                    <span>Are you sure you want to delete Jio?</span>
                 </div>
-                
-            </template>
-            </Transition>
+                <div class="row">
+                    <div class="col">
+                        <router-link to='/' style="text-decoration: none;">
+                            <button class="profile-popup-button w-100" @click="deleteJio(this.eventId)">
+                                Yes
+                            </button>
+                        </router-link>
+                    </div>
+                    <div class="col"><button class="profile-popup-button w-100" @click="this.confirmDelete=false">No</button></div>
+                </div>
+            </div>
+        </template>
+    </Transition>
 
     <div class="container">
         <div class="event-header-details text-center">
@@ -35,10 +36,7 @@
         </div>
 
         <div class="row mx-auto mt-4">
-            <div
-                class="col-12 col-xl-6 order-xl-first order-last"
-                style="font-size: 15px; background-color: "
-            >
+            <div class="col-12 col-xl-6 order-xl-first order-last" style="font-size: 15px;">
                 <div class="card public-about-container p-4 mb-3">
                     <div>
                         <div class="public-header mb-2">About</div>
@@ -231,33 +229,6 @@
                     </div>
                 </div>
 
-                <!-- <div class="row mx-auto">
-        <div class="">
-            <div class="public-header">Activities</div>
-            <div v-for="act , index in event.activities" :key="index" class="my-2">
-                <div class="card border-0 public-activity-bar p-2 ps-4 mx-auto" style="width: 90%; padding:20px;">
-                    <div class="row my-auto">
-                        <div class="col-2 my-auto">
-                            <div class="rounded-circle" style="padding:7px 15px; font-size:25px; background: linear-gradient(90deg, #ac72ff, #23d2ff); color:white;">
-                            <span class="d-flex justify-content-center">{{index+1}}</span>
-                            </div>
-                        </div>
-            
-                        <div class="col-10 my-auto">
-            
-                            <div class="row">
-                                <div style="font-family: worksans-semibold">{{act.name}}</div>
-                                <div style="font-size: 0.9rem; color: grey;">{{act.location}}</div>
-                                <div style="font-size: 0.9rem; color: grey;">{{act.duration}} minutes</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            
-            </div>
-        </div>
-    </div> -->
-
                 <div class="row mb-5">
                     <div class="col-6 w-100">
                         <div
@@ -336,9 +307,7 @@
                             ></i
                             >{{ getVenue() }}
                         </div>
-                    </div>
-                    <!-- {{eventId}} -->
-                    
+                    </div>      
                     
                     <div class="col text-center">
                         <GMapMap
@@ -349,46 +318,8 @@
                             :options="options"
                             ref="map"
                         >
-                            <!-- <GMapMarker
-      :key="marker.id"
-      v-for="marker in markers"
-      :position="marker.position"
-    /> -->
                         </GMapMap>
                     </div>
-
-                    <!-- <div id="event-card-buttons" class="text-center row mt-3">
-
-    <div class="col-12 col-md-6 mx-auto">
-    <a :href="routeLink" target="_blank" id="event-route" class="col-12">
-        <span id="howToGetThere">How To Get There</span>  
-    </a>
-    </div>
-    <div class="col-12 col-md-6 mx-auto">
-        <div v-if="myuid == event.userid">
-            
-            <button type="button" class="btn btn-primary col-12" @click="deleteJio(eventId); ">
-                <router-link to="/" style="text-decoration:none">Delete this jio</router-link>
-            </button>
-            
-        </div>
-        <div v-else-if="peoplegoing.includes(myuid)">
-            <button style="background-image: none; background-color:rgba(220,53,69,255); border:none;" type="button" class="btn btn-primary col-12" @click="leaveJio(myuid)">
-                Leave this event
-            </button>
-        </div>
-        <div v-else-if="peoplegoing.length == event.maxnumber">
-            <button type="button" class="btn btn-primary col-12" disabled>
-                No slots left
-            </button>
-        </div>
-        <div v-else>
-            <button type="button" class="btn btn-primary col-12" @click="joinjio(event.userid)">
-                Join Jio +
-            </button>
-        </div>
-    </div>
-</div> -->
                 </div>
             </div>
         </div>
@@ -488,8 +419,6 @@
             </div>
         </div>
     </footer>
-    <!-- {{peoplegoing}}
-{{myuid}} -->
 </template>
 
 <script>
@@ -572,17 +501,12 @@ export default {
     },
 
     methods: {
-
-        // removemsg(){
-        //     removemsgs()
-        // },
         calculateAndDisplayRoute(
             directionsService,
             directionsDisplay
             // start,
             // destination
         ) {
-            // var refWaypoints = this.waypts;
             var refWaypoints = [];
 
             var start = this.locations[0];
@@ -629,10 +553,7 @@ export default {
                 this.calculateAndDisplayRoute(
                     directionsService,
                     directionsDisplay
-                    // this.places[0],
-                    // this.places[1]
                 );
-                // console.log(typeof(this.markers[0]))
             }
         },
 
@@ -644,20 +565,17 @@ export default {
         joinjio(creatorid) {
             //check if key is empty, if empty then use create jiolist
             //aft tat both will call func to get the value with key=peoplegoing
-            //var array = value
-            // array.push(myown uid)
             //call another function to put array as the new value
 
             var myuid = localStorage.getItem("uid");
-
             var pplgoing = [];
 
             getjiodetails(creatorid, this.eventId)
                 .then((value) => {
                     //means theres alr people going
-                    console.log(creatorid);
-                    console.log(this.eventId);
-                    console.log(value);
+                    // console.log(creatorid);
+                    // console.log(this.eventId);
+                    // console.log(value);
 
                     if (myuid != creatorid) {
                         console.log("i am not the creator but i wan to join");
@@ -715,27 +633,18 @@ export default {
                             getjiodetails(creatorid, this.eventId)
                                 .then((value) => {
                                     //means theres alr people going
-
                                     //this will give the current array of ppl going
                                     this.peoplegoing = value
                                     pplgoing = value;
                                     //replace this 10 with maxlimit
-                                    if (
-                                        pplgoing.length >= this.event.maxnumber
-                                    ) {
+                                    if (pplgoing.length >= this.event.maxnumber) {
                                         this.errormsg = "hit the max sorry!";
-                                    } else if (
-                                        pplgoing.length > 1 &&
-                                        pplgoing.includes(myuid)
-                                    ) {
+                                    } else if (pplgoing.length > 1 && pplgoing.includes(myuid)) {
                                         // means i alr prev joined before
                                         // need to be more than 1 because if prev no one inside then length is alr 1
-                                        console.log(
-                                            " just added u in so array length 1 if js added so need > 1"
-                                        );
+                                        // console.log(" just added u in so array length 1 if js added so need > 1");
                                         this.errormsg = "u alr in the party";
                                     } 
-
                                 })
                                 .catch((value) => {
                                     console.log(value);
@@ -744,7 +653,6 @@ export default {
                     }
                 });
         },
-
         leaveJio(myuid) {
             var index = this.peoplegoing.indexOf(myuid);
             this.peoplegoing.splice(index, 1);
@@ -754,10 +662,7 @@ export default {
             console.log(creatorid),
             console.log(eventId),
             leavejio(creatorid,eventId,index);
-
         },
-
-
         displayDate() {
             const eventDate = this.event.date.split("T")[0];
             let fullDate = eventDate.split("-");
@@ -787,7 +692,6 @@ export default {
                 fullDate[2]
             );
         },
-
         convertTime() {
             let time = this.event.date.split("T")[1];
             time = time.split(":");
@@ -797,7 +701,6 @@ export default {
                 (Number(time[0]) || 12) + ":" + time[1] + " AM"
             );
         },
-
         getVenue() {
             return this.event.activities[0].location;
         },
@@ -825,22 +728,18 @@ export default {
             if (this.inputMessage === "" || this.inputMessage === null) {
                 return;
             }
-
             const message = {
                 username: this.state.username,
                 content: this.inputMessage,
             };
-
             createMessage(this.eventId, message);
-
             this.inputMessage = "";
             //js add on message
             this.allthemessages.push(message)
             // this.getupdatedmessage()
         },
-
         getupdatedmessage() {
-            console.log('in get updates message method');
+            // console.log('in get updates message method');
             var messages = [];
             getmessage(this.eventId).then((value) =>
                 Object.keys(value).forEach((key) => {
@@ -851,30 +750,26 @@ export default {
                     });
                 })
             );
-            console.log(" finish get message ");
-
-            console.log(messages);
+            // console.log(" finish get message ");
+            // console.log(messages);
             this.state.messages = messages;
             // this.allthemessages = messages
-            console.log('finish get updated message method');
+            // console.log('finish get updated message method');
         },
         getmessage(eventid) {
-            console.log('this function is getmessage');
+            // console.log('this function is getmessage');
             // return new Promise((resolve, reject) => {
              
-                var messages = ref(db, `messages/${eventid}`)
-                onValue(messages, (snapshot) => {
-              
-
+            var messages = ref(db, `messages/${eventid}`)
+            onValue(messages, (snapshot) => {
+            
                 const data = snapshot.val()
 
                 if (data != null) {
                     console.log('inside js file getmessage');
                     console.log(data);
                 }
-                })
-            // })
-
+            })
         },
         deleteJio(eventId) {
             let userid = this.event.userid;
@@ -886,7 +781,6 @@ export default {
             this.confirmDelete=false;
         },
     },
-
     computed: {
         getRemainingSlots() {
             return this.event.maxnumber - this.peoplegoing.length;
@@ -894,35 +788,28 @@ export default {
         eventloaded() {
             return this.event;
         },
-
         numberofppl() {
-            console.log('numberofppl computed');
+            // console.log('numberofppl computed');
             return this.peoplegoing.length;
         },
-
         pplgoing(){
-            console.log('ppl going computed');
+            // console.log('ppl going computed');
             return this.peoplegoing
         },
-
         allmessages() {
             // this.getupdatedmessage()
-            console.log('allmessages computed');
-            console.log(this.state.messages);   
+            // console.log('allmessages computed');
+            // console.log(this.state.messages);   
             return this.state.messages
             // return this.allthemessages
         },
-
         getnames() {
-            
             var uidarray = this.peoplegoing;
-
             // find usernames of the users
             const allusers = this.allusers;
             //object with userid as keys
-
-            console.log("in get names");
-            console.log(allusers);
+            // console.log("in get names");
+            // console.log(allusers);
             var usernames = {};
             for (const user in allusers) {
                 //user is the key
@@ -931,9 +818,8 @@ export default {
                     usernames[user] = username;
                 }
             }
-
-            console.log('username here');
-            console.log(usernames);
+            // console.log('username here');
+            // console.log(usernames);
             return usernames
         },
     },
@@ -943,21 +829,15 @@ export default {
             }, 5000)
     },
     unmounted(){
-        console.log('destroyed')
+        // console.log('destroyed')
         clearInterval(checkmsg)
     },
-
-
     created() {
-  
         var myuid = localStorage.getItem("uid");
         this.myuid = myuid;
         getusername(myuid).then((value)=>{
-    
             this.state.username = value
         })
-
-
         this.getId();
         //get public events
         getusers()
@@ -969,9 +849,8 @@ export default {
                 .then((value) => {
                     const publickeys = Object.keys(value);
                     var ans = "";
-
                     if (publickeys.includes(this.eventId)) {
-                        console.log("in get public");
+                        // console.log("in get public");
                         this.event = value[this.eventId];
                         // console.log(this.event)
                         /////start
@@ -990,11 +869,11 @@ export default {
                                 this.routeLink = ans;
 
                                 this.allLocations();
-                                console.log(this.routeLink);
+                                // console.log(this.routeLink);
                                 // console.log(this.locations)
                                 for (var loc of this.locations) {
                                     this.routeLink += loc + "/";
-                                    console.log(this.routeLink);
+                                    // console.log(this.routeLink);
                                 }
                                 this.showRoute();
                             },
@@ -1002,12 +881,9 @@ export default {
                                 ans = error.message;
                             }
                         );
-
                         ///end
                     }
-
                     this.creatorid = this.event.userid;
-
                     displaypplgoing(this.creatorid, this.eventId).then(
                         (value) => {
                             this.peoplegoing = value;
@@ -1053,9 +929,7 @@ export default {
                         ans = error.message;
                     }
                 );
-
                 this.creatorid = this.event.userid;
-
                 displaypplgoing(this.creatorid, this.eventId).then((value) => {
                     this.peoplegoing = value;
                     // this.getnames();
@@ -1091,11 +965,9 @@ export default {
     min-height: 100vh;
     background: linear-gradient(90deg, #ef4136, #fbb040);
 }
-
 .view.chat {
     flex-direction: column;
 }
-
 .view.chat header {
     position: relative;
     display: block;
@@ -1103,7 +975,6 @@ export default {
     padding: 50px 30px 10px;
     color: #fff;
 }
-
 .view.chat .chat-box {
     /* border-radius: 24px 24px 0px 0px; */
     background-color: #fff;
@@ -1111,12 +982,10 @@ export default {
     flex: 1 1 100%;
     padding: 30px;
 }
-
 .view.chat .chat-box .message {
     display: flex;
     margin-bottom: 15px;
 }
-
 .view.chat .chat-box .message .message-inner .username {
     color: #888;
     font-size: 16px;
@@ -1124,7 +993,6 @@ export default {
     padding-left: 15px;
     padding-right: 15px;
 }
-
 .view.chat .chat-box .message .message-inner .content {
     display: inline-block;
     padding: 10px 20px;
@@ -1135,24 +1003,20 @@ export default {
     line-height: 1.2em;
     text-align: left;
 }
-
 .view.chat .chat-box .message.current-user {
     margin-top: 30px;
     justify-content: flex-end;
     text-align: right;
 }
-
 .view.chat .chat-box .message.current-user .message-inner {
     max-width: 75%;
 }
-
 .view.chat .chat-box .message.current-user .message-inner .content {
     color: #fff;
     font-weight: 600;
     background: linear-gradient(90deg, #ac72ff, #23d2ff);
     /* #ac72ff,#23d2ff */
 }
-
 .view.chat footer {
     /* position: sticky; */
     position: relative;
@@ -1162,11 +1026,9 @@ export default {
     padding: 30px;
     box-shadow: 0px 0px 12px rgba(100, 100, 100, 0.2);
 }
-
 .view.chat footer form {
     display: flex;
 }
-
 .view.chat footer form input[type="text"] {
     flex: 1 1 100%;
     appearance: none;
@@ -1183,12 +1045,10 @@ export default {
     background-color: #f3f3f3;
     transition: 0.4s;
 }
-
 .view.chat footer form input[text="text"]::placeholder {
     color: #888;
     transition: 0.4s;
 }
-
 .view.chat footer form input[type="submit"] {
     appearance: none;
     border: none;

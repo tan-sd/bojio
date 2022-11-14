@@ -8,12 +8,9 @@ import {
     createUserWithEmailAndPassword,
 } from "firebase/auth";
 import { useRouter } from "vue-router";
-// import VueRouter from 'vue-router'
-
 
 export default {
     name: "PublicButton",
-    // publicevents: getthis(),
 
     data() {
         return {
@@ -47,7 +44,6 @@ export default {
         scrollToTop() {
             window.scrollTo(0, 0);
         },
-
         loadMore() {
             console.log(this.publicevents);
             if (this.length >= this.publicevents.length) {
@@ -56,7 +52,6 @@ export default {
             this.length = this.length + 1;
             console.log(this.length);
         },
-
         convert24(time) {
             // console.log(time);
             time = time.split(":");
@@ -66,7 +61,6 @@ export default {
                 (Number(time[0]) || 12) + ":" + time[1] + " AM"
             );
         },
-
         convertDate(fullDate) {
             // console.log(fullDate);
             fullDate = fullDate.split("-");
@@ -96,11 +90,9 @@ export default {
                 fullDate[2]
             );
         },
-
         filter() {
             var category = this.selectedcategory;
             var tempobj = {};
-
            //if im using only filter function
            if(!this.usesearch){
                 const events = this.publicevents;
@@ -113,7 +105,6 @@ export default {
                 }
                 this.filterobj = tempobj;
                 console.log(tempobj);
-                
             }else{
                 //get searcharray
                 const events = this.searchobj
@@ -132,7 +123,6 @@ export default {
         },
 
         search() {
-    
             console.log("start of search func");
             var search = this.searchedname;
             if (search.length > 0) {
@@ -140,33 +130,30 @@ export default {
             } else {
                 this.usesearch = false;
             }
-            console.log(search);
+            // console.log(search);
             var allevents = this.publicevents;
             //its an object
 
             //dont replace this.events , shd create a new search array
             var tempobj = {};
-            console.log(allevents);
+            // console.log(allevents);
             for (const event in allevents) {
                 //event is my key
-                console.log(allevents[event]);
+                // console.log(allevents[event]);
                 const eventname = allevents[event]['eventname'].toLowerCase();
-                console.log(eventname);
-                console.log(search);
+                // console.log(eventname);
+                // console.log(search);
                 if (eventname.includes(search.toLowerCase())) {
                     tempobj[event] = allevents[event]
                 }
             }
             this.searchobj = tempobj
-            console.log(tempobj);
-
+            // console.log(tempobj);
             console.log("end of search func");
         },
-
         deletesearch() {
             console.log("in delete search");
             var search = this.searchedname;
-
             if (search != "") {
                 console.log("in delete, use search");
 
@@ -183,11 +170,9 @@ export default {
                     }
                 }
                 this.searchobj = tempobj
-
                 // this.searcharray = temparray;
             }
         },
-
         popstateEventAction() {
         // ... some action triggered when the back button is clicked
             console.log('back is clicked');
@@ -197,9 +182,7 @@ export default {
         removePopstateEventAction() {
             window.removeEventListener('popstate', this.popstateEventAction);
         }
-
     },
-
     computed: {
         eventsloaded() {
             if(this.usesearch){
@@ -207,7 +190,6 @@ export default {
             }
             return this.publicevents;
         },
-
         filterevents() {
             // this.allevents = this.filterarray
             if (this.usesearch && this.filterarray) {
@@ -221,16 +203,13 @@ export default {
             }
             return this.filterobj;
         },
-
         searchevents(){
             return this.searchobject
         }
     },
 
     created() {
-
         window.addEventListener('popstate', this.popstateEventAction );
-
         getpublic()
             .then((value) => {
                 console.log("inside this");
@@ -253,14 +232,8 @@ export default {
             });
 
     },
-
-
 };
 </script>
-
-<style scoped>
-
-</style>
 
 <template>
     <div class="container mt-5">
@@ -330,7 +303,6 @@ export default {
                 </router-link>
             </div>
         </div>
-        <!-- C:\Users\tan_s\Downloads\Web Development\wad2-project\public\Images\wallpaper1.jpg -->
 
         <!-- this one already filtering -->
         <div v-else>

@@ -1,9 +1,13 @@
 <template>
     <div class="container mt-5">
         <div class="row mx-auto" style="width: 300px;">
-
             <div class="col">
-                <p class="text-center"><span style="font-family: worksans-semibold">Search Events</span> <i class="bi bi-search orange-icon"></i></p>
+                <p class="text-center">
+                    <span style="font-family: worksans-semibold">
+                        Search Events
+                    </span>
+                    <i class="bi bi-search orange-icon"></i>
+                </p>
                 <input
                     type="textbox"
                     v-model="searchedname"
@@ -14,43 +18,27 @@
                     @keyup.delete="deletesearch()"
                     />
             </div>
-
             <div v-if="filterchoice!=''"></div>
-
         </div>
-
     </div>
 
-    <!-- if no filters used  -->
+    <!-- IF NO FILTER USED  -->
     <div v-if="!usefilter">
         <div
             id="event-container"
             class="container mt-5"
-            style="font-family: worksans-medium"
-        >
+            style="font-family: worksans-medium">
             <div class="row" id="app">
                 <div
                     class="col-lg-4 col-md-6 mb-5"
-                    v-for="(event, index) in eventsloaded.slice(
-                        0,
-                        events.length
-                    )"
-                    :key="index"
-                >
+                    v-for="(event, index) in eventsloaded.slice(0, events.length)"
+                    :key="index">
                     <router-link
                         @click="scrollToTop"
                         style="text-decoration: none; color: inherit"
-                        :to="{ name: 'event', params: { idx: event.id } }"
-                    >
-                        <div
-                            class="card event-card"
-                            style="width: auto; height: 500px"
-                        >
-                            <img
-                                class="card-img-top"
-                                :src="event.image.url"
-                                alt="card image collar"
-                            />
+                        :to="{ name: 'event', params: { idx: event.id } }">
+                        <div class="card event-card" style="width: auto; height: 500px">
+                            <img class="card-img-top" :src="event.image.url" alt="card image collar"/>
                             <div class="card-body" style="width: auto">
                                 <div class="card-title pt-1 eventTitle">
                                     {{ event.name }}
@@ -118,9 +106,8 @@
             </div>
         </div>
     </div>
-    <!-- <button id='view-more' class="btn mb-3" @click="loadMore" style="box-shadow: 0px 0px 14px -7px #f09819" >Load</button> -->
 
-    <!-- if filter is used -->
+    <!-- IF FILTER IS USED -->
     <div v-else>
         <div
             id="event-container"
@@ -212,21 +199,6 @@
             </div>
         </div>
     </div>
-
-    <!-- <div class="container" id="bottom">
-        <div class="row">
-          <div class="col-3"></div>
-          <div class="col-sm-6 col-12">
-            <button id="view-more" class="mb-3" @click="loadMore">View More</button>
-          </div>
-          <div class="col-lg-3 col-12 d-flex justify-content-lg-end justify-content-center mb-5">
-            <span>Showing 
-              <span id="card-count">{{length}}</span> of 
-              <span id="card-total"></span> {{events.length}} events      
-            </span>
-          </div>
-        </div>
-      </div> -->
 </template>
 
 <script>
@@ -415,7 +387,6 @@ export default {
             usesearch: false,
             searcharray: [],
             maplocation: "",
-            // filterchoice: this.data
         };
     },
     methods: {
@@ -439,11 +410,6 @@ export default {
         filter() {
             console.log("start of filter function");
             var chosenlocation = this.selectedlocation;
-
-            // if(this.maplocation != ''){
-            //   chosenlocation = this.maplocation
-            // }
-
             var temparray;
             var postalcode;
             var allpostalcodes;
@@ -453,13 +419,10 @@ export default {
                 temparray = [];
                 if (chosenlocation != "") {
                     this.usefilter = true;
-                    // console.log(chosenlocation);
                     const allpostalcodes = this.sgdistrictcode[chosenlocation];
-                    // console.log(allpostalcodes);
                     //loop through events. if events postal code inside this all postal codes, i add
                     const events = this.events;
                     for (const event of events) {
-                        // console.log(event);
                         postalcode =
                             event["primary_venue"]["address"]["postal_code"];
                         if (postalcode != null) {
@@ -478,19 +441,14 @@ export default {
                 temparray = [];
                 if (chosenlocation != "") {
                     this.usefilter = true;
-                    // console.log(chosenlocation);
                     allpostalcodes = this.sgdistrictcode[chosenlocation];
-                    // console.log(allpostalcodes);
                     //loop through events. if events postal code inside this all postal codes, i add
                     const events = this.searcharray;
-                    // console.log(events);
                     for (const event of events) {
-                        // console.log(event);
                         postalcode =
                             event["primary_venue"]["address"]["postal_code"];
                         if (postalcode != null) {
                             postalcode = postalcode.substring(0, 2);
-                            // console.log(postalcode);
                             if (
                                 Object.values(allpostalcodes).indexOf(
                                     postalcode
@@ -503,29 +461,20 @@ export default {
                 }
                 this.latestarray = temparray;
             }
-
             if (chosenlocation == "All") {
                 this.usefilter = false;
             }
-
-            console.log(this.usefilter);
             this.filterarray = temparray;
-            // console.log(this.filterarray);
-            // console.log('end of filter func');
         },
-
         clearfilter() {
             this.usefilter = false;
         },
-
         usemapfilter() {
 
             this.selectedlocation = this.data;
             this.filter();
         },
-
         search() {
-
             console.log("start of search func");
             var search = this.searchedname;
             if (search.length > 0) {
@@ -537,11 +486,9 @@ export default {
             var allevents = this.events;
             //dont replace this.events , shd create a new search array
             var temparray = [];
-            // console.log(allevents);
             for (const event of allevents) {
                 // console.log(event);
                 const eventname = event["name"].toLowerCase();
-                // console.log(eventname);
                 if (eventname.includes(search.toLowerCase())) {
                     temparray.push(event);
                 }
@@ -551,7 +498,6 @@ export default {
             console.log(this.usesearch);
             console.log("end of search func");
         },
-
         deletesearch() {
             console.log("in delete search");
             var search = this.searchedname;
@@ -564,19 +510,14 @@ export default {
                 var temparray = [];
 
                 for (const event of allevents) {
-                    // console.log(event);
                     const eventname = event["name"].toLowerCase();
-                    // console.log(eventname);
                     if (eventname.includes(search.toLowerCase())) {
                         temparray.push(event);
                     }
                 }
                 this.searcharray = temparray;
-                console.log('in delete search');
-                console.log(this.searcharray);
             }
         },
-
         convert24(time) {
             time = time.split(":");
             return (
@@ -585,7 +526,6 @@ export default {
                 (Number(time[0]) || 12) + ":" + time[1] + " AM"
             );
         },
-
         convertDate(fullDate) {
             fullDate = fullDate.split("-");
             var months = [
@@ -610,13 +550,11 @@ export default {
         },
     },
     computed: {
-
         filterchoice(){
             // console.log(this.data);
             this.usemapfilter()
             return this.data
         },
-
         eventsloaded() {
             if (this.usesearch) {
                 //change events to searcharray
@@ -626,7 +564,6 @@ export default {
             }
             return this.events.slice(0, this.length);
         },
-
         filterevents() {
             this.allevents = this.filterarray;
             if (this.usesearch && this.filterarray) {
@@ -640,14 +577,9 @@ export default {
             console.log(this.filterarray);
             return this.filterarray;
         },
-
     }
-
-
 };
 </script>
-
-<style scoped></style>
 
 <script setup>
 // console.log(sourceData);

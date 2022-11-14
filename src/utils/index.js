@@ -36,8 +36,6 @@ import { getFirestore } from "firebase/firestore";
 import { doc, deleteDoc } from "firebase/firestore";
 import { nodeName } from 'jquery';
 
-
-
 // import uid from '../App.vue'
 var uid;
 const firebaseConfig = {
@@ -50,66 +48,12 @@ const firebaseConfig = {
   appId: "1:168248515824:web:bfcb3221af409131e07635"
 };
 
-// Initialize Cloud Firestore and get a reference to the service
-// const auth = firebase.auth()
-
-// export function useAuth() {
-//   const user = ref(null)
-//   const unsubscribe = auth.onAuthStateChanged(_user => (user.value = _user))
-//   onUnmounted(unsubscribe)
-//   const isLogin = computed(() => user.value !== null)
-
-//   // const signIn = async () => {
-//   //   const googleProvider = new firebase.auth.GoogleAuthProvider()
-//   //   await auth.signInWithPopup(googleProvider)
-//   // }
-//   const signOut = () => auth.signOut()
-
-//   return { user, isLogin, signOut }
-// }
-
-// const firestore = firebase.firestore()
-// const messagesCollection = messagesCollection.orderBy('createdAt', 'desc').limit(100)
-// const messagesQuery = messagesCollection.orderBy('createdAt', 'desc').limit(100)
-// const filter = new Filter()
-
-// export function useChat() {
-//   const messages = ref([])
-//   const unsubscribe = messagesQuery.onSnapshot(snapshot => {
-//     messages.value = snapshot.docs
-//       .map(doc => ({ id: doc.id, ...doc.data() }))
-//       .reverse()
-//   })
-//   onUnmounted(unsubscribe)
-
-//   const { user, isLogin } = useAuth()
-//   const sendMessage = text => {
-//     if (!isLogin.value) return
-//     const { uid, displayName } = user.value
-//     messagesCollection.add({
-//       userName: displayName,
-//       userId: uid,
-//       // userPhotoURL: photoURL,
-//       text: filter.clean(text),
-//       createdAt: firebase.firestore.FieldValue.serverTimestamp()
-//     })
-//   }
-
-//   return { messages, sendMessage }
-// }
-
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const firestoredb = getFirestore(app);
 
-// console.log(db);
-// const dbRef = ref(getDatabase());
-
 export function removemsgs(){
-
   remove(ref(db, `messages`))
-  // remove(ref(db, 'images'))
-
 }
 
 export function resetPassword(){
@@ -131,12 +75,7 @@ export function resetPassword(){
     console.log(error);
     status.innerHTML = 'Sorry, invalid email.'
     status.style.color = 'red'
-
-  
-
-    // ..
   });
-
 }
 
 //validate email
@@ -153,7 +92,6 @@ function validate_email(email) {
 }
 
 export function securityCheck() {
-
   var errorCount = 0;
   var email = document.getElementById('emailSignUp')
   var firstName = document.getElementById('firstName');
@@ -299,7 +237,6 @@ export function securityCheck() {
     }
     return false
   }
-
 }
 
 //register user
@@ -428,8 +365,6 @@ export function getprivate() {
 
 }
 
-
-
 export function getdata() {
   return new Promise((resolve, reject) => {
     uid = localStorage.getItem("uid")
@@ -455,7 +390,6 @@ export function getdata() {
   });
 }
 
-
 //get all users for friendspage
 export async function getusers() {
   uid = localStorage.getItem("uid")
@@ -480,8 +414,6 @@ export async function getusers() {
     });
   })
 }
-
-
 
 var eventname;
 var userid;
@@ -607,47 +539,10 @@ export function createJio(actArr) {
         });
       }
     );
-
-
-
-    //////////////
-    // var username = getusername(userid)().then((username)=>{
-
-    //   console.log(username);
-    // })
-
   } else {
     userid = 'uid not found'
   }
-
 }
-
-
-
-// // //see private jios
-// // var privatejios = document.getElementById('private')
-// // privatejios.addEventListener('click', getprivate)
-
-// const dbRef = ref(getDatabase());
-
-// export function getprivate(){
-// get(child(dbRef, `private events/`)).then((snapshot) => {
-//   if (snapshot.exists()) {
-
-//     localStorage.setItem('privatejios', JSON.stringify(snapshot.val()))
-
-//   } else {
-//     console.log("No data available");
-//   }
-// }).catch((error) => {
-//   console.error(error);
-// });
-// }
-
-
-//get public 
-// // var publicjios = document.getElementById('public')
-// // publicjios.addEventListener('click', getpublic)
 
 export function getpublic2() {
   console.log("getpublic2")
@@ -708,7 +603,6 @@ export async function getfriendrequests() {
     });
   })
 }
-
 
 //when i wan to make them friends after accepting 
 export function makefriends(sender) {
@@ -957,14 +851,6 @@ export function createMessage(eventid, message) {
     }).catch((error) => {
       console.error(error);
     });
-
-
-
-  // } 
-  // else {
-  //   userid = 'uid not found'
-  // }
-
 }
 
 //check current messages for this event
@@ -975,39 +861,26 @@ export function getmessage(eventid) {
     var messages = ref(db, `messages/${eventid}`)
 
     onValue(messages, (snapshot) => {
-
       const data = snapshot.val()
-
       if (data != null) {
         return resolve(data)
       }
-   
       return reject('not found')
     })
   })
 
 }
-
-// let x = ref(db, `messages`)  
-// export default x 
-
 export function deletepublicjio(eventId,userId){
-  
   remove(ref(db,"accounts/"+userId+"/createdjios/"+eventId))
   remove(ref(db,"createdjios/"+userId+"/"+eventId))
   remove(ref(db,"public events/"+eventId))
 }
-
 export function deleteprivatejio(eventId,userId){
   remove(ref(db,"accounts/"+userId+"/createdjios/"+eventId))
   remove(ref(db,"createdjios/"+userId+"/"+eventId))
   remove(ref(db,"private events/"+eventId))
-
 }
-
 export function leavejio(creatorid,eventid,ind){
   remove(ref(db,"createdjios/"+creatorid+"/"+eventid+"/peoplegoing/"+ind))
   console.log("jio removed")
 }
-
-

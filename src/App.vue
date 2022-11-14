@@ -1,137 +1,87 @@
-<!-- <template> -->
-  <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
-
-  <!-- <router-view /> -->
-  <!-- <div v-if="showPopup"> -->
-    <!-- <SignupForm header ='Sign up for the Giveaway' text ='grab this' /> -->
-  <!-- </div> -->
-  <!-- <h1>{{title}}</h1>
-  <div v-if="showPopup">
-    <SignupForm theme ="" @close="togglePopup">
-      <template v-slots:links>
-        <a href="#"> Sign up now</a>
-      </template>
-    </SignupForm>
-  </div> -->
-
-  <!-- <button @click="togglePopup"> open popup </button> -->
-<!-- </template> -->
-
 <template>
-  
+<!--         
+  ____    ____        _  _____  ____  
+ |  _ \  / __ \      | ||_   _|/ __ \ 
+ | |_) || |  | |     | |  | | | |  | |
+ |  _ < | |  | | _   | |  | | | |  | |
+ | |_) || |__| || |__| | _| |_| |__| |
+ |____/  \____/  \____/ |_____|\____/ 
+                               
 
-<!-- <div class="container" style="display:flex; justify-content:space-between;">
+ Github Repository: https://github.com/tan-sd/wad2-project
 
-  <button @click="activeTab = 'EventsButton'">A</button>
-  <button @click="activeTab = 'PublicButton'">B</button>
-  <button @click="activeTab = 'PrivateButton'">C</button>
+--> 
+  <nav class="navbar navbar-expand-lg navbar-light mb-4 mt-2">
+    <div class="container">
+      <!-- <a class="navbar-brand" href="./main.html">BOJIO</a> -->
+      <router-link
+        class="routerLink navbar-brand"
+        :to="{ name: 'default', params: { active: 'events'  }, }">
+          BOJIO
+      </router-link>
 
-</div>
-<keep-alive>
-  <component :is="activeTab" />
-</keep-alive> -->
+      <!-- <router-link to="/" class="navbar-brand"> BOJIO </router-link>  -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
+      <div class="collapse navbar-collapse" id="navbarSupportedContent" >
+        <ul class="navbar-nav" v-if="!isLoggedIn" >
+          <li class="nav-item active pe-4">
+            <!-- <a class="nav-link" href="./about.html">About</a> -->
+            <router-link to="/aboutpage" class="nav-link"> About</router-link> 
+          </li>
 
- <!-- <EventsButton v-if="activeTab === 'EventsButton'"/>
- <PublicButton v-if="activeTab === 'PublicButton'"/> 
- <PrivateButton v-if="activeTab === 'PrivateButton'"/> -->
-
-
-<nav class="navbar navbar-expand-lg navbar-light mb-4 mt-2">
-      <div class="container">
-        <!-- <a class="navbar-brand" href="./main.html">BOJIO</a> -->
-        <router-link
-                                class="routerLink navbar-brand"
-                                :to="{
-                                    name: 'default',
-                                    params: { active: 'events'  },
-                                }"
-        >BOJIO</router-link>
-        <!-- <router-link to="/" class="navbar-brand"> BOJIO </router-link>  -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-    
-        <div class="collapse navbar-collapse" id="navbarSupportedContent" >
-          <ul class="navbar-nav" v-if="!isLoggedIn" >
-            <li class="nav-item active pe-4">
-              <!-- <a class="nav-link" href="./about.html">About</a> -->
-              <router-link to="/aboutpage" class="nav-link"> About</router-link> 
-            </li>
-
-            <li class="nav-item pe-4">
-              <router-link to="/createajio" class="nav-link"> Create a Jio</router-link> 
-              <!-- <a class="nav-link" href="./signup.html">Sign up</a> -->
-            </li>
-            
-            <li class="nav-item pe-4">
-              <router-link to="/signup" class="nav-link"> Sign up </router-link> 
-              <!-- <a class="nav-link" href="./signup.html">Sign up</a> -->
-            </li>
-            <li class="nav-item">
-              <router-link to="/login" class="nav-link"> <span class="nav-login"> Login </span> 🔥</router-link>
-              <!-- <a class="nav-link" href="./login.html"><span class="nav-login">Login</span> 🔥</a> -->
-            </li>
-          </ul>
-
-          <!-- need to log out -->
-          <ul class="navbar-nav" v-else >
-            <li class="nav-item active pe-4">
-              <!-- <a class="nav-link" href="./about.html">About</a> -->
-              <router-link to="/aboutpage" class="nav-link"> About</router-link> 
-            </li>
-            <li class="nav-item pe-4">
-              <router-link to="/createajio" class="nav-link"> Create a Jio</router-link> 
-              <!-- <a class="nav-link" href="./signup.html">Sign up</a> -->
-            </li>
-            <li class="nav-item pe-4">
-              <router-link :to="{name: 'profile', params: {idx : uid}}" class="nav-link"> Profile </router-link> 
-              <!-- <a class="nav-link" href="./signup.html">Sign up</a> -->
-            </li>
-            <li class="nav-item pe-4">
-              <router-link to="/friendspage" class="nav-link"> Friends </router-link> 
-              <!-- <a class="nav-link" href="./signup.html">Sign up</a> -->
-            </li>
-            <li class="nav-item">
-              <router-link to="/login" class="nav-link" @click="handlesignOut" v-if="isLoggedIn">Log out</router-link>
+          <li class="nav-item pe-4">
+            <router-link to="/createajio" class="nav-link"> Create a Jio</router-link> 
+            <!-- <a class="nav-link" href="./signup.html">Sign up</a> -->
+          </li>
           
-              <!-- <a class="nav-link" href="./login.html"><span class="nav-login">Login</span> 🔥</a> -->
-            </li>
-          </ul>
+          <li class="nav-item pe-4">
+            <router-link to="/signup" class="nav-link"> Sign up </router-link> 
+            <!-- <a class="nav-link" href="./signup.html">Sign up</a> -->
+          </li>
+          <li class="nav-item">
+            <router-link to="/login" class="nav-link"> <span class="nav-login"> Login </span> 🔥</router-link>
+            <!-- <a class="nav-link" href="./login.html"><span class="nav-login">Login</span> 🔥</a> -->
+          </li>
+        </ul>
 
-        </div>
+        <!-- need to log out -->
+        <ul class="navbar-nav" v-else >
+          <li class="nav-item active pe-4">
+            <!-- <a class="nav-link" href="./about.html">About</a> -->
+            <router-link to="/aboutpage" class="nav-link"> About</router-link> 
+          </li>
+          <li class="nav-item pe-4">
+            <router-link to="/createajio" class="nav-link"> Create a Jio</router-link> 
+            <!-- <a class="nav-link" href="./signup.html">Sign up</a> -->
+          </li>
+          <li class="nav-item pe-4">
+            <router-link :to="{name: 'profile', params: {idx : uid}}" class="nav-link"> Profile </router-link> 
+            <!-- <a class="nav-link" href="./signup.html">Sign up</a> -->
+          </li>
+          <li class="nav-item pe-4">
+            <router-link to="/friendspage" class="nav-link"> Friends </router-link> 
+            <!-- <a class="nav-link" href="./signup.html">Sign up</a> -->
+          </li>
+          <li class="nav-item">
+            <router-link to="/login" class="nav-link" @click="handlesignOut" v-if="isLoggedIn">Log out</router-link>
+        
+            <!-- <a class="nav-link" href="./login.html"><span class="nav-login">Login</span> 🔥</a> -->
+          </li>
+        </ul>
       </div>
-</nav>
-<router-view />
-
-</template>
-
-<!-- <div>
-  <nav>
-    <router-link to="/"> Home </router-link> |
-    <router-link to="/aboutpage"> About</router-link> |
-    <router-link to="/securepage"> Secure </router-link>
-    <span v-if="isLoggedIn"
-      >
-      <button @click="handlesignOut" v-if="isLoggedIn">Logout</button>
-    </span>
-    <span v-else>
-      <router-link to="/signup"> Register </router-link> |
-      <router-link to="/login"> Login </router-link>
-    </span>
+    </div>
   </nav>
-  
-</div> -->
+<router-view />
+</template>
 
 <style>
 @import './assets/global.css';
 </style>
 
 <script setup>
-  // import { ref } from 'vue' // used for conditional rendering
-  // import firebase from 'firebase'
-  // import { useRouter } from 'vue-router'
-// import { getDatabase, ref, child, push, update, set, get } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js";
-// import { getAuth, signInWithEmailAndPassword, onAuthStateChanged , signOut } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-auth.js";
 
 import { onMounted, onBeforeMount, ref } from 'vue'
 import {getAuth, onAuthStateChanged, signOut} from 'firebase/auth';
@@ -159,13 +109,9 @@ onBeforeMount(()=>{
           // Store
           localStorage.setItem("uid", uid);
           console.log(' set uid already');
-          // console.log(localStorage.getItem('uid'));
-      
         } else {
           document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
         }
-      // console.log(uid);
-      // console.log(uid +'is loggedin');
       getdata()
 
     } else {
@@ -179,7 +125,7 @@ const handlesignOut = () => {
       // clear welcome msg
       localStorage.setItem("fullname", '');
       let personname = document.getElementById('personname')
-      console.log(personname);
+      // console.log(personname);
       personname.setAttribute('style','display:none')
       router.push('/')
 
@@ -195,8 +141,6 @@ function refresh() {
 export default {
   name: 'App',
   components: {
-    // EventsButton,PublicButton,PrivateButton
-    
 },
 
 data () {
@@ -212,18 +156,6 @@ methods: {
     this.showPopup = !this.showPopup
   }
 }
- 
   
 }
 </script>
-
-<style>
-/* #app { */
-  /* font-family: Avenir, Helvetica, Arial, sans-serif; */
-  /* -webkit-font-smoothing: antialiased; */
-  /* -moz-osx-font-smoothing: grayscale; */
-  /* text-align: center; */
-  /* color: #2c3e50; */
-  /* margin-top: 60px; */
-/* } */
-</style>
