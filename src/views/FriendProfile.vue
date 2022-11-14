@@ -95,7 +95,7 @@
                 <div>{{friendObj.firstname[0].toUpperCase() + friendObj.firstname.slice(1,friendObj.firstname.length)}} currently does not have any public jios.</div>
             </div>
 
-            <div v-else>
+            <template v-else>
                 <template v-for="jioObj,value in friendObj.createdjios" :key="jioObj">
                     <!-- <router-link :to="{ name: 'eachjioevent', params: { idx: jioId }}"> -->
                     <template v-if="jioObj.type=='public'">
@@ -122,7 +122,7 @@
                             
                         </template>
                 </template>
-            </div>
+            </template>
 
 
         </div>

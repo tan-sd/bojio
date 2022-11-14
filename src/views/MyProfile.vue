@@ -38,7 +38,7 @@
             <div v-if="countPublic() == 0" class="text-center p-5 card">
                     <div style="font-size:3rem"><i class="orange-icon bi bi-balloon-fill"></i></div>
                     <div>You currently do not have any public jios.</div>
-                </div>
+            </div>
                 <template v-for="jioObj,value in friendObj.createdjios" :key="jioObj">          
                     <!-- <router-link :to="{ name: 'eachjioevent', params: { idx: jioId }}"> -->
                         <template v-if="jioObj.type=='public'">

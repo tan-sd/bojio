@@ -85,22 +85,24 @@
                 </div>
                 <div class="container-fluid text-center">
                     <div class="row">
-                        <div class="col-xl-4 col-md-6 mb-5 d-flex justify-content-center" v-for="(user,userid) in filtereddata" :key="userid">
-                            <router-link class="routerLink" :to="{name:'individual profile', params:{idx: userid}}">
-                                <div class="card border-0 friend-bar p-2 ps-3" style="width: 20rem; height: 5rem;">
-                                    <div class="row">
-                                        <div class="col-3">
-                                        <div class="rounded-circle" style="padding:7px 15px; font-size:30px; background: linear-gradient(90deg, #ef4136, #fbb040); color:white;">
-                                            <span>{{user.username[0].toUpperCase()}}</span>
-                                        </div>
-                                        </div>
-                                        <div class="col-9 my-auto">
-                                            <span class="float-start" style="color:black;">{{user.username}}</span>
+                        <template v-for="(user,userid) in filtereddata" :key="userid">
+                            <div v-if="!(Object.keys(myFriends).includes(userid))" class="col-xl-4 col-md-6 mb-5 d-flex justify-content-center">
+                                <router-link class="routerLink" :to="{name:'individual profile', params:{idx: user.userid}}">
+                                    <div class="card border-0 friend-bar p-2 ps-3" style="width: 20rem; height: 5rem;">
+                                        <div class="row">
+                                            <div class="col-3">
+                                            <div class="rounded-circle" style="padding:7px 15px; font-size:30px; background: linear-gradient(90deg, #ef4136, #fbb040); color:white;">
+                                                <span>{{user.username[0].toUpperCase()}}</span>
+                                            </div>
+                                            </div>
+                                            <div class="col-9 my-auto">
+                                                <span class="float-start" style="color:black;">{{user.username}}</span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </router-link>
-                        </div>
+                                </router-link>
+                            </div>
+                        </template>
                     </div>
                 </div>
             </div> 
@@ -210,7 +212,6 @@ export default{
         // using after retreive user id, from this object change into user name. returns an objects with mulitple user names key== userid, value== username
         getfriendnames(){ 
             var friendsobj = this.myFriends
-            console.log(this.myFriends)
             var temparray = []
 
             for( const personid in friendsobj ){ 
@@ -233,38 +234,36 @@ export default{
 
     computed: {
         filterfriends() {
-            // console.log(this.myFriends)
+
             var friendList = {};
             var temparray = {};
             for (let user in this.myFriends) {
                 var username = this.myFriends[user]
-                console.log(user)
+
                 friendList[username] = user;
             }
             for (let friend in friendList) {
                 if (friend.toLowerCase().includes(this.searchedfriends.toLowerCase())) {
                     temparray[friend] = friendList[friend]
-                    console.log(temparray)
+
                 }
             }
             if (this.searchedfriends == '') {
                 temparray = friendList;
             }
-            console.log(temparray)
+
             return temparray
         },
         filtereddata() { 
             var currentlist = this.allusers;
-            console.log(this.allusers);
             var temparray = [];
-            //user gives the key 
-            for (let user in currentlist) {
-                //user is the person uid
-                let person = currentlist[user];
-                console.log(person);
-                var username = person.username;
+            //uid gives the key 
+            for (let uid in currentlist) {
+                let userDetails = currentlist[uid];
+                userDetails['userid'] = uid
+                var username = userDetails.username;
                 if (username.toLowerCase().includes(this.searchedusers.toLowerCase())) {
-                    temparray.push(currentlist[user]);
+                    temparray.push(userDetails);
                 }
             }
 
@@ -272,7 +271,7 @@ export default{
                 // when search not used i get everyone 
                 temparray = currentlist;
             }
-            console.log(temparray)
+
             return temparray;
         },
 
@@ -293,7 +292,7 @@ export default{
                 this.allusers = value
             }
             
-        ).then((value) => console.log('finish loading')),
+        ).then((value) => console.log('loading complete!')),
 
         getfriendrequests().then(
             (value) =>
@@ -313,27 +312,4 @@ export default{
     }
 }
 
-</script>
-
-<script setup>
-// var a= {'tom': 'val1', 'david': 'val2'}
-// console.log('the keys are ' + Object.keys(a));
-// console.log(Object.keys(a).length);
-
-// console.log('val of first key' + a['tom']);
-// delete a['tom']
-
-// console.log(a); //true
-
-// //why when object.keys(true).length itll give 0 for === and ==
-// var objectlen = Object.keys(a).length
-// console.log(objectlen);
-// if(objectlen == 0){
-// console.log('now empty object');
-// this.norequests = true
-
-// }
-// else{ 
-// console.log(objectlen);
-// }
 </script>
