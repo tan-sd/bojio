@@ -57,7 +57,7 @@
 
                       </div>
                     
-                    <button type="button" style="background-color: rgb(255, 127, 45); color: white; padding: 1rem; font-family: worksans-semibold;" class="btn orange border border-3 mt-4 w-50" id="loginBtn" @click="checkfields">Reset Password</button>
+                    <button type="button" style="background-color: rgb(255, 127, 45); color: white; padding: 1rem; font-family: worksans-semibold;" class="btn orange border border-3 mt-4 w-50" id="loginBtn" @click="checkFields">Reset Password</button>
                   </form>
             </div>
 
@@ -90,7 +90,7 @@ export default{
   },
 
   methods:{
-    checkfields(){
+    checkFields(){
       
       resetPassword()
       // console.log(status);
