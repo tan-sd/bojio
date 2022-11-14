@@ -71,9 +71,7 @@
 
 ### Clone
 
-```
 Clone our github repository to your local machine using `https://github.com/tan-sd/wad2-project.git`
-```
 
 ### Project setup
 ```
@@ -90,8 +88,8 @@ npm run serve
 ```
 
 ### Test Account
-| Username       | michael@gmail.com |
+| **Username**       | **michael@gmail.com** |
 | -------------- | ------------------|
-| Password       | 12345678          |
+| **Password**       | **12345678**          |
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
