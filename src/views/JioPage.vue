@@ -49,11 +49,43 @@
                     <!-- creator -->
                     <div class="my-3">
                         <div class="public-header mb-1">Creator</div>
-                        <div>
+                        <div v-if="myuid != event.userid">
                             <router-link
                                 class="routerLink"
                                 :to="{
                                     name: 'individual profile',
+                                    params: { idx: event.userid },
+                                }"
+                            >
+                                <div
+                                    class="card border-0 friend-bar ps-3"
+                                    style="width: 13rem; height: 3.5rem"
+                                >
+                                    <div class="row">
+                                        <div class="col-3 p-2">
+                                            <div class="rounded-circle text-center" style="padding: 3px 6px; font-size: 20px; background: linear-gradient(90deg, #ef4136, #fbb040); color: white;">
+                                                <span>{{event.username[0].toUpperCase()}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-9 my-auto p-0">
+                                            <span
+                                                class="float-start p-0"
+                                                style="
+                                                    color: black;
+                                                    font-size: 15px;
+                                                "
+                                                >{{ event.username }}</span
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
+                            </router-link>
+                        </div>
+                        <div v-else>
+                            <router-link
+                                class="routerLink"
+                                :to="{
+                                    name: 'profile',
                                     params: { idx: event.userid },
                                 }"
                             >
@@ -96,26 +128,50 @@
                             :key="userid"
                             class="my-2"
                         >
-                            <router-link
-                                class="routerLink"
-                                :to="{
-                                    name: 'individual profile',
-                                    params: { idx: userid },
-                                }"
-                            >
-                                <div class="card border-0 friend-bar ps-3" style="width: 13rem; height: 3.5rem">
-                                    <div class="row">
-                                        <div class="col-3 p-2">
-                                            <div class="rounded-circle text-center" style="padding: 3px 6px; font-size: 20px; background: linear-gradient(90deg, #ef4136, #fbb040); color: white;">
-                                                <span>{{username[0].toUpperCase()}}</span>
+                            <template v-if="myuid != userid">
+                                <router-link
+                                    class="routerLink"
+                                    :to="{
+                                        name: 'individual profile',
+                                        params: { idx: userid },
+                                    }"
+                                >
+                                    <div class="card border-0 friend-bar ps-3" style="width: 13rem; height: 3.5rem">
+                                        <div class="row">
+                                            <div class="col-3 p-2">
+                                                <div class="rounded-circle text-center" style="padding: 3px 6px; font-size: 20px; background: linear-gradient(90deg, #ef4136, #fbb040); color: white;">
+                                                    <span>{{username[0].toUpperCase()}}</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-9 my-auto p-0">
+                                                <span class="float-start p-0" style="color: black; font-size: 15px;">{{ username }}</span>
                                             </div>
                                         </div>
-                                        <div class="col-9 my-auto p-0">
-                                            <span class="float-start p-0" style="color: black; font-size: 15px;">{{ username }}</span>
+                                    </div>
+                                </router-link>
+                            </template>
+                            <template v-else>
+                                <router-link
+                                    class="routerLink"
+                                    :to="{
+                                        name: 'profile',
+                                        params: { idx: userid },
+                                    }"
+                                >
+                                    <div class="card border-0 friend-bar ps-3" style="width: 13rem; height: 3.5rem">
+                                        <div class="row">
+                                            <div class="col-3 p-2">
+                                                <div class="rounded-circle text-center" style="padding: 3px 6px; font-size: 20px; background: linear-gradient(90deg, #ef4136, #fbb040); color: white;">
+                                                    <span>{{username[0].toUpperCase()}}</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-9 my-auto p-0">
+                                                <span class="float-start p-0" style="color: black; font-size: 15px;">{{ username }}</span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </router-link>
+                                </router-link>
+                            </template>
                         </div>
                     </div>
 
