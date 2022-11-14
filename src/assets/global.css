@@ -1210,7 +1210,7 @@ td {
     transform: translate(-280%, 140%) rotate(-15deg);
 }
 
-@media only screen and (max-device-width: 390px) {
+@media only screen and (max-device-width: 414px) {
     /* screen equal or above 390 px */
 
     #personname {
