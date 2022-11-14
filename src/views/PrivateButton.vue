@@ -1,22 +1,30 @@
 <template>
-    <div class="container">
-        <div class="row">
-            <div class="col-6 d-flex justify-content-center mt-5">
-                <label class="text-center">Search Events <i class="bi bi-search"></i></label>
-                <input type="textbox" v-model="searchedname" class="form-control rounded-pill"
-                    id="exampleFormControlInput1" placeholder="Search..." @keyup="search()"
-                    @keyup.delete="deletesearch()" />
+    <div class="container mt-5">
+        <div class="row mx-auto" style="width: 300px;">
+            <div class="col">
+                <p class="text-center"><span style="font-family: worksans-semibold">Search Events</span> <i class="bi bi-search orange-icon"></i></p>
+                <input
+                    type="textbox"
+                    v-model="searchedname"
+                    class="form-control rounded-pill searchfield"
+                    id="exampleFormControlInput1"
+                    placeholder="Search..."
+                    @keyup="search()"
+                    @keyup.delete="deletesearch()"
+                    />
+                </div>
             </div>
-            <div class="col d-flex justify-content-center mt-5">
-                <!-- selected: {{ selectedcategory }} -->
-                <select class="form-select" v-model="selectedcategory" @click="filter">
-                    <option disabled value="">Categories</option>
-                    <option v-for="value in categories" :key="value">
-                        {{ value }}
-                    </option>
-                </select>
+            <div class="row mx-auto" style="width: 300px;">
+                <div class="col mt-3">
+                    <!-- selected: {{ selectedcategory }} -->
+                    <select class="form-select rounded-pill" v-model="selectedcategory" @click="filter">
+                        <option disabled value="">Categories</option>
+                        <option v-for="value in categories" :key="value">
+                            {{ value }}
+                        </option>
+                    </select>
+                </div>
             </div>
-        </div>
     </div>
 
     <div v-if="uid.length <= 1" class="container text-center">

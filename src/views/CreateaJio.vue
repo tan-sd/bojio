@@ -21,7 +21,6 @@
           <div class="card container p-4 profile-delete-popup text-center">
             <div class="row mb-3 ">
               <h5 style="font-family:worksans-semibold">Confirm Jio?</h5>
-                <span>Are you sure you want to confirm Jio</span>
             </div>
             <div class="row">
               <div class="col">
@@ -42,14 +41,22 @@
       <!-- DIRECTS BACK TO HOME PAGE AFTER JIO CREATION -->
       <Transition name="fade">
         <template v-if="gobackhome">
-          <div class="card container p-4 profile-delete-popup text-center">
+          <div class="card container p-4 profile-create-popup text-center">
             <div class="row mb-3 ">
                 <h5 style="font-family:worksans-semibold">Jio Confirmed</h5>
             </div>
             <div class="row">
-                <div class="col"><router-link to='/' style="text-decoration: none;"><button class="profile-popup-button w-100">
-                  Return back to home page</button></router-link></div>
-                <div class="col"><button class="profile-popup-button w-100" @click="this.$router.go()">create another jio</button></div>
+                <div class="col">
+                  <router-link to='/' style="text-decoration: none;">
+                    <button class="profile-popup-button w-100 p-2">
+                      Return to home page
+                    </button>
+                  </router-link>
+                </div>
+                <div class="col"><button class="profile-popup-button w-100 p-2" @click="this.$router.go()">
+                  Create another jio
+                </button>
+              </div>
             </div>
           </div>          
         </template>
@@ -63,7 +70,7 @@
             <div class="mb-3 text-center" style="font-family: worksans-semibold">Event Details</div>
             <div class="form-row">
               <div class="form-group col" style="width: auto">
-                <div class="form-floating">
+                <div class="form-floating center-form">
                   <input type="text" class="form-control" id="eventTitle" placeholder="event title" v-model="title"/>
                   <label for="eventTitle" class="text-muted">Event title</label>
                   <div id="eventTitleInvalid" class="invalid-feedback">
@@ -72,7 +79,7 @@
                 </div>
               </div>
               <div class="form-group col mt-4" style="width: auto">
-                <div class="form-floating">
+                <div class="form-floating center-form">
                   <textarea v-model="description" class="form-control" placeholder="description" id="eventDescription"
                     style="height: 200px" v-bind:class="{ maxCount: descriptionMaxCount }"></textarea>
                   <label for="eventDescription" class="text-muted">Event description</label>
@@ -90,7 +97,7 @@
             </div>
             <div class="row mt-4">
               <div class="form-group col" style="width: auto">
-                  <div class="form-floating">
+                  <div class="form-floating center-form">
                     <input type="number" class="form-control" id="eventCapacity" placeholder="maximum Limit" v-model="maxLimit"/>
                     <label for="maxLimit" class="text-muted">Event capacity</label>
                     <div id="eventCapacityInvalid" class="invalid-feedback">
@@ -112,7 +119,7 @@
             </div>
             <div class="form-row">
               <div class="register-form-field form-group col mt-4" style="width: auto">
-                <div class="form-floating">
+                <div class="form-floating center-form">
                   <input type="datetime-local" class="form-control" id="eventDateTime" placeholder="eventDateTime"
                     v-model="eventDateTime" />
                   <label for="eventDateTime" class="text-muted">Event date and time</label>
@@ -123,8 +130,8 @@
           
             <div class="form-row mt-4">
               <div class="row">
-                <div class="col-4">
-                  Type of Event:
+                <div class="col-5">
+                  Event Type:
                 </div>
                 <div class="col-3">
                   <div class="form-check">
@@ -145,7 +152,7 @@
               </div>
             </div>
           
-            <div class="row mt-4">
+            <div class="row mt-4 center-form">
               <div class="form-group col" style="width: auto">
                 <select class="form-select" aria-label="Default select example" v-model="category" id="category">
                   <option value="">Categories</option>
@@ -255,15 +262,15 @@
 
             <div v-else>
               <div v-for="(act, index) in this.actArr" :key="act">
-                <div class="card border-0 friend-bar p-2 ps-4 mx-auto mt-3" style="width: 30rem; height: 6rem;">
+                <div class="card border-0 friend-bar p-2 ps-4 mx-auto mt-3 activity-bar" style="width: 30rem; height: 6rem;">
                   <div class="row my-auto">
-                    <div class="col-2 my-auto">
-                      <div class="rounded-circle" style="padding:7px 15px; font-size:25px; background: linear-gradient(90deg, #ac72ff, #23d2ff); color:white;">
+                    <div class="col-sm-2 col-3 my-auto left-num-column">
+                      <div class="rounded-circle activity-num" style="padding:7px 15px; font-size:25px; background: linear-gradient(90deg, #ac72ff, #23d2ff); color:white;">
                         <span class="d-flex justify-content-center">{{index+1}}</span>
                       </div>   
                     </div>
                     
-                    <div class="col-10 my-auto">
+                    <div class="col-sm-10 col-9 my-auto">
                       <div style="cursor: pointer; width: 25px; height: 25px; background: linear-gradient(90deg, #ef4136, #fbb040);" @click="actArr.splice(index, 1), removetime(act.duration), remove(act.location)" class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
                         <span style="color:white; position: relative; left: -1px; top: -10px">x</span>
                       </div>
@@ -281,7 +288,7 @@
           </div>
         </div>
 
-        <div class="row mt-5">
+        <div class="row mt-5 mx-auto">
           <button type="button" style="min-width:10rem" class="btn login-signup-button mt-4 w-25" id="loginBtn" @click="checkjio">
             Create Jio!
           </button>

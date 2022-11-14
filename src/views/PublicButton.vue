@@ -263,17 +263,19 @@ export default {
 </style>
 
 <template>
-    <div class="container">
-        <div class="row">
-            <div class="col-6 d-flex justify-content-center mt-5">
-                 <label class="text-center">Search Events <i class="bi bi-search"></i></label>
-                <input type="textbox" v-model="searchedname" class="form-control rounded-pill"
+    <div class="container mt-5">
+        <div class="row mx-auto" style="width: 300px;">
+            <div class="col">
+                <p class="text-center"><span style="font-family: worksans-semibold">Search Events</span> <i class="bi bi-search orange-icon"></i></p>
+                <input type="textbox" v-model="searchedname" class="form-control rounded-pill searchfield"
                     id="exampleFormControlInput1" placeholder="Search..." @keyup="search()"
                     @keyup.delete="deletesearch()" />
             </div>
-            <div class="col-6 d-flex justify-content-center mt-5">
+        </div>
+        <div class="row mx-auto" style="width: 300px;">
+            <div class="col mt-3">
                 <!-- selected: {{ selectedcategory }} -->
-                <select class="form-select" v-model="selectedcategory" @click="filter">
+                <select class="form-select rounded-pill" v-model="selectedcategory" @click="filter">
                     <option disabled value="">Categories</option>
                     <option v-for="value in categories" :key="value">
                         {{ value }}

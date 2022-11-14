@@ -2,7 +2,7 @@
   <!-- WELCOME MESSAGE IF LOGGED IN -->
   <div class="container" v-if="uid.length > 0">
     <div class="row mb-5">
-      <div id = 'personname' style="font-family: worksans-extrabold; font-size: 4vmin;"> Welcome, {{fullName}}! 👋🏼</div>
+      <div id='personname'> Welcome, {{fullName}}! 👋🏼</div>
     </div>
   </div> 
 

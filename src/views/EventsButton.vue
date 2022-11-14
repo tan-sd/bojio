@@ -1,18 +1,18 @@
 <template>
     <div class="container mt-5">
-        <div class="row w-50 mx-auto">
+        <div class="row mx-auto" style="width: 300px;">
 
             <div class="col">
-                <p class="text-center">Search Events <i class="bi bi-search"></i></p>
+                <p class="text-center"><span style="font-family: worksans-semibold">Search Events</span> <i class="bi bi-search orange-icon"></i></p>
                 <input
                     type="textbox"
                     v-model="searchedname"
-                    class="form-control rounded-pill"
+                    class="form-control rounded-pill searchfield"
                     id="exampleFormControlInput1"
                     placeholder="Search..."
                     @keyup="search()"
                     @keyup.delete="deletesearch()"
-                />
+                    />
             </div>
 
             <div v-if="filterchoice!=''"></div>

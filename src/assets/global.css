@@ -30,6 +30,8 @@ html {
 
 body {
     font-family: worksans-medium;
+    margin: 0px;
+    padding: 0px;
 }
 
 /* fading in matters */
@@ -91,6 +93,11 @@ nav .navbar-nav a {
 }
 
 /* HOMEPAGE START */
+
+#personname {
+    font-family: worksans-extrabold;
+    font-size: 4vmin
+}
 
 .eventTitle {
     font-family: worksans-semibold;
@@ -1205,6 +1212,18 @@ td {
 
 @media only screen and (max-device-width: 390px) {
     /* screen equal or above 390 px */
+
+    #personname {
+        font-size: 6vmin;
+    }
+
+    .searchfield {
+        position: relative;
+        left: 50%;
+        transform: translate(-50%);
+        width: 250px !important;
+    }
+
     .about-header {
         font-size: 2.5rem;
     }
@@ -1313,6 +1332,41 @@ td {
 
     .banner-header-form {
         font-size: 55px;
+    }
+
+    .profile-create-popup {
+        min-width: 80% !important;
+    }
+
+    #imgPreview {
+        width: 300px !important;
+    }
+
+    .vue-map-container {
+        margin: 0;
+        padding: 0;
+    }
+
+    .center-form {
+        position: relative;
+        left: 50%;
+        transform: translate(-50%);
+        width: 300px;
+    }
+
+    .profile-delete-popup {
+        width: 0% !important;
+        min-width: 200px !important;
+    }
+
+    .activity-bar {
+        width: 100% !important;
+        height: 100% !important;
+    }
+
+    .activity-num {
+        width: 55px !important;
+        padding: 10px !important;
     }
 }
 
@@ -1601,6 +1655,19 @@ td {
     border: 0.5px solid rgba(224, 224, 224, 0.61)
 }
 
+.profile-create-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 100;
+    width: 30%;
+    min-width: 500px;
+    max-width: 500px;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+    border: 0.5px solid rgba(224, 224, 224, 0.61)
+}
+
 .profile-popup-button{
     border-style: none;
     border: 0.5px solid rgba(224, 224, 224, 0.61);
@@ -1615,9 +1682,10 @@ td {
 }
 
 .profile-dark-background{
-    position:absolute;
-    width: 100%;
-    height: 290%;
+    position:fixed;
+    width: 100vw;
+    height: 100%;
+    overflow: auto;
     background-color: black;
     opacity: 80%;
     z-index: 99;
