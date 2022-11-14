@@ -1210,8 +1210,8 @@ td {
     transform: translate(-280%, 140%) rotate(-15deg);
 }
 
-@media only screen and (max-device-width: 414px) {
-    /* screen equal or above 390 px */
+@media only screen and (max-device-width: 500px) {
+    /* screen equal or below 414 px */
 
     #personname {
         font-size: 6vmin;
@@ -1368,10 +1368,13 @@ td {
         width: 55px !important;
         padding: 10px !important;
     }
+
+    #howToGetThere {
+        
+    }
 }
 
 @media only screen and (min-device-width: 402px) {
-    /* screen equal or above 390 px */
     .about-header {
         font-size: 3rem;
     }
