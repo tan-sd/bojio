@@ -119,9 +119,8 @@
                                     </div>
                                 </router-link>
                             </div>
-                        
-                    </template>
-                    <!-- </router-link> -->
+                            
+                        </template>
                 </template>
             </div>
 
@@ -226,24 +225,6 @@ export default{
     },
 
     methods : {
-        // checks if a given jio is public
-        // ifPublic(jioObj){
-        //     if(jioObj.type === 'public'){
-        //         return true
-        //     }
-        //     else {
-        //         return false
-        //     }
-        // },
-
-        // ifPrivate(jioObj){
-        //     if(jioObj.type === 'private'){
-        //         return true
-        //     }
-        //     else {
-        //         return false
-        //     }
-        // },
 
         // notifies user if not logged in, cant add
         addError(){
@@ -315,7 +296,8 @@ export default{
             }
             return count
 
-        },        convert24(time) {
+        }, 
+        convert24(time) {
             // console.log(time);
             time = time.split(":");
             return (
