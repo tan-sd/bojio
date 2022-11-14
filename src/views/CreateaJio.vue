@@ -341,7 +341,7 @@ export default {
       currentLat: "",
       currentLng: "",
       options: {
-        zoomControl: false,
+        zoomControl: true,
         mapTypeControl: false,
         scaleControl: false,
         streetViewControl: false,
