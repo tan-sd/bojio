@@ -155,6 +155,10 @@ methods: {
   togglePopup(){
     this.showPopup = !this.showPopup
   }
+},
+mounted() {
+  console.log('%cGithub Repository: https://github.com/tan-sd/wad2-project', 'color: #fbb040');
+  console.log('%c— BOJIO', 'color: #777777');
 }
   
 }
