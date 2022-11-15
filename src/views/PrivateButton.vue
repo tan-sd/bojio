@@ -383,10 +383,10 @@ export default {
                     for (let i in value) {
                         let data = value[i];
                         let userid = data.userid;
-                        console.log(myfriends);
+                        // console.log(myfriends);
                         let myuid = localStorage.getItem('uid')
                         if (myfriends.includes(userid)) {
-                            console.log(userid + "is my friend");
+                            // console.log(userid + "is my friend");
                             //then want to get event details
                             friendsjios[i] = data;
                             //cnot use count, must use i so can access eventid aft tat

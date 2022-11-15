@@ -212,8 +212,8 @@ export default {
         window.addEventListener('popstate', this.popstateEventAction );
         getpublic()
             .then((value) => {
-                console.log("inside this");
-                console.log(value);
+                // console.log("inside this");
+                // console.log(value);
                 this.publicevents = value;
                 if (this.$route.params.idx) {
                     console.log(this.$route.params.idx);

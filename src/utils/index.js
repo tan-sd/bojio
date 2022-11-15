@@ -317,22 +317,22 @@ export function register() {
 
 //get public data
 export function getpublic() {
-  console.log('this function is getthis');
+  // console.log('this function is getthis');
   return new Promise((resolve, reject) => {
-    console.log('inside promise');
+    // console.log('inside promise');
     const publicevents = ref(db, 'public events/')
-    console.log(publicevents);
+    // console.log(publicevents);
     onValue(publicevents, (snapshot) => {
-      console.log('inside onvalue');
+      // console.log('inside onvalue');
       // Object.keys(snapshot.val()).forEach((key) =>{
       // const request = snapshot.val()[key]
       // console.log(key, request.email);
       const data = snapshot.val()
-      console.log("getpublic - data:" + data);
-      console.log(typeof (data));
-      console.log('going to resolve soon');
+      // console.log("getpublic - data:" + data);
+      // console.log(typeof (data));
+      // console.log('going to resolve soon');
       if (data != null) {
-        console.log('data not null');
+        // console.log('data not null');
         return resolve(data)
       }
       console.log('at reject');

@@ -394,13 +394,13 @@ export default {
             window.scrollTo(0, 0);
         },
         loadMore() {
-            console.log(this.events);
+            // console.log(this.events);
             if (this.length >= this.events.length) {
                 return;
             }
             this.length = this.length + 9;
-            console.log(this.length);
-            console.log(this.events.length);
+            // console.log(this.length);
+            // console.log(this.events.length);
             if (this.length == this.events.length) {
                 var viewMoreBtn = document.getElementById("view-more");
                 viewMoreBtn.classList.add("disabled");
