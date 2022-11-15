@@ -15,6 +15,10 @@
     src: url("../../public/Font/worksans/WorkSans-SemiBold.ttf");
 }
 
+* {
+    transition: 0.5s;
+}
+
 /* changes any words/icon into a nice orange gradient */
 .orange-icon{
     background: linear-gradient(90deg, #ef4136, #fbb040);
@@ -1190,19 +1194,6 @@ td {
     transform: translate(-280%, 140%) rotate(-15deg);
 }
 
-@media only screen and (max-device-width: 767px) {
-    /* screen equal or below 767px */
-    #remaining-slots {
-       font-size: 0.9rem; 
-    }
-}
-
-@media only screen and (max-device-width: 506px) {
-    /* screen equal or below 506px */
-    #remaining-slots {
-        font-size: 11px !important;
-    }
-} 
 
 @media only screen and (max-device-width: 500px) {
     /* screen equal or below 500 px */
@@ -1299,8 +1290,6 @@ td {
 
     #footer-row {
         margin: auto;
-        padding-left: 2px !important;
-        padding-right: 2px !important;
     }
 
     .island {
@@ -1363,10 +1352,6 @@ td {
     .activity-num {
         width: 55px !important;
         padding: 10px !important;
-    }
-
-    #howToGetThere {
-        
     }
 }
 
