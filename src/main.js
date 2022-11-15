@@ -14,7 +14,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css'
 const app = createApp(App)
 app.use(router).use(TroisJSVuePlugin).use(VueGoogleMaps, {
     load: {
-        key: 'AIzaSyBcpqqRoT6E55swScRXfN3WuJqPeD9Q9VU',
+        key: 'AIzaSyCUtsbQygy0vnvPJfwS2whPNpsSCYbtDB4',
         libraries: 'places'
     },
 });
