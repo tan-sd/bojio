@@ -181,14 +181,13 @@
                             :key="index">
                             <div class="row">
                                 <div
-                                    class="card border-0 public-activity-bar ps-3"
-                                    style="width: 25rem; height: 5rem">
+                                    class="card border-0 public-activity-bar ps-3">
                                     <div class="row my-auto">
                                         <div class="col-2 my-auto">
                                             <div
                                                 id="activities-index"
                                                 class="rounded-circle text-center"
-                                                style="padding: 5px 5px; font-size: 20px; background: linear-gradient(90deg, #ac72ff, #23d2ff); color: white;">
+                                                style="padding: 5px 5px; font-size: 20px; background: linear-gradient(90deg, #ac72ff, #23d2ff); color: white; margin-right: 10px;">
                                                 <span>{{ index+1 }}</span>
                                             </div>
                                         </div>
