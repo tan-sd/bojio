@@ -395,7 +395,7 @@ export async function getusers() {
     const dbRef = ref(getDatabase());
     get(child(dbRef, `accounts/`)).then((snapshot) => {
       if (snapshot.exists()) {
-        console.log(snapshot.val());
+        // console.log(snapshot.val());
         let fullname = snapshot.val().firstname + ' ' + snapshot.val().lastname
         const allusers = snapshot.val()
         // for(const user in allusers){
@@ -425,23 +425,23 @@ var imageData;
 
 // //to createjio
 export function createJio(actArr) {
-  console.log(actArr);
-  console.log(typeof actArr[0].image)
-  console.log(actArr[0].image.name)
-  console.log(actArr[0].imageUrl)
+  // console.log(actArr);
+  // console.log(typeof actArr[0].image)
+  // console.log(actArr[0].image.name)
+  // console.log(actArr[0].imageUrl)
   const db = getDatabase();
-  console.log('inside function createjio');
+  // console.log('inside function createjio');
   eventname = document.getElementById('eventTitle').value
   maxLimit= parseInt(document.getElementById("eventCapacity").value);
   category = document.getElementById("category").value
-  console.log(actArr[0].image == 'no-image')
+  // console.log(actArr[0].image == 'no-image')
   image = actArr[0].image
   if (actArr[0].image != "no-image") {
     image = actArr[0].image.name;
   }
   imageUrl = actArr[0].imageUrl;
   imageData = actArr[0].imageData;
-  console.log(image)
+  // console.log(image)
 
   // console.log(localStorage.getItem('username'));
   // var userid;
@@ -457,7 +457,7 @@ export function createJio(actArr) {
     const uploadTask = uploadBytesResumable(storageRef, imageData)
     uploadTask.on(`state_changed`, (snapshot) => {
       const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      console.log('Upload is ' + progress + '% done');
+      // console.log('Upload is ' + progress + '% done');
       switch (snapshot.state) {
         case 'paused':
           console.log('Uploaded is paused');
@@ -471,7 +471,8 @@ export function createJio(actArr) {
     () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           imageUrl = downloadURL
-          console.log('File available at', downloadURL);
+          // console.log('File available at', downloadURL);
+          console.log('Event created!')
 
           // FIREBASE DATABASE
     const dbRef = ref(getDatabase());
@@ -479,7 +480,7 @@ export function createJio(actArr) {
       if (snapshot.exists()) {
 
         var val = snapshot.val()
-        console.log(val);
+        // console.log(val);
         
         date = document.getElementById('eventDateTime').value
         type = document.querySelector('input[name="exampleRadios"]:checked').value;
@@ -512,7 +513,7 @@ export function createJio(actArr) {
         //add under createdjios which is under username account
         updates[`accounts/${uid}/createdjios/${newKey}`] = jioData;
     
-        console.log(updates);
+        // console.log(updates);
 
         document.getElementById('eventTitle').value = ''
         document.getElementById("eventCapacity").value = ''
@@ -541,20 +542,20 @@ export function createJio(actArr) {
 }
 
 export function getpublic2() {
-  console.log("getpublic2")
+  // console.log("getpublic2")
   const dbRef = ref(getDatabase());
   get(child(dbRef, `public events/`)).then((snapshot) => {
-    console.log("getpublic2 - then")
+    // console.log("getpublic2 - then")
     if (snapshot.exists()) {
-      console.log("getpublic2 - snapshotexists")
+      // console.log("getpublic2 - snapshotexists")
 
       // console.log(snapshot.val());
       localStorage.setItem('publicjios', JSON.stringify(snapshot.val()))
-      console.log("snapshot.val():" + snapshot.val());
+      // console.log("snapshot.val():" + snapshot.val());
       return (snapshot.val())
       // localStorage.setItem('publicjios', JSON.stringify(snapshot.val())
     } else {
-      console.log("No data available");
+      // console.log("No data available");
     }
   }).catch((error) => {
     console.error(error);
@@ -566,22 +567,22 @@ export function createfriendrequest(receiver) {
   const db = getDatabase();
   //my own uid
   const uid = localStorage.getItem("uid")
-  console.log('my own uid is' + uid);
-  console.log('receiver uid is' + receiver);
+  // console.log('my own uid is' + uid);
+  // console.log('receiver uid is' + receiver);
   const updates = {};
 
   updates[`/friendrequest/${uid}/${receiver}`] = 'pending'
 
   // updates['/friendrequest/' + uid + '/' ] = 'pending'
-  console.log(updates);
-  console.log('end of create friend req function');
+  // console.log(updates);
+  // console.log('end of create friend req function');
   return update(ref(db), updates);
 }
 
 //get all friend requests
 export async function getfriendrequests() {
   uid = localStorage.getItem("uid")
-  console.log('loading getfriend req n check if uid avail' + uid);
+  // console.log('loading getfriend req n check if uid avail' + uid);
   return new Promise((resolve, reject) => {
     const dbRef = ref(getDatabase());
     get(child(dbRef, `friendrequest/`)).then((snapshot) => {
@@ -591,7 +592,7 @@ export async function getfriendrequests() {
 
       } else {
 
-        console.log("No data available");
+        // console.log("No data available");
         return reject
       }
     }).catch((error) => {
@@ -632,7 +633,7 @@ export async function displayfriends() {
 
       } else {
 
-        console.log("No data available");
+        // console.log("No data available");
         return reject
       }
     }).catch((error) => {
@@ -660,7 +661,7 @@ export function getuserid() {
   return new Promise((resolve, reject) => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        console.log(user);
+        // console.log(user);
         uid = user.uid
         return resolve(uid)
 
@@ -851,7 +852,7 @@ export function createMessage(eventid, message) {
 
 //check current messages for this event
 export function getmessage(eventid) {
-  console.log('this function is getmessage');
+  // console.log('this function is getmessage');
   return new Promise((resolve, reject) => {
 
     var messages = ref(db, `messages/${eventid}`)

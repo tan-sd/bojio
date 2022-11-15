@@ -519,7 +519,7 @@ export default {
                 });
             }
 
-            console.log(refWaypoints);
+            // console.log(refWaypoints);
             directionsService.route(
                 {
                     origin: start,
@@ -718,7 +718,7 @@ export default {
             );
         },
         allLocations() {
-            console.log(this.event);
+            // console.log(this.event);
             for (var i = 0; i < this.event.activities.length; i++) {
                 this.locations.push(this.event.activities[i].location);
             }
@@ -844,7 +844,7 @@ export default {
             .then((value) => {
                 this.allusers = value;
             })
-            .then((value) => console.log("finish loading")),
+            .then((value) => console.log("Public events finished loading")),
             getpublic()
                 .then((value) => {
                     const publickeys = Object.keys(value);
@@ -952,8 +952,8 @@ export default {
             (this.state.messages = messages),
             this.allthemessages = messages
         );
-        console.log(this.state.messages);
-        console.log("here is to display events on create");
+        // console.log(this.state.messages);
+        // console.log("here is to display events on create");
     },
 };
 </script>

@@ -102,13 +102,13 @@ onBeforeMount(()=>{
   onAuthStateChanged(auth, (user)=>{ 
     if(user) {
       isLoggedIn.value = true;
-      console.log(user);
+      // console.log(user);
       uid = user.uid
 
       if (typeof(Storage) !== "undefined") {
           // Store
           localStorage.setItem("uid", uid);
-          console.log(' set uid already');
+          // console.log(' set uid already');
         } else {
           document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
         }

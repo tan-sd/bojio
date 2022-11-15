@@ -114,9 +114,9 @@ var loginBtn = document.getElementById('loginBtn');
 const auth = getAuth()
 signInWithEmailAndPassword(auth, email.value, password.value) // THIS LINE CHANGED
 .then(() => {
-  console.log(auth);
+  // console.log(auth);
   const current = auth.currentUser;
-  console.log(current.uid);
+  // console.log(current.uid);
   if (typeof(Storage) !== "undefined") {
     const {cookies} =useCookies()
   } else {

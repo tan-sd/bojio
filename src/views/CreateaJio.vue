@@ -499,7 +499,7 @@ export default {
       });
 
       this.totalDuration += parseFloat(this.actDuration);
-      console.log(this.places)
+      // console.log(this.places)
       activityDuration.classList = "form-control";
       activityLocation.classList = "form-control";
       activityTitle.classList = "form-control";
@@ -568,10 +568,6 @@ export default {
       var activityTitle = document.getElementById("activityTitle");
       var activityDuration = document.getElementById("activityDuration");
       var errors = 0;
-      console.log(category.value)
-      console.log(this.maxLimit)
-      console.log(typeof this.maxLimit)
-      console.log(typeof maxEventLimit.value)
 
       if (this.maxLimit === "") {
         maxEventLimit.classList = "form-control is-invalid";
@@ -623,9 +619,6 @@ export default {
       } else {
         category.classList = "form-control is-valid";
       }
-      
-      console.log(this.evtError);
-      console.log(errors);
 
       if (errors == 0) {
         this.confirmjio=true;

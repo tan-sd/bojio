@@ -295,10 +295,6 @@ export default {
             this.url = `https://www.eventbriteapi.com/v3/events/${eventId}/?token=PRFPTWCYQ4TUG6MWF7GF`;
             this.descriptionURL = `https://www.eventbriteapi.com/v3/events/${eventId}/description/?token=PRFPTWCYQ4TUG6MWF7GF`;
         },
-        checkDOM() {
-            console.log(document.getElementsByTagName("div")[10]);
-            console.log(document.getElementById("event-banner-card-body"));
-        },
     },
     filters: {
         shorttext(value, limit) {
@@ -336,12 +332,10 @@ export default {
         this.ownLoc;
         this.getId();
         var url = this.url;
-        console.log(url);
         //use description
         axios
             .get(url)
             .then((response) => {
-                console.log(response);
                 this.name = response.data.name.text;
                 this.imageurl = response.data.logo.original.url;
                 this.eventdate = response.data.start.local;
@@ -367,8 +361,6 @@ export default {
                                 (response) => (
                                     this.ownLat = position.coords.latitude,
                                     this.ownLng = position.coords.longitude,
-                                    console.log(this.ownLat, this.ownLng),
-                                    console.log(response.data),
                                     (this.venueName = response.data.name),
                                     (this.latitude = parseFloat(
                                         response.data.latitude
@@ -376,8 +368,6 @@ export default {
                                     (this.longitude = parseFloat(
                                         response.data.longitude
                                     )),
-                                    console.log(this.ownLat),
-                                    console.log(this.ownLng),
                                     (this.routeLink =
                                         "https://www.google.com/maps/dir/" +
                                         this.ownLat +
@@ -412,9 +402,6 @@ export default {
                 console.log(error.message);
             })
             .finally(() => setTimeout(this.setLoading, 500));
-    },
-    mounted() {
-        this.checkDOM();
     },
 };
 </script>

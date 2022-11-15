@@ -358,9 +358,6 @@ export default{
             }
         )
     },
-    mounted() {
-        console.log(this.myFriends)
-    }
 }
 
 </script>
