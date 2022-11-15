@@ -377,7 +377,6 @@ export function getdata() {
         if (typeof (Storage) !== 'undefined') {
           localStorage.setItem('fullname', fullname)
         }
-
         return resolve(fullname)
       } else {
         console.log("No data available");
@@ -403,9 +402,7 @@ export async function getusers() {
         // console.log(allusers[user].username);
         // }
         return (resolve(snapshot.val()))
-
       } else {
-
         return reject
       }
     }).catch((error) => {
