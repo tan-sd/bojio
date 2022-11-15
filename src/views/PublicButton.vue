@@ -45,12 +45,12 @@ export default {
             window.scrollTo(0, 0);
         },
         loadMore() {
-            console.log(this.publicevents);
+            // console.log(this.publicevents);
             if (this.length >= this.publicevents.length) {
                 return;
             }
             this.length = this.length + 1;
-            console.log(this.length);
+            // console.log(this.length);
         },
         convert24(time) {
             // console.log(time);
@@ -97,33 +97,33 @@ export default {
            if(!this.usesearch){
                 const events = this.publicevents;
                 for (const event in events) {
-                console.log(event);
+                // console.log(event);
                 const eventcat = events[event]["category"];
                 if (eventcat == category) {
                     tempobj[event] = events[event];
                 }
                 }
                 this.filterobj = tempobj;
-                console.log(tempobj);
+                // console.log(tempobj);
             }else{
                 //get searcharray
                 const events = this.searchobj
                 for (const event in events) {
-                console.log(event);
+                // console.log(event);
                 const eventcat = events[event]["category"];
                 if (eventcat == category) {
                     tempobj[event] = events[event];
                 }
                 }
                 this.filterobj = tempobj;
-                console.log(tempobj);
+                // console.log(tempobj);
 
                 this.latestobj = tempobj
             }
         },
 
         search() {
-            console.log("start of search func");
+            // console.log("start of search func");
             var search = this.searchedname;
             if (search.length > 0) {
                 this.usesearch = true;
@@ -149,19 +149,19 @@ export default {
             }
             this.searchobj = tempobj
             // console.log(tempobj);
-            console.log("end of search func");
+            // console.log("end of search func");
         },
         deletesearch() {
-            console.log("in delete search");
+            // console.log("in delete search");
             var search = this.searchedname;
             if (search != "") {
-                console.log("in delete, use search");
+                // console.log("in delete, use search");
 
                 var allevents = this.publicevents
                 var tempobj = {};
 
                 for (const event in allevents) {
-                    console.log(event);
+                    // console.log(event);
                     const eventname = allevents[event]["name"].toLowerCase();
                     // console.log(eventname);
                     if (eventname.includes(search.toLowerCase())) {
@@ -175,7 +175,7 @@ export default {
         },
         popstateEventAction() {
         // ... some action triggered when the back button is clicked
-            console.log('back is clicked');
+            // console.log('back is clicked');
             this.$router.push('/')
             this.removePopstateEventAction();
         },
@@ -195,11 +195,11 @@ export default {
             if (this.usesearch && this.filterarray) {
                 // if use search, take searcharray
                 this.filter();
-                console.log(this.latestobj);
+                // console.log(this.latestobj);
                 return this.latestobj;
             }else{
                 this.filter();
-                console.log(this.filterobj);
+                // console.log(this.filterobj);
             }
             return this.filterobj;
         },
@@ -216,21 +216,20 @@ export default {
                 // console.log(value);
                 this.publicevents = value;
                 if (this.$route.params.idx) {
-                    console.log(this.$route.params.idx);
+                    // console.log(this.$route.params.idx);
                     this.searchedname = this.$route.params.idx
                     this.search()
                     // this.$router.replace({':idx': null})
                     this.$route.params.idx = ''
                 }
-                console.log("created - " + this.publicevents);
-                console.log(typeof value);
-                console.log("end of .then");
+                // console.log("created - " + this.publicevents);
+                // console.log(typeof value);
+                // console.log("end of .then");
             })
             .catch((message) => {
-                console.log(message);
-                console.log("error");
+                // console.log(message);
+                // console.log("error");
             });
-
     },
 };
 </script>

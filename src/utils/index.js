@@ -352,8 +352,8 @@ export function getprivate() {
       // const request = snapshot.val()[key]
       // console.log(key, request.email);
       const data = snapshot.val()
-      console.log(snapshot.val());
-      console.log(typeof (data));
+      // console.log(snapshot.val());
+      // console.log(typeof (data));
       if (data != null) {
 
         return resolve(data)

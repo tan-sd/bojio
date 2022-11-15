@@ -378,7 +378,7 @@ export default {
                 .then((value) => {
                     // value will get an object with keys thats the event unique id
                     const keys = Object.keys(value);
-                    console.log(value);
+                    // console.log(value);
                     // keys is a list with the event unique ids
                     for (let i in value) {
                         let data = value[i];
