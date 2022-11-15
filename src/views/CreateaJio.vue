@@ -284,6 +284,11 @@
                   </div>
                 </div>
               </div>
+                <div class="row d-flex text-center mt-4">
+                  <div class="col">
+                    <span style="font-family: worksans-semibold">Total Duration: {{ toHoursAndMinutes(totalDuration) }}</span>
+                  </div>
+                </div>
             </div>
           </div>
         </div>
@@ -359,6 +364,16 @@ export default {
     };
   },
   methods: {
+    toHoursAndMinutes(totalMinutes) {
+      const hours = Math.floor(totalMinutes / 60);
+      const minutes = totalMinutes % 60;
+
+      if (hours == 0) {
+        return `${minutes}m`
+      } else {
+      return `${hours}h${minutes > 0 ? ` ${minutes}m` : ''}`;
+      }
+    },
     imgUpload() {
       var imgUpload = document.getElementById('imgUpload');
       imgUpload.click()
