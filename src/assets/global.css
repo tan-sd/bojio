@@ -1563,9 +1563,6 @@ td {
     position: relative;
 }
 
-.friend-requester{
-    
-}
 .friend-tick{
     background: linear-gradient(90deg, #ef4136, #fbb040);
     -webkit-background-clip: text;
