@@ -408,7 +408,7 @@ export default {
         },
 
         filter() {
-            console.log("start of filter function");
+            // console.log("start of filter function");
             var chosenlocation = this.selectedlocation;
             var temparray;
             var postalcode;

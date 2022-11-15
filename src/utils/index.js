@@ -368,12 +368,11 @@ export function getprivate() {
 export function getdata() {
   return new Promise((resolve, reject) => {
     uid = localStorage.getItem("uid")
-    console.log('uid inside getdata' + uid);
+    // console.log('uid inside getdata' + uid);
     const dbRef = ref(getDatabase());
     get(child(dbRef, `accounts/${uid}`)).then((snapshot) => {
       if (snapshot.exists()) {
-        console.log(snapshot.val());
-
+        // console.log(snapshot.val());
         let fullname = snapshot.val().firstname + ' ' + snapshot.val().lastname
         if (typeof (Storage) !== 'undefined') {
           localStorage.setItem('fullname', fullname)
@@ -671,7 +670,7 @@ export function getuserid() {
       }
       localStorage.setItem('uid', '')
       localStorage.setItem('fullname', '')
-      console.log('cnot find');
+      // console.log('cnot find');
       return reject('under reject path')
 
 
