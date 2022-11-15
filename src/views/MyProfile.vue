@@ -97,7 +97,7 @@ import {getfriendrequests, deleteFriend, getusers, displayfriends, createfriendr
 
 export default{ 
 
-    title: 'BOJIO – Friend List',
+    title: 'BOJIO – My Profile',
     name: 'friendpage',
 
     data(){

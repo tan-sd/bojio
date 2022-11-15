@@ -464,6 +464,7 @@ const state = reactive({
 
 export default {
     name: "jio details for both public and private",
+    title: "BOJIO - Jio Details",
 
     data() {
         return {
