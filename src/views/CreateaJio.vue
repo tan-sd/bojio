@@ -48,12 +48,12 @@
             <div class="row">
                 <div class="col">
                   <router-link to='/' style="text-decoration: none;">
-                    <button class="profile-popup-button w-100 p-2">
+                    <button id="gobackhomepage" disabled class="profile-popup-button w-100 p-2">
                       Return to home page
                     </button>
                   </router-link>
                 </div>
-                <div class="col"><button class="profile-popup-button w-100 p-2" @click="this.$router.go()">
+                <div class="col"><button id="createanotherjio" disabled class="profile-popup-button w-100 p-2" @click="this.$router.go()">
                   Create another jio
                 </button>
               </div>

@@ -512,7 +512,11 @@ export function createJio(actArr) {
     
         //add under createdjios which is under username account
         updates[`accounts/${uid}/createdjios/${newKey}`] = jioData;
-    
+        
+        var gobackhome = document.getElementById('gobackhomepage');
+        var createanotherjio = document.getElementById('createanotherjio'); 
+        gobackhome.removeAttribute('disabled');
+        createanotherjio.removeAttribute('disabled');
         // console.log(updates);
 
         document.getElementById('eventTitle').value = ''
