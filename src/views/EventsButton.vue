@@ -569,12 +569,12 @@ export default {
             if (this.usesearch && this.filterarray) {
                 // if use search, take searcharray
                 this.filter();
-                console.log(this.latestarray);
+                // console.log(this.latestarray);
                 return this.latestarray;
             }
             // else take filter array
             this.filter();
-            console.log(this.filterarray);
+            // console.log(this.filterarray);
             return this.filterarray;
         },
     }
